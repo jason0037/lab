@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: admin
+  mobile: 15888801441
+  email: jason.chen@iotps.com
+  account: admin@iotps.com
+  password: 123456
+  role_id: 1
+
+two:
+  name: user
+  mobile: 15888801441
+  email: jason.chen@iotps.com
+  account: user@iotps.com
+  password: 123456
+  role_id: 2

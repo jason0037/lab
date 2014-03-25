@@ -1,0 +1,110 @@
+<%= form_for @lab_course, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :categery_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :categery_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :type, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :teacher_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :teacher_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :start_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_select :start_time, :class => 'datetime_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :end_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_select :end_time, :class => 'datetime_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :status, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :status, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :report_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :report_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :progress, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :progress, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :publish_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_select :publish_time, :class => 'datetime_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :apply_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_select :apply_time, :class => 'datetime_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :approve_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :approve_time, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :style, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :style, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :course_property, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :course_property, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :is_teach, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :is_teach, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :before, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :before, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :desc, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :desc, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                lab_courses_path, :class => 'btn' %>
+  </div>
+<% end %>

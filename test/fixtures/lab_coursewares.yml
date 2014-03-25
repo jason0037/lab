@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  course_id: 1
+  productor_id: 1
+  type: 1
+  play_time: MyString
+  file_size: MyString
+  product_time: 2014-03-21 11:04:59
+  download_url: MyString
+  download_times: MyString
+  publish_time: 2014-03-21 11:04:59
+
+two:
+  name: MyString
+  course_id: 1
+  productor_id: 1
+  type: 1
+  play_time: MyString
+  file_size: MyString
+  product_time: 2014-03-21 11:04:59
+  download_url: MyString
+  download_times: MyString
+  publish_time: 2014-03-21 11:04:59

@@ -1,0 +1,42 @@
+<%- model_class = LabScene -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:limit) %></th>
+      <th><%= model_class.human_attribute_name(:desc) %></th>
+      <th><%= model_class.human_attribute_name(:secens_resource_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lab_scenes.each do |lab_scene| %>
+      <tr>
+        <td><%= link_to lab_scene.id, lab_scene_path(lab_scene) %></td>
+        <td><%= lab_scene.name %></td>
+        <td><%= lab_scene.limit %></td>
+        <td><%= lab_scene.desc %></td>
+        <td><%= lab_scene.secens_resource_id %></td>
+        <td><%=l lab_scene.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_lab_scene_path(lab_scene), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      lab_scene_path(lab_scene),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_lab_scene_path,
+            :class => 'btn btn-primary' %>

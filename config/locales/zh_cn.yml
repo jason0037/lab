@@ -1,0 +1,21 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+zh_cn:
+  will_paginate:
+    previous_label: "上页"
+    next_label: "下页"
+  helpers:
+    actions: "Actions"
+    links:
+      back: "返回"
+      edit: "修改"
+      cancel: "取消"
+      confirm: "确认删除？"
+      destroy: "删除"
+      new: "新建"
+    titles:
+      edit: "修改"
+      save: "Save"
+      new: "New"
+      delete: "Delete"

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  desc: MyString
+  question_id: 1
+  item_index: 1
+
+two:
+  desc: MyString
+  question_id: 1
+  item_index: 1

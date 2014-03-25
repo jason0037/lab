@@ -1,0 +1,2 @@
+module LabSeatsHelper
+end

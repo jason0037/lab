@@ -1,0 +1,17 @@
+.login_page{
+	text-align: center;
+}
+.home_top_left,.home_bottom,.home_top_right{
+	float:left;
+}
+
+.home_top_right{
+	margin-left: 20px;
+}
+
+.home_top_left,.home_top_right{
+	border: 1px solid #ccc;
+	padding: 5px;
+	width: 400px;
+	height: 200px;
+}

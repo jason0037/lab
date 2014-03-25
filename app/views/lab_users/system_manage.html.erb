@@ -1,0 +1,40 @@
+<div>
+    <ul class="nav nav-tabs" id="myTab"> 
+      <li class="active"><a href="#system">系统管理</a></li> 
+      <li><a href="#resource">线上资源管理</a></li> 
+      <li><a href="#lab_manage">实验室管理</a></li>
+    </ul>
+    <div class="tab-content full_height"> 
+      <div class="tab-pane active" id="system">
+        <div class="help-inline full_width">
+        <%= link_to '用户管理',
+                lab_users_path, :class => 'btn iframe_btn' %>
+        <%= link_to '角色管理',
+                lab_roles_path, :class => 'btn iframe_btn' %>
+        <%#= link_to '权限管理',
+                lab_users_path, :class => 'btn iframe_btn' %>
+        </div>
+        <div class="iframe_container">
+          <iframe id="tab1_frame" src="<%=lab_users_path%>"></iframe>
+        </div>
+      </div>
+      <div class="tab-pane" id="resource">
+        <div class="home_top">
+          <div class="home_top_left">
+            <ul>
+              <li>
+                
+              </li>
+            </ul>
+          </div>
+          <div class="home_top_right">
+            efg
+          </div>
+        </div>
+        <div class="home_bottom">
+
+        </div>
+      </div> 
+      <div class="tab-pane" id="lab_manage">...</div>
+    </div> 
+</div>

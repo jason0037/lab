@@ -1,0 +1,25 @@
+<div class="login_page">
+  <h1>上海开放大学开放教育数字实验室平台</h1>
+  <div id="login_form_div">
+    <%=form_for :lab_user,:url=>login_in_lab_users_path,:html=>{:id=>"login_form"} do |f|%>
+        <div class="login-div">
+            <label class="control-label">用户名：</label>
+                <%= f.text_field :account, :required => false,:class => "login_input", :autofocus => true %> <br>
+                <label class="control-label">密码：</label>
+                <%= f.password_field :password,:class => "login_input", :required => false %> <br>
+                <div style="height:99px;">
+                    <%= f.submit "", :class => 'btn',:value=>"登录"%>
+                    <%= link_to "注册", new_lab_user_path, :class => 'btn'%>
+                </div>
+        </div>
+        <div class="login_flash_div">
+            <%- flash.each do |name, msg| -%>
+                  <script>
+                    $(".login_flash_div").show();
+                  </script>
+                  <%=raw msg %>&nbsp;&nbsp;<a style="text-decoration:none; color:red" href="#" class="close">×</a>
+            <%- end -%>
+        </div>
+    <% end %>
+  </div>
+</div>

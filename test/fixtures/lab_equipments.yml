@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  equipment_code: MyString
+  position: MyString
+  status: 1
+  install_time: 2014-03-21 11:34:34
+
+two:
+  name: MyString
+  equipment_code: MyString
+  position: MyString
+  status: 1
+  install_time: 2014-03-21 11:34:34

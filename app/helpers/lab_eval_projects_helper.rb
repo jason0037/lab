@@ -1,0 +1,2 @@
+module LabEvalProjectsHelper
+end

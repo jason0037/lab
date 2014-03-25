@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  limit: MyString
+  desc: MyString
+  secens_resource_id: 1
+
+two:
+  name: MyString
+  limit: MyString
+  desc: MyString
+  secens_resource_id: 1

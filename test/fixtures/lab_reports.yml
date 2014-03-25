@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  desc: MyString
+  parent_report_id: 1
+  child_report_index: 1
+
+two:
+  name: MyString
+  desc: MyString
+  parent_report_id: 1
+  child_report_index: 1
