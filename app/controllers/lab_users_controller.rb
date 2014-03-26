@@ -15,6 +15,11 @@ class LabUsersController < ApplicationController
     render :layout => "blank"
   end
 
+  def home
+    @articles = LabNotice.paginate(:page => params[:page], :per_page => 5).order("published_at DESC")
+    render :layout => "blank"
+  end
+
   def login
     render :layout => "blank"
   end

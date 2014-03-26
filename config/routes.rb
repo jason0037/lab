@@ -1,4 +1,12 @@
 Lab::Application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
+
+  resources :lab_cats
+
+
+  resources :lab_notices
+
+
   resources :lab_seats
 
 
@@ -49,6 +57,8 @@ Lab::Application.routes.draw do
 
   resources :lab_roles
 
+  mount Ckeditor::Engine => "/ckeditor"
+
 
   resources :lab_users do
     get :login,:on=>:collection
@@ -60,9 +70,10 @@ Lab::Application.routes.draw do
     get :lab_manage,:on=>:collection
     get :student_manage,:on=>:collection
     get :system_manage,:on=>:collection
+    get :home,:on=>:collection
   end
 
-  root :to => "lab_users#login"
+  root :to => "lab_users#home"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

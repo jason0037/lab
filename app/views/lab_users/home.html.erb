@@ -1,0 +1,40 @@
+<div class="title">
+    <h2>开放大学开放教育数字实验平台</h2>
+    <div>
+      <%=link_to "注册",new_lab_user_path%>
+      <%=link_to "登录",login_lab_users_path%>
+    </div>
+</div>
+<div class="container_no_border">
+  <div class="items_list">
+    <div class="home_top_left">
+      <ul>
+
+      </ul>
+    </div>
+    <div class="home_top_right">
+      bbbbb
+    </div>
+    <div class="home_top_left">
+      aaaa
+    </div>
+    <div class="home_top_right">
+      <h3>新闻中心</h3>
+      <ul>
+        <%@articles.each do |article|%>
+          <li><%=article.title%></li>
+        <%end%>
+      </ul>
+    </div>
+  </div>
+  <div class="courses_list">
+    <ul>
+      <li>aaa</li>
+      <li>aaa</li>
+    </ul>
+    <ul>
+      <li>aaa</li>
+      <li>aaa</li>
+    </ul>
+  </div>
+</div>

@@ -11,7 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140321034317) do
+ActiveRecord::Schema.define(:version => 20140326195505) do
+
+  create_table "ckeditor_assets", :force => true do |t|
+    t.string   "data_file_name",                  :null => false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    :limit => 30
+    t.string   "type",              :limit => 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
+
+  create_table "lab_cats", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "cat_name"
+    t.integer  "disabled"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "lab_course_students", :force => true do |t|
     t.string   "course_id"
@@ -95,6 +119,26 @@ ActiveRecord::Schema.define(:version => 20140321034317) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "lab_news", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "cat_id"
+    t.datetime "published_at"
+    t.boolean  "published"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "lab_notices", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "cat_id"
+    t.datetime "published_at"
+    t.boolean  "published"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "lab_permissions", :force => true do |t|
     t.string   "name"
     t.string   "key"
@@ -138,6 +182,7 @@ ActiveRecord::Schema.define(:version => 20140321034317) do
 
   create_table "lab_roles", :force => true do |t|
     t.string   "name"
+    t.string   "path"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -184,6 +229,7 @@ ActiveRecord::Schema.define(:version => 20140321034317) do
     t.string   "account"
     t.string   "password"
     t.integer  "role_id"
+    t.integer  "status"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
