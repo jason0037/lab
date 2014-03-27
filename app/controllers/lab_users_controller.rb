@@ -3,7 +3,7 @@
 require 'pp'
 
 class LabUsersController < ApplicationController
-  before_filter :authorize_user!,:except => [:login,:login_in,:new,:create]
+  before_filter :authorize_user!,:except => [:login,:login_in,:new,:create,:home]
 
   #layout "blank"
 
@@ -17,7 +17,7 @@ class LabUsersController < ApplicationController
 
   def home
     @articles = LabNotice.paginate(:page => params[:page], :per_page => 5).order("published_at DESC")
-    render :layout => "blank"
+    render :layout => "home"
   end
 
   def login

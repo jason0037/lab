@@ -1,40 +1,72 @@
-<div class="title">
-    <h2>开放大学开放教育数字实验平台</h2>
-    <div>
-      <%=link_to "注册",new_lab_user_path%>
-      <%=link_to "登录",login_lab_users_path%>
-    </div>
-</div>
 <div class="container_no_border">
   <div class="items_list">
     <div class="home_top_left">
+      <div class="home_top_title">
+        实验室项目
+      </div>
+      <div class="home_top_img">
+        <img src="/assets/p_1.png">
+      </div>
       <ul>
 
       </ul>
     </div>
     <div class="home_top_right">
-      bbbbb
+      <div class="home_top_title">
+        评测公告
+      </div>
+      <div class="home_top_img">
+        <img src="/assets/p_2.png">
+      </div>
     </div>
     <div class="home_top_left">
-      aaaa
+      <div class="home_top_title">
+        合作项目
+      </div>
+      <div class="home_top_img">
+        <img src="/assets/p_3.png">
+      </div>
     </div>
     <div class="home_top_right">
-      <h3>新闻中心</h3>
+      <div class="home_top_title">
+        新闻中心
+      </div>
+      <div class="home_top_img">
+        <img src="/assets/p_4.png">
+      </div>
       <ul>
         <%@articles.each do |article|%>
-          <li><%=article.title%></li>
+          <li>
+            <%= link_to article.title, lab_notice_path(article) %>
+          </li>
         <%end%>
       </ul>
     </div>
   </div>
   <div class="courses_list">
     <ul>
-      <li>aaa</li>
-      <li>aaa</li>
+      <li>
+        <div class="course_list_left">
+          <div class="home_top_title">
+            MOOC课程
+          </div>
+          <div>
+            ddd
+          </div>
+        </div>
+      </li>
     </ul>
     <ul>
-      <li>aaa</li>
-      <li>aaa</li>
+      <li>
+        <div class="course_list_left">
+          <div class="home_top_title">
+            移动课程
+          </div>
+          <div>
+            ddd
+          </div>
+        </div>
+      </li>
     </ul>
   </div>
 </div>

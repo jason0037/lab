@@ -12,6 +12,33 @@
  *= require_tree .
  */
 
+.page_bg{
+    background: #f1f1f1;
+}
+
+.page_bg #header{
+    background: #2756a4;
+    height: 55px;
+}
+
+.page_bg h3{
+    color: white;
+    width: 30%;
+    float: left;
+    margin: 8px 0px 0px 10px;
+    font-size: 21px;
+}
+
+#header .header_login a{
+    color: white;
+}
+
+#header .header_login{
+    float: right;
+    margin-right: 30px;
+    padding-top: 18px;
+}
+
 .inner_bar{
 	margin-top: 10px;
 	margin-left: 20px;
@@ -33,8 +60,7 @@
     margin: 0 auto;
     text-align: center;
     min-height:540px;
-    background-color: white;
-    margin-top: 50px;
+    margin-top: 30px;
     padding:25px;
 }
 
