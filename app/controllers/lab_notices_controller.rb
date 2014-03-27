@@ -1,5 +1,7 @@
 class LabNoticesController < ApplicationController
   before_filter :authorize_user!,:except => [:show]
+  
+  layout "blank"
   # GET /lab_notices
   # GET /lab_notices.json
   def index

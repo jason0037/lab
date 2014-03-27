@@ -1,6 +1,7 @@
 <div>
     <ul class="nav nav-tabs" id="myTab"> 
       <li class="active"><a href="#system">系统管理</a></li> 
+      <li><a href="#notice">新闻公告管理</a></li>
       <li><a href="#resource">线上资源管理</a></li> 
       <li><a href="#lab_manage">实验室管理</a></li>
     </ul>
@@ -16,6 +17,11 @@
         </div>
         <div class="iframe_container">
           <iframe id="tab1_frame" src="<%=lab_users_path%>"></iframe>
+        </div>
+      </div>
+      <div class="tab-pane" id="notice">
+        <div class="iframe_container">
+          <iframe id="tab2_frame" src="<%=lab_notices_path%>"></iframe>
         </div>
       </div>
       <div class="tab-pane" id="resource">

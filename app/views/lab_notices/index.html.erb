@@ -1,14 +1,15 @@
 <%- model_class = LabNotice -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1>文章列表</h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:body) %></th>
-      <th><%= model_class.human_attribute_name(:cat_id) %></th>
+      <th>标题</th>
+      <th>类目</th>
+      <th>类型</th>
+      <th>状态</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -17,8 +18,9 @@
       <tr>
         <td><%= link_to lab_notice.id, lab_notice_path(lab_notice) %></td>
         <td><%= lab_notice.title %></td>
-        <td><%= lab_notice.body %></td>
-        <td><%= lab_notice.cat_id %></td>
+        <td><%= LabCat.find(lab_notice.cat_id).cat_name %></td>
+        <td><%= Option.where(:key=>"notice_type",:value=>lab_notice.notice_type).first.name %></td>
+        <td><%= Option.where(:key=>"notice_status",:value=>lab_notice.published).first.name %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_notice_path(lab_notice), :class => 'btn btn-mini' %>

@@ -1,4 +1,7 @@
 Lab::Application.routes.draw do
+  resources :options
+
+
   mount Ckeditor::Engine => '/ckeditor'
 
   resources :lab_cats

@@ -20,7 +20,7 @@
       类目：
     <%end%>
     <div class="controls">
-      <%=f.select :cat_id, options_from_collection_for_select(LabCat.all,'id','cat_name',''),:include_blank=>"请选择" %>
+      <%=f.select :cat_id, options_from_collection_for_select(LabCat.all,'id','cat_name',@lab_notice.cat_id),:include_blank=>"请选择" %>
       <span class="help-inline error"><%=@lab_notice.errors[:cat_id].join(",")%></span>
     </div>
   </div>
@@ -34,6 +34,12 @@
     <%= f.label :published, :class => 'control-label' %>
     <div class="controls">
       <%= f.check_box :published, :class => 'check_box' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :notice_type,"类型", :class => 'control-label' %>
+    <div class="controls">
+      <%=f.select :notice_type, options_from_collection_for_select(Option.where(:key=>"notice_type"),'value','name',@lab_notice.notice_type),:include_blank=>"请选择" %>
     </div>
   </div>
 

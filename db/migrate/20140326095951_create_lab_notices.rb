@@ -5,6 +5,7 @@ class CreateLabNotices < ActiveRecord::Migration
       t.text :body
       t.integer :cat_id
       t.datetime :published_at
+      t.integer :notice_type
       t.boolean :published
 
       t.timestamps
