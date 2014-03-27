@@ -9,24 +9,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="top_menu navbar navbar-fixed-top navbar-inverse">
-    <div class="navbar-inner" class="clearfix">
-    	<div class="inner_bar">
-	       <div class="lab_top_title">上海开放大学开放教育数字实验室平台</div>
-	       <div class="lab_top_info">
-	       		<ul>
-	       			<li>你好 <%=@user.name if @user%></li>
-	       			<li>|</li>
-	       			<li>
-	       				<%=link_to "退出",logout_lab_users_path%>
-	       			</li>
-	       		</ul>
-	       </div>
-	   </div>
-    </div>
-</div>
+<%= render "shared/login_top" %>
 <div class="container">
 	<%= yield %>
 </div>
+<%= render "shared/footer" %>
 </body>
 </html>

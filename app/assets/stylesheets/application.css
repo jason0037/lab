@@ -18,30 +18,48 @@
 
 .page_bg #header{
     background: #2756a4;
-    height: 55px;
+    height: 49px;
+}
+
+.page_bg #header img{
+    float: left;
+    width: 90px;
+}
+
+.top_menu .inner_bar img{
+    float: left;
+    width: 90px;
 }
 
 .page_bg h3{
     color: white;
     width: 30%;
     float: left;
-    margin: 8px 0px 0px 10px;
+    margin: 5px 0px 0px 10px;
     font-size: 21px;
+}
+
+.page-content{
+    min-height: 340px;
 }
 
 #header .header_login a{
     color: white;
 }
 
+#header h3 a{
+    color: white;
+    font-size: 18px;
+}
+
+#header h3 a:hover{
+    text-decoration: none;
+}
+
 #header .header_login{
     float: right;
     margin-right: 30px;
-    padding-top: 18px;
-}
-
-.inner_bar{
-	margin-top: 10px;
-	margin-left: 20px;
+    padding-top: 15px;
 }
 
 .container{
@@ -50,7 +68,7 @@
     box-shadow: 0 0 3px #E7E7E7;
     border-radius: 5px;
     background-color: white;
-    margin-top: 50px;
+    margin-top: 60px;
     padding:25px;
 }
 
@@ -90,6 +108,10 @@
 	color:white;
 }
 
+#main .control-label{
+    width: 60px;
+}
+
 .lab_top_info{
 	margin-right: 20px;
 }
@@ -105,8 +127,21 @@
  	float: left;
 }
 
+.lab_top_title{
+    margin-top: 15px;
+    margin-left: 5px;
+    font-size: 18px;
+}
+
 .lab_top_info{
  	float:right;
+}
+
+#footer{
+    text-align: center;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+    padding-top: 20px;
 }
 
 

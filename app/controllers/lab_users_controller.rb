@@ -21,7 +21,7 @@ class LabUsersController < ApplicationController
   end
 
   def login
-    render :layout => "blank"
+    render :layout => "home"
   end
 
   # GET /lab_users/1
