@@ -1,12 +1,10 @@
 <%- model_class = LabEvalProject -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+  <h1><%= @lab_eval_project.name %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @lab_eval_project.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:version) %>:</strong></dt>
+  <dt><strong>版本:</strong></dt>
   <dd><%= @lab_eval_project.version %></dd>
   <dt><strong><%= model_class.human_attribute_name(:categery_id) %>:</strong></dt>
   <dd><%= @lab_eval_project.categery_id %></dd>
@@ -22,12 +20,5 @@
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              lab_eval_projects_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_lab_eval_project_path(@lab_eval_project), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              lab_eval_project_path(@lab_eval_project),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+              home_lab_users_path, :class => 'btn'  %>
 </div>

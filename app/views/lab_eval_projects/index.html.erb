@@ -13,7 +13,6 @@
       <th><%= model_class.human_attribute_name(:scene_id) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
       <th><%= model_class.human_attribute_name(:supplier_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -28,7 +27,6 @@
         <td><%= lab_eval_project.scene_id %></td>
         <td><%= lab_eval_project.status %></td>
         <td><%= lab_eval_project.supplier_id %></td>
-        <td><%=l lab_eval_project.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_eval_project_path(lab_eval_project), :class => 'btn btn-mini' %>

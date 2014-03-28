@@ -17,6 +17,7 @@ class LabUsersController < ApplicationController
 
   def home
     @articles = LabNotice.where(:notice_type=>1,:published=>1).paginate(:page => params[:page], :per_page => 5).order("published_at DESC")
+    @projects = LabEvalProject.where(:status=>1).paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
     render :layout => "home"
   end
 

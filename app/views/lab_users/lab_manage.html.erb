@@ -4,12 +4,26 @@
       <li><a href="#apply_manage">评测管理</a></li> 
       <li><a href="#lab_manage">实验室管理</a></li> 
       <li><a href="#info">评测信息发布</a></li>
+      <li><a href="#base_data">基础数据维护</a></li>
     </ul>
-    <div class="tab-content"> 
+    <div class="tab-content full_height"> 
       <div class="tab-pane active" id="apply">
       </div> 
       <div class="tab-pane" id="apply_manage">...</div> 
       <div class="tab-pane" id="lab_manage">...</div> 
       <div class="tab-pane" id="info">...</div>
+      <div class="tab-pane" id="base_data">
+        <div class="help-inline full_width">
+          <%= link_to '教学场景维护',
+                  lab_scenes_path, :class => 'btn iframe_btn' %>
+          <%= link_to '实验室设备管理',
+                  lab_roles_path, :class => 'btn iframe_btn' %>
+          <%= link_to '供应商管理',
+                  lab_suppliers_path, :class => 'btn iframe_btn' %>
+        </div>
+        <div class="iframe_container">
+          <iframe id="tab1_frame" src="<%=lab_scenes_path%>"></iframe>
+        </div>
+      </div>
     </div> 
 </div>

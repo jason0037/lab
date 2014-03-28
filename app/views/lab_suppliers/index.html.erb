@@ -1,16 +1,15 @@
 <%- model_class = LabSupplier -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1>供应商列表</h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:tel) %></th>
-      <th><%= model_class.human_attribute_name(:addr) %></th>
-      <th><%= model_class.human_attribute_name(:contacts) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>公司名</th>
+      <th>电话</th>
+      <th>地址</th>
+      <th>联系人</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -22,7 +21,6 @@
         <td><%= lab_supplier.tel %></td>
         <td><%= lab_supplier.addr %></td>
         <td><%= lab_supplier.contacts %></td>
-        <td><%=l lab_supplier.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_supplier_path(lab_supplier), :class => 'btn btn-mini' %>

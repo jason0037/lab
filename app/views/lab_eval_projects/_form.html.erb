@@ -20,7 +20,7 @@
       评测对象类型：
     <%end%>
     <div class="controls">
-      <%=f.select :categery_id, options_from_collection_for_select(Option.where(:key=>"eval_object_type"),'value','name',''),:include_blank=>"请选择" %>
+      <%=f.select :categery_id, options_from_collection_for_select(Option.where(:key=>"eval_object_type"),'value','name',@lab_eval_project.categery_id),:include_blank=>"请选择" %>
     </div>
   </div>
   <div class="control-group">
@@ -28,19 +28,19 @@
       课程类型：
     <%end%>
     <div class="controls">
-      <%= f.number_field :course_type, :class => 'number_field' %>
+      <%=f.select :course_type, options_from_collection_for_select(Option.where(:key=>"course_type"),'value','name',@lab_eval_project.course_type),:include_blank=>"请选择" %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :scene_id,"教学场景：", :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :scene_id, :class => 'number_field' %>
+      <%=f.select :scene_id, options_from_collection_for_select(LabScene.all,'id','name',@lab_eval_project.scene_id),:include_blank=>"请选择" %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :supplier_id, :class => 'control-label' %>
+    <%= f.label :supplier_id, "供应商", :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :supplier_id, :class => 'number_field' %>
+      <%=f.select :supplier_id, options_from_collection_for_select(LabSupplier.all,'id','name',@lab_eval_project.supplier_id),:include_blank=>"请选择" %>
     </div>
   </div>
 

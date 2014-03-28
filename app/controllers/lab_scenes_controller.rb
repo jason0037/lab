@@ -1,6 +1,9 @@
 class LabScenesController < ApplicationController
   # GET /lab_scenes
   # GET /lab_scenes.json
+
+  layout "blank"
+  
   def index
     @lab_scenes = LabScene.all
 

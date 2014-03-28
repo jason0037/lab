@@ -1,6 +1,8 @@
 class LabEvalProjectsController < ApplicationController
   # GET /lab_eval_projects
   # GET /lab_eval_projects.json
+
+  layout "blank",:except => [:show]
   def index
     @lab_eval_projects = LabEvalProject.all
 

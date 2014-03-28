@@ -1,31 +1,31 @@
 <%= form_for @lab_supplier, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
+    <%= f.label :name,"公司名:", :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :name, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :tel, :class => 'control-label' %>
+    <%= f.label :tel,"电话:", :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :tel, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :addr, :class => 'control-label' %>
+    <%= f.label :addr,"地址:", :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :addr, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :contacts, :class => 'control-label' %>
+    <%= f.label :contacts,"联系人:", :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :contacts, :class => 'text_field' %>
     </div>
   </div>
 
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.submit "确定", :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 lab_suppliers_path, :class => 'btn' %>
   </div>

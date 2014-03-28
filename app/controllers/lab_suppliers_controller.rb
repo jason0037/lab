@@ -1,6 +1,9 @@
 class LabSuppliersController < ApplicationController
   # GET /lab_suppliers
   # GET /lab_suppliers.json
+
+  layout "blank"
+  
   def index
     @lab_suppliers = LabSupplier.all
 
