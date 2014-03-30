@@ -1,15 +1,18 @@
 <div>
     <ul class="nav nav-tabs" id="myTab"> 
-      <li class="active"><a href="#apply">评测申请审核</a></li> 
-      <li><a href="#apply_manage">评测管理</a></li> 
+      <li class="active"><a href="#apply_manage">评测申请审核</a></li>
+      <li><a href="#eval_manage">评测管理</a></li>
       <li><a href="#lab_manage">实验室管理</a></li> 
       <li><a href="#info">评测信息发布</a></li>
       <li><a href="#base_data">基础数据维护</a></li>
     </ul>
     <div class="tab-content full_height"> 
-      <div class="tab-pane active" id="apply">
+      <div class="tab-pane active" id="apply_manage">
+        <iframe id="tab1_frame" src="<%=apply_lab_eval_projects_path%>"></iframe>
       </div> 
-      <div class="tab-pane" id="apply_manage">...</div> 
+      <div class="tab-pane" id="eval_manage">
+        <iframe id="tab1_frame" src="<%=lab_eval_projects_path%>"></iframe>
+      </div>
       <div class="tab-pane" id="lab_manage">...</div> 
       <div class="tab-pane" id="info">...</div>
       <div class="tab-pane" id="base_data">

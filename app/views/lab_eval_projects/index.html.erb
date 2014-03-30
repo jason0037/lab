@@ -1,18 +1,18 @@
 <%- model_class = LabEvalProject -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1>评测管理</h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:version) %></th>
-      <th><%= model_class.human_attribute_name(:categery_id) %></th>
-      <th><%= model_class.human_attribute_name(:course_type) %></th>
-      <th><%= model_class.human_attribute_name(:scene_id) %></th>
-      <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%= model_class.human_attribute_name(:supplier_id) %></th>
+      <th>编号</th>
+      <th>名称</th>
+      <th>版本</th>
+      <th>种类</th>
+      <th>学科分类</th>
+      <th>教学场景</th>
+      <th>评测状态</th>
+      <th>供应商</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -22,7 +22,7 @@
         <td><%= link_to lab_eval_project.id, lab_eval_project_path(lab_eval_project) %></td>
         <td><%= lab_eval_project.name %></td>
         <td><%= lab_eval_project.version %></td>
-        <td><%= lab_eval_project.categery_id %></td>
+        <td><%= lab_eval_project.category_id %></td>
         <td><%= lab_eval_project.course_type %></td>
         <td><%= lab_eval_project.scene_id %></td>
         <td><%= lab_eval_project.status %></td>

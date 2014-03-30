@@ -9,7 +9,7 @@ development:
   database: lab_development
   pool: 20
   username: root
-  password: 
+  password: iotp$2014 
   host: localhost
   port: 5432
 
@@ -19,7 +19,7 @@ test:
   database: lab_test
   pool: 20
   username: root
-  password: 
+  password: iotp$2014
   host: localhost
   port: 5432
 
@@ -29,6 +29,6 @@ production:
   database: lab_production
   pool: 20
   username: root
-  password: 
+  password: iotp$2014
   host: localhost
   port: 5432

@@ -16,11 +16,11 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :categery_id, :class => 'control-label' do%>
+    <%= f.label :category_id, :class => 'control-label' do%>
       评测对象类型：
     <%end%>
     <div class="controls">
-      <%=f.select :categery_id, options_from_collection_for_select(Option.where(:key=>"eval_object_type"),'value','name',@lab_eval_project.categery_id),:include_blank=>"请选择" %>
+      <%=f.select :category_id, options_from_collection_for_select(Option.where(:key=>"eval_object_type"),'value','name',@lab_eval_project.category_id),:include_blank=>"请选择" %>
     </div>
   </div>
   <div class="control-group">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140327121637) do
+ActiveRecord::Schema.define(:version => 20140330021714) do
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -110,23 +110,16 @@ ActiveRecord::Schema.define(:version => 20140327121637) do
   create_table "lab_eval_projects", :force => true do |t|
     t.string   "name"
     t.string   "version"
-    t.integer  "categery_id"
+    t.integer  "category_id"
     t.integer  "course_type"
     t.integer  "scene_id"
     t.integer  "status"
     t.integer  "supplier_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-  end
-
-  create_table "lab_news", :force => true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.integer  "cat_id"
-    t.datetime "published_at"
-    t.boolean  "published"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "applicant"
+    t.string   "brief"
+    t.string   "status_log"
   end
 
   create_table "lab_notices", :force => true do |t|
@@ -134,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20140327121637) do
     t.text     "body"
     t.integer  "cat_id"
     t.datetime "published_at"
+    t.integer  "notice_type"
     t.boolean  "published"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false

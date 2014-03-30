@@ -49,7 +49,16 @@ Lab::Application.routes.draw do
   resources :lab_courses
 
 
-  resources :lab_eval_projects
+  resources :lab_eval_projects do
+
+    member do
+      get 'approve'
+      get 'reject'
+    end
+
+    get :apply,:on=>:collection
+
+  end
 
 
   resources :lab_permissions_roles

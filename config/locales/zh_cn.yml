@@ -6,7 +6,7 @@ zh_cn:
     previous_label: "上页"
     next_label: "下页"
   helpers:
-    actions: "Actions"
+    actions: "操作"
     links:
       back: "返回"
       edit: "修改"
@@ -14,8 +14,10 @@ zh_cn:
       confirm: "确认删除？"
       destroy: "删除"
       new: "新建"
+      approve: "批准"
+      reject: "拒绝"
     titles:
       edit: "修改"
-      save: "Save"
-      new: "New"
-      delete: "Delete"
+      save: "保存"
+      new: "新增"
+      delete: "删除"

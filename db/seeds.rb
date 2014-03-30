@@ -40,7 +40,12 @@ Option.create([{id:'1', name: '电子书包',value:"1",index:"0",key:"eval_objec
 	{id:'9', name: '专业必修课',value:"3",index:"2",key:"course_type"},
 	{id:'10', name: '专业选修课',value:"4",index:"3",key:"course_type"},
 	{id:'11', name: '任意选修课',value:"5",index:"4",key:"course_type"},
-	{id:'12', name: '实践教学课',value:"6",index:"5",key:"course_type"}])
+	{id:'12', name: '实践教学课',value:"6",index:"5",key:"course_type"},
+  {id:'13', name: '草稿',value:"0",index:"1",key:"eval_status"},
+  {id:'14', name: '审批中',value:"1",index:"2",key:"eval_status"},
+  {id:'15', name: '审批通过',value:"2",index:"3",key:"eval_status"},
+  {id:'16', name: '审批拒绝',value:"-1",index:"4",key:"eval_status"},
+  {id:'17', name: '评测结束',value:"10",index:"5",key:"eval_status"}])
 puts "Importing lab_notices"
 LabNotice.delete_all
 ActiveRecord::Base.connection.execute("alter table lab_notices auto_increment=1")
@@ -67,11 +72,13 @@ LabSupplier.create([{id:'1', name: '供应商1',tel:'1500004112',contacts:'超�
 puts "Importing projects"
 LabEvalProject.delete_all
 ActiveRecord::Base.connection.execute("alter table lab_eval_projects auto_increment=1")
-LabEvalProject.create([{id:'1', name: '电子书包1',version:"1.0.0",categery_id:'1',course_type:'2',scene_id:'1',supplier_id:'1',status:'1'},
-	{id:'2', name: '电子书包项目2',version:"1.0.5",categery_id:'1',course_type:'2',scene_id:'1',supplier_id:'1',status:'1'},
-	{id:'3', name: '电子书包项目3',version:"1.0.6",categery_id:'1',course_type:'2',scene_id:'1',supplier_id:'1',status:'1'},
-	{id:'4', name: '电子书包项目4',version:"1.0.7",categery_id:'1',course_type:'2',scene_id:'1',supplier_id:'1',status:'1'},
-	{id:'5', name: '电子书包项目5',version:"1.0.8",categery_id:'1',course_type:'2',scene_id:'1',supplier_id:'1',status:'1'}])
+LabEvalProject.create([{id:'1', name: '电子书包1',version:"1.0.0",category_id:'1',course_type:'2',scene_id:'1',supplier_id:'1',status:'0',applicant_id:'1'},
+	{id:'2', name: '电子书包项目2',version:"1.0.5",category_id:'1',course_type:'2',scene_id:'3',supplier_id:'1',status:'1',applicant_id:'1'},
+	{id:'3', name: '电子书包项目3',version:"1.0.6",category_id:'1',course_type:'2',scene_id:'2',supplier_id:'3',status:'2',applicant_id:'1'},
+  {id:'4', name: '开放学习资源1',version:"1.0.7",category_id:'2',course_type:'3',scene_id:'1',supplier_id:'2',status:'10',applicant_id:'2'},
+  {id:'5', name: '电子书包项目3',version:"1.0.6",category_id:'1',course_type:'2',scene_id:'2',supplier_id:'1',status:'10',applicant_id:'1'},
+  {id:'6', name: '开放学习资源1',version:"1.0.7",category_id:'2',course_type:'3',scene_id:'1',supplier_id:'1',status:'0',applicant_id:'2'},
+	{id:'7', name: '开放学习资源2',version:"1.0.8",category_id:'2',course_type:'4',scene_id:'2',supplier_id:'1',status:'1',applicant_id:'2'}])
 
 
 
