@@ -1,6 +1,6 @@
 <div>
     <ul class="nav nav-tabs" id="myTab"> 
-      <li class="active"><a href="#home">首页</a></li> 
+      <li class="active"><a href="#home">教学首页</a></li>
       <li><a href="#teach_design">教学设计</a></li> 
       <li><a href="#teach_resources">教学资源库</a></li> 
       <li><a href="#mooc">MOOC教学课程</a></li>
@@ -28,7 +28,12 @@
       <div class="tab-pane" id="teach_design">...</div> 
       <div class="tab-pane" id="teach_resources">...</div> 
       <div class="tab-pane" id="mooc">...</div>
-      <div class="tab-pane" id="mobile">...</div> 
-      <div class="tab-pane" id="eval">...</div> 
+      <div class="tab-pane" id="mobile">...</div>
+      <div class="tab-pane" id="eval">
+        <div class="iframe_container">
+          <%=link_to "新增评测", new_lab_eval_project_path%>
+          <iframe id="tab1_frame" src="<%=apply_lab_eval_projects_path%>"></iframe>
+        </div>
+      </div>
     </div> 
 </div>

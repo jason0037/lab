@@ -7,7 +7,7 @@ class LabEvalProjectsController < ApplicationController
     if @user.role_id==4 || @user.role_id==6 #实验室管理员或系统管理员
       @lab_eval_projects = LabEvalProject.all
     else
-      @lab_eval_projects = LabEvalProject.where(:applicant=>@user.id)
+      @lab_eval_projects = LabEvalProject.where(:applicant_id=>@user.id)
     end
 
     respond_to do |format|
@@ -20,7 +20,7 @@ class LabEvalProjectsController < ApplicationController
     if @user.role_id==4 || @user.role_id==6 #实验室管理员或系统管理员
       @lab_eval_projects = LabEvalProject.where("status>1") #审批通过的项目进入评测
     else
-      @lab_eval_projects = LabEvalProject.where(:applicant=>@user.id)
+      @lab_eval_projects = LabEvalProject.where(:applicant_id=>@user.id)
     end
     respond_to do |format|
       format.html # index.html.erb
@@ -31,8 +31,7 @@ class LabEvalProjectsController < ApplicationController
   # GET /lab_eval_projects/1
   # GET /lab_eval_projects/1.json
   def show
-    #@lab_eval_project = LabEvalProject.includes(:lab_scene,:option,:lab_supplier).find(params[:id])
-    @lab_eval_project = LabEvalProject.where(:id=>params[:id]).first
+   @lab_eval_project = LabEvalProject.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -56,6 +55,7 @@ class LabEvalProjectsController < ApplicationController
   # POST /lab_eval_projects
   # POST /lab_eval_projects.json
   def create
+    parames[:lab_eval_project][:application]=@user.id
     @lab_eval_project = LabEvalProject.new(params[:lab_eval_project])
 
     respond_to do |format|

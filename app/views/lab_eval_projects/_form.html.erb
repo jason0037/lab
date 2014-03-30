@@ -43,8 +43,18 @@
       <%=f.select :supplier_id, options_from_collection_for_select(LabSupplier.all,'id','name',@lab_eval_project.supplier_id),:include_blank=>"请选择" %>
     </div>
   </div>
+    <div class="control-group">
+      <%= f.label :supplier_id, "简介", :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_area :brief, :class => 'text_field' %>
+      </div>
+    </div>
+    <div style="display: none">
+      <%= f.text_field :applicant_id, @user.id, :class => 'text_field' %>
+    </div>
 
   <div class="form-actions">
+
     <%= f.submit "确定", :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 lab_eval_projects_path, :class => 'btn' %>
