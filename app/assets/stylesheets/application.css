@@ -90,8 +90,7 @@
 .tab-pane iframe{
     width: 100%;
     height: 100%;
-    /*自适应设置不起作用，暂时修改为高度1000*/
-    height: 1000px;
+    /*自适应设置不起作用，暂时修改为高度1000    height: 1000px;*/
     border: 0;
 }
 

@@ -7,15 +7,15 @@
       <li><a href="#base_data">基础数据维护</a></li>
     </ul>
     <div class="tab-content full_height"> 
-      <div class="tab-pane active" id="apply_manage">
+      <div class="tab-pane full_height active" id="apply_manage">
         <iframe id="tab1_frame" src="<%=apply_lab_eval_projects_path%>"></iframe>
       </div> 
-      <div class="tab-pane" id="eval_manage">
+      <div class="tab-pane full_height" id="eval_manage">
         <iframe id="tab1_frame" src="<%=lab_eval_projects_path%>"></iframe>
       </div>
-      <div class="tab-pane" id="lab_manage">...</div> 
-      <div class="tab-pane" id="info">...</div>
-      <div class="tab-pane" id="base_data">
+      <div class="tab-pane full_height" id="lab_manage">...</div>
+      <div class="tab-pane full_height" id="info">...</div>
+      <div class="tab-pane full_height" id="base_data">
         <div class="help-inline full_width">
           <%= link_to '教学场景维护',
                   lab_scenes_path, :class => 'btn iframe_btn' %>
@@ -24,9 +24,7 @@
           <%= link_to '供应商管理',
                   lab_suppliers_path, :class => 'btn iframe_btn' %>
         </div>
-        <div class="iframe_container">
           <iframe id="tab1_frame" src="<%=lab_scenes_path%>"></iframe>
-        </div>
       </div>
     </div> 
 </div>

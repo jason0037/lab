@@ -68,7 +68,8 @@
     <% end %>
   </tbody>
 </table>
-
-<%#= link_to t('.new', :default => t("helpers.links.new")),
+<%if @user.role_id==1 || @user.role_id ==2 #只有教师和电子书包供应商有权限申请%>
+<%= link_to t('.new', :default => t("helpers.links.new")),
             new_lab_eval_project_path,
             :class => 'btn btn-primary' %>
+<%end%>

@@ -6,7 +6,7 @@
       <li><a href="#lab_manage">实验室管理</a></li>
     </ul>
     <div class="tab-content full_height"> 
-      <div class="tab-pane active" id="system">
+      <div class="tab-pane full_height active" id="system">
         <div class="help-inline full_width">
         <%= link_to '用户管理',
                 lab_users_path, :class => 'btn iframe_btn' %>
@@ -15,16 +15,13 @@
         <%#= link_to '权限管理',
                 lab_users_path, :class => 'btn iframe_btn' %>
         </div>
-        <div class="iframe_container">
+
           <iframe id="tab1_frame" src="<%=lab_users_path%>"></iframe>
-        </div>
       </div>
-      <div class="tab-pane" id="notice">
-        <div class="iframe_container">
+      <div class="tab-pane full_height" id="notice">
           <iframe id="tab2_frame" src="<%=lab_notices_path%>"></iframe>
-        </div>
       </div>
-      <div class="tab-pane" id="resource">
+      <div class="tab-pane full_height" id="resource">
         <div class="home_top">
           <div class="home_top_left">
             <ul>
@@ -41,6 +38,6 @@
 
         </div>
       </div> 
-      <div class="tab-pane" id="lab_manage">...</div>
+      <div class="tab-pane  full_height" id="lab_manage">...</div>
     </div> 
 </div>

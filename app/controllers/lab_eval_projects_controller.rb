@@ -55,13 +55,16 @@ class LabEvalProjectsController < ApplicationController
   # POST /lab_eval_projects
   # POST /lab_eval_projects.json
   def create
-    parames[:lab_eval_project][:application]=@user.id
+    params[:lab_eval_project].merge!(:applicant_id=>@user.id)
+    params[:lab_eval_project].merge!(:status=>'1')
     @lab_eval_project = LabEvalProject.new(params[:lab_eval_project])
 
     respond_to do |format|
       if @lab_eval_project.save
-        format.html { redirect_to @lab_eval_project, notice: 'Lab eval project was successfully created.' }
-        format.json { render json: @lab_eval_project, status: :created, location: @lab_eval_project }
+        format.html { redirect_to apply_lab_eval_projects_path, notice: 'Lab eval project was successfully created.' }
+        format.json { render json: apply_lab_eval_projects_path, status: :created, location: apply_lab_eval_projects_path }
+        #format.html { redirect_to @lab_eval_project, notice: 'Lab eval project was successfully created.' }
+        #format.json { render json: @lab_eval_project, status: :created, location: @lab_eval_project }
       else
         format.html { render action: "new" }
         format.json { render json: @lab_eval_project.errors, status: :unprocessable_entity }
