@@ -13,7 +13,8 @@
       <th>教学场景</th>
       <th>评测状态</th>
       <th>供应商</th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th>申请人</th>
+      <th style="display:none"><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
@@ -22,12 +23,25 @@
         <td><%= link_to lab_eval_project.id, lab_eval_project_path(lab_eval_project) %></td>
         <td><%= lab_eval_project.name %></td>
         <td><%= lab_eval_project.version %></td>
-        <td><%= lab_eval_project.category_id %></td>
-        <td><%= lab_eval_project.course_type %></td>
-        <td><%= lab_eval_project.scene_id %></td>
-        <td><%= lab_eval_project.status %></td>
-        <td><%= lab_eval_project.supplier_id %></td>
         <td>
+          <%Option.where(:key=>"eval_object_type",:value=>lab_eval_project.category_id).each do |category|%>
+              <%=category.name%>
+          <%end%>
+        </td>
+        <td>
+          <%Option.where(:key=>"course_type",:value=>lab_eval_project.course_type).each do |course|%>
+              <%=course.name%>
+          <%end%>
+        </td>
+        <td><%= lab_eval_project.lab_scene.name %></td>
+        <td>
+          <%Option.where(:key=>"eval_status",:value=>lab_eval_project.status).each do |status|%>
+              <%=status.name%>
+          <%end%>
+        </td>
+        <td><%= lab_eval_project.lab_supplier.name %></td>
+        <td><%= lab_eval_project.lab_user.name %></td>
+        <td style="display:none">
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_eval_project_path(lab_eval_project), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
