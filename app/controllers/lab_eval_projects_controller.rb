@@ -18,13 +18,10 @@ class LabEvalProjectsController < ApplicationController
 
   def index
     if @user.role_id==4 || @user.role_id==6 #实验室管理员或系统管理员
-      @lab_eval_projects = LabEvalProject.where('status>5') #审批通过进入评测
+      @lab_eval_projects = LabEvalProject.where("status>1") #审批通过的项目进入评测
     else
       @lab_eval_projects = LabEvalProject.where(:applicant=>@user.id)
     end
-
-    @lab_eval_projects = LabEvalProject.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @lab_eval_projects }
@@ -34,7 +31,8 @@ class LabEvalProjectsController < ApplicationController
   # GET /lab_eval_projects/1
   # GET /lab_eval_projects/1.json
   def show
-    @lab_eval_project = LabEvalProject.find(params[:id])
+    #@lab_eval_project = LabEvalProject.includes(:lab_scene,:option,:lab_supplier).find(params[:id])
+    @lab_eval_project = LabEvalProject.where(:id=>params[:id]).first
 
     respond_to do |format|
       format.html # show.html.erb

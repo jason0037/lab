@@ -20,8 +20,8 @@
   <tbody>
     <% @lab_eval_projects.each do |lab_eval_project| %>
       <tr>
-        <td><%= link_to lab_eval_project.id, lab_eval_project_path(lab_eval_project) %></td>
-        <td><%= lab_eval_project.name %></td>
+        <td><%= link_to lab_eval_project.id, lab_eval_project_path(lab_eval_project),target: '_blank' %></td>
+        <td><%= link_to lab_eval_project.name, lab_eval_project_path(lab_eval_project),target: '_blank' %></td>
         <td><%= lab_eval_project.version %></td>
         <td>
           <%Option.where(:key=>"eval_object_type",:value=>lab_eval_project.category_id).each do |category|%>
@@ -55,6 +55,6 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<%#= link_to t('.new', :default => t("helpers.links.new")),
             new_lab_eval_project_path,
             :class => 'btn btn-primary' %>
