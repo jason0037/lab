@@ -1,0 +1,23 @@
+<div>
+    <ul class="nav nav-tabs" id="myTab"> 
+    <!--  <li class="active"><a href="#home">首页</a></li> -->
+      <li><a href="#apply_progress">审批进程</a></li>
+      <li><a href="#new_apply">申请新评测</a></li> 
+      <li><a href="#report">评测报告</a></li>
+    </ul>
+    <div class="tab-content full_height">
+      <!--<div class="tab-pane active" id="home"></div> -->
+      <div class="tab-pane active full_height" id="apply_progress">
+        <div class="iframe_container">
+          <iframe id="tab1_frame" src="<%=apply_lab_eval_projects_path%>"></iframe>
+        </div>
+      </div>
+      <div class="tab-pane full_height" id="new_apply">
+        <div class="iframe_container">
+          <iframe id="apply_iframe" src="<%=new_lab_eval_project_path%>"></iframe>
+        </div>
+      </div> 
+
+      <div class="tab-pane" id="report">...</div> 
+    </div> 
+</div>

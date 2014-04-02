@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140330021714) do
+ActiveRecord::Schema.define(:version => 20140330172209) do
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20140330021714) do
 
   create_table "lab_courses", :force => true do |t|
     t.string   "name"
-    t.integer  "categery_id"
+    t.integer  "category_id"
     t.integer  "type"
     t.integer  "teacher_id"
     t.datetime "start_time"
@@ -115,11 +115,20 @@ ActiveRecord::Schema.define(:version => 20140330021714) do
     t.integer  "scene_id"
     t.integer  "status"
     t.integer  "supplier_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.integer  "applicant"
+    t.integer  "applicant_id"
     t.string   "brief"
     t.string   "status_log"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "lab_mobile_courses", :force => true do |t|
+    t.string   "name"
+    t.integer  "author"
+    t.integer  "course_type"
+    t.integer  "status"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "lab_notices", :force => true do |t|
@@ -214,6 +223,25 @@ ActiveRecord::Schema.define(:version => 20140330021714) do
     t.string   "contacts"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "lab_teach_designs", :force => true do |t|
+    t.string   "name"
+    t.string   "file"
+    t.integer  "author"
+    t.integer  "course_type"
+    t.integer  "status"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "lab_teach_resources", :force => true do |t|
+    t.string   "name"
+    t.integer  "author"
+    t.integer  "course_type"
+    t.integer  "status"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "lab_users", :force => true do |t|

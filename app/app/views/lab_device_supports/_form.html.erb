@@ -1,0 +1,26 @@
+<%= form_for @lab_device_support, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :device_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :device_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :rel_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :rel_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :type, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                lab_device_supports_path, :class => 'btn' %>
+  </div>
+<% end %>

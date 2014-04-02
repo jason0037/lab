@@ -1,0 +1,19 @@
+<%= form_for @lab_role, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' do%>
+      角色名：
+    <%end%>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+    <div class="controls">
+      <%= f.text_field :path, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "确定", :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                lab_roles_path, :class => 'btn' %>
+  </div>
+<% end %>

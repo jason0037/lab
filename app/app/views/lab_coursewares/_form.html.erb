@@ -1,0 +1,68 @@
+<%= form_for @lab_courseware, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :course_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :course_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :productor_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :productor_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :type, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :play_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :play_time, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :file_size, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :file_size, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :product_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_select :product_time, :class => 'datetime_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :download_url, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :download_url, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :download_times, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :download_times, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :publish_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_select :publish_time, :class => 'datetime_select' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                lab_coursewares_path, :class => 'btn' %>
+  </div>
+<% end %>

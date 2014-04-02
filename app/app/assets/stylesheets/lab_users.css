@@ -1,0 +1,126 @@
+.login_page{
+	text-align: center;
+}
+.home_top_left,.home_bottom,.home_top_right{
+	float:left;
+}
+
+.home_top_left,.home_top_right{
+	background: white;
+}
+
+.home_top_title{
+	background: #000;
+	color: white;
+	margin-top: 10px;
+	width: 75px;
+	padding-left: 15px;
+}
+
+.home_top_img{
+	/*margin-top: 20px;*/
+	margin-left: 20px;
+	float: left;
+}
+
+.home_top_right{
+	margin-left: 20px;
+}
+
+.home_top_left,.home_top_right{
+	border: 1px solid #ccc;
+	width: 420px;
+	height: 200px;
+}
+
+.title{
+	margin: 0 auto;
+	text-align: center;
+}
+
+.items_list,.courses_list{
+	float: left;
+	width: 100%;
+}
+.courses_list ul{
+	float: left;
+	width: 885px;
+	margin: 0 0 10px 0;
+	background: white;
+	border: 1px solid #ccc;
+}
+
+.course_item_tag{
+	background: red;
+	color: white;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 8px;
+	padding-right: 8px;
+	float: right;
+}
+
+.login-div{
+	margin-top: 50px;
+	text-align: center;
+	margin-left: 30%;
+	width: 450px;
+	padding: 30px;
+	border: 1px solid #ccc;
+}
+.login_form_div{
+	margin-top: 50px;
+}
+
+.login-div .control-group{
+	float: left;
+	width: 100%;
+}
+
+.login-div .btn-groups{
+	float: left;
+	margin-left: 30%;
+}
+
+.login-div .control-label {
+  width: 60px;
+  float: left;
+}
+
+.login-div .controls {
+  margin-left: 80px;
+  float: left;
+}
+
+.items_list div{
+	margin-right: 20px;
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+.course_list_items{
+	text-align: left;
+}
+
+.course_list_items ul{
+	float: left;
+	width: 45%;
+	border: 0;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+}
+
+.course_list_items ul li{
+	float: left;
+	width: 100%;
+}
+
+.items_list div ul{
+	list-style-type:square;
+	float: left;
+}
+
+.login_page{
+	min-height: 500px;
+}

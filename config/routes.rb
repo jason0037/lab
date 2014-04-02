@@ -1,4 +1,14 @@
 Lab::Application.routes.draw do
+
+  resources :lab_mobile_courses
+
+
+  resources :lab_teach_resources
+
+
+  resources :lab_teach_designs
+
+
   resources :options
 
 

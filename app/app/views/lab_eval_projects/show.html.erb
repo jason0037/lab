@@ -1,0 +1,47 @@
+<%- model_class = LabEvalProject -%>
+<div class="page-header">
+  <h1><%= @lab_eval_project.name %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong>版本:</strong></dt>
+  <dd><%= @lab_eval_project.version %></dd>
+  <dt><strong>评测对象类别:</strong></dt>
+  <dd>
+    <%Option.where(:key=>"eval_object_type",:value=>@lab_eval_project.category_id).each do |category|%>
+        <%=category.name%>
+    <%end%>
+  </dd>
+  <dt><strong>学科分类:</strong></dt>
+  <dd><%Option.where(:key=>"course_type",:value=>@lab_eval_project.course_type).each do |course|%>
+        <%=course.name%>
+    <%end%></dd>
+  <dt><strong>教学场景:</strong></dt>
+  <dd><%=@lab_eval_project.lab_scene.name  %></dd>
+  <dt><strong>评测状态:</strong></dt>
+  <dd>
+    <%Option.where(:key=>"eval_status",:value=>@lab_eval_project.status).each do |status|%>
+        <%=status.name%>
+    <%end%>
+  </dd>
+  <dt><strong>供应商:</strong></dt>
+  <dd><%= @lab_eval_project.lab_supplier.name %></dd>
+  <dt><strong>申请人:</strong></dt>
+  <dd><%= @lab_eval_project.lab_user.name %></dd>
+  <dt><strong>创建时间:</strong></dt>
+  <dd><%= @lab_eval_project.created_at %></dd>
+  <dt><strong>修改时间:</strong></dt>
+  <dd><%= @lab_eval_project.updated_at %></dd>
+  <dt><strong>项目简介:</strong></dt>
+  <dd><%= @lab_eval_project.brief %></dd>
+  <dt><strong>申请过程:</strong></dt>
+  <dd><%= @lab_eval_project.status_log %></dd>
+
+
+
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              home_lab_users_path, :class => 'btn'  %>
+</div>

@@ -1,4 +1,11 @@
-tmp/**/*
+/.bundle
+/log/*.log
+/tmp
+*.swp
+*~
+.project
+.DS_Store
+.idea
 log/**/*
 /Gemfile.lock
 /config/database.yml

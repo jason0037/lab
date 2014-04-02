@@ -1,0 +1,2 @@
+module LabQuestionsHelper
+end

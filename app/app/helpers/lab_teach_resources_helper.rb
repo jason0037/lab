@@ -1,0 +1,2 @@
+module LabTeachResourcesHelper
+end
