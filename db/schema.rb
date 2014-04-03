@@ -123,10 +123,12 @@ ActiveRecord::Schema.define(:version => 20140330172209) do
   end
 
   create_table "lab_mobile_courses", :force => true do |t|
-    t.string   "name"
+    t.string   "title"
+    t.string   "file"
     t.integer  "author"
     t.integer  "course_type"
     t.integer  "status"
+    t.string   "brief"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -226,20 +228,23 @@ ActiveRecord::Schema.define(:version => 20140330172209) do
   end
 
   create_table "lab_teach_designs", :force => true do |t|
-    t.string   "name"
+    t.string   "title"
     t.string   "file"
     t.integer  "author"
     t.integer  "course_type"
     t.integer  "status"
+    t.string   "brief"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
   create_table "lab_teach_resources", :force => true do |t|
-    t.string   "name"
+    t.string   "title"
+    t.string   "file"
     t.integer  "author"
     t.integer  "course_type"
     t.integer  "status"
+    t.string   "brief"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

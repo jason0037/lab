@@ -1,17 +1,17 @@
 <%- model_class = LabTeachDesign -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1>教学设计</h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:file) %></th>
-      <th><%= model_class.human_attribute_name(:author) %></th>
-      <th><%= model_class.human_attribute_name(:course_type) %></th>
-      <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>编号</th>
+      <th>标题</th>
+      <th>文件</th>
+      <th>作者</th>
+      <th>学科分类</th>
+      <th>状态</th>
+      <th>创建时间</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -19,7 +19,7 @@
     <% @lab_teach_designs.each do |lab_teach_design| %>
       <tr>
         <td><%= link_to lab_teach_design.id, lab_teach_design_path(lab_teach_design) %></td>
-        <td><%= lab_teach_design.name %></td>
+        <td><%= lab_teach_design.title %></td>
         <td><%= lab_teach_design.file %></td>
         <td><%= lab_teach_design.author %></td>
         <td><%= lab_teach_design.course_type %></td>

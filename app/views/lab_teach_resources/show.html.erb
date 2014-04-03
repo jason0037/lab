@@ -4,14 +4,16 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @lab_teach_resource.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:author) %>:</strong></dt>
+  <dt><strong>标题:</strong></dt>
+  <dd><%= @lab_teach_resource.title %></dd>
+  <dt><strong>作者:</strong></dt>
   <dd><%= @lab_teach_resource.author %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:course_type) %>:</strong></dt>
+  <dt><strong>学科类别:</strong></dt>
   <dd><%= @lab_teach_resource.course_type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dt><strong>状态:</strong></dt>
   <dd><%= @lab_teach_resource.status %></dd>
+  <dt><strong>文件:</strong></dt>
+  <dd><%= @lab_teach_resource.file %></dd>
 </dl>
 
 <div class="form-actions">

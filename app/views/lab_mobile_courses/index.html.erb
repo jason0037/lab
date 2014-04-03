@@ -1,24 +1,26 @@
 <%- model_class = LabMobileCourse -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1>移动课程</h1>
 </div>
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:author) %></th>
-      <th><%= model_class.human_attribute_name(:course_type) %></th>
-      <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
+  <tr>
+    <th>编号</th>
+    <th>标题</th>
+    <th>文件</th>
+    <th>作者</th>
+    <th>学科分类</th>
+    <th>状态</th>
+    <th>创建时间</th>
+    <th><%=t '.actions', :default => t("helpers.actions") %></th>
+  </tr>
   </thead>
   <tbody>
     <% @lab_mobile_courses.each do |lab_mobile_course| %>
       <tr>
         <td><%= link_to lab_mobile_course.id, lab_mobile_course_path(lab_mobile_course) %></td>
-        <td><%= lab_mobile_course.name %></td>
+        <td><%= lab_mobile_course.title %></td>
+        <td><%= lab_mobile_course.file %></td>
         <td><%= lab_mobile_course.author %></td>
         <td><%= lab_mobile_course.course_type %></td>
         <td><%= lab_mobile_course.status %></td>

@@ -7,7 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:categery_id) %></th>
+      <th><%= model_class.human_attribute_name(:category_id) %></th>
       <th><%= model_class.human_attribute_name(:type) %></th>
       <th><%= model_class.human_attribute_name(:teacher_id) %></th>
       <th><%= model_class.human_attribute_name(:start_time) %></th>
@@ -32,7 +32,7 @@
       <tr>
         <td><%= link_to lab_course.id, lab_course_path(lab_course) %></td>
         <td><%= lab_course.name %></td>
-        <td><%= lab_course.categery_id %></td>
+        <td><%= lab_course.category_id %></td>
         <td><%= lab_course.type %></td>
         <td><%= lab_course.teacher_id %></td>
         <td><%= lab_course.start_time %></td>
