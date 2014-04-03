@@ -3,8 +3,11 @@ class OptionsController < ApplicationController
   # GET /options.json
   layout "blank",:except => [:show]
   def index
-    @options = Option.all
-
+    if params[:key].blank?
+      @options = Option.all
+    else
+      @options = Option.where(:key=>params[:key])
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @options }

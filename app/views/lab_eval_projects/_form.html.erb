@@ -25,7 +25,7 @@
   </div>
   <div class="control-group">
     <%= f.label :course_type, :class => 'control-label' do%>
-      课程类型：
+      学科类别：
     <%end%>
     <div class="controls">
       <%=f.select :course_type, options_from_collection_for_select(Option.where(:key=>"course_type"),'value','name',@lab_eval_project.course_type),:include_blank=>"请选择" %>

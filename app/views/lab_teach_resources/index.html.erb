@@ -21,10 +21,10 @@
         <td><%= link_to lab_teach_resource.id, lab_teach_resource_path(lab_teach_resource) %></td>
         <td><%= lab_teach_resource.title %></td>
         <td><%= lab_teach_resource.file %></td>
-        <td><%= lab_teach_resource.author %></td>
-        <td><%= lab_teach_resource.course_type %></td>
-        <td><%= lab_teach_resource.status %></td>
-        <td><%=l lab_teach_resource.created_at %></td>
+        <td><%= lab_teach_resource.lab_user.name %></td>
+        <td><%= Option.where(:key=>"course_type",:value=>lab_teach_resource.course_type).first.name %></td>
+        <td><%= lab_teach_resource== 0 ? "私有" : "公开"  %></td>
+        <td><%= lab_teach_resource.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_teach_resource_path(lab_teach_resource), :class => 'btn btn-mini' %>

@@ -6,7 +6,9 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:key) %></th>
+      <%if @user.role_id==6%>
+        <th><%= model_class.human_attribute_name(:key) %></th>
+      <%end%>
       <th><%= model_class.human_attribute_name(:index) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:value) %></th>
@@ -18,7 +20,9 @@
     <% @options.each do |option| %>
       <tr>
         <td><%= link_to option.id, option_path(option) %></td>
-        <td><%= option.key %></td>
+        <%if @user.role_id==6%>
+            <td><%= option.key %></td>
+        <%end%>
         <td><%= option.index %></td>
         <td><%= option.name %></td>
         <td><%= option.value %></td>

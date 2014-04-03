@@ -41,7 +41,7 @@ class LabTeachDesignsController < ApplicationController
   # POST /lab_teach_designs
   # POST /lab_teach_designs.json
   def create
-    params[:lab_teach_design].merge!(:applicant_id=>@user.id)
+    params[:lab_teach_design].merge!(:author_id=>@user.id)
     params[:lab_teach_design].merge!(:status=>'0')
     @lab_teach_design = LabTeachDesign.new(params[:lab_teach_design])
 

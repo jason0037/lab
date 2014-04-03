@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(:version => 20140330172209) do
   create_table "lab_mobile_courses", :force => true do |t|
     t.string   "title"
     t.string   "file"
-    t.integer  "author"
+    t.integer  "author_id"
     t.integer  "course_type"
     t.integer  "status"
     t.string   "brief"
@@ -230,7 +230,7 @@ ActiveRecord::Schema.define(:version => 20140330172209) do
   create_table "lab_teach_designs", :force => true do |t|
     t.string   "title"
     t.string   "file"
-    t.integer  "author"
+    t.integer  "author_id"
     t.integer  "course_type"
     t.integer  "status"
     t.string   "brief"
@@ -241,7 +241,7 @@ ActiveRecord::Schema.define(:version => 20140330172209) do
   create_table "lab_teach_resources", :force => true do |t|
     t.string   "title"
     t.string   "file"
-    t.integer  "author"
+    t.integer  "author_id"
     t.integer  "course_type"
     t.integer  "status"
     t.string   "brief"

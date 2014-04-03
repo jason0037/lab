@@ -25,10 +25,11 @@
       </div>
       <div class="tab-pane full_height" id="base_data">
         <div class="help-inline full_width">
-          <%= link_to '学科分类管理',
-                      options_path, :class => 'btn iframe_btn' %>
+          <%= link_to '学科分类',
+                      options_path(:key => "course_type"), :class => 'btn iframe_btn' %>
+
         </div>
-        <iframe id="tab1_frames" src="<%=options_path%>"></iframe>
+        <iframe id="tab1_frames" src="<%=options_path%>?key=course_type"></iframe>
       </div>
     </div> 
 </div>

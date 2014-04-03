@@ -25,6 +25,8 @@
                   lab_equipments_path, :class => 'btn iframe_btn' %>
           <%= link_to '供应商管理',
                   lab_suppliers_path, :class => 'btn iframe_btn' %>
+          <%= link_to '评测项目',
+                      options_path(:key => "eval_means"), :class => 'btn iframe_btn' %>
         </div>
           <iframe id="tab1_frames" src="<%=lab_scenes_path%>"></iframe>
 

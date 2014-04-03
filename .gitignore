@@ -6,6 +6,5 @@
 .project
 .DS_Store
 .idea
-log/**/*
 /Gemfile.lock
 /config/database.yml

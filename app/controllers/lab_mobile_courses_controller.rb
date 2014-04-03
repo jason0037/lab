@@ -41,7 +41,7 @@ class LabMobileCoursesController < ApplicationController
   # POST /lab_mobile_courses
   # POST /lab_mobile_courses.json
   def create
-    params[:lab_mobile_course].merge!(:applicant_id=>@user.id)
+    params[:lab_mobile_course].merge!(:author_id=>@user.id)
     params[:lab_mobile_course].merge!(:status=>'0')
     @lab_mobile_course = LabMobileCourse.new(params[:lab_mobile_course])
 

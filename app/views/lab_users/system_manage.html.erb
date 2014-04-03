@@ -1,6 +1,7 @@
 <div>
     <ul class="nav nav-tabs" id="myTab"> 
-      <li class="active"><a href="#system">系统管理</a></li> 
+      <li class="active"><a href="#system">系统管理</a></li>
+      <li><a href="#base_data">基础数据维护</a></li>
       <li><a href="#notices">新闻公告管理</a></li>
       <li><a href="/lab_users/admin_manage" target="_blank">在线课程管理</a></li>
       <li><a href="/lab_users/lab_manage" target="_blank">实验室评测管理</a></li>
@@ -38,11 +39,8 @@
 
         </div>
       </div>
-      <div class="tab-pane  full_height" id="courses_manage">
-        <iframe id="tab1_frame" src="<%#=admin_manage_path%>"></iframe>
-      </div>
-      <div class="tab-pane  full_height" id="lab_manage">
-        <iframe id="tab1_frame" src="<%#=lab_manage_path%>"></iframe>
+      <div class="tab-pane full_height" id="base_data">
+        <iframe id="tab1_frames" src="<%=options_path%>"></iframe>
       </div>
     </div> 
 </div>

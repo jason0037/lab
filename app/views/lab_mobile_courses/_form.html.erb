@@ -12,9 +12,9 @@
       </div>
     </div>
     <div class="control-group">
-      <%= f.label :course_type,"学科类型", :class => 'control-label' %>
+      <%= f.label :course_type,"学科类别", :class => 'control-label' %>
       <div class="controls">
-        <%= f.number_field :course_type, :class => 'number_field' %>
+        <%=f.select :course_type, options_from_collection_for_select(Option.where(:key=>"course_type"),'value','name',@lab_mobile_course.course_type),:include_blank=>"请选择" %>
       </div>
     </div>
     <div class="control-group">

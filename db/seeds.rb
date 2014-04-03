@@ -6,6 +6,26 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+puts "Importing lab_teach_designs"
+LabTeachDesign.delete_all
+ActiveRecord::Base.connection.execute("alter table lab_teach_designs auto_increment=1")
+LabTeachDesign.create([{id: '1', title: '课程设计1',author_id: '2',course_type: '2',file: 'abcdefg.ppt',status: '0',brief: '课程设计1课程设计1'},
+                       {id: '2', title: '课程设计2',author_id: '2',course_type: '3',file: 'hijklmn.doc',status: '1',brief: '课程设计2课程设计2'}
+                      ])
+
+puts "Importing lab_teach_resources"
+LabTeachResource.delete_all
+ActiveRecord::Base.connection.execute("alter table lab_teach_resources auto_increment=1")
+LabTeachResource.create([{id:'1', title: '课件资源1',author_id:'2',course_type:'2',file:'abcdefg.ppt',status:'0',brief:'课件资源1课件资源1'},
+                       {id:'2', title: '课件资源2',author_id:'2',course_type:'3',file:'hijklmn.doc',status:'1',brief:'课件资源2课件资源2'}
+                      ])
+
+puts "Importing lab_mobile_courses"
+LabMobileCourse.delete_all
+ActiveRecord::Base.connection.execute("alter table lab_mobile_courses auto_increment=1")
+LabMobileCourse.create([{id:'1', title: '移动课程1',author_id:'2',course_type:'2',file:'abcdefg.ppt',status:'0',brief:'移动课程1移动课程1'},
+                       {id:'2', title: '移动课程2',author_id:'2',course_type:'3',file:'hijklmn.doc',status:'1',brief:'移动课程2移动课程2'}
+                      ])
 
 puts "Importing lab_users"
 LabUser.delete_all
@@ -95,7 +115,6 @@ LabEvalProject.create([{id:'1', name: '电子书包1',version:"1.0.0",category_i
   {id:'5', name: '电子书包项目3',version:"1.0.6",category_id:'1',course_type:'2',scene_id:'2',supplier_id:'1',status:'10',applicant_id:'1'},
   {id:'6', name: '开放学习资源1',version:"1.0.7",category_id:'2',course_type:'3',scene_id:'1',supplier_id:'1',status:'0',applicant_id:'2'},
 	{id:'7', name: '开放学习资源2',version:"1.0.8",category_id:'2',course_type:'4',scene_id:'2',supplier_id:'1',status:'1',applicant_id:'2'}])
-
 
 
 

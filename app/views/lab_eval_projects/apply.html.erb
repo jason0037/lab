@@ -24,21 +24,10 @@
         <td><%= link_to lab_eval_project.name, lab_eval_project_path(lab_eval_project),target: '_blank' %></td>
         <td><%= lab_eval_project.version %></td>
         <td>
-          <%Option.where(:key=>"eval_object_type",:value=>lab_eval_project.category_id).each do |category|%>
-             <%=category.name%>
-          <%end%>
-        </td>
-        <td>
-          <%Option.where(:key=>"course_type",:value=>lab_eval_project.course_type).each do |course|%>
-              <%=course.name%>
-          <%end%>
-        </td>
+        <td><%= Option.where(:key=>"eval_object_type",:value=>lab_eval_project.category_id).first.name %></td>
+        <td><%= Option.where(:key=>"course_type",:value=>lab_eval_project.course_type).first.name %></td>
         <td><%= lab_eval_project.lab_scene.name %></td>
-        <td>
-          <%Option.where(:key=>"eval_status",:value=>lab_eval_project.status).each do |status|%>
-              <%=status.name%>
-          <%end%>
-        </td>
+        <td><%= Option.where(:key=>"eval_status",:value=>lab_eval_project.status).first.name %></td>
         <td><%= lab_eval_project.lab_supplier.name %></td>
         <td><%= lab_eval_project.lab_user.name %></td>
         <td>
