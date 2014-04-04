@@ -16135,3 +16135,78 @@ Served asset /application.js - 304 Not Modified (37ms)
 
 Started GET "/assets/options.js?body=1" for 127.0.0.1 at 2014-04-03 18:23:05 +0800
 Served asset /options.js - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
+  [1m[36m (262.3ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (721.3ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)
+  [1m[36m (74.6ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations` [0m
+Migrating to CreateLabUsers (20140321021714)
+  [1m[35m (34.0ms)[0m  CREATE TABLE `lab_users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `mobile` varchar(255), `email` varchar(255), `account` varchar(255), `password` varchar(255), `role_id` int(11), `status` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (7.1ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321021714')[0m
+Migrating to CreateLabRoles (20140321024723)
+  [1m[35m (53.4ms)[0m  CREATE TABLE `lab_roles` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `path` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (19.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321024723')[0m
+Migrating to CreateLabPermissions (20140321024906)
+  [1m[35m (16.4ms)[0m  CREATE TABLE `lab_permissions` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `key` varchar(255), `url` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (5.5ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321024906')[0m
+Migrating to CreateLabPermissionsRoles (20140321025145)
+  [1m[35m (19.8ms)[0m  CREATE TABLE `lab_permissions_roles` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `role_id` int(11), `permission_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (16.7ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321025145')[0m
+Migrating to CreateLabEvalProjects (20140321025549)
+  [1m[35m (20.3ms)[0m  CREATE TABLE `lab_eval_projects` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `version` varchar(255), `category_id` int(11), `course_type` int(11), `scene_id` int(11), `status` int(11), `supplier_id` int(11), `applicant_id` int(11), `brief` varchar(255), `status_log` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (12.4ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321025549')[0m
+Migrating to CreateLabCourses (20140321030105)
+  [1m[35m (28.8ms)[0m  CREATE TABLE `lab_courses` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `category_id` int(11), `type` int(11), `teacher_id` int(11), `start_time` datetime, `end_time` datetime, `status` int(11), `report_id` int(11), `progress` int(11), `publish_time` datetime, `apply_time` datetime, `approve_time` varchar(255), `style` int(11), `course_property` int(11), `is_teach` int(11), `before` int(11), `desc` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (8.4ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321030105')[0m
+Migrating to CreateLabCoursewares (20140321030459)
+  [1m[35m (23.7ms)[0m  CREATE TABLE `lab_coursewares` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `course_id` int(11), `productor_id` int(11), `type` int(11), `play_time` varchar(255), `file_size` varchar(255), `product_time` datetime, `download_url` varchar(255), `download_times` varchar(255), `publish_time` datetime, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (4.6ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321030459')[0m
+Migrating to CreateLabCourseStudents (20140321030721)
+  [1m[35m (22.9ms)[0m  CREATE TABLE `lab_course_students` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `course_id` varchar(255), `user_id` int(11), `status` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (12.5ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321030721')[0m
+Migrating to CreateLabDeviceSupports (20140321032410)
+  [1m[35m (29.0ms)[0m  CREATE TABLE `lab_device_supports` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `device_id` int(11), `rel_id` int(11), `type` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (8.1ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321032410')[0m
+Migrating to CreateLabDevices (20140321032609)
+  [1m[35m (15.9ms)[0m  CREATE TABLE `lab_devices` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `version` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (30.1ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321032609')[0m
+Migrating to CreateLabSuppliers (20140321032729)
+  [1m[35m (17.0ms)[0m  CREATE TABLE `lab_suppliers` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `tel` varchar(255), `addr` varchar(255), `contacts` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (8.3ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321032729')[0m
+Migrating to CreateLabScenes (20140321033012)
+  [1m[35m (19.0ms)[0m  CREATE TABLE `lab_scenes` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `limit` varchar(255), `desc` varchar(255), `secens_resource_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (5.9ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321033012')[0m
+Migrating to CreateLabSceneResources (20140321033221)
+  [1m[35m (17.1ms)[0m  CREATE TABLE `lab_scene_resources` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `type` int(11), `play_type` int(11), `play_idle` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (23.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321033221')[0m
+Migrating to CreateLabEquipments (20140321033434)
+  [1m[35m (16.6ms)[0m  CREATE TABLE `lab_equipments` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `equipment_code` varchar(255), `position` varchar(255), `status` int(11), `install_time` datetime, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (5.4ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321033434')[0m
+Migrating to CreateLabReports (20140321033559)
+  [1m[35m (18.3ms)[0m  CREATE TABLE `lab_reports` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `desc` varchar(255), `parent_report_id` int(11), `child_report_index` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (9.1ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321033559')[0m
+Migrating to CreateLabQuestions (20140321033735)
+  [1m[35m (24.8ms)[0m  CREATE TABLE `lab_questions` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `question` varchar(255), `report_id` int(11), `report_index` int(11), `answer_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (4.5ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321033735')[0m
+Migrating to CreateLabQuestionItems (20140321033854)
+  [1m[35m (20.5ms)[0m  CREATE TABLE `lab_question_items` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `desc` varchar(255), `question_id` int(11), `item_index` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (5.7ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321033854')[0m
+Migrating to CreateLabSeats (20140321034317)
+  [1m[35m (14.3ms)[0m  CREATE TABLE `lab_seats` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `course_id` int(11), `seat_index` int(11), `user_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (7.5ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140321034317')[0m
+Migrating to CreateLabNotices (20140326095951)
+  [1m[35m (15.0ms)[0m  CREATE TABLE `lab_notices` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `title` varchar(255), `body` text, `cat_id` int(11), `published_at` datetime, `notice_type` int(11), `published` tinyint(1), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (4.9ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140326095951')[0m
+Migrating to CreateLabCats (20140326114633)
+  [1m[35m (17.4ms)[0m  CREATE TABLE `lab_cats` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `parent_id` int(11), `cat_name` varchar(255), `disabled` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (6.8ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140326114633')[0m
+Migrating to CreateCkeditorAssets (20140326195505)
+  [1m[35m (17.6ms)[0m  CREATE TABLE `ckeditor_assets` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `data_file_name` varchar(255) NOT NULL, `data_content_type` varchar(255), `data_file_size` int(11), `assetable_id` int(11), `assetable_type` varchar(30), `type` varchar(30), `width` int(11), `height` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (51.7ms)[0m  [1mCREATE INDEX `idx_ckeditor_assetable_type` ON `ckeditor_assets` (`assetable_type`, `type`, `assetable_id`)[0m
+  [1m[35m (48.1ms)[0m  CREATE INDEX `idx_ckeditor_assetable` ON `ckeditor_assets` (`assetable_type`, `assetable_id`)
+  [1m[36m (5.6ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140326195505')[0m
+Migrating to CreateOptions (20140327121637)
+  [1m[35m (19.4ms)[0m  CREATE TABLE `options` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `key` varchar(255), `index` int(11), `name` varchar(255), `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (6.2ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140327121637')[0m
+Migrating to AddApplicantToLabEvalProjects (20140329021714)
+  [1m[35m (11.3ms)[0m  ALTER TABLE `lab_eval_projects` ADD `applicant_id` int(11)
+Mysql2::Error: Duplicate column name 'applicant_id': ALTER TABLE `lab_eval_projects` ADD `applicant_id` int(11)
