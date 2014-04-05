@@ -1,6 +1,9 @@
 <%- model_class = LabCourse -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_lab_course_path,
+              :class => 'btn btn-primary' %>
 </div>
 <table class="table table-striped">
   <thead>
@@ -48,7 +51,7 @@
         <td><%= lab_course.is_teach %></td>
         <td><%= lab_course.before %></td>
         <td><%= lab_course.desc %></td>
-        <td><%=l lab_course.created_at %></td>
+        <td><%= lab_course.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_course_path(lab_course), :class => 'btn btn-mini' %>
@@ -63,6 +66,6 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_lab_course_path,
-            :class => 'btn btn-primary' %>
+<div class="pagination">
+  <%= will_paginate @lab_courses, :container => false %>
+</div>

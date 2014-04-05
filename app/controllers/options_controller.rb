@@ -1,13 +1,17 @@
+require 'pp'
 class OptionsController < ApplicationController
   # GET /options
   # GET /options.json
   layout "blank",:except => [:show]
   def index
     if params[:key].blank?
-      @options = Option.all
+      @options = Option
     else
       @options = Option.where(:key=>params[:key])
     end
+
+    @options = @options.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @options }

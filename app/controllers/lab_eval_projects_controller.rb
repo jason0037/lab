@@ -1,3 +1,5 @@
+require 'pp'
+
 class LabEvalProjectsController < ApplicationController
   # GET /lab_eval_projects
   # GET /lab_eval_projects.json
@@ -5,11 +7,11 @@ class LabEvalProjectsController < ApplicationController
   layout "blank",:except => [:show]
   def apply
     if @user.role_id==4 || @user.role_id==6 #实验室管理员或系统管理员
-      @lab_eval_projects = LabEvalProject.all
+      @lab_eval_projects = LabEvalProject
     else
       @lab_eval_projects = LabEvalProject.where(:applicant_id=>@user.id)
     end
-
+    @lab_eval_projects = @lab_eval_projects.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @lab_eval_projects }
@@ -22,6 +24,7 @@ class LabEvalProjectsController < ApplicationController
     else
       @lab_eval_projects = LabEvalProject.where(:applicant_id=>@user.id)
     end
+    @lab_eval_projects = @lab_eval_projects.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @lab_eval_projects }

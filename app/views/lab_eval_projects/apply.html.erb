@@ -1,6 +1,11 @@
 <%- model_class = LabEvalProject -%>
 <div class="page-header">
   <h1>评测申请</h1>
+  <%if @user.role_id==1 || @user.role_id ==2 #只有教师和电子书包供应商有权限申请%>
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_lab_eval_project_path,
+                  :class => 'btn btn-primary' %>
+  <%end%>
 </div>
 <table class="table table-striped">
   <thead>
@@ -57,8 +62,7 @@
     <% end %>
   </tbody>
 </table>
-<%if @user.role_id==1 || @user.role_id ==2 #只有教师和电子书包供应商有权限申请%>
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_lab_eval_project_path,
-            :class => 'btn btn-primary' %>
-<%end%>
+
+<div class="pagination">
+  <%= will_paginate @lab_eval_projects, :container => false %>
+</div>

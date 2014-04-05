@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 require 'pp'
 
 class LabUsersController < ApplicationController

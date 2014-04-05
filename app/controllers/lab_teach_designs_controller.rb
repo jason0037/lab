@@ -1,9 +1,10 @@
+require 'pp'
 class LabTeachDesignsController < ApplicationController
   # GET /lab_teach_designs
   # GET /lab_teach_designs.json
   layout "blank",:except => [:show]
   def index
-    @lab_teach_designs = LabTeachDesign.all
+    @lab_teach_designs = LabTeachDesign.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb

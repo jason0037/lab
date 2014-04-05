@@ -1,6 +1,9 @@
 <%- model_class = LabPermissionsRole -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_lab_permissions_role_path,
+              :class => 'btn btn-primary' %>
 </div>
 <table class="table table-striped">
   <thead>
@@ -33,6 +36,6 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_lab_permissions_role_path,
-            :class => 'btn btn-primary' %>
+<div class="pagination">
+  <%= will_paginate @lab_permissions_roles, :container => false %>
+</div>

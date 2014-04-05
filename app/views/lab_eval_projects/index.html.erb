@@ -46,3 +46,6 @@
 <%#= link_to t('.new', :default => t("helpers.links.new")),
             new_lab_eval_project_path,
             :class => 'btn btn-primary' %>
+<div class="pagination">
+  <%= will_paginate @lab_eval_projects, :container => false %>
+</div>

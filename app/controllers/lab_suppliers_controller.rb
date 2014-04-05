@@ -1,3 +1,4 @@
+require 'pp'
 class LabSuppliersController < ApplicationController
   # GET /lab_suppliers
   # GET /lab_suppliers.json
@@ -5,7 +6,7 @@ class LabSuppliersController < ApplicationController
   layout "blank",:except => [:show]
   
   def index
-    @lab_suppliers = LabSupplier.all
+    @lab_suppliers = LabSupplier.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb

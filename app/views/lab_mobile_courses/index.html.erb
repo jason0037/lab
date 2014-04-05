@@ -1,6 +1,9 @@
 <%- model_class = LabMobileCourse -%>
 <div class="page-header">
   <h1>移动课程</h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_lab_mobile_course_path,
+              :class => 'btn btn-primary' %>
 </div>
 <table class="table table-striped">
   <thead>
@@ -39,6 +42,6 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_lab_mobile_course_path,
-            :class => 'btn btn-primary' %>
+<div class="pagination">
+  <%= will_paginate @lab_mobile_courses, :container => false %>
+</div>

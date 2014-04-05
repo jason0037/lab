@@ -1,18 +1,20 @@
 <%- model_class = Option -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1>基础信息</h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_option_path,
+              :class => 'btn btn-primary' %>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th>编号</th>
       <%if @user.role_id==6%>
         <th><%= model_class.human_attribute_name(:key) %></th>
       <%end%>
-      <th><%= model_class.human_attribute_name(:index) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:value) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>显示位置</th>
+      <th>显示名称</th>
+      <th>值</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -26,7 +28,6 @@
         <td><%= option.index %></td>
         <td><%= option.name %></td>
         <td><%= option.value %></td>
-        <td><%= option.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_option_path(option), :class => 'btn btn-mini' %>
@@ -40,7 +41,7 @@
     <% end %>
   </tbody>
 </table>
+<div class="pagination">
+  <%= will_paginate @options, :container => false %>
+</div>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_option_path,
-            :class => 'btn btn-primary' %>

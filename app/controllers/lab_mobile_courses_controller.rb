@@ -1,9 +1,10 @@
+require 'pp'
 class LabMobileCoursesController < ApplicationController
   # GET /lab_mobile_courses
   # GET /lab_mobile_courses.json
   layout "blank",:except => [:show]
   def index
-    @lab_mobile_courses = LabMobileCourse.all
+    @lab_mobile_courses = LabMobileCourse.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb

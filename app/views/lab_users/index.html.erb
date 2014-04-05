@@ -1,17 +1,20 @@
 <%- model_class = LabUser -%>
 <div class="page-header">
   <h1>用户列表</h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_lab_user_path,
+              :class => 'btn btn-primary' %>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:mobile) %></th>
-      <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:account) %></th>
-      <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%= model_class.human_attribute_name(:role_id) %></th>
+      <th>编号</th>
+      <th>昵称</th>
+      <th>手机</th>
+      <th>Email</th>
+      <th>账号</th>
+      <th>状态</th>
+      <th>角色</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -24,7 +27,7 @@
         <td><%= lab_user.email %></td>
         <td><%= lab_user.account %></td>
         <td><%= lab_user.status %></td>
-        <td><%= lab_user.role_id %></td>
+        <td><%= lab_user.lab_role.name %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_user_path(lab_user), :class => 'btn btn-mini' %>
@@ -42,6 +45,3 @@
   <%= will_paginate @lab_users, :container => false %>
 </div>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_lab_user_path,
-            :class => 'btn btn-primary' %>
