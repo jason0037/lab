@@ -1,2 +1,0 @@
-module LabRolesHelper
-end
