@@ -2,7 +2,7 @@ require 'pp'
 class LabCoursewaresController < ApplicationController
   # GET /lab_coursewares
   # GET /lab_coursewares.json
-  layout "blank",:except => [:show]
+  layout "blank"#,:except => [:show]
   def index
     @lab_coursewares = LabCourseware.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
@@ -47,7 +47,7 @@ class LabCoursewaresController < ApplicationController
     respond_to do |format|
       if @lab_courseware.save
         format.html { redirect_to @lab_courseware, notice: 'Lab courseware was successfully created.' }
-        format.json { render json: @lab_courseware, status: :created, location: @lab_courseware }
+        format.json { render json:  @lab_courseware, status: :created, location: @lab_courseware }
       else
         format.html { render action: "new" }
         format.json { render json: @lab_courseware.errors, status: :unprocessable_entity }
@@ -62,7 +62,7 @@ class LabCoursewaresController < ApplicationController
 
     respond_to do |format|
       if @lab_courseware.update_attributes(params[:lab_courseware])
-        format.html { redirect_to @lab_courseware, notice: 'Lab courseware was successfully updated.' }
+        format.html { redirect_to  @lab_courseware, notice: 'Lab courseware was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

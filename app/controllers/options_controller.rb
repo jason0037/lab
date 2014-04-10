@@ -2,7 +2,7 @@ require 'pp'
 class OptionsController < ApplicationController
   # GET /options
   # GET /options.json
-  layout "blank",:except => [:show]
+  layout "blank"#,:except => [:show]
   def index
     if params[:key].blank?
       @options = Option
@@ -52,8 +52,8 @@ class OptionsController < ApplicationController
 
     respond_to do |format|
       if @option.save
-        format.html { redirect_to @option, notice: 'Option was successfully created.' }
-        format.json { render json: @option, status: :created, location: @option }
+        format.html { redirect_to  @option, notice: 'Option was successfully created.' }
+        format.json { render json:  @option, status: :created, location: @option }
       else
         format.html { render action: "new" }
         format.json { render json: @option.errors, status: :unprocessable_entity }
@@ -68,7 +68,7 @@ class OptionsController < ApplicationController
 
     respond_to do |format|
       if @option.update_attributes(params[:option])
-        format.html { redirect_to @option, notice: 'Option was successfully updated.' }
+        format.html { redirect_to  @option, notice: 'Option was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

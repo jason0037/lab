@@ -19,7 +19,7 @@
   <tbody>
     <% @lab_cats.each do |lab_cat| %>
       <tr>
-        <td><%= link_to lab_cat.id, lab_cat_path(lab_cat) %></td>
+        <td><%= link_to lab_cat.id, lab_cat_path(lab_cat), :target=>'_blank'%></td>
         <td><%= lab_cat.parent_id %></td>
         <td><%= lab_cat.cat_name %></td>
         <td><%= lab_cat.disabled %></td>

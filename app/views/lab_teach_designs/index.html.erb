@@ -8,26 +8,24 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>编号</th>
       <th>标题</th>
-      <th>文件</th>
       <th>作者</th>
       <th>学科分类</th>
       <th>状态</th>
       <th>创建时间</th>
+      <th>附件</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @lab_teach_designs.each do |lab_teach_design| %>
       <tr>
-        <td><%= link_to lab_teach_design.id, lab_teach_design_path(lab_teach_design) %></td>
-        <td><%= lab_teach_design.title %></td>
-        <td><%= lab_teach_design.file %></td>
+        <td><%= link_to lab_teach_design.title, lab_teach_design_path(lab_teach_design)%></td>
         <td><%= lab_teach_design.lab_user.name %></td>
         <td><%= Option.where(:key=>"course_type",:value=>lab_teach_design.course_type).first.name %></td>
-        <td><%= lab_teach_design== 0 ? "私有" : "公开" %></td>
+        <td><%= lab_teach_design.status== 0 ? "私有" : "公开" %></td>
         <td><%= lab_teach_design.created_at %></td>
+        <td><%=link_to lab_teach_design.file,"#{lab_teach_design.file}", :target=>'_blank' %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_teach_design_path(lab_teach_design), :class => 'btn btn-mini' %>

@@ -2,7 +2,7 @@ require 'pp'
 class LabSceneResourcesController < ApplicationController
   # GET /lab_scene_resources
   # GET /lab_scene_resources.json
-  layout "blank",:except => [:show]
+  layout "blank"#,:except => [:show]
   def index
     @lab_scene_resources = LabSceneResource.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 

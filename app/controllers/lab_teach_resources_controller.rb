@@ -42,6 +42,15 @@ class LabTeachResourcesController < ApplicationController
   # POST /lab_teach_resources
   # POST /lab_teach_resources.json
   def create
+    uploaded_io = params[:file]
+    if !uploaded_io.blank?
+      extension = uploaded_io.original_filename.split('.')
+      filename = "#{Time.now.strftime('%Y%m%d%H%M%S')}.#{extension[-1]}"
+      File.open(Rails.root.join('public', 'upload','teachResources',filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+      params[:lab_teach_resource].merge!(:file=>"/upload/teachResourcs/#{filename}")
+    end
     params[:lab_teach_resource].merge!(:author_id=>@user.id)
     params[:lab_teach_resource].merge!(:status=>'0')
     @lab_teach_resource = LabTeachResource.new(params[:lab_teach_resource])
@@ -60,6 +69,15 @@ class LabTeachResourcesController < ApplicationController
   # PUT /lab_teach_resources/1
   # PUT /lab_teach_resources/1.json
   def update
+    uploaded_io = params[:file]
+    if !uploaded_io.blank?
+      extension=uploaded_io.original_filename.split('.')
+      filename= "#{Time.now.strftime('%Y%m%d%H%M%S')}.#{extension[-1]}"
+      File.open(Rails.root.join('public', 'upload','teachResources',filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+      params[:lab_teach_resource].merge!(:file=>"/upload/teachResourcs/#{filename}")
+    end
     @lab_teach_resource = LabTeachResource.find(params[:id])
 
     respond_to do |format|

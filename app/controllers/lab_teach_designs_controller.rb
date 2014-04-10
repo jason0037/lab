@@ -41,9 +41,20 @@ class LabTeachDesignsController < ApplicationController
 
   # POST /lab_teach_designs
   # POST /lab_teach_designs.json
-  def create
+  def create(options={:encoding=>"GB18030:UTF-8"})
+    uploaded_io = params[:file]
+    if !uploaded_io.blank?
+      extension=uploaded_io.original_filename.split('.')
+      filename= "#{Time.now.strftime('%Y%m%d%H%M%S')}.#{extension[-1]}"
+      File.open(Rails.root.join('public', 'upload','teachDesigns',filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+      params[:lab_teach_design].merge!(:file=>"/upload/teachDesigns/#{filename}")
+    end
+
     params[:lab_teach_design].merge!(:author_id=>@user.id)
     params[:lab_teach_design].merge!(:status=>'0')
+
     @lab_teach_design = LabTeachDesign.new(params[:lab_teach_design])
 
     respond_to do |format|
@@ -60,6 +71,17 @@ class LabTeachDesignsController < ApplicationController
   # PUT /lab_teach_designs/1
   # PUT /lab_teach_designs/1.json
   def update
+
+    uploaded_io = params[:file]
+    if !uploaded_io.blank?
+      extension=uploaded_io.original_filename.split('.')
+      filename= "#{Time.now.strftime('%Y%m%d%H%M%S')}.#{extension[-1]}"
+      File.open(Rails.root.join('public', 'upload','teachDesign',filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+      params[:lab_teach_design].merge!(:file=>"/upload/teachDesign/#{filename}")
+    end
+
     @lab_teach_design = LabTeachDesign.find(params[:id])
 
     respond_to do |format|

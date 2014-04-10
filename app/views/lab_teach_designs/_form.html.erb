@@ -1,4 +1,5 @@
-<%= form_for @lab_teach_design, :html => { :class => 'form-horizontal' } do |f| %>
+<%=form_for  @lab_teach_design, :html => {:multipart => true, :class => 'form-horizontal' } ,:method=>:post do |f|%>
+
   <div class="control-group">
     <%= f.label :title,"标题" ,:class => 'control-label' %>
     <div class="controls">
@@ -6,9 +7,9 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :file,"文件", :class => 'control-label' %>
+    <%= f.label :file,"附件", :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :file, :class => 'text_field' %>
+      <%= file_field_tag :file,:class => 'file_field' %>
     </div>
   </div>
   <div class="control-group">
@@ -25,7 +26,7 @@
     </div>
 
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.submit "确定", :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 lab_teach_designs_path, :class => 'btn' %>
   </div>

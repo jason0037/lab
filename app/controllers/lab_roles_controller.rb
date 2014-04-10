@@ -2,7 +2,7 @@ require 'pp'
 class LabRolesController < ApplicationController
   # GET /lab_roles
   # GET /lab_roles.json
-  layout "blank",:except => [:show]
+  layout "blank"#,:except => [:show]
   def index
     @lab_roles = LabRole.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 

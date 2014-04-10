@@ -2,7 +2,7 @@ require 'pp'
 class LabMobileCoursesController < ApplicationController
   # GET /lab_mobile_courses
   # GET /lab_mobile_courses.json
-  layout "blank",:except => [:show]
+  layout "blank"#,:except => [:show]
   def index
     @lab_mobile_courses = LabMobileCourse.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
@@ -42,6 +42,15 @@ class LabMobileCoursesController < ApplicationController
   # POST /lab_mobile_courses
   # POST /lab_mobile_courses.json
   def create
+    uploaded_io = params[:file]
+    if !uploaded_io.blank?
+      extension=uploaded_io.original_filename.split('.')
+      filename= "#{Time.now.strftime('%Y%m%d%H%M%S')}.#{extension[-1]}"
+      File.open(Rails.root.join('public', 'upload','mobileCourses',filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+      params[:lab_mobile_course].merge!(:file=>"/upload/mobileCourses/#{filename}")
+    end
     params[:lab_mobile_course].merge!(:author_id=>@user.id)
     params[:lab_mobile_course].merge!(:status=>'0')
     @lab_mobile_course = LabMobileCourse.new(params[:lab_mobile_course])
@@ -60,6 +69,15 @@ class LabMobileCoursesController < ApplicationController
   # PUT /lab_mobile_courses/1
   # PUT /lab_mobile_courses/1.json
   def update
+    uploaded_io = params[:file]
+    if !uploaded_io.blank?
+      extension=uploaded_io.original_filename.split('.')
+      filename= "#{Time.now.strftime('%Y%m%d%H%M%S')}.#{extension[-1]}"
+      File.open(Rails.root.join('public', 'upload','teachDesign',filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+      params[:lab_mobile_course].merge!(:file=>"/upload/teachResourc/#{filename}")
+    end
     @lab_mobile_course = LabMobileCourse.find(params[:id])
 
     respond_to do |format|

@@ -2,7 +2,7 @@ require 'pp'
 class LabQuestionsController < ApplicationController
   # GET /lab_questions
   # GET /lab_questions.json
-  layout "blank",:except => [:show]
+  layout "blank"#,:except => [:show]
   def index
     @lab_questions = LabQuestion.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 

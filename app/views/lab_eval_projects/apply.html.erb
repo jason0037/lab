@@ -10,10 +10,9 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>编号</th>
-      <th>名称</th>
+      <th>标题</th>
       <th>版本</th>
-      <th>种类</th>
+      <th>评测对象</th>
       <th>学科分类</th>
       <th>教学场景</th>
       <th>评测状态</th>
@@ -25,10 +24,8 @@
   <tbody>
     <% @lab_eval_projects.each do |lab_eval_project| %>
       <tr>
-        <td><%= link_to lab_eval_project.id, lab_eval_project_path(lab_eval_project), target: '_blank' %></td>
-        <td><%= link_to lab_eval_project.name, lab_eval_project_path(lab_eval_project),target: '_blank' %></td>
+        <td><%= link_to lab_eval_project.name, lab_eval_project_path(lab_eval_project)%></td>
         <td><%= lab_eval_project.version %></td>
-        <td>
         <td><%= Option.where(:key=>"eval_object_type",:value=>lab_eval_project.category_id).first.name %></td>
         <td><%= Option.where(:key=>"course_type",:value=>lab_eval_project.course_type).first.name %></td>
         <td><%= lab_eval_project.lab_scene.name %></td>

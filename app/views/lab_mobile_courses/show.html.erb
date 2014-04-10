@@ -12,8 +12,14 @@
   <dd><%= @lab_mobile_course.course_type %></dd>
   <dt><strong>状态:</strong></dt>
   <dd><%= @lab_mobile_course.status %></dd>
-  <dt><strong>文件:</strong></dt>
-  <dd><%= @lab_mobile_course.file %></dd>
+  <dt><strong>附件:</strong></dt>
+  <dd>&nbsp;<%= @lab_mobile_course.file %></dd>
+  <dt><strong>创建时间:</strong></dt>
+  <dd><%= @lab_mobile_course.created_at %></dd>
+  <dt><strong>修改时间:</strong></dt>
+  <dd><%= @lab_mobile_course.updated_at %></dd>
+  <dt><strong>简介:</strong></dt>
+  <dd><%= @lab_mobile_course.brief %></dd>
 </dl>
 
 <div class="form-actions">

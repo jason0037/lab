@@ -1,7 +1,7 @@
 class LabSeatsController < ApplicationController
   # GET /lab_seats
   # GET /lab_seats.json
-  layout "blank",:except => [:show]
+  layout "blank"#,:except => [:show]
   def index
     @lab_seats = LabSeat.all
 

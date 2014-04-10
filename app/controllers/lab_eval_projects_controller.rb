@@ -4,7 +4,7 @@ class LabEvalProjectsController < ApplicationController
   # GET /lab_eval_projects
   # GET /lab_eval_projects.json
 
-  layout "blank",:except => [:show]
+  layout "blank"#,:except => [:show]
   def apply
     if @user.role_id==4 || @user.role_id==6 #实验室管理员或系统管理员
       @lab_eval_projects = LabEvalProject
