@@ -12,6 +12,7 @@ gem 'therubyracer'
 gem 'will_paginate', '~> 3.0'
 gem "ckeditor", "~> 3.7.3"
 gem "paperclip"
+gem 'unicorn'
 
 
 # Gems used only for assets and not required
