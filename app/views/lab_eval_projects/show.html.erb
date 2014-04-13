@@ -36,12 +36,42 @@
   <dd><%= @lab_eval_project.brief %></dd>
   <dt><strong>申请过程:</strong></dt>
   <dd><%= @lab_eval_project.status_log %></dd>
-
-
+  <dt><strong>评测项目:</strong></dt>
+  <dd>
+    <ul>
+      <%@eval_means.each do |means|%>
+          <li>
+            <%=check_box_tag "#{means.key}[#{means.value}]","",:checked=>true%> <!--#@lab_eval_projects.has_eval_means_of(means.value)-->
+            <label for='eval_means_<%="#{means.key}[#{means.value}]"%>'><%=means.name%></label>
+          </li>
+      <%end%>
+    </ul>
+  </dd>
 
 </dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              home_lab_users_path, :class => 'btn'  %>
+              lab_eval_projects_path, :class => 'btn'  %>
+  <%if @lab_eval_project.status==0 && @lab_eval_project.applicant_id==@user.id #草稿状态%>
+      <%= link_to t('.apply to eval', :default => t("helpers.links.apply_eval")),
+                  submit_apply_lab_eval_project_path(@lab_eval_project), :class => 'btn btn-mini' %>
+      <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_lab_eval_project_path(@lab_eval_project), :class => 'btn' %>
+      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  lab_eval_project_path(@lab_eval_project),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger' %>
+  <%else%>
+      <%if @user.role_id== 4 #实验室管理员可以审核%>
+          <%if @lab_eval_project.status==1 #申请状态%>
+              <%= link_to t('.approve', :default => t("helpers.links.approve")),
+                          approve_lab_eval_project_path(lab_eval_project), :class => 'btn btn-mini' %>
+
+              <%= link_to t('.reject', :default => t("helpers.links.reject")),
+                          reject_lab_eval_project_path(lab_eval_project), :class => 'btn btn-mini' %>
+          <%end%>
+      <%end%>
+  <%end%>
 </div>

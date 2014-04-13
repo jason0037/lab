@@ -64,6 +64,7 @@ Lab::Application.routes.draw do
     member do
       get 'approve'
       get 'reject'
+      get 'submit_apply'
     end
 
     get :apply,:on=>:collection

@@ -50,7 +50,26 @@
       </div>
     </div>
 
-
+    <div class="control-group">
+      <%= f.label :eval_means, "评测项目", :class => 'control-label' %>
+      <div class="controls">
+          <ul>
+            <%@eval_means.each do |means|%>
+                <li>
+                     <%=f.check_box "#{means.key}[#{means.value}]",:checked=>true%> <!--#@lab_eval_projects.has_eval_means_of(means.value)-->
+                     <label for='eval_means_<%="#{means.key}[#{means.value}]"%>'><%=means.name%></label>
+                </li>
+            <%end%>
+          </ul>
+      </div>
+    </div>
+    <div>
+     <span class="help-inline error">
+       <%@lab_eval_project.errors.each do |error| %>
+         <%= @lab_eval_project.errors[error] %> &nbsp;&nbsp;
+       <%end%>
+     </span>
+    </div>
   <div class="form-actions">
 
     <%= f.submit "确定", :class => 'btn btn-primary' %>

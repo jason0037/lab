@@ -68,17 +68,17 @@ Option.create([{id:'1', name: '电子书包',value:"1",index:"0",key:"eval_objec
   {id:'17', name: '评测结束',value:"10",index:"5",key:"eval_status"},
   {id:'18', name: '课程信息',value:"3",index:"2",key:"notice_type"},
   {id:'19', name: '评测信息',value:"4",index:"3",key:"notice_type"},
-  {id:'20',name:'实验室学习脑波评测',value:"1",index:"1",key:"eval_means"},
-  {id:'21',name:'实验室学习行为体态评测',value:"2",index:"2",key:"eval_means"},
-  {id:'22',name:'实验室学习终端采集数据评测',value:"3",index:"3",key:"eval_means"},
-  {id:'23',name:'实验室学习网络采集数据评测',value:"4",index:"4",key:"eval_means"},
-  {id:'24',name:'实验室学习能耗采集数据评测',value:"5",index:"5",key:"eval_means"},
-  {id:'25',name:'实验室学习硬件兼容性评测',value:"6",index:"6",key:"eval_means"},
-  {id:'26',name:'人工问卷评测',value:"7",index:"7",key:"eval_means"},
-  {id:'27',name:'线上行为采集数据评测',value:"8",index:"8",key:"eval_means"},
-  {id:'28',name:'UX Office可用性评测',value:"9",index:"9",key:"eval_means"},
-  {id:'29',name:'眼动仪数据评测',value:"10",index:"10",key:"eval_means"},
-  {id:'30',name:'可穿戴设备数据评测',value:"11",index:"11",key:"eval_means"}
+  {id:'20',name:'实验室学习脑波评测',value:"mind_wave",index:"1",key:"eval_means"},
+  {id:'21',name:'实验室学习行为体态评测',value:"behaviour",index:"2",key:"eval_means"},
+  {id:'22',name:'实验室学习终端采集数据评测',value:"terminal",index:"3",key:"eval_means"},
+  {id:'23',name:'实验室学习网络采集数据评测',value:"network",index:"4",key:"eval_means"},
+  {id:'24',name:'实验室学习能耗采集数据评测',value:"energy_consumption",index:"5",key:"eval_means"},
+  {id:'25',name:'实验室学习硬件兼容性评测',value:"hardware_compatible",index:"6",key:"eval_means"},
+  {id:'26',name:'人工问卷评测',value:"questionnaire",index:"7",key:"eval_means"},
+  {id:'27',name:'线上行为采集数据评测',value:"online_behaviour",index:"8",key:"eval_means"},
+  {id:'28',name:'UX Office可用性评测',value:"ux_office",index:"9",key:"eval_means"},
+  {id:'29',name:'眼动仪数据评测',value:"eye_traking",index:"10",key:"eval_means"},
+  {id:'30',name:'可穿戴设备数据评测',value:"wearable_equipment",index:"11",key:"eval_means"}
   ])
 
 puts "Importing lab_notices"

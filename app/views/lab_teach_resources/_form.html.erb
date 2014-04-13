@@ -23,7 +23,13 @@
         <%= f.text_area :brief, :class => 'text_field' %>
       </div>
     </div>
-
+   <div>
+     <span class="help-inline error">
+       <%@lab_teach_resource.errors.each do |error| %>
+         <%= @lab_teach_resource.errors[error] %> &nbsp;&nbsp;
+       <%end%>
+     </span>
+   </div>
   <div class="form-actions">
     <%= f.submit "确定", :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

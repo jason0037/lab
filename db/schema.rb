@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(:version => 20140330172209) do
     t.integer  "status"
     t.integer  "supplier_id"
     t.integer  "applicant_id"
+    t.string   "eval_means"
     t.string   "brief"
     t.string   "status_log"
     t.datetime "created_at",   :null => false

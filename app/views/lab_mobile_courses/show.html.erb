@@ -1,11 +1,9 @@
 <%- model_class = LabMobileCourse -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+  <h1><%="移动课程：《#{@lab_mobile_course.title}》" %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong>标题:</strong></dt>
-  <dd><%= @lab_mobile_course.title %></dd>
   <dt><strong>作者:</strong></dt>
   <dd><%= @lab_mobile_course.lab_user.name %></dd>
   <dt><strong>学科类型:</strong></dt>

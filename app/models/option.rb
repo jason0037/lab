@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Option < ActiveRecord::Base
   attr_accessible :index, :key, :name, :value
   has_many :lab_eval_projects, :foreign_key=>"course_type"

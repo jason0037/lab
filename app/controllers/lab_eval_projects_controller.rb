@@ -35,7 +35,7 @@ class LabEvalProjectsController < ApplicationController
   # GET /lab_eval_projects/1.json
   def show
    @lab_eval_project = LabEvalProject.find(params[:id])
-
+   @eval_means = Option.where(:key=>"eval_means")
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @lab_eval_project }
@@ -45,6 +45,7 @@ class LabEvalProjectsController < ApplicationController
   # GET /lab_eval_projects/new
   # GET /lab_eval_projects/new.json
   def new
+    @eval_means = Option.where(:key=>"eval_means")
     @lab_eval_project = LabEvalProject.new
 
     render :layout => "blank"
@@ -52,6 +53,7 @@ class LabEvalProjectsController < ApplicationController
 
   # GET /lab_eval_projects/1/edit
   def edit
+    @eval_means = Option.where(:key=>"eval_means")
     @lab_eval_project = LabEvalProject.find(params[:id])
   end
 
@@ -59,7 +61,7 @@ class LabEvalProjectsController < ApplicationController
   # POST /lab_eval_projects.json
   def create
     params[:lab_eval_project].merge!(:applicant_id=>@user.id)
-    params[:lab_eval_project].merge!(:status=>'1')
+    params[:lab_eval_project].merge!(:status=>'0')
     @lab_eval_project = LabEvalProject.new(params[:lab_eval_project])
 
     respond_to do |format|
@@ -91,6 +93,19 @@ class LabEvalProjectsController < ApplicationController
     end
   end
 
+  def submit_apply
+    @lab_eval_project = LabEvalProject.find(params[:id])
+
+    respond_to do |format|
+      if @lab_eval_project.update_attributes(:status => '1')
+        format.html { redirect_to @lab_eval_project, notice: 'Lab eval project was successfully approved.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "apply" }
+        format.json { render json: @lab_eval_project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
   def approve
     @lab_eval_project = LabEvalProject.find(params[:id])
 
@@ -99,7 +114,7 @@ class LabEvalProjectsController < ApplicationController
         format.html { redirect_to @lab_eval_project, notice: 'Lab eval project was successfully approved.' }
         format.json { head :no_content }
       else
-        format.html { render action: "aprove" }
+        format.html { render action: "apply" }
         format.json { render json: @lab_eval_project.errors, status: :unprocessable_entity }
       end
     end
@@ -113,7 +128,7 @@ class LabEvalProjectsController < ApplicationController
         format.html { redirect_to @lab_eval_project, notice: 'Lab eval project was successfully rejected.' }
         format.json { head :no_content }
       else
-        format.html { render action: "reject" }
+        format.html { render action: "apply" }
         format.json { render json: @lab_eval_project.errors, status: :unprocessable_entity }
       end
     end

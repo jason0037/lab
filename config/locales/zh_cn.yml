@@ -16,6 +16,7 @@ zh_cn:
       new: "新建"
       approve: "批准"
       reject: "拒绝"
+      apply_eval: "申请评测"
     titles:
       edit: "修改"
       save: "保存"

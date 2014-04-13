@@ -37,6 +37,8 @@
           <%if lab_eval_project.applicant_id==@user.id #申请人可以修改%>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")),
                               edit_lab_eval_project_path(lab_eval_project), :class => 'btn btn-mini' %>
+                  <%= link_to t('.apply to eval', :default => t("helpers.links.apply_eval")),
+                              submit_apply_lab_eval_project_path(lab_eval_project), :class => 'btn btn-mini' %>
           <%end%>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")), #可以删除
                       lab_eval_project_path(lab_eval_project),
