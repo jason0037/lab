@@ -4,14 +4,16 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:question) %>:</strong></dt>
-  <dd><%= @lab_question.question %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:report_id) %>:</strong></dt>
-  <dd><%= @lab_question.report_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:report_index) %>:</strong></dt>
-  <dd><%= @lab_question.report_index %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:answer_id) %>:</strong></dt>
-  <dd><%= @lab_question.answer_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:desc) %>:</strong></dt>
+  <dd><%= @lab_question.desc %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:question_category) %>:</strong></dt>
+  <dd><%= @lab_question.question_category %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:version) %>:</strong></dt>
+  <dd><%= @lab_question.version %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:created_at) %>:</strong></dt>
+  <dd><%= @lab_question.created_at %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:updated_at) %>:</strong></dt>
+  <dd><%= @lab_question.updated_at %></dd>
 </dl>
 
 <div class="form-actions">

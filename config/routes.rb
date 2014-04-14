@@ -22,12 +22,10 @@ Lab::Application.routes.draw do
 
   resources :lab_seats
 
-
-  resources :lab_question_items
+  resources :lab_questions_scores
 
 
   resources :lab_questions
-
 
   resources :lab_reports
 
@@ -60,6 +58,8 @@ Lab::Application.routes.draw do
 
 
   resources :lab_eval_projects do
+
+    resources :lab_questions_scores
 
     member do
       get 'approve'

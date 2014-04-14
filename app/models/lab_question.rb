@@ -1,4 +1,5 @@
 # encoding: utf-8
 class LabQuestion < ActiveRecord::Base
-  attr_accessible :answer_id, :question, :report_id, :report_index
+  attr_accessible :desc, :question_category,:version
+
 end

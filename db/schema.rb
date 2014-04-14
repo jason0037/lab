@@ -160,21 +160,21 @@ ActiveRecord::Schema.define(:version => 20140330172209) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "lab_question_items", :force => true do |t|
+  create_table "lab_questions", :force => true do |t|
     t.string   "desc"
-    t.integer  "question_id"
-    t.integer  "item_index"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "question_category"
+    t.string   "version"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
-  create_table "lab_questions", :force => true do |t|
-    t.string   "question"
-    t.integer  "report_id"
-    t.integer  "report_index"
-    t.integer  "answer_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+  create_table "lab_questions_scores", :force => true do |t|
+    t.integer  "project_id"
+    t.string   "question_importance_score"
+    t.integer  "total"
+    t.integer  "evaluator_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "lab_reports", :force => true do |t|
@@ -267,6 +267,7 @@ ActiveRecord::Schema.define(:version => 20140330172209) do
     t.integer  "index"
     t.string   "name"
     t.string   "value"
+    t.string   "desc"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

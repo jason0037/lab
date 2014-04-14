@@ -17,6 +17,9 @@ zh_cn:
       approve: "批准"
       reject: "拒绝"
       apply_eval: "申请评测"
+      questionnaire: "问卷评测"
+      lab_prepaire: "实验室准备"
+
     titles:
       edit: "修改"
       save: "保存"

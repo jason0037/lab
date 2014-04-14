@@ -5,6 +5,7 @@ class CreateOptions < ActiveRecord::Migration
       t.integer :index
       t.string :name
       t.string :value
+      t.string :desc
 
       t.timestamps
     end
