@@ -44,6 +44,12 @@ class LabEquipmentsController < ApplicationController
   def create
     @lab_equipment = LabEquipment.new(params[:lab_equipment])
 
+    @mapping = LabEquipmentMapping.new
+    @mapping.equipment_code = @lab_equipment.equipment_code
+    @mapping.table_name = "B#{@lab_equipment.equipment_code}"
+    @mapping.status = 0
+    @mapping.save
+
     respond_to do |format|
       if @lab_equipment.save
         format.html { redirect_to @lab_equipment, notice: 'Lab equipment was successfully created.' }

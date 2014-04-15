@@ -13,9 +13,7 @@
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:equipment_code) %></th>
       <th><%= model_class.human_attribute_name(:position) %></th>
-      <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%= model_class.human_attribute_name(:install_time) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>数据表状态</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -26,9 +24,7 @@
         <td><%= lab_equipment.name %></td>
         <td><%= lab_equipment.equipment_code %></td>
         <td><%= lab_equipment.position %></td>
-        <td><%= lab_equipment.status %></td>
-        <td><%= lab_equipment.install_time %></td>
-        <td><%=l lab_equipment.created_at %></td>
+        <td><%= lab_equipment.lab_equipment_mapping.status %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_equipment_path(lab_equipment), :class => 'btn btn-mini' %>

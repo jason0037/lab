@@ -207,3 +207,15 @@ ActiveRecord::Base.connection.execute("alter table lab_mobile_courses auto_incre
 LabMobileCourse.create([{id:'1', title: '移动课程1',author_id:'2',course_type:'2',file:'abcdefg.ppt',status:'0',brief:'移动课程1移动课程1'},
                         {id:'2', title: '移动课程2',author_id:'2',course_type:'3',file:'hijklmn.doc',status:'1',brief:'移动课程2移动课程2'}
                        ])
+
+puts "Importing lab_equitments"
+LabEquipment.delete_all
+ActiveRecord::Base.connection.execute("alter table lab_equipments auto_increment=1")
+LabEquipment.create([{id:'1',name:'摄像头01',equipment_code:'000001',position:'1'}])
+
+puts "Importing lab_equitment_mapping"
+LabEquipmentMapping.delete_all
+ActiveRecord::Base.connection.execute("alter table lab_equipment_mappings auto_increment=1")
+LabEquipmentMapping.create([{id:'1',equipment_code:'000001',table_name:'B000001',status:'0'}])
+
+
