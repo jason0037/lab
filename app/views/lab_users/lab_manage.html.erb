@@ -13,7 +13,13 @@
       <div class="tab-pane full_height" id="eval_manage">
         <iframe id="tab1_frame" src="<%=lab_eval_projects_path%>"></iframe>
       </div>
-      <div class="tab-pane full_height" id="lab_manage">...</div>
+      <div class="tab-pane full_height" id="lab_manage">
+        <div class="help-inline full_width">
+          <%= link_to '评测课程',
+                  lab_courses_path, :class => 'btn iframe_btn' %>
+        </div>
+        <iframe id="tab1_frames" src="<%=lab_courses_path%>"></iframe>
+      </div>
       <div class="tab-pane full_height" id="notices">
         <iframe id="tab1_frame" src="<%=lab_notices_path%>"></iframe>
       </div>

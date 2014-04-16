@@ -8,7 +8,7 @@ class CreateLabCourses < ActiveRecord::Migration
       t.datetime :start_time
       t.datetime :end_time
       t.integer :status
-      t.integer :report_id
+      t.integer :project_id
       t.integer :progress
       t.datetime :publish_time
       t.datetime :apply_time

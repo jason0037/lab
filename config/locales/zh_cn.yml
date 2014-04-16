@@ -18,10 +18,18 @@ zh_cn:
       reject: "拒绝"
       apply_eval: "申请评测"
       questionnaire: "问卷评测"
-      lab_prepaire: "实验室准备"
+      lab_prepaire: "教学准备"
+      lab_course:  "教学评测"
 
     titles:
       edit: "修改"
       save: "保存"
       new: "新增"
       delete: "删除"
+      Lab equipment: "实验室设备"
+      LabEquipment: "实验室设备"
+  date:
+    order:
+      - :day
+      - :month
+      - :year
