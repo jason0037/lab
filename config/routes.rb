@@ -14,6 +14,7 @@ Lab::Application.routes.draw do
 
   resources :monitors do
     get :camera,:on=>:collection
+    get :camera_data,:on=>:collection
   end
 
 
