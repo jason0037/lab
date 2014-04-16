@@ -12,6 +12,11 @@ Lab::Application.routes.draw do
   resources :options
 
 
+  resources :monitors do
+    get :camera,:on=>:collection
+  end
+
+
   mount Ckeditor::Engine => '/ckeditor'
 
   resources :lab_cats
