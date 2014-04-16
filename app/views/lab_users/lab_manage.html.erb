@@ -13,7 +13,19 @@
       <div class="tab-pane full_height" id="eval_manage">
         <iframe id="tab1_frame" src="<%=lab_eval_projects_path%>"></iframe>
       </div>
-      <div class="tab-pane full_height" id="lab_manage">...</div>
+      <div class="tab-pane full_height" id="lab_manage">
+        <div class="help-inline full_width">
+          <%= link_to '能耗监测',
+                  camera_monitors_path, :class => 'btn iframe_btn' %>
+          <%= link_to '脑波检测',
+                  lab_equipments_path, :class => 'btn iframe_btn' %>
+          <%= link_to '行为体征检测',
+                  lab_suppliers_path, :class => 'btn iframe_btn' %>
+          <%= link_to '网络检测',
+                      options_path(:key => "eval_means"), :class => 'btn iframe_btn' %>
+        </div>
+          <iframe id="tab1_frames" src="<%=camera_monitors_path%>"></iframe>
+      </div>
       <div class="tab-pane full_height" id="notices">
         <iframe id="tab1_frame" src="<%=lab_notices_path%>"></iframe>
       </div>

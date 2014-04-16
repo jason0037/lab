@@ -60,6 +60,7 @@ Lab::Application.routes.draw do
   resources :lab_eval_projects do
 
     resources :lab_questions_scores
+    resources :lab_courses
 
     member do
       get 'approve'
