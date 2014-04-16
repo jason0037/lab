@@ -46,7 +46,8 @@ class LabTeachResourcesController < ApplicationController
     if !uploaded_io.blank?
       extension = uploaded_io.original_filename.split('.')
       filename = "#{Time.now.strftime('%Y%m%d%H%M%S')}.#{extension[-1]}"
-      File.open(Rails.root.join('public', 'upload','teachResources',filename), 'wb') do |file|
+      filepath = "#{PIC_PATH}/teachResources/#{filename}"
+      File.open(filepath, 'wb') do |file|
         file.write(uploaded_io.read)
       end
       params[:lab_teach_resource].merge!(:file=>"/upload/teachResourcs/#{filename}")
