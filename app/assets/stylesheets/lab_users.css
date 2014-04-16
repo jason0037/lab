@@ -81,7 +81,8 @@
 	float: left;
 	margin-left: 30%;
 }
-.number_field{width:20px;}
+.number_field{width:30px;}
+
 .login-div .control-label {
   width: 60px;
   float: left;
