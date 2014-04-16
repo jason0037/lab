@@ -8,20 +8,14 @@
     </ul>
     <div class="tab-content full_height"> 
       <div class="tab-pane full_height active" id="apply_manage">
-        <iframe id="tab1_frame" src="<%=apply_lab_eval_projects_path%>" class="full_height"/>
+        <iframe id="tab1_frame" src="<%=apply_lab_eval_projects_path%>"></iframe>
       </div> 
       <div class="tab-pane full_height" id="eval_manage">
-        <iframe id="tab1_frame" src="<%=lab_eval_projects_path%>" class="full_height"/>
+        <iframe id="tab1_frame" src="<%=lab_eval_projects_path%>"></iframe>
       </div>
-      <div class="tab-pane full_height" id="lab_manage">
-        <div class="help-inline full_width">
-          <%= link_to '评测课程',
-                  lab_courses_path, :class => 'btn iframe_btn' %>
-        </div>
-        <iframe id="tab1_frames" src="<%=lab_courses_path%>" class="full_height"/>
-      </div>
+      <div class="tab-pane full_height" id="lab_manage">...</div>
       <div class="tab-pane full_height" id="notices">
-        <iframe id="tab1_frame" src="<%=lab_notices_path%>" class="full_height"/>
+        <iframe id="tab1_frame" src="<%=lab_notices_path%>"></iframe>
       </div>
       <div class="tab-pane full_height" id="base_data">
         <div class="help-inline full_width">
@@ -34,7 +28,7 @@
           <%= link_to '评测项目',
                       options_path(:key => "eval_means"), :class => 'btn iframe_btn' %>
         </div>
-          <iframe id="tab1_frames" src="<%=lab_scenes_path%>" class="full_height"/>
+          <iframe id="tab1_frames" src="<%=lab_scenes_path%>"></iframe>
 
       </div>
     </div> 
