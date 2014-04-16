@@ -50,7 +50,7 @@ class LabTeachResourcesController < ApplicationController
       File.open(filepath, 'wb') do |file|
         file.write(uploaded_io.read)
       end
-      params[:lab_teach_resource].merge!(:file=>"/upload/teachResourcs/#{filename}")
+      params[:lab_teach_resource].merge!(:file=>"/teachResourcs/#{filename}")
     end
     params[:lab_teach_resource].merge!(:author_id=>@user.id)
     params[:lab_teach_resource].merge!(:status=>'0')
