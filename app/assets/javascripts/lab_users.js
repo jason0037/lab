@@ -9,9 +9,15 @@ $(document).ready(function(){
         }
     });
     $(".iframe_btn").click(function(e){
-    	var url = $(this).attr("href");
-    	$("#tab1_frames").attr("src",url);
-    	e.preventDefault();
+        var url = $(this).attr("href");
+        $("#tab1_frames").attr("src",url);
+        e.preventDefault();
+        e.stopPropagation();
+    });
+    $(".iframe_btns").click(function(e){
+        var url = $(this).attr("href");
+        $("#tab1_framess").attr("src",url);
+        e.preventDefault();
         e.stopPropagation();
     });
 });

@@ -15,6 +15,15 @@ Lab::Application.routes.draw do
   resources :monitors do
     get :camera,:on=>:collection
     get :camera_data,:on=>:collection
+    get :energy_consumption,:on=>:collection
+    get :energy_consumption_data,:on=>:collection
+    get :mind_wave, :on=>:collection
+    get :mind_wave_data, :on=>:collection
+    get :behaviour, :on=> :collection
+    get :behaviour_data, :on=> :collection
+    get :network, :on=> :collection
+    get :network_data, :on=> :collection
+
   end
 
 
