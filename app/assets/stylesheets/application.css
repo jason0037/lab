@@ -12,12 +12,33 @@
  *= require_tree .
  */
 
+/* Panels */
+.panel header,
+.accordion-heading {
+  background: #3a4450;
+  padding: 5px;
+}
+.panel header *,
+.accordion-heading *,
+.panel header a:hover,
+.accordion-heading a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.panel .content {
+  background: #f7f7fd;
+  color: #3a4450;
+  border: 1px solid #f0f0fb;
+}
+
+
+
 .page_bg{
     background: #f1f1f1;
 }
 
 .page_bg #header{
-    background: #2756a4;
+    background: #1995dc;
     height: 49px;
 }
 
@@ -37,6 +58,11 @@
     float: left;
     margin: 5px 0px 0px 10px;
     font-size: 21px;
+}
+
+.page-header{
+    background: #3a4450;
+    color: white;
 }
 
 .page-content{
@@ -66,7 +92,6 @@
     min-height:540px;
     border: 1px solid #E2E2E2;
     box-shadow: 0 0 3px #E7E7E7;
-    border-radius: 5px;
     background-color: white;
     margin-top: 60px;
     padding:25px;

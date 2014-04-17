@@ -30,12 +30,72 @@
 // Example:
 // @linkColor: #ff0000;
 
-.navbar-inverse .navbar-inner{
-	background: #2756a4;
+.page-header{
+  margin:0 0 0 0;
+  padding-left:10px;
+  padding-top:0px;
+  padding-bottom:0px;
 }
 
-.page-header{
-	margin:50px 0 30px;
+.page-header h1{
+  font-size:14px;
+}
+
+.navbar-inverse .navbar-inner{
+	background: #1995dc;
+}
+
+.nav-tabs{
+    border-bottom: 0px;
+}
+
+.nav-tabs li a{
+  border-radius: 0; 
+}
+
+.nav-tabs > li {
+  padding-top:10px;
+}
+
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus{
+  color: #fff;
+  background-color: #DA70D6;
+  border: 1px solid #ddd;
+  border-bottom-color: none;
+  cursor: default;
+}
+
+.nav-tabs li a,.tile-btn {
+  display: inline-block;
+  width: 105px;
+  height: 85px;
+  margin: 5px;
+  background: #61b0e9;
+  color: #ffffff;
+  text-align: center;
+}
+.nav-tabs li a:hover,.tile-btn:hover {
+  text-decoration: none;
+  background: #6bbef6;
+  color: #ffffff;
+}
+.nav-tabs li a i,.tile-btn i {
+  display: block;
+  font-size: 32px;
+  line-height: 32px;
+  margin-top: 14px;
+}
+.nav-tabs li a i[class^="icon-icomoon-"],.tile-btn i[class^="icon-icomoon-"] {
+  font-size: 28px;
+  line-height: 28px;
+  line-height: 31px\9;
+}
+.nav-tabs li a span,.tile-btn span {
+  display: block;
+  margin-top: 10px;
+}
+.tiles-container {
+  text-align: center;
 }
 ul{
 	list-style:none;
