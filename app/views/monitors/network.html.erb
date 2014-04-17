@@ -1,0 +1,18 @@
+<%- model_class = LabUser -%>
+<div class="page-header">
+    <h1>网络监控</h1>
+  <%= text_field_tag('data_source', "/monitors/network_data?equipment_code=003001", :type=>'hidden')%>
+</div>
+<ul>
+  <li>
+    <div id="chart-01">
+      <div id="chart-container-01">
+      </div>
+    </div>
+  </li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>

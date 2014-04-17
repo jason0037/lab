@@ -1,10 +1,12 @@
 # encoding: utf-8
 require 'rufus/scheduler'
+require 'net/http'
 
 scheduler = Rufus::Scheduler.start_new
 @logger ||= Logger.new("log/scheduler.log")
 
 scheduler.every '15s' do
+
   @mappings = LabEquipmentMapping.where(:status=>0)
   @mappings.each do |mapping|
       sql = "CREATE TABLE #{mapping.table_name}_reading (id int(11) NOT NULL AUTO_INCREMENT, point_id varchar(10) NOT NULL, read_at varchar(14) NOT NULL,saved_at varchar(14),value decimal(10,2),source varchar(2), PRIMARY KEY (`id`))ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
@@ -21,3 +23,4 @@ scheduler.every '15s' do
       mapping.save
   end
 end
+

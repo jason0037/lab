@@ -211,11 +211,19 @@ LabMobileCourse.create([{id:'1', title: '移动课程1',author_id:'2',course_typ
 puts "Importing lab_equitments"
 LabEquipment.delete_all
 ActiveRecord::Base.connection.execute("alter table lab_equipments auto_increment=1")
-LabEquipment.create([{id:'1',name:'摄像头01',equipment_code:'000001',position:'1'}])
+LabEquipment.create([{id:'1',name:'体态监测01',equipment_code:'001001',position:'1'},
+                     {id:'2',name:'脑波监测01',equipment_code:'002001',position:'1'},
+                     {id:'3',name:'路由器01',equipment_code:'003001',position:'1'},
+                     {id:'4',name:'中控01',equipment_code:'004001',position:'1'}
+                    ])
 
 puts "Importing lab_equitment_mapping"
 LabEquipmentMapping.delete_all
 ActiveRecord::Base.connection.execute("alter table lab_equipment_mappings auto_increment=1")
-LabEquipmentMapping.create([{id:'1',equipment_code:'000001',table_name:'B000001',status:'0'}])
+LabEquipmentMapping.create([{id:'1',equipment_code:'001001',table_name:'B000001',status:'0'},
+                            {id:'2',equipment_code:'002001',table_name:'M000001',status:'0'},
+                            {id:'3',equipment_code:'003001',table_name:'R000001',status:'0'},
+                            {id:'4',equipment_code:'004001',table_name:'C000001',status:'0'}
+                           ])
 
 

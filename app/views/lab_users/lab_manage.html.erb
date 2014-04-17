@@ -42,33 +42,36 @@
       </div>
       <div class="tab-pane full_height" id="lab_manage">
         <div class="help-inline full_width">
+          <%= link_to '实验课堂',
+                      lab_courses_path, :class => 'btn iframe_btn' %>
           <%= link_to '能耗监测',
-                  camera_monitors_path, :class => 'btn iframe_btn' %>
-          <%= link_to '脑波检测',
-                  lab_equipments_path, :class => 'btn iframe_btn' %>
-          <%= link_to '行为体征检测',
-                  lab_suppliers_path, :class => 'btn iframe_btn' %>
-          <%= link_to '网络检测',
-                      options_path(:key => "eval_means"), :class => 'btn iframe_btn' %>
+                      energy_consumption_monitors_path, :class => 'btn iframe_btn' %>
+          <%= link_to '脑波监测',
+                  mind_wave_monitors_path, :class => 'btn iframe_btn' %>
+          <%= link_to '行为体态监测',
+                      behaviour_monitors_path, :class => 'btn iframe_btn' %>
+          <%= link_to '网络监测',
+                      network_monitors_path, :class => 'btn iframe_btn' %>
+
         </div>
-          <iframe id="tab1_frames" src="<%=camera_monitors_path%>"></iframe>
+          <iframe id="tab1_frames" src="<%=energy_consumption_monitors_path%>"></iframe>
       </div>
       <div class="tab-pane full_height" id="notices">
         <iframe id="tab1_frame" src="<%=lab_notices_path%>"></iframe>
       </div>
       <div class="tab-pane full_height" id="base_data">
         <div class="help-inline full_width">
-          <%= link_to '教学场景维护',
-                  lab_scenes_path, :class => 'btn iframe_btn' %>
-          <%= link_to '实验室设备管理',
-                  lab_equipments_path, :class => 'btn iframe_btn' %>
-          <%= link_to '供应商管理',
-                  lab_suppliers_path, :class => 'btn iframe_btn' %>
+          <%= link_to '教学场景',
+                      lab_scenes_path, :class => 'btn iframe_btns' %>
+          <%= link_to '实验室设备',
+                      lab_equipments_path, :class => 'btn iframe_btns' %>
+          <%= link_to '供应商',
+                      lab_suppliers_path, :class => 'btn iframe_btns' %>
           <%= link_to '评测项目',
-                      options_path(:key => "eval_means"), :class => 'btn iframe_btn' %>
+                      options_path(:key => "eval_means"), :class => 'btn iframe_btns' %>
         </div>
-          <iframe id="tab1_frames" src="<%=lab_scenes_path%>"></iframe>
+        <iframe id="tab1_framess" src="<%=lab_scenes_path%>"></iframe>
 
       </div>
-    </div> 
+    </div>
 </div>
