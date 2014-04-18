@@ -13,22 +13,22 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:equipment_code) %></th>
-      <th><%= model_class.human_attribute_name(:position) %></th>
-      <th>数据表状态</th>
+      <th>名称</th>
+      <th>编号</th>
+      <th>位置</th>
+      <th>安装时间</th>
+<!--      <th>数据表状态</th> -->
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @lab_equipments.each do |lab_equipment| %>
       <tr>
-        <td><%= link_to lab_equipment.id, lab_equipment_path(lab_equipment) %></td>
-        <td><%= lab_equipment.name %></td>
+        <td><%= link_to lab_equipment.name, lab_equipment_path(lab_equipment) %></td>
         <td><%= lab_equipment.equipment_code %></td>
         <td><%= lab_equipment.position %></td>
-        <td><%= lab_equipment.lab_equipment_mapping.status %></td>
+ <!--       <td><%#= lab_equipment.lab_equipment_mapping.status %></td> -->
+        <td><%= lab_equipment.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_equipment_path(lab_equipment), :class => 'btn btn-mini' %>
