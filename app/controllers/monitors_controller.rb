@@ -34,7 +34,8 @@ class MonitorsController < ApplicationController
       res = Net::HTTP.get_response(URI.parse('http://180.173.14.8:23456/')).body.split("\r\n")
       i = 1
       res.each do |value|
-        sql ="insert B000001_reading (point_id,read_at,saved_at,value,source) values('00000#{i}','#{read_at}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{value}','0')"
+        sql ="insert B000001_reading (point_id,read_at,saved_at,value,source) values('00000#{value[1,1]}'
+          ,'#{read_at}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{value[2,5]}','#{value[0,1]}')"
         ActiveRecord::Base.connection.execute sql
         i= i+1
       end
