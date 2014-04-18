@@ -1,7 +1,10 @@
 <%- model_class = LabUser -%>
-<div class="page-header">
-    <h1>网络监控</h1>
-  <%= text_field_tag('data_source', "/monitors/network_data?equipment_code=003001", :type=>'hidden')%>
+<div class="panel">
+  <header>
+    <i class="icon-asterisk"></i>
+    <span>>网络监控</span>
+    <%= text_field_tag('data_source', "/monitors/network_data?equipment_code=003001", :type=>'hidden')%>
+  </header>
 </div>
 <ul>
   <li>

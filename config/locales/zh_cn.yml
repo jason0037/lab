@@ -26,8 +26,14 @@ zh_cn:
       save: "保存"
       new: "新增"
       delete: "删除"
+      Lab courses: "实验课堂"
       Lab equipment: "实验室设备"
       LabEquipment: "实验室设备"
+
+  model_class:
+     model_class.human_attribute_name:
+     id: "编号"
+
   date:
     order:
       - :day

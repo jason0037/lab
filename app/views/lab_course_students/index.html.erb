@@ -1,9 +1,14 @@
 <%- model_class = LabCourseStudent -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-  <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_lab_course_student_path,
-              :class => 'btn btn-primary' %>
+<div class="panel">
+  <header>
+    <span><i class="icon-asterisk"></i></span>
+    <span>实验课堂-学生</span>
+     <span class="new_button">
+        <%= link_to t('.new', :default => t("helpers.links.new")),
+                    new_lab_course_student_path,
+                    :class => 'btn btn-primary' %>
+     </span>
+  </header>
 </div>
 <table class="table table-striped">
   <thead>

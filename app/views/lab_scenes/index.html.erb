@@ -1,21 +1,23 @@
 <%- model_class = LabScene -%>
 <div class="panel">
   <header>
-      <i class="icon-asterisk"></i>
-      <span>场景列表</span>
-  <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_lab_scene_path,
-              :class => 'btn btn-primary' %>
+     <span><i class="icon-asterisk"></i></span>
+     <span>场景列表</span>
+     <span class="new_button">
+        <%= link_to t('.new', :default => t("helpers.links.new")),
+                      new_lab_scene_path,
+                      :class => 'btn btn-primary' %>
+     </span>
   </header>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:limit) %></th>
-      <th><%= model_class.human_attribute_name(:desc) %></th>
-      <th><%= model_class.human_attribute_name(:secens_resource_id) %></th>
+      <th>编号</th>
+      <th>名称</th>
+      <th>限制</th>
+      <th>描述</th>
+      <th>多媒体资源</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>

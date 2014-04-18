@@ -1,7 +1,10 @@
 <%- model_class = LabUser -%>
-<div class="page-header">
-    <h1>脑波监测</h1>
-  <%= text_field_tag('data_source', "/monitors/mind_wave_data?equipment_code=002001", :type=>'hidden')%>
+<div class="panel">
+  <header>
+    <i class="icon-asterisk"></i>
+    <span>脑波监测</span>
+    <%= text_field_tag('data_source', "/monitors/mind_wave_data?equipment_code=002001", :type=>'hidden')%>
+  </header>
 </div>
 <ul>
   <li>

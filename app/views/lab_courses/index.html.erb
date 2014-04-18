@@ -1,32 +1,29 @@
 <%- model_class = LabCourse -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-  <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_lab_course_path,
-              :class => 'btn btn-primary' %>
+<div class="panel">
+  <header>
+    <span><i class="icon-asterisk"></i></span>
+    <span>实验课堂</span>
+     <span class="new_button">
+        <%= link_to t('.new', :default => t("helpers.links.new")),
+                    new_lab_course_path,
+                    :class => 'btn btn-primary' %>
+     </span>
+  </header>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:category_id) %></th>
-      <th><%= model_class.human_attribute_name(:type) %></th>
-      <th><%= model_class.human_attribute_name(:teacher_id) %></th>
-      <th><%= model_class.human_attribute_name(:start_time) %></th>
-      <th><%= model_class.human_attribute_name(:end_time) %></th>
-      <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%= model_class.human_attribute_name(:project_id) %></th>
-      <th><%= model_class.human_attribute_name(:progress) %></th>
-      <th><%= model_class.human_attribute_name(:publish_time) %></th>
-      <th><%= model_class.human_attribute_name(:apply_time) %></th>
-      <th><%= model_class.human_attribute_name(:approve_time) %></th>
-      <th><%= model_class.human_attribute_name(:style) %></th>
-      <th><%= model_class.human_attribute_name(:course_property) %></th>
-      <th><%= model_class.human_attribute_name(:is_teach) %></th>
-      <th><%= model_class.human_attribute_name(:before) %></th>
-      <th><%= model_class.human_attribute_name(:desc) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>课程编号</th>
+      <th>名称</th>
+      <th>学科分类</th>
+      <th>评测对象</th>
+      <th>教师</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>状态</th>
+      <th>评测编号</th>
+      <th>教学场景</th>
+      <th>需要教师？</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -42,16 +39,8 @@
         <td><%= lab_course.end_time %></td>
         <td><%= lab_course.status %></td>
         <td><%= lab_course.project_id %></td>
-        <td><%= lab_course.progress %></td>
-        <td><%= lab_course.publish_time %></td>
-        <td><%= lab_course.apply_time %></td>
-        <td><%= lab_course.approve_time %></td>
         <td><%= lab_course.style %></td>
-        <td><%= lab_course.course_property %></td>
         <td><%= lab_course.is_teach %></td>
-        <td><%= lab_course.before %></td>
-        <td><%= lab_course.desc %></td>
-        <td><%= lab_course.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_course_path(lab_course), :class => 'btn btn-mini' %>

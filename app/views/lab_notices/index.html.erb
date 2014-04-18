@@ -1,12 +1,14 @@
 <%- model_class = LabNotice -%>
 <div class="panel">
   <header>
-      <i class="icon-asterisk"></i>
-      <span>评测信息管理</span>
-      <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_lab_notice_path,
-              :class => 'btn btn-primary' %>
-   </header>
+    <span><i class="icon-asterisk"></i></span>
+    <span>评测信息管理</span>
+    <span class="new_button">
+     <%= link_to t('.new', :default => t("helpers.links.new")),
+                 new_lab_notice_path,
+                 :class => 'btn btn-primary' %>
+     </span>
+  </header>
 </div>
 <table class="table table-striped">
   <thead>
