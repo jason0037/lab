@@ -1,11 +1,20 @@
 <%- model_class = LabUser -%>
-<div class="panel">
+<!-- <div class="panel">
   <header>
     <i class="icon-asterisk"></i>
     <span>能耗监测</span>
-    <%= text_field_tag('data_source', "/monitors/energy_consumption_data?equipment_code=004001", :type=>'hidden')%>
   </header>
+</div> -->
+<div class="metro adjust-lab">
+  <nav class="breadcrumbs" style="margin-top: 20px">
+      <ul>
+          <li><a href="#"><i class="icon-home"></i></a></li>
+          <li><a href="#">实验室管理</a></li>
+          <li><a href="#">能耗检测</a></li>
+      </ul>
+  </nav>
 </div>
+<%= text_field_tag('data_source', "/monitors/energy_consumption_data?equipment_code=004001", :type=>'hidden')%>
 <ul>
   <li>
     <div id="chart-01">

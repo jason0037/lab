@@ -1,0 +1,16 @@
+<div class="the_big_chart">
+  <div id="big_chart_render">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	// alert("<%=params[:chart_type]%>");
+	// alert("<%=params[:data_source]%>");
+    var customerChart = new FusionCharts( "<%=params[:chart_type]%>", 
+                                                  "chart_realtime_01", "100%", "550", "0", "1" );
+    //realtimeChart.setXMLUrl("/monitors/camera_data?equipment_code=000001");
+    var data_source = "<%=params[:data_source]%>";//document.getElementById('data_source').value; //
+    customerChart.setXMLUrl(data_source);
+    customerChart.render("big_chart_render");
+});
+</script>

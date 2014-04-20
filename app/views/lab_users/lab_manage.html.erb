@@ -33,6 +33,7 @@
         </a>
       </li>
     </ul>
+    <%= link_to 'hide_btn',get_big_chart_monitors_path, :class => 'stub hide fancybox fancybox.iframe' %>
     <div class="tab-content full_height"> 
       <div class="tab-pane full_height active" id="apply_manage">
         <iframe id="tab1_frame" src="<%=apply_lab_eval_projects_path%>"></iframe>
@@ -42,17 +43,26 @@
       </div>
       <div class="tab-pane full_height" id="lab_manage">
         <div class="help-inline full_width">
-          <%= link_to '实验课堂',
-                      lab_courses_path, :class => 'btn iframe_btn' %>
-          <%= link_to '能耗监测',
-                      energy_consumption_monitors_path, :class => 'btn iframe_btn' %>
-          <%= link_to '脑波监测',
-                  mind_wave_monitors_path, :class => 'btn iframe_btn' %>
-          <%= link_to '行为体态监测',
-                      behaviour_monitors_path, :class => 'btn iframe_btn' %>
-          <%= link_to '网络监测',
-                      network_monitors_path, :class => 'btn iframe_btn' %>
-
+          <%= link_to lab_courses_path, :class => 'metro-btn iframe_btn' do%>
+<!--             <i class="icon-tasks"></i>
+ -->            <span>实验课堂</span>
+          <%end%>
+          <%= link_to energy_consumption_monitors_path, :class => 'metro-btn iframe_btn' do%>
+<!--             <i class="icon-tasks"></i>
+ -->            <span>能耗监测</span>
+          <%end%>
+          <%= link_to mind_wave_monitors_path, :class => 'metro-btn iframe_btn' do%>
+<!--             <i class="icon-tasks"></i>
+ -->            <span>脑波监测</span>
+          <%end%>
+          <%= link_to behaviour_monitors_path, :class => 'metro-btn iframe_btn' do%>
+<!--             <i class="icon-tasks"></i>
+ -->            <span>行为体态监测</span>
+          <%end%>
+          <%= link_to network_monitors_path, :class => 'metro-btn iframe_btn' do%>
+<!--             <i class="icon-tasks"></i>
+ -->            <span>网络监测</span>
+          <%end%>
         </div>
           <iframe id="tab1_frames" src="<%=energy_consumption_monitors_path%>"></iframe>
       </div>
@@ -70,8 +80,35 @@
           <%= link_to '评测项目',
                       options_path(:key => "eval_means"), :class => 'btn iframe_btns' %>
         </div>
+        <div>
+        </div>
         <iframe id="tab1_framess" src="<%=lab_scenes_path%>"></iframe>
 
       </div>
     </div>
 </div>
+
+<%= javascript_include_tag "jquery.fancybox", "jquery_mousewheel_pack" %>
+<%= stylesheet_link_tag "jquery_fancybox", :media => "screen" %>
+<script type="text/javascript">
+  function show_fancybox(data_source,chart_type)
+  {
+    var url = $(".stub").attr("href")+"?chart_type="+chart_type+"&data_source="+data_source;
+    $(".stub").attr("href",url);
+    $(".stub").trigger("click");  
+  }
+  $(document).ready(function(){
+    $('.fancybox').fancybox({
+      width:$(document).width(),
+      height:$(document).height(),
+      margin: [15,15,15,15],
+      closeBtn  : true,
+      fitToView : true,
+      autoSize:false,
+      // height: 'auto',
+        afterShow: function(){
+            $.fancybox.update();
+        }
+    });
+  });
+</script>
