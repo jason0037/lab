@@ -53,13 +53,13 @@
         <td><%= link_to lab_course.id, lab_course_path(lab_course) %></td>
         <td><%= lab_course.name %></td>
         <td><%= lab_course.category_id %></td>
-        <td><%= lab_course.type %></td>
+        <td><%= lab_course.course_type %></td>
         <td><%= lab_course.teacher_id %></td>
         <td><%= lab_course.start_time %></td>
         <td><%= lab_course.end_time %></td>
         <td><%= lab_course.status %></td>
         <td><%= lab_course.project_id %></td>
-        <td><%= lab_course.style %></td>
+        <td><%= lab_course.scene_id %></td>
         <td><%= lab_course.is_teach %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

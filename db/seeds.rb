@@ -151,6 +151,24 @@ LabUser.create([{name: 'apply',mobile: '15888801441',email: 'jason.chen@iotps.co
                 {name: 'student',mobile: '15888801441',email: 'jason.chen@iotps.com',account: 'student@iotps.com',password: 'e10adc3949ba59abbe56e057f20f883e',role_id: '5',status:'1'},
                 {name: 'system',mobile: '15888801441',email: 'jason.chen@iotps.com',account: 'system@iotps.com',password: 'e10adc3949ba59abbe56e057f20f883e',role_id: '6',status:'1'}])
 
+puts "Importing lab_equitments"
+LabEquipment.delete_all
+ActiveRecord::Base.connection.execute("alter table lab_equipments auto_increment=1")
+LabEquipment.create([{id:'1',name:'体态监测01',equipment_code:'001001',position:'1',status:'1'},
+                     {id:'2',name:'脑波监测01',equipment_code:'002001',position:'1',status:'1'},
+                     {id:'3',name:'路由器01',equipment_code:'003001',position:'1',status:'1'},
+                     {id:'4',name:'中控01',equipment_code:'004001',position:'1',status:'1'}
+                    ])
+
+puts "Importing lab_equitment_mapping"
+LabEquipmentMapping.delete_all
+ActiveRecord::Base.connection.execute("alter table lab_equipment_mappings auto_increment=1")
+LabEquipmentMapping.create([{id:'1',equipment_code:'001001',table_name:'B000001',status:'0'},
+                            {id:'2',equipment_code:'002001',table_name:'M000001',status:'0'},
+                            {id:'3',equipment_code:'003001',table_name:'R000001',status:'0'},
+                            {id:'4',equipment_code:'004001',table_name:'C000001',status:'0'}
+                           ])
+
 puts "Importing lab_notices"
 LabNotice.delete_all
 ActiveRecord::Base.connection.execute("alter table lab_notices auto_increment=1")
@@ -208,22 +226,10 @@ LabMobileCourse.create([{id:'1', title: '移动课程1',author_id:'2',course_typ
                         {id:'2', title: '移动课程2',author_id:'2',course_type:'3',file:'hijklmn.doc',status:'1',brief:'移动课程2移动课程2'}
                        ])
 
-puts "Importing lab_equitments"
-LabEquipment.delete_all
-ActiveRecord::Base.connection.execute("alter table lab_equipments auto_increment=1")
-LabEquipment.create([{id:'1',name:'体态监测01',equipment_code:'001001',position:'1',status:'1'},
-                     {id:'2',name:'脑波监测01',equipment_code:'002001',position:'1',status:'1'},
-                     {id:'3',name:'路由器01',equipment_code:'003001',position:'1',status:'1'},
-                     {id:'4',name:'中控01',equipment_code:'004001',position:'1',status:'1'}
-                    ])
-
-puts "Importing lab_equitment_mapping"
-LabEquipmentMapping.delete_all
-ActiveRecord::Base.connection.execute("alter table lab_equipment_mappings auto_increment=1")
-LabEquipmentMapping.create([{id:'1',equipment_code:'001001',table_name:'B000001',status:'0'},
-                            {id:'2',equipment_code:'002001',table_name:'M000001',status:'0'},
-                            {id:'3',equipment_code:'003001',table_name:'R000001',status:'0'},
-                            {id:'4',equipment_code:'004001',table_name:'C000001',status:'0'}
-                           ])
-
+puts "Importin lab_courses"
+LabCourse.delete_all
+ActiveRecord::Base.connection.execute("alter table lab_courses auto_increment=1")
+LabCourse.create([{id:'1',name:'实验课堂教学1',category_id:'1',course_type:'1',teacher_id:'2',start_time:'2014-04-21 09:00',end_time:'2014-04-21 10:00',status:'1',project_id:'1',progress:'1',publish_time:'2014-04-01 10:00',scene_id:'1',is_teach:'1'},
+                  {id:'2',name:'实验课堂教学2',category_id:'2',course_type:'2',teacher_id:'2',start_time:'2014-05-21 09:00',end_time:'2014-05-21 10:00',status:'1',project_id:'1',progress:'1',publish_time:'2014-04-01 10:00',scene_id:'1',is_teach:'1'}
+                 ])
 

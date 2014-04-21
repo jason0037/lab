@@ -3,7 +3,7 @@ class CreateLabCourses < ActiveRecord::Migration
     create_table :lab_courses do |t|
       t.string :name
       t.integer :category_id
-      t.integer :type
+      t.integer :course_type
       t.integer :teacher_id
       t.datetime :start_time
       t.datetime :end_time
@@ -13,7 +13,7 @@ class CreateLabCourses < ActiveRecord::Migration
       t.datetime :publish_time
       t.datetime :apply_time
       t.string :approve_time
-      t.integer :style
+      t.integer :scene_id
       t.integer :course_property
       t.integer :is_teach
       t.integer :before
