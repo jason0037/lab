@@ -7,6 +7,10 @@ class MonitorsController < ApplicationController
   # GET /lab_cats.json
   layout "blank"#,:except => [:show]
 
+  def index
+    @lab_courses = LabCourse.limit(5).order("created_at DESC")
+  end
+
   def camera
 
   end

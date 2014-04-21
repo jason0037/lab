@@ -24,7 +24,7 @@ Lab::Application.routes.draw do
     get :network, :on=> :collection
     get :network_data, :on=> :collection
     get :get_big_chart, :on=> :collection
-    get :lab_manage_home, :on=>:collection
+
   end
 
 

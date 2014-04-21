@@ -18,7 +18,7 @@
         <i class="icon-hdd"></i>
         <span>移动课程管理</span>
       </a></li>
-      <li><a href="#mooc">
+      <li><a href="http://101.226.163.149:18010/" target="_blank">
         <i class="icon-hdd"></i>
         <span>MOOC课程管理</span>
       </a></li>
@@ -60,12 +60,8 @@
         <div class="help-inline full_width">
           <%= link_to '学科分类',
                       options_path(:key => "course_type"), :class => 'btn iframe_btn' %>
-
         </div>
         <iframe id="tab1_frames" src="<%=options_path%>?key=course_type"></iframe>
-      </div>
-      <div class="tab-pane full_height" id="data_analysis">
-        ...
       </div>
     </div> 
 </div>
