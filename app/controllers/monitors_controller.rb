@@ -83,12 +83,22 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 
   def mind_wave_data
     equipment_code = params[:equipment_code]
+    point_id=params[:point_id]
+    if (point_id.blank?)
+      point_id='000001'
+    end
+    case point_id
+      when "000001"
+        mind_wave_meaning="注意力"
+      when "000002"
+        mind_wave_meaning="放松度"
+    end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
     start_time = "20140101010001"
     end_time = "20150101010101"
-    datas = BData.where("point_id='000001' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
+    datas = BData.where("point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
     cats_str = ''
     data_str = ''
@@ -100,7 +110,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     datasets = "<dataset seriesName='实时脑波' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
     charts = "<chart animation='0' manageResize='1' bgColor='000000' bgAlpha='100'  canvasBorderThickness='1'
 canvasBorderColor='008040' canvasBgColor='000000' canvasBgAlpha='100' divLineColor='008040'
-vDivLineColor='008040' divLineAlpha='100' baseFontColor='00dd00' caption='脑波监测/实时趋势图'
+vDivLineColor='008040' divLineAlpha='100' baseFontColor='00dd00' caption='#{mind_wave_meaning}监测/实时趋势图'
 dataStreamURL='' refreshInterval='900' PYAxisName='频率( )' SYAxisName=' '
 SYAxisMinValue='0' SYAXisMaxValue='40' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate'
