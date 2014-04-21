@@ -1,11 +1,15 @@
 <%- model_class = LabCourseware -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+<div class="metro adjust-lab">
+  <nav class="breadcrumbs" style="margin-top: 20px">
+    <ul>
+      <li><a href="#"><i class="icon-home"></i></a></li>
+      <li><a href="#">课件</a></li>
+      <li><a href="#"><%= @lab_courseware.name %></a></li>
+    </ul>
+  </nav>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @lab_courseware.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:course_id) %>:</strong></dt>
   <dd><%= @lab_courseware.course_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:productor_id) %>:</strong></dt>

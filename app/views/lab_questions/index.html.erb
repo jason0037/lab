@@ -28,7 +28,7 @@
         <td><%= lab_question.desc %></td>
         <td><%= lab_question.question_category %></td>
         <td><%= lab_question.version %></td>
-        <td><%= lab_question.created_at %></td>
+        <td><%=l lab_question.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_question_path(lab_question), :class => 'btn btn-mini' %>

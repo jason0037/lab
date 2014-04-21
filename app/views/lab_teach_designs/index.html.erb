@@ -29,7 +29,7 @@
         <td><%= lab_teach_design.lab_user.name %></td>
         <td><%= Option.where(:key=>"course_type",:value=>lab_teach_design.course_type).first.name %></td>
         <td><%= lab_teach_design.status== 0 ? "私有" : "公开" %></td>
-        <td><%= lab_teach_design.created_at %></td>
+        <td><%=l lab_teach_design.created_at %></td>
         <td><%=link_to lab_teach_design.file,"#{lab_teach_design.file}", :target=>'_blank' %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

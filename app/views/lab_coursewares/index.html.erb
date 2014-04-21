@@ -38,10 +38,10 @@
         <td><%= lab_courseware.type %></td>
         <td><%= lab_courseware.play_time %></td>
         <td><%= lab_courseware.file_size %></td>
-        <td><%= lab_courseware.product_time %></td>
+        <td><%=l lab_courseware.product_time %></td>
         <td><%= lab_courseware.download_url %></td>
         <td><%= lab_courseware.download_times %></td>
-        <td><%= lab_courseware.publish_time %></td>
+        <td><%=l lab_courseware.publish_time %></td>
         <td><%=l lab_courseware.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
