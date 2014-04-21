@@ -20,7 +20,7 @@ development:
   pool: 10
   username: root
   password: 
-  host: 101.226.163.149
+  host: 10.13.4.100
   port: 3306
 
 test:
@@ -41,6 +41,6 @@ production:
   pool: 10
   username: root
   password: 
-  host: 101.226.163.149
+  host: 10.13.4.100
   port: 3306
 
