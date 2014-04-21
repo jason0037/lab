@@ -1,42 +1,46 @@
 <%- model_class = LabCourse -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+<div class="metro adjust-lab">
+  <nav class="breadcrumbs" style="margin-top: 20px">
+    <ul>
+      <li><a href="#"><i class="icon-home"></i></a></li>
+      <li><a href="#">实验课堂</a></li>
+      <li><a href="#"><%= @lab_course.name %></a></li>
+    </ul>
+  </nav>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @lab_course.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:category_id) %>:</strong></dt>
+  <dt><strong>学科类别:</strong></dt>
   <dd><%= @lab_course.category_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:type) %>:</strong></dt>
-  <dd><%= @lab_course.type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:teacher_id) %>:</strong></dt>
+  <dt><strong>课程类别:</strong></dt>
+  <dd><%= @lab_course.course_type %></dd>
+  <dt><strong>教师:</strong></dt>
   <dd><%= @lab_course.teacher_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:start_time) %>:</strong></dt>
-  <dd><%= @lab_course.start_time %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:end_time) %>:</strong></dt>
-  <dd><%= @lab_course.end_time %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dt><strong>开始时间:</strong></dt>
+  <dd><%=l @lab_course.start_time %></dd>
+  <dt><strong>结束时间:</strong></dt>
+  <dd><%=l @lab_course.end_time %></dd>
+  <dt><strong>状态:</strong></dt>
   <dd><%= @lab_course.status %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:report_id) %>:</strong></dt>
-  <dd><%= @lab_course.report_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:progress) %>:</strong></dt>
+  <dt><strong>评测对象:</strong></dt>
+  <dd><%= @lab_course.project_id %></dd>
+  <dt><strong>过程:</strong></dt>
   <dd><%= @lab_course.progress %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:publish_time) %>:</strong></dt>
-  <dd><%= @lab_course.publish_time %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:apply_time) %>:</strong></dt>
-  <dd><%= @lab_course.apply_time %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:approve_time) %>:</strong></dt>
-  <dd><%= @lab_course.approve_time %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:style) %>:</strong></dt>
-  <dd><%= @lab_course.style %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:course_property) %>:</strong></dt>
+  <dt><strong>发布时间:</strong></dt>
+  <dd><%=l @lab_course.publish_time %></dd>
+  <dt><strong>申请时间:</strong></dt>
+  <dd><%=l @lab_course.apply_time %></dd>
+  <dt><strong>批准时间:</strong></dt>
+  <dd><%=l @lab_course.approve_time %></dd>
+  <dt><strong>场景:</strong></dt>
+  <dd><%= @lab_course.scene_id %></dd>
+  <dt><strong>课程属性:</strong></dt>
   <dd><%= @lab_course.course_property %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:is_teach) %>:</strong></dt>
+  <dt><strong>是否需要教师:</strong></dt>
   <dd><%= @lab_course.is_teach %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:before) %>:</strong></dt>
+  <dt><strong>在此之前:</strong></dt>
   <dd><%= @lab_course.before %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:desc) %>:</strong></dt>
+  <dt><strong>简介:</strong></dt>
   <dd><%= @lab_course.desc %></dd>
 </dl>
 

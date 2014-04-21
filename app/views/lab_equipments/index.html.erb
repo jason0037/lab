@@ -28,7 +28,7 @@
         <td><%= lab_equipment.equipment_code %></td>
         <td><%= lab_equipment.position %></td>
  <!--       <td><%#= lab_equipment.lab_equipment_mapping.status %></td> -->
-        <td><%= lab_equipment.created_at %></td>
+        <td><%=l lab_equipment.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_equipment_path(lab_equipment), :class => 'btn btn-mini' %>

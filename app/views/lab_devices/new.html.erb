@@ -1,5 +1,11 @@
 <%- model_class = LabDevice -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human %></h1>
+<div class="metro adjust-lab">
+  <nav class="breadcrumbs" style="margin-top: 20px">
+    <ul>
+      <li><a href="#"><i class="icon-home"></i></a></li>
+      <li><a href="#">设备</a></li>
+      <li><a href="#">新增</a></li>
+    </ul>
+  </nav>
 </div>
 <%= render :partial => 'form' %>

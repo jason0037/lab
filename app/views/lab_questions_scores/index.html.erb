@@ -28,7 +28,7 @@
         <td><%= lab_questions_score.project_id %></td>
         <td><%= lab_questions_score.question_importance_score %></td>
         <td><%= lab_questions_score.total %></td>
-        <td><%= lab_questions_score.created_at %></td>
+        <td><%=l lab_questions_score.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_question_item_path(lab_question_item), :class => 'btn btn-mini' %>

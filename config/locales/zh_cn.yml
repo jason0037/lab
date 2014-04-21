@@ -39,3 +39,6 @@ zh_cn:
       - :day
       - :month
       - :year
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M:%S"
