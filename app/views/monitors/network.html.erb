@@ -1,16 +1,27 @@
 <%- model_class = LabUser -%>
-<div class="panel">
-  <header>
-    <i class="icon-asterisk"></i>
-    <span>>网络监控</span>
-    <%= text_field_tag('data_source_1', "/monitors/network_data?equipment_code=003001", :type=>'hidden')%>
-  </header>
+<div class="metro adjust-lab">
+  <nav class="breadcrumbs" style="margin-top: 20px">
+    <ul>
+      <li><a href="#"><i class="icon-home"></i></a></li>
+      <li><a href="#">实验室管理</a></li>
+      <li><a href="#">网络监测</a></li>
+    </ul>
+  </nav>
 </div>
-<ul>
+
+<ul class="muti_charts" style="margin-left:3px">
+  <li>
+    <div>
+      <img src="/assets/dashboard.jpg"><br/>
+      低  <------->  高
+    </div>
+  </li>
   <li>
     <div id="chart-01">
-      <div id="chart-container-1">
-      </div>
+      <%= text_field_tag('data_source_1', "/monitors/network_data?equipment_code=003001", :type=>'hidden')%>
+      <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
+           data-source="/monitors/network_data?equipment_code=003001"
+           id="chart-container-1"></div>
     </div>
   </li>
   <li></li>

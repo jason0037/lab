@@ -17,8 +17,16 @@
 <%= text_field_tag('data_source_1', "/monitors/energy_consumption_data?equipment_code=004001", :type=>'hidden')%>
 <ul>
   <li>
+    <div>
+      <img src="/assets/dashboard.jpg"><br/>
+      低  <------->  高
+    </div>
+  </li>
+  <li>
     <div id="chart-01">
-      <div id="chart-container-1">
+      <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
+           data-source="/monitors/network_data?equipment_code=004001"
+           id="chart-container-1">
       </div>
     </div>
   </li>
