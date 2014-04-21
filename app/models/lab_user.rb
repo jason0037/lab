@@ -15,4 +15,7 @@ class LabUser < ActiveRecord::Base
   validates :password, :presence=>{:presence=>true,:message=>"请填写密码."}
   validates :role_id, :presence=>{:presence=>true,:message=>"请选择用户类型."}
 
+
+  #after_save :sync_edx_user
+
 end

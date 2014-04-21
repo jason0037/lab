@@ -53,8 +53,59 @@ class LabUsersController < ApplicationController
   def create
     @lab_user = LabUser.new(params[:lab_user])
 
+
+    @lab_user.password = Digest::MD5.hexdigest(params[:lab_user][:password])
+
+
     respond_to do |format|
       if @lab_user.save
+        
+        edx = EdxUser.new
+        edx.username = @lab_user.name
+        edx.email = @lab_user.email
+        encode_str = Base64.encode64 PBKDF256.dk(params[:lab_user][:password],"uFocFWnOvIKN",10000,32)
+        new_pass = "pbkdf2_sha256$10000$uFocFWnOvIKN$"+encode_str
+        edx.password = new_pass.chomp
+        edx.is_staff = 0
+        edx.is_active = 1
+        edx.first_name = ''
+        edx.last_name = ''
+        edx.is_superuser = 0
+        edx.last_login = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+        edx.date_joined = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+        edx.save
+
+        profile = EdxProfile.new
+        profile.user_id = edx.id
+        profile.name = @lab_user.name
+        profile.language = ''
+        profile.location = ''
+        profile.meta = ''
+        profile.mailing_address = ''
+        profile.goals = ''
+        profile.country = ''
+        profile.courseware = "course.xml"
+        profile.gender = 'm'
+        profile.year_of_birth = 2010
+        profile.level_of_education = 'b'
+        profile.allow_certificate = 1
+        profile.save
+
+        prefer = EdxApiPreference.new
+        prefer.user_id = edx.id
+        prefer.key = "pref-lang"
+        prefer.value = 'zh-cn'
+        prefer.save
+
+
+        user = User.new
+        user.external_id = edx.id
+        user.default_sort_key = "date"
+        user.external_id = 26
+        user.username = @lab_user.name
+        user.email = @lab_user.email
+        user.save
+
         format.html { redirect_to login_lab_users_path, notice: '用户注册完成，请等待管理员审核通过.' }
         format.json { render json: @lab_user, status: :created, location: @lab_user }
       else
