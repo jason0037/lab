@@ -90,8 +90,10 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     case point_id
       when "000001"
         mind_wave_meaning="注意力"
+        meaning_color="00dd00"
       when "000002"
         mind_wave_meaning="放松度"
+        meaning_color="000093"
     end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
@@ -108,16 +110,16 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     end
     categorys = "<categories>#{cats_str}</categories>"
     datasets = "<dataset seriesName='实时脑波' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
-    charts = "<chart animation='0' manageResize='1' bgColor='000000' bgAlpha='100'  canvasBorderThickness='1'
-canvasBorderColor='008040' canvasBgColor='000000' canvasBgAlpha='100' divLineColor='008040'
-vDivLineColor='008040' divLineAlpha='100' baseFontColor='00dd00' caption='#{mind_wave_meaning}监测/实时趋势图'
-dataStreamURL='' refreshInterval='900' PYAxisName='频率( )' SYAxisName=' '
+    charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'  canvasBorderThickness='1'
+canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100' divLineColor='008040'
+vDivLineColor='008040' divLineAlpha='100' baseFontColor='#{meaning_color}' caption='#{mind_wave_meaning}监测/实时趋势图'
+dataStreamURL='' refreshInterval='900' PYAxisName='100%' SYAxisName=' '
 SYAxisMinValue='0' SYAXisMaxValue='40' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate'
-slantLabels='1' labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='000000'
+slantLabels='1' labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='FFFFFF'
 toolTipBorderColor='008040' baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0'
-legendBgColor='000000' legendBorderColor='008040' legendShadow='0'><styles><definition>
-<style name='MyFontStyle' type='font' size='24' bold='0'/></definition><application>
+legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><definition>
+<style name='MyFontStyle' type='font' size='20' bold='0'/></definition><application>
 <apply toObject='Caption' styles='MyFontStyle' /></application></styles>#{categorys}#{datasets}</chart>"
     render :text => charts
   end
