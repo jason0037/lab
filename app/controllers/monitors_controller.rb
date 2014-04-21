@@ -32,19 +32,18 @@ class MonitorsController < ApplicationController
       j= j+1
       read_at = Time.now.strftime('%Y%m%d%H%M%S')
       res = Net::HTTP.get_response(URI.parse('http://180.173.14.8:23456/')).body.split("\r\n")
-      i = 1
+
       res.each do |value|
         sql ="insert B000001_reading (point_id,read_at,saved_at,value,source) values('00000#{value[1,1]}'
           ,'#{read_at}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{value[2,5]}','#{value[0,1]}')"
         ActiveRecord::Base.connection.execute sql
-        i= i+1
+
       end
       if (j>100)
         scheduler.stop
       end
     end
   end
-
 
   class BData < LabData
    set_table_name "#{table_name}"
@@ -89,7 +88,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
     start_time = "20140101010001"
     end_time = "20150101010101"
-    datas = BData.where("read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
+    datas = BData.where("point_id='000001' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
     cats_str = ''
     data_str = ''
@@ -151,7 +150,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
     start_time = "20140101010001"
     end_time = "20150101010101"
-    datas = BData.where("read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
+    datas = BData.select("read_at,sum(value) as value").group("read_at").where("read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
     cats_str = ''
     data_str = ''
