@@ -27,10 +27,10 @@
         </a>
       </li>
       <li>
-          <a href="#base_data">
-            <i class="icon-tasks"></i>
-            <span>基础数据维护</span>
-          </a>
+        <a href="#base_data">
+          <i class="icon-tasks"></i>
+          <span>基础数据维护</span>
+        </a>
       </li>
       <li>
         <a href="#data_analysis">
@@ -53,24 +53,24 @@
 <!--             <i class="icon-tasks"></i>
  -->            <span>实验课堂</span>
           <%end%>
-          <%= link_to energy_consumption_monitors_path, :class => 'metro-btn iframe_btn' do%>
-<!--             <i class="icon-tasks"></i>
- -->            <span>能耗监测</span>
+          <%= link_to behaviour_monitors_path, :class => 'metro-btn iframe_btn' do%>
+              <!--             <i class="icon-tasks"></i>
+               -->            <span>行为体态监测</span>
           <%end%>
           <%= link_to mind_wave_monitors_path, :class => 'metro-btn iframe_btn' do%>
 <!--             <i class="icon-tasks"></i>
  -->            <span>脑波监测</span>
           <%end%>
-          <%= link_to behaviour_monitors_path, :class => 'metro-btn iframe_btn' do%>
-<!--             <i class="icon-tasks"></i>
- -->            <span>行为体态监测</span>
-          <%end%>
           <%= link_to network_monitors_path, :class => 'metro-btn iframe_btn' do%>
 <!--             <i class="icon-tasks"></i>
  -->            <span>网络监测</span>
           <%end%>
+          <%= link_to energy_consumption_monitors_path, :class => 'metro-btn iframe_btn' do%>
+              <!--             <i class="icon-tasks"></i>
+               -->            <span>能耗监测</span>
+          <%end%>
         </div>
-          <iframe id="tab1_frames" src="<%=energy_consumption_monitors_path%>"></iframe>
+          <iframe id="tab1_frames" src="<%=lab_manage_home_monitors_path%>"></iframe>
       </div>
       <div class="tab-pane full_height" id="notices">
         <iframe id="tab1_frame" src="<%=lab_notices_path%>"></iframe>
@@ -91,8 +91,8 @@
         <iframe id="tab1_framess" src="<%=lab_scenes_path%>"></iframe>
 
       </div>
-      <div class="tabl-pane full_height" id="data_analysis">
-        ...
+      <div class="tab-pane full_height" id="data_analysis">
+        ....
       </div>
     </div>
 </div>
