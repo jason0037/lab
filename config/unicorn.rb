@@ -1,7 +1,7 @@
 worker_processes 2
 preload_app true
 timeout 30
-listen 5000
+listen 9090
 
 require 'pathname'
 
@@ -10,6 +10,10 @@ path = Pathname.new(__FILE__).realpath # 当前文件完整路径
 path = path.sub('/config/unicorn.rb', '')
 
 APP_PATH = path.to_s
+
+#pid 日志
+
+pid APP_PATH + "/tmp/pids/unicorn.pid"
 
 # unicorn 日志
 
