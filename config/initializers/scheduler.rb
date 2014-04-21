@@ -4,7 +4,7 @@ require 'net/http'
 
 scheduler = Rufus::Scheduler.start_new
 @logger ||= Logger.new("log/scheduler.log")
-
+=begin
 scheduler.every '15s' do
 
   @mappings = LabEquipmentMapping.where(:status=>0)
@@ -23,4 +23,4 @@ scheduler.every '15s' do
       mapping.save
   end
 end
-
+=end

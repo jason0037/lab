@@ -7,5 +7,6 @@
 }
 
 .muti_charts li{
-	width: 320px;
-}
+     width: 320px;
+     float:left;
+ }

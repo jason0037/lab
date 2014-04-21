@@ -1,0 +1,56 @@
+<div class="metro adjust-lab">
+  <nav class="breadcrumbs" style="margin-top: 20px">
+    <ul>
+      <li><a href="#"><i class="icon-home"></i></a></li>
+      <li><a href="#">实验室管理</a></li>
+    </ul>
+  </nav>
+</div>
+<ul class="muti_charts" style="margin-left:3px">
+  <li>
+    <div id="chart-01">
+      <%= text_field_tag('data_source_1', "/monitors/behaviour_data?equipment_code=001001", :type=>'hidden')%>
+      <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
+           data-source="/monitors/behaviour_data?equipment_code=001001"
+           id="chart-container-1">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-02">
+      <%= text_field_tag('data_source_2', "/monitors/mind_wave_data?equipment_code=002001", :type=>'hidden')%>
+      <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
+           data-source="/monitors/mind_wave_data?equipment_code=002001"
+           id="chart-container-2">
+      </div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-03">
+      <%= text_field_tag('data_source_3', "/monitors/network_data?equipment_code=003001", :type=>'hidden')%>
+      <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
+           data-source="/monitors/network_data?equipment_code=003001"
+           id="chart-container-3">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-04">
+      <%= text_field_tag('data_source_4', "/monitors/energy_consumption?equipment_code=004001", :type=>'hidden')%>
+      <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
+           data-source="/monitors/energy_consumption_data?equipment_code=004001"
+           id="chart-container-4">
+      </div>
+    </div>
+  </li>
+  <li></li>
+  <li></li>
+</ul>
+<script type="text/javascript">
+    $(".small_chart").click(function(e){
+        var chart_type = $(this).attr("chart-type");
+        var data_source = $(this).attr("data-source");
+        window.parent.show_fancybox(data_source,chart_type);
+    })
+</script>
