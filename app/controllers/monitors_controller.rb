@@ -55,6 +55,7 @@ class MonitorsController < ApplicationController
 
   def energy_consumption_data
     equipment_code = params[:equipment_code]
+    size = params[:size]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
@@ -64,8 +65,12 @@ class MonitorsController < ApplicationController
 
     cats_str = ''
     data_str = ''
+    read_at = ''
     datas.each do |data|
-      cats_str += "<category label='#{data.read_at[8..14]}'/>"
+      if size!='small'
+        read_at = data.read_at[8..14]
+      end
+      cats_str += "<category label='#{read_at}'/>"
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}</categories>"
@@ -87,7 +92,9 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 
   def mind_wave_data
     equipment_code = params[:equipment_code]
-    point_id=params[:point_id]
+    point_id = params[:point_id]
+    size = params[:size]
+
     if (point_id.blank?)
       point_id='000001'
     end
@@ -108,8 +115,12 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 
     cats_str = ''
     data_str = ''
+    read_at = ''
     datas.each do |data|
-      cats_str += "<category label='#{data.read_at[8..14]}'/>"
+      if size!='small'
+        read_at = data.read_at[8..14]
+      end
+      cats_str += "<category label='#{read_at}'/>"
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}</categories>"
@@ -130,6 +141,7 @@ legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><defi
 
   def network_data
     equipment_code = params[:equipment_code]
+    size = params[:size]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
@@ -139,8 +151,12 @@ legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><defi
 
     cats_str = ''
     data_str = ''
+    read_at = ''
     datas.each do |data|
-      cats_str += "<category label='#{data.read_at[8..14]}'/>"
+      if size!='small'
+        read_at = data.read_at[8..14]
+      end
+      cats_str += "<category label='#{read_at}'/>"
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}</categories>"
@@ -161,6 +177,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
 
   def behaviour_data
     equipment_code = params[:equipment_code]
+    size = params[:size]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
@@ -170,20 +187,25 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
 
     cats_str = ''
     data_str = ''
+    read_at = ''
     datas.each do |data|
-      cats_str += "<category label='#{data.read_at[8..14]}'/>"
+
+      if size!='small'
+        read_at = data.read_at[8..14]
+      end
+      cats_str += "<category label='#{read_at}'/>"
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}</categories>"
     datasets = "<dataset seriesName='实时体态' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
-    charts = "<chart animation='0' manageResize='1' bgColor='000000' bgAlpha='100'
-canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='000000' canvasBgAlpha='100'
-divLineColor='008040' vDivLineColor='008040' divLineAlpha='100' baseFontColor='00dd00'
-caption='体态监测/实时趋势图' dataStreamURL='' refreshInterval='900' PYAxisName='动作幅度()'
+    charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'
+canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100'
+divLineColor='008040' vDivLineColor='008040' divLineAlpha='100' baseFontColor='#28004D'
+caption='体态监测/实时趋势图' dataStreamURL='' refreshInterval='900' PYAxisName='体态变化值'
 SYAxisName=' ' SYAxisMinValue='0' SYAXisMaxValue='40' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate' slantLabels='1'
-labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='000000' toolTipBorderColor='008040'
-baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0' legendBgColor='000000'
+labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='FFFFFF' toolTipBorderColor='008040'
+baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0' legendBgColor='FFFFFF'
 legendBorderColor='008040' legendShadow='0'><styles><definition>
 <style name='MyFontStyle' type='font' size='24' bold='0'/></definition>
 <application><apply toObject='Caption' styles='MyFontStyle' /></application>

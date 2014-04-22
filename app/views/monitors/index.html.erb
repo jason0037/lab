@@ -77,7 +77,7 @@
 <ul class="muti_charts" style="margin-left:3px;display:none">
   <li>
     <div id="chart-01">
-      <%= text_field_tag('data_source_1', "/monitors/behaviour_data?equipment_code=001001", :type=>'hidden')%>
+      <%= text_field_tag('data_source_1', "/monitors/behaviour_data?equipment_code=001001&size=small", :type=>'hidden')%>
       <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
            data-source="/monitors/behaviour_data?equipment_code=001001"
            id="chart-container-1">
@@ -86,7 +86,7 @@
   </li>
   <li>
     <div id="chart-02">
-      <%= text_field_tag('data_source_2', "/monitors/mind_wave_data?equipment_code=002001", :type=>'hidden')%>
+      <%= text_field_tag('data_source_2', "/monitors/mind_wave_data?equipment_code=002001&size=small", :type=>'hidden')%>
       <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
            data-source="/monitors/mind_wave_data?equipment_code=002001"
            id="chart-container-2">
@@ -96,7 +96,7 @@
   </li>
   <li>
     <div id="chart-03">
-      <%= text_field_tag('data_source_3', "/monitors/network_data?equipment_code=003001", :type=>'hidden')%>
+      <%= text_field_tag('data_source_3', "/monitors/network_data?equipment_code=003001&size=small", :type=>'hidden')%>
       <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
            data-source="/monitors/network_data?equipment_code=003001"
            id="chart-container-3">
@@ -105,7 +105,7 @@
   </li>
   <li>
     <div id="chart-04">
-      <%= text_field_tag('data_source_4', "/monitors/energy_consumption?equipment_code=004001", :type=>'hidden')%>
+      <%= text_field_tag('data_source_4', "/monitors/energy_consumption?equipment_code=004001&size=small", :type=>'hidden')%>
       <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
            data-source="/monitors/energy_consumption_data?equipment_code=004001"
            id="chart-container-4">
