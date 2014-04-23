@@ -136,7 +136,7 @@ LabRole.delete_all
 ActiveRecord::Base.connection.execute("alter table lab_roles auto_increment=1")
 LabRole.create([{id:'1', name: '评测申请人',path:"apply_manage_lab_users_path"},
                 {id:'2',name: '教师',path:"teacher_manage_lab_users_path"},
-                {id:'3',name: '课程管理员',path:"admin_manage_lab_users_path"},
+                {id:'3',name: '课程管理员',path:"course_manage_lab_users_path"},
                 {id:'4',name: '实验室管理员',path:"lab_manage_lab_users_path"},
                 {id:'5',name: '学生',path:"student_manage_lab_users_path"},
                 {id:'6',name: '系统管理员',path:"system_manage_lab_users_path"}])

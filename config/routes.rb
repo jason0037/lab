@@ -41,7 +41,6 @@ Lab::Application.routes.draw do
 
   resources :lab_questions_scores
 
-
   resources :lab_questions
 
   resources :lab_reports
@@ -107,7 +106,7 @@ Lab::Application.routes.draw do
     get :logout,:on=>:collection
     get :teacher_manage,:on=>:collection
     get :apply_manage,:on=>:collection
-    get :admin_manage,:on=>:collection
+    get :course_manage,:on=>:collection
     get :lab_manage,:on=>:collection
     get :student_manage,:on=>:collection
     get :system_manage,:on=>:collection
