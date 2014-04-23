@@ -364,7 +364,7 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
 
   def interactive_study_data
 
-    charts = '<chart caption="Sales - 2013 v 2012" numberprefix="$" plotgradientcolor="" bgcolor="FFFFFF" showalternatehgridcolor="0" divlinecolor="CCCCCC" showvalues="0" showcanvasborder="0" canvasborderalpha="0" canvasbordercolor="CCCCCC" canvasborderthickness="1" yaxismaxvalue="30000" captionpadding="30" yaxisvaluespadding="15" legendshadow="0" legendborderalpha="0" palettecolors="#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78" showplotborder="0" >
+    charts = '<chart caption="常用的交互方式" numberprefix="人次" plotgradientcolor="" bgcolor="FFFFFF" showalternatehgridcolor="0" divlinecolor="CCCCCC" showvalues="0" showcanvasborder="0" canvasborderalpha="0" canvasbordercolor="CCCCCC" canvasborderthickness="1" yaxismaxvalue="30000" captionpadding="30" yaxisvaluespadding="15" legendshadow="0" legendborderalpha="0" palettecolors="#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78" showplotborder="0" >
 <categories>
 <category label="Jan" />
 <category label="Feb" />
@@ -379,7 +379,7 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
 <category label="Nov" />
 <category label="Dec" />
 </categories>
-<dataset seriesname="2013">
+<dataset seriesname="异步">
 <set value="22400" />
 <set value="24800" />
 <set value="21800" />
@@ -393,7 +393,7 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
 <set value="26800" />
 <set value="24800" />
 </dataset>
-<dataset seriesname="2012">
+<dataset seriesname="同步">
 <set value="10000" />
 <set value="11500" />
 <set value="12500" />

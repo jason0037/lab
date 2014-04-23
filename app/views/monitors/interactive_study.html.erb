@@ -9,23 +9,14 @@
   </nav>
 </div>
 
-<ul class="muti_charts" style="margin-left:3px">
+<ul>
   <li>
-    <div id="chart-00">
-      <%= text_field_tag('data_source_0', "/monitors/dashboard_data?equipment_code=002001&point_id=000000&size=small&chart=AngularGauge", :type=>'hidden')%>
-      <div class="small_chart" chart-type="/FusionCharts/AngularGauge.swf"
-           data-source="/monitors/dashboard_data?equipment_code=002001"
-           id="chart-container-0">
+    <div>
+      <%= text_field_tag('data_source_mscolumn2d', "/monitors/interactive_study_data?equipment_code=002001&point_id=000000&size=small&chart=AngularGauge", :type=>'hidden')%>
+      <div  chart-type="/FusionCharts/MSColumn2D.swf"
+           data-source="/monitors/interactive_study_data?equipment_code=002001"
+           id="chart-container-mscolumn2d">
       </div>
-    </div>
-  </li>
-  <li>
-    <div id="chart-01">
-      <%= text_field_tag('data_source_1', "/monitors/behaviour_data?equipment_code=001001&size=small", :type=>'hidden')%>
-        <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
-             data-source="/monitors/behaviour_data?equipment_code=001001&point_id=000001"
-             id="chart-container-1">
-        </div>
     </div>
   </li>
   <li>

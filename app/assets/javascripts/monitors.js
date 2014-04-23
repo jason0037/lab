@@ -40,4 +40,12 @@ $(document).ready(function(){
         chart.setXMLUrl(data_source);
         chart.render("chart-container-gantt");
     }
+
+    if($('#data_source_mscolumn2d')!='undefined'){
+        var chart = new FusionCharts( "/FusionCharts/MSColumn2D.swf",
+            "chart_mscolumn2d_01", "100%", 250, "0", "1" );
+        var data_source = $('#data_source_mscolumn2d').val();
+        chart.setXMLUrl(data_source);
+        chart.render("chart-container-mscolumn2d");
+    }
 });
