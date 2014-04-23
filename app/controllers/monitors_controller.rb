@@ -11,7 +11,7 @@ class MonitorsController < ApplicationController
     @lab_courses = LabCourse.limit(5).order("created_at DESC")
   end
 
-  def camera
+  def comprehensive
 
   end
 
@@ -214,6 +214,62 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
 <style name='MyFontStyle' type='font' size='24' bold='0'/></definition>
 <application><apply toObject='Caption' styles='MyFontStyle' /></application>
 </styles>#{categorys}#{datasets}</chart>"
+    render :text => charts
+  end
+
+  def dashboard_data
+
+    charts = '<chart manageresize="1" origw="300" origh="300" bgcolor="FFFFFF" upperlimit="100" lowerlimit="0" basefontcolor="FFFFFF" majortmnumber="11" majortmcolor="FFFFFF" majortmheight="8" minortmnumber="5" minortmcolor="FFFFFF" minortmheight="3" tooltipbordercolor="FFFFFF" tooltipbgcolor="333333" gaugeouterradius="100" gaugestartangle="225" gaugeendangle="-45" placevaluesinside="1" gaugeinnerradius="80%" annrenderdelay="0" gaugefillmix="" pivotradius="10" showpivotborder="0" pivotfillmix="{CCCCCC},{333333}" pivotfillratio="50,50" showshadow="0" gaugeoriginx="150" gaugeoriginy="150" >
+<colorrange>
+<color minvalue="0" maxvalue="50" code="C1E1C1" alpha="40" />
+<color minvalue="50" maxvalue="85" code="F6F164" alpha="40" />
+<color minvalue="85" maxvalue="120" code="F70118" alpha="40" />
+</colorrange>
+<dials>
+<dial value="65" bordercolor="FFFFFF" bgcolor="000000,CCCCCC,000000" borderalpha="0" basewidth="10" />
+</dials>
+<annotations>
+<annotationgroup x="150" y="150" showbelow="1">
+<annotation type="circle" x="0" y="0" radius="145" fillcolor="CCCCCC,111111" fillpattern="linear" fillalpha="100,100" fillratio="50,50" fillangle="-45" />
+<annotation type="circle" x="0" y="0" radius="120" fillcolor="111111,cccccc" fillpattern="linear" fillalpha="100,100" fillratio="50,50" fillangle="-45" />
+<annotation type="circle" x="0" y="0" radius="110" color="666666" />
+</annotationgroup>
+</annotations>
+</chart>'
+    render :text => charts
+  end
+
+  def comprehensive_data
+
+    charts = '<chart caption="综合分析" canvasborderalpha="0" radarborderalpha="50" radarborderthickness="1" radarfillcolor="FFFFFF" showlabels="1" drawanchors="0" ymaxvalue="10" showlimits="0" bgcolor="FFFFFF" legendborderalpha="0" >
+<categories>
+<category label="行为体态指数" />
+<category label="注意力脑波指数" />
+<category label="网速" />
+<category label="课堂测试成绩" />
+<category label="" />
+<category label="" />
+<category label="放松度脑波指数" />
+</categories>
+<dataset seriesname=" " color="008ee4" alpha="40">
+<set value="8" />
+<set value="9" />
+<set value="9" />
+<set value="8" />
+<set value="7" />
+<set value="9" />
+<set value="8" />
+</dataset>
+<dataset seriesname=" " color="6baa01" alpha="40">
+<set value="7" />
+<set value="6" />
+<set value="6" />
+<set value="4" />
+<set value="7" />
+<set value="6" />
+<set value="5" />
+</dataset>
+</chart>'
     render :text => charts
   end
 end

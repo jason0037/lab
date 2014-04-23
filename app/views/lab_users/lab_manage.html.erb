@@ -32,12 +32,6 @@
           <span>基础数据维护</span>
         </a>
       </li>
-      <li>
-        <a href="#data_analysis">
-          <i class="icon-tasks"></i>
-          <span>数据分析</span>
-        </a>
-      </li>
     </ul>
     <%= link_to 'hide_btn',get_big_chart_monitors_path, :class => 'stub hide fancybox fancybox.iframe' %>
     <div class="tab-content full_height"> 
@@ -50,24 +44,22 @@
       <div class="tab-pane full_height" id="lab_manage">
         <div class="help-inline full_width">
           <%= link_to lab_courses_path, :class => 'metro-btn iframe_btn' do%>
-<!--             <i class="icon-tasks"></i>
- -->            <span>实验课堂</span>
+              <span>实验课堂</span>
           <%end%>
           <%= link_to behaviour_monitors_path, :class => 'metro-btn iframe_btn' do%>
-              <!--             <i class="icon-tasks"></i>
-               -->            <span>行为体态监测</span>
+                <span>行为体态监测</span>
           <%end%>
           <%= link_to mind_wave_monitors_path, :class => 'metro-btn iframe_btn' do%>
-<!--             <i class="icon-tasks"></i>
- -->            <span>脑波监测</span>
+               <span>脑波监测</span>
           <%end%>
           <%= link_to network_monitors_path, :class => 'metro-btn iframe_btn' do%>
-<!--             <i class="icon-tasks"></i>
- -->            <span>网络监测</span>
+                <span>网络监测</span>
           <%end%>
           <%= link_to energy_consumption_monitors_path, :class => 'metro-btn iframe_btn' do%>
-              <!--             <i class="icon-tasks"></i>
-               -->            <span>能耗监测</span>
+                        <span>能耗监测</span>
+          <%end%>
+          <%= link_to comprehensive_monitors_path, :class => 'metro-btn iframe_btn' do%>
+                         <span>综合分析</span>
           <%end%>
         </div>
           <iframe id="tab1_frames" src="<%=monitors_path%>"></iframe>

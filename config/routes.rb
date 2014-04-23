@@ -13,8 +13,9 @@ Lab::Application.routes.draw do
 
 
   resources :monitors do
-    get :camera,:on=>:collection
-    get :camera_data,:on=>:collection
+    get :comprehensive,:on=>:collection
+    get :comprehensive_data,:on=>:collection
+    get :dashboard_data,:on=>:collection
     get :energy_consumption,:on=>:collection
     get :energy_consumption_data,:on=>:collection
     get :mind_wave, :on=>:collection
