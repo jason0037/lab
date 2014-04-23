@@ -6,6 +6,21 @@ class MonitorsController < ApplicationController
   # GET /lab_cats
   # GET /lab_cats.json
   layout "blank"#,:except => [:show]
+  def online
+
+  end
+
+  def general_behaviour
+
+  end
+
+  def interactive_study
+
+  end
+
+  def course_study
+
+  end
 
   def index
     @lab_courses = LabCourse.limit(5).order("created_at DESC")

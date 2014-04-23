@@ -1,0 +1,58 @@
+<%- model_class = LabUser -%>
+<div class="metro adjust-lab">
+  <nav class="breadcrumbs" style="margin-top: 20px">
+      <ul>
+          <li><a href="#"><i class="icon-home"></i></a></li>
+        <li><%=link_to "在线课堂数据分析", online_monitors_url %></li>
+          <li><%=link_to "交互学习行为", interactive_study_monitors_url %></li>
+      </ul>
+  </nav>
+</div>
+
+<ul class="muti_charts" style="margin-left:3px">
+  <li>
+    <div id="chart-00">
+      <%= text_field_tag('data_source_0', "/monitors/dashboard_data?equipment_code=002001&point_id=000000&size=small&chart=AngularGauge", :type=>'hidden')%>
+      <div class="small_chart" chart-type="/FusionCharts/AngularGauge.swf"
+           data-source="/monitors/dashboard_data?equipment_code=002001"
+           id="chart-container-0">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-01">
+      <%= text_field_tag('data_source_1', "/monitors/behaviour_data?equipment_code=001001&size=small", :type=>'hidden')%>
+        <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
+             data-source="/monitors/behaviour_data?equipment_code=001001&point_id=000001"
+             id="chart-container-1">
+        </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-02">
+      <div id="chart-container-02">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-03">
+      <div id="chart-container-03">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-04">
+      <div id="chart-container-04">
+      </div>
+    </div>
+  </li>
+  <li></li>
+  <li></li>
+</ul>
+<script type="text/javascript">
+    $(".small_chart").click(function(e){
+        var chart_type = $(this).attr("chart-type");
+        var data_source = $(this).attr("data-source");
+        window.parent.show_fancybox(data_source,chart_type);
+    })
+</script>

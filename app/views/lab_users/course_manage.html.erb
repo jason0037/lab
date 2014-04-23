@@ -66,26 +66,20 @@
 
       <div class="tab-pane full_height" id="data_analysis">
         <div class="help-inline full_width">
-          <%= link_to lab_courses_path, :class => 'metro-btn iframe_btn' do%>
-              <span>实验课堂</span>
+          <%= link_to general_behaviour_monitors_path, :class => 'metro-btn iframe_btn' do%>
+              <span>一般行为习惯</span>
           <%end%>
-          <%= link_to behaviour_monitors_path, :class => 'metro-btn iframe_btn' do%>
-              <span>行为体态监测</span>
+          <%= link_to interactive_study_monitors_path, :class => 'metro-btn iframe_btn' do%>
+              <span>交互学习行为</span>
           <%end%>
-          <%= link_to mind_wave_monitors_path, :class => 'metro-btn iframe_btn' do%>
-              <span>脑波监测</span>
-          <%end%>
-          <%= link_to network_monitors_path, :class => 'metro-btn iframe_btn' do%>
-              <span>网络监测</span>
-          <%end%>
-          <%= link_to energy_consumption_monitors_path, :class => 'metro-btn iframe_btn' do%>
-              <span>能耗监测</span>
+          <%= link_to course_study_monitors_path, :class => 'metro-btn iframe_btn' do%>
+              <span>课程学习行为</span>
           <%end%>
           <%= link_to comprehensive_monitors_path, :class => 'metro-btn iframe_btn' do%>
               <span>综合分析</span>
           <%end%>
         </div>
-        <iframe id="tab1_frames" src="<%=monitors_path%>"></iframe>
+        <iframe id="tab1_frames" src="<%=online_monitors_path%>"></iframe>
       </div>
 
     </div> 

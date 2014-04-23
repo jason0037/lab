@@ -25,7 +25,13 @@ Lab::Application.routes.draw do
     get :network, :on=> :collection
     get :network_data, :on=> :collection
     get :get_big_chart, :on=> :collection
-
+    get :general_behaviour, :on=> :collection
+    get :general_behaviour_data, :on=> :collection
+    get :online, :on=> :collection
+    get :course_study, :on=> :collection
+    get :course_study_data, :on=> :collection
+    get :interactive_study, :on=> :collection
+    get :interactive_study_data, :on=> :collection
   end
 
 
