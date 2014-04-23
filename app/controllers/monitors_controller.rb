@@ -287,5 +287,135 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
 </chart>'
     render :text => charts
   end
+
+  def general_behaviour_data
+
+    charts = '<chart showtasknames="1" dateformat="dd/mm/yyyy" tooltextbgcolor="FFFFFF" tooltextbordercolor="333333" ganttlinecolor="99CC00" ganttlinealpha="20" basefontcolor="333333" gridbordercolor="99CC00" taskbarroundradius="4" showshadow="0" >
+<categories bgcolor="333333" fontcolor="99cc00" isbold="1" fontsize="14">
+<category start="1/9/2013" end="31/12/2013" name="2013" />
+<category start="1/1/2014" end="31/7/2014" name="2014" />
+</categories>
+<categories bgcolor="99cc00" bgalpha="40" fontcolor="333333" align="center" fontsize="10" isbold="1">
+<category start="1/9/2013" end="30/9/2013" name="Sep" />
+<category start="1/10/2013" end="31/10/2013" name="Oct" />
+<category start="1/11/2013" end="30/11/2013" name="Nov" />
+<category start="1/12/2013" end="31/12/2013" name="Dec" />
+<category start="1/1/2014" end="31/1/2014" name="Jan" />
+<category start="1/2/2014" end="28/2/2014" name="Feb" />
+<category start="1/3/2014" end="31/3/2014" name="March" />
+<category start="1/4/2014" end="30/4/2014" name="Apr" />
+<category start="1/5/2014" end="31/5/2014" name="May" />
+<category start="1/6/2014" end="30/6/2014" name="June" />
+<category start="1/7/2014" end="31/7/2014" name="July" />
+</categories>
+<processes positioningrid="right" align="center" headertext=" Leader  " fontcolor="333333" fontsize="11" isbold="1" isanimated="1" bgcolor="99cc00" headerbgcolor="333333" headerfontcolor="99CC00" headerfontsize="16" bgalpha="40">
+<process name="性别" id="1" />
+<process name="年龄" id="2" />
+<process name="地域" id="3" />
+<process name="学习时长" id="4" />
+<process name="学习时段" id="5" />
+<process name="学习终端" id="6" />
+</processes>
+<datatable showprocessname="1" fontcolor="333333" fontsize="11" isbold="1" headerfontcolor="000000" headerfontsize="11">
+<datacolumn headerbgcolor="333333" width="150" headerfontsize="16" headeralign="left" headerfontcolor="99cc00" bgcolor="99cc00" headertext="学习路径" align="left" bgalpha="65">
+<text label=" MANAGEMENT" />
+<text label=" PRODUCT MANAGER" />
+<text label=" CORE DEVELOPMENT" />
+<text label=" Q & A / DOC." />
+<text label=" WEB TEAM" />
+<text label=" MANAGEMENT" />
+</datacolumn>
+</datatable>
+<tasks width="10">
+<task name="Survey" hovertext="Market Survey" processid="1" start="7/9/2013" end="10/10/2013" id="Srvy" color="99cc00" alpha="60" toppadding="19" />
+<task name="Concept" hovertext="Develop Concept for Product" processid="1" start="25/10/2013" end="9/11/2013" id="Cpt1" color="99cc00" alpha="60" />
+<task name="Concept" showlabel="0" hovertext="Develop Concept for Product" processid="2" start="25/10/2013" end="9/11/2013" id="Cpt2" color="99cc00" alpha="60" />
+<task name="Design" hovertext="Preliminary Design" processid="2" start="12/11/2013" end="25/11/2013" id="Desn" color="99cc00" alpha="60" />
+<task name="Product Development" processid="2" start="6/12/2013" end="2/3/2014" id="PD1" color="99cc00" alpha="60" />
+<task name="Product Development" processid="3" start="6/12/2013" end="2/3/2014" id="PD2" color="99cc00" alpha="60" />
+<task name="Doc Outline" hovertext="Documentation Outline" processid="2" start="6/4/2014" end="1/5/2014" id="DocOut" color="99cc00" alpha="60" />
+<task name="Alpha" hovertext="Alpha Release" processid="4" start="15/3/2014" end="2/4/2014" id="alpha" color="99cc00" alpha="60" />
+<task name="Beta" hovertext="Beta Release" processid="3" start="10/5/2014" end="2/6/2014" id="Beta" color="99cc00" alpha="60" />
+<task name="Doc." hovertext="Documentation" processid="4" start="12/5/2014" end="29/5/2014" id="Doc" color="99cc00" alpha="60" />
+<task name="Website Design" hovertext="Website Design" processid="5" start="18/5/2014" end="22/6/2014" id="Web" color="99cc00" alpha="60" />
+<task name="Release" hovertext="Product Release" processid="6" start="5/7/2014" end="29/7/2014" id="Rls" color="99cc00" alpha="60" />
+<task name="Dvlp" hovertext="Development on Beta Feedback" processid="3" start="10/6/2014" end="1/7/2014" id="Dvlp" color="99cc00" alpha="60" />
+<task name="QA" hovertext="QA Testing" processid="4" start="9/4/2014" end="22/4/2014" id="QA1" color="99cc00" alpha="60" />
+<task name="QA2" hovertext="QA Testing-Phase 2" processid="4" start="25/6/2014" end="5/7/2014" id="QA2" color="99cc00" alpha="60" />
+</tasks>
+<connectors color="99cc00" thickness="2">
+<connector fromtaskid="Cpt1" totaskid="Cpt2" fromtaskconnectstart="1" />
+<connector fromtaskid="PD1" totaskid="PD2" fromtaskconnectstart="1" />
+<connector fromtaskid="PD1" totaskid="alpha" />
+<connector fromtaskid="PD2" totaskid="alpha" />
+<connector fromtaskid="DocOut" totaskid="Doc" />
+<connector fromtaskid="QA1" totaskid="beta" />
+<connector fromtaskid="Dvlp" totaskid="QA2" />
+<connector fromtaskid="QA2" totaskid="Rls" />
+</connectors>
+<milestones>
+<milestone date="29/7/2014" taskid="Rls" radius="10" color="333333" shape="Star" numsides="5" borderthickness="1" />
+<milestone date="2/3/2014" taskid="PD1" radius="10" color="333333" shape="Star" numsides="5" borderthickness="1" />
+<milestone date="2/3/2014" taskid="PD2" radius="10" color="333333" shape="Star" numsides="5" borderthickness="1" />
+</milestones>
+</chart>'
+    render :text => charts
+  end
+
+  def interactive_study_data
+
+    charts = '<chart caption="Sales - 2013 v 2012" numberprefix="$" plotgradientcolor="" bgcolor="FFFFFF" showalternatehgridcolor="0" divlinecolor="CCCCCC" showvalues="0" showcanvasborder="0" canvasborderalpha="0" canvasbordercolor="CCCCCC" canvasborderthickness="1" yaxismaxvalue="30000" captionpadding="30" yaxisvaluespadding="15" legendshadow="0" legendborderalpha="0" palettecolors="#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78" showplotborder="0" >
+<categories>
+<category label="Jan" />
+<category label="Feb" />
+<category label="Mar" />
+<category label="Apr" />
+<category label="May" />
+<category label="Jun" />
+<category label="Jul" />
+<category label="Aug" />
+<category label="Sep" />
+<category label="Oct" />
+<category label="Nov" />
+<category label="Dec" />
+</categories>
+<dataset seriesname="2013">
+<set value="22400" />
+<set value="24800" />
+<set value="21800" />
+<set value="21800" />
+<set value="24600" />
+<set value="27600" />
+<set value="26800" />
+<set value="27700" />
+<set value="23700" />
+<set value="25900" />
+<set value="26800" />
+<set value="24800" />
+</dataset>
+<dataset seriesname="2012">
+<set value="10000" />
+<set value="11500" />
+<set value="12500" />
+<set value="15000" />
+<set value="16000" />
+<set value="17600" />
+<set value="18800" />
+<set value="19700" />
+<set value="21700" />
+<set value="21900" />
+<set value="22900" />
+<set value="20800" />
+</dataset>
+</chart>'
+    render :text => charts
+  end
+
+  def course_study_data
+
+    charts = ''
+    render :text => charts
+  end
+
 end
 

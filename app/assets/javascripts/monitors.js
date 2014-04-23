@@ -33,4 +33,11 @@ $(document).ready(function(){
         chart.setXMLUrl(data_source);
         chart.render("chart-container-0");
     }
+    if($('#data_source_gantt')!='undefined'){
+        var chart = new FusionCharts( "/FusionCharts/Gantt.swf",
+            "chart_gantt_01", "100%", 250, "0", "1" );
+        var data_source = $('#data_source_gantt').val();
+        chart.setXMLUrl(data_source);
+        chart.render("chart-container-gantt");
+    }
 });
