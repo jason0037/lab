@@ -6,7 +6,7 @@ $(document).ready(function(){
 
     //realtimeChart.setXMLUrl("/monitors/camera_data?equipment_code=000001");
 
-    var tempString =' = new FusionCharts( "/FusionCharts/RealTimeLineDY.swf","chart_realtime_01", "100%", 250, "0", "1" )';
+    var tempString =' = new FusionCharts( "/FusionCharts/RealTimeLineDY.swf","chart_realtime_01", "100%", "300", "0", "1" )';
 
     for( var i=1;i<=4;i++){
 
@@ -20,7 +20,7 @@ $(document).ready(function(){
 
     if($('#data_source_10')!='undefined'){
         var chart = new FusionCharts( "/FusionCharts/Radar.swf",
-            "chart_radar_01", "100%", 250, "0", "1" );
+            "chart_radar_01", "100%", "300", "0", "1" );
         var data_source = $('#data_source_10').val();
         chart.setXMLUrl(data_source);
         chart.render("chart-container-10");
@@ -28,14 +28,14 @@ $(document).ready(function(){
 
     if($('#data_source_0')!='undefined'){
         var chart = new FusionCharts( "/FusionCharts/AngularGauge.swf",
-            "chart_angular_gauge_01", "100%", 250, "0", "1" );
+            "chart_angular_gauge_01", "100%", "300", "0", "1" );
         var data_source = $('#data_source_0').val();
         chart.setXMLUrl(data_source);
         chart.render("chart-container-0");
     }
     if($('#data_source_gantt')!='undefined'){
         var chart = new FusionCharts( "/FusionCharts/Gantt.swf",
-            "chart_gantt_01", "100%", 250, "0", "1" );
+            "chart_gantt_01", "100%", "300", "0", "1" );
         var data_source = $('#data_source_gantt').val();
         chart.setXMLUrl(data_source);
         chart.render("chart-container-gantt");
@@ -43,7 +43,7 @@ $(document).ready(function(){
 
     if($('#data_source_mscolumn2d')!='undefined'){
         var chart = new FusionCharts( "/FusionCharts/MSColumn2D.swf",
-            "chart_mscolumn2d_01", "100%", 250, "0", "1" );
+            "chart_mscolumn2d_01", "100%", "300", "0", "1" );
         var data_source = $('#data_source_mscolumn2d').val();
         chart.setXMLUrl(data_source);
         chart.render("chart-container-mscolumn2d");
