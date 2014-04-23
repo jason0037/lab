@@ -96,13 +96,13 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     size = params[:size]
 
     if (point_id.blank?)
-      point_id='000001'
+      point_id='000000'
     end
     case point_id
-      when "000001"
+      when "000000"
         mind_wave_meaning="注意力"
         meaning_color="00dd00"
-      when "000002"
+      when "000001"
         mind_wave_meaning="放松度"
         meaning_color="000093"
     end
@@ -110,7 +110,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
     start_time = "20140101010001"
-    end_time = "20150101010101"
+    end_time = "20150101010001"
     datas = BData.where("point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
     cats_str = ''
@@ -128,8 +128,8 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'  canvasBorderThickness='1'
 canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100' divLineColor='008040'
 vDivLineColor='008040' divLineAlpha='100' baseFontColor='#{meaning_color}' caption='#{mind_wave_meaning}监测/实时趋势图'
-dataStreamURL='' refreshInterval='900' PYAxisName='100%' SYAxisName=' '
-SYAxisMinValue='0' SYAXisMaxValue='40' setAdaptiveYMin='1' setAdaptiveSYMin='1'
+dataStreamURL='' refreshInterval='900' PYAxisName='100%' SYAxisName='课堂成绩'
+SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate'
 slantLabels='1' labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='FFFFFF'
 toolTipBorderColor='008040' baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0'
@@ -165,7 +165,7 @@ legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><defi
 canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='000000' canvasBgAlpha='100'
 divLineColor='008040' vDivLineColor='008040' divLineAlpha='100' baseFontColor='00dd00'
 caption='网络监测/实时趋势图' dataStreamURL='' refreshInterval='900' PYAxisName='网速(比特/秒)'
- SYAxisName=' ' SYAxisMinValue='0' SYAXisMaxValue='40' setAdaptiveYMin='1' setAdaptiveSYMin='1'
+ SYAxisName='课堂成绩' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate' slantLabels='1'
 labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='000000' toolTipBorderColor='008040'
 baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0' legendBgColor='000000'
@@ -181,19 +181,23 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
-    start_time = "20140101010001"
+    start_time = "20140420010001"
     end_time = "20150101010101"
-    datas = BData.select("read_at,sum(value) as value").group("read_at").where("read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
+
+    if size=='small'
+      select =" '' as read_at,sum(value) as value"
+    else
+      select =" read_at,sum(value) as value "
+    end
+
+
+    datas = BData.select("#{select}").group("read_at").where("read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
     cats_str = ''
     data_str = ''
-    read_at = ''
-    datas.each do |data|
 
-      if size!='small'
-        read_at = data.read_at[8..14]
-      end
-      cats_str += "<category label='#{read_at}'/>"
+    datas.each do |data|
+      cats_str += "<category label='#{data.read_at}'/>"
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}</categories>"
@@ -202,7 +206,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
 canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100'
 divLineColor='008040' vDivLineColor='008040' divLineAlpha='100' baseFontColor='#28004D'
 caption='体态监测/实时趋势图' dataStreamURL='' refreshInterval='900' PYAxisName='体态变化值'
-SYAxisName=' ' SYAxisMinValue='0' SYAXisMaxValue='40' setAdaptiveYMin='1' setAdaptiveSYMin='1'
+SYAxisName='课堂成绩' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate' slantLabels='1'
 labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='FFFFFF' toolTipBorderColor='008040'
 baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0' legendBgColor='FFFFFF'

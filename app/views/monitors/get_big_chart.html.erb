@@ -2,12 +2,61 @@
   <div id="big_chart_render">
   </div>
 </div>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>课程编号</th>
+    <th>名称</th>
+    <th>学科分类</th>
+    <th>评测对象</th>
+    <th>教师</th>
+    <th>开始时间</th>
+    <th>结束时间</th>
+    <th>状态</th>
+    <th>评测编号</th>
+    <th>教学场景</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="/lab_courses/1">1</a></td>
+    <td>实验课堂教学1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2014-04-21 09:00:00</td>
+    <td>2014-04-21 10:00:00</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>
+      <a href="/lab_courses/1/edit" class="btn btn-mini">修改</a>
+      <a href="/lab_courses/1" class="btn btn-mini btn-danger" data-confirm="确认删除？" data-method="delete" rel="nofollow">删除</a>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="/lab_courses/2">2</a></td>
+    <td>实验课堂教学2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>2014-05-21 09:00:00</td>
+    <td>2014-05-21 10:00:00</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  </tbody>
+</table>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	// alert("<%=params[:chart_type]%>");
 	// alert("<%=params[:data_source]%>");
     var customerChart = new FusionCharts( "<%=params[:chart_type]%>", 
-                                                  "chart_realtime_01", "100%", "550", "0", "1" );
+                                                  "chart_realtime_01", "100%", "350", "0", "1" );
     //realtimeChart.setXMLUrl("/monitors/camera_data?equipment_code=000001");
     var data_source = "<%=params[:data_source]%>";//document.getElementById('data_source').value; //
     customerChart.setXMLUrl(data_source);

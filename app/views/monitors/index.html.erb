@@ -2,7 +2,7 @@
   <nav class="breadcrumbs" style="margin-top: 20px">
     <ul>
       <li><a href="#"><i class="icon-home"></i></a></li>
-      <li><a href="#">实验室管理</a></li>
+      <li><%=link_to "实验室管理", monitors_url %></li>
     </ul>
   </nav>
 </div>
@@ -116,10 +116,3 @@
   <li></li>
 </ul>
 
-<script type="text/javascript">
-    $(".small_chart").click(function(e){
-        var chart_type = $(this).attr("chart-type");
-        var data_source = $(this).attr("data-source");
-        window.parent.show_fancybox(data_source,chart_type);
-    })
-</script>
