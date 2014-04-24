@@ -171,21 +171,14 @@ legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><defi
     <category label='' /><category label='' /><category label='' />
     <category label='' /><category label='' /><category label='' /><category label='' />"
       if size!='small'
-        axistitle1='注意力-放松度'
-        axistitle2='课堂测试成绩'
-        axistitle3='Processes'
-        seriesname1='注意力'
-        seriesname2='放松度'
-        seriesname3='课堂测验成绩'
-        seriesname4='阿尔法波'
+       
         categories="<category label='10:35' /><category label='10:37' /><category label='10:38' />
 <category label='10:39' /><category label='10:40' /><category label='10:41' />
 <category label='10:42' /><category label='10:43' /><category label='10:44' /><category label='10:45' />"
       end
 charts="<chart palette='2' caption='脑波监测' subcaption='' xaxisname='Time' showvalues='0'
 divlinealpha='100' numvdivlines='4' vdivlinealpha='0' showalternatevgridcolor='1' alternatevgridalpha='5'
-canvaspadding='0' labeldisplay='ROTATE' >
-<categories>#{categories}</categories>
+canvaspadding='0' labeldisplay='ROTATE' ><categories>#{categories}</categories>
 <axis title='#{axistitle1}' titlepos='left' tickwidth='10' divlineisdashed='1' numbersuffix='%'>
 <dataset seriesname='#{seriesname1}' linethickness='3' color='CC0000'>
 <set value='16' /><set value='19' /><set value='16' /><set value='17' />
@@ -336,7 +329,7 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
     end
     charts = "<chart caption='综合分析' canvasborderalpha='0' radarborderalpha='50' radarborderthickness='1'
 radarfillcolor='FFFFFF' showlabels='1' drawanchors='0' ymaxvalue='10' showlimits='0' bgcolor='FFFFFF'
-legendborderalpha='0' >
+legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
 <categories>
 <category label='#{category1}' /><category label='#{category2}' />
 <category label='#{category3}' /><category label='#{category4}' /><category label='#{category5}' />
