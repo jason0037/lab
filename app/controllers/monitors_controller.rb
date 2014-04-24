@@ -81,9 +81,15 @@ class MonitorsController < ApplicationController
     cats_str = ''
     data_str = ''
     read_at = ''
+    caption=''
+    pyaxisname=''
+    syaxisname=''
     datas.each do |data|
       if size!='small'
         read_at = data.read_at[8..14]
+        caption="能耗监测"
+        pyaxisname="用电量(千瓦时)"
+        syaxisname="温度(℃)"
       end
       cats_str += "<category label='#{read_at}'/>"
       data_str += "<set value='#{data.value}' />"
@@ -93,8 +99,8 @@ class MonitorsController < ApplicationController
     charts = "<chart animation='0' manageResize='1' bgColor='000000' bgAlpha='100'
 canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='000000'
 canvasBgAlpha='100' divLineColor='008040' vDivLineColor='008040' divLineAlpha='100'
-baseFontColor='00dd00' caption='能耗监测' dataStreamURL='' refreshInterval='900'
-PYAxisName='用电量(千瓦时)' SYAxisName='温度(℃)' SYAxisMinValue='0' SYAXisMaxValue='40' setAdaptiveYMin='1'
+baseFontColor='00dd00' caption='#{caption}' dataStreamURL='' refreshInterval='900'
+PYAxisName='#{pyaxisname}' SYAxisName='#{syaxisname}' SYAxisMinValue='0' SYAXisMaxValue='40' setAdaptiveYMin='1'
  setAdaptiveSYMin='1'  showRealTimeValue='0' realTimeValuePadding='10' showLabel='1'
 labelDisplay='Rotate' slantLabels='1' labelStep='2' numDisplaySets='95' numVDivLines='47'
 toolTipBgColor='000000' toolTipBorderColor='008040' baseFontSize='16' baseFont='微软雅黑'
@@ -152,21 +158,31 @@ legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><defi
 <style name='MyFontStyle' type='font' size='20' bold='0'/></definition><application>
 <apply toObject='Caption' styles='MyFontStyle' /></application></styles>#{categorys}#{datasets}</chart>"
 =end
+
+    read_at = ''
+    caption=''
+    score=''
+
+      if size!='small'
+        read_at = data.read_at[8..14]
+        caption="网络监测"
+        score="课堂测试成绩"
+      end
 charts='<chart palette="2" caption="脑波监测" subcaption="(Last 10 Hours)" xaxisname="Time" showvalues="0" divlinealpha="100" numvdivlines="4" vdivlinealpha="0" showalternatevgridcolor="1" alternatevgridalpha="5" canvaspadding="0" labeldisplay="ROTATE" >
 <categories>
-<category label="10:00" />
-<category label="11:00" />
-<category label="12:00" />
-<category label="13:00" />
-<category label="14:00" />
-<category label="15:00" />
-<category label="16:00" />
-<category label="17:00" />
-<category label="18:00" />
-<category label="19:00" />
+<category label="10:35" />
+<category label="10:37" />
+<category label="10:38" />
+<category label="10:39" />
+<category label="10:40" />
+<category label="10:41" />
+<category label="10:42" />
+<category label="10:43" />
+<category label="10:44" />
+<category label="10:45" />
 </categories>
-<axis title="CPU Usage" titlepos="left" tickwidth="10" divlineisdashed="1" numbersuffix="%">
-<dataset seriesname="CPU 1" linethickness="3" color="CC0000">
+<axis title="注意力-放松度" titlepos="left" tickwidth="10" divlineisdashed="1" numbersuffix="%">
+<dataset seriesname="注意力" linethickness="3" color="CC0000">
 <set value="16" />
 <set value="19" />
 <set value="16" />
@@ -178,7 +194,7 @@ charts='<chart palette="2" caption="脑波监测" subcaption="(Last 10 Hours)" x
 <set value="19" />
 <set value="21" />
 </dataset>
-<dataset seriesname="CPU 2" linethickness="3" color="0372AB">
+<dataset seriesname="放松度" linethickness="3" color="0372AB">
 <set value="12" />
 <set value="12" />
 <set value="9" />
@@ -192,21 +208,21 @@ charts='<chart palette="2" caption="脑波监测" subcaption="(Last 10 Hours)" x
 </dataset>
 </axis>
 <axis title="PF Usage" axisonleft="0" titlepos="right" numdivlines="4" tickwidth="10" divlineisdashed="1" formatnumberscale="1" defaultnumberscale=" MB" numberscaleunit="GB" numberscalevalue="1024">
-<dataset seriesname="PF Usage">
-<set value="696" />
-<set value="711" />
-<set value="636" />
-<set value="671" />
-<set value="1293" />
-<set value="789" />
-<set value="793" />
-<set value="993" />
-<set value="657" />
-<set value="693" />
+<dataset seriesname="课堂测验成绩">
+<set value="96" />
+<set value="71" />
+<set value="36" />
+<set value="71" />
+<set value="100" />
+<set value="89" />
+<set value="93" />
+<set value="93" />
+<set value="57" />
+<set value="93" />
 </dataset>
 </axis>
 <axis title="Processes" titlepos="RIGHT" axisonleft="0" numdivlines="5" tickwidth="10" divlineisdashed="1">
-<dataset seriesname="Processes">
+<dataset seriesname="theta">
 <set value="543" />
 <set value="511" />
 <set value="536" />
@@ -237,9 +253,15 @@ charts='<chart palette="2" caption="脑波监测" subcaption="(Last 10 Hours)" x
     cats_str = ''
     data_str = ''
     read_at = ''
+    caption=''
+    score=''
+    pyaxisname=''
     datas.each do |data|
       if size!='small'
         read_at = data.read_at[8..14]
+        caption="网络监测"
+        score="课堂测试成绩"
+        pyaxisname="网速(比特/秒)"
       end
       cats_str += "<category label='#{read_at}'/>"
       data_str += "<set value='#{data.value}' />"
@@ -249,8 +271,8 @@ charts='<chart palette="2" caption="脑波监测" subcaption="(Last 10 Hours)" x
     charts = "<chart animation='0' manageResize='1' bgColor='000000' bgAlpha='100'
 canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='000000' canvasBgAlpha='100'
 divLineColor='008040' vDivLineColor='008040' divLineAlpha='100' baseFontColor='00dd00'
-caption='网络监测' dataStreamURL='' refreshInterval='900' PYAxisName='网速(比特/秒)'
- SYAxisName='课堂成绩' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
+caption='#{caption}' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}'
+ SYAxisName='#{score}' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate' slantLabels='1'
 labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='000000' toolTipBorderColor='008040'
 baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0' legendBgColor='000000'
