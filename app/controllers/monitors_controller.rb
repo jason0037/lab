@@ -176,15 +176,14 @@ legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><defi
         seriesname2='放松度'
         seriesname3='课堂测验成绩'
         seriesname4='阿尔法波'
-        categories="<categories>
-<category label='10:35' /><category label='10:37' /><category label='10:38' />
+        categories="<category label='10:35' /><category label='10:37' /><category label='10:38' />
 <category label='10:39' /><category label='10:40' /><category label='10:41' />
-<category label='10:42' /><category label='10:43' /><category label='10:44' /><category label='10:45' />
-</categories>"
+<category label='10:42' /><category label='10:43' /><category label='10:44' /><category label='10:45' />"
       end
 charts="<chart palette='2' caption='脑波监测' subcaption='' xaxisname='Time' showvalues='0'
 divlinealpha='100' numvdivlines='4' vdivlinealpha='0' showalternatevgridcolor='1' alternatevgridalpha='5'
-canvaspadding='0' labeldisplay='ROTATE' >#{categories}
+canvaspadding='0' labeldisplay='ROTATE' >
+<categories>#{categories}</categories>
 <axis title='#{axistitle1}' titlepos='left' tickwidth='10' divlineisdashed='1' numbersuffix='%'>
 <dataset seriesname='#{seriesname1}' linethickness='3' color='CC0000'>
 <set value='16' /><set value='19' /><set value='16' /><set value='17' />
