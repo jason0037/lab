@@ -167,7 +167,9 @@ legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><defi
     seriesname2=''
     seriesname3=''
     seriesname4=''
-    categories=''
+    categories="<category label='' /><category label='' /><category label='' />
+    <category label='' /><category label='' /><category label='' />
+    <category label='' /><category label='' /><category label='' /><category label='' />"
       if size!='small'
         axistitle1='注意力-放松度'
         axistitle2='课堂测试成绩'
