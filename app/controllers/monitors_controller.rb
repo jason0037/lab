@@ -74,26 +74,31 @@ class MonitorsController < ApplicationController
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
-    start_time = "20140424130509"
-    end_time =   "20140424191437"
+    start_time = "20140424134413"
+    end_time =   "20140424161437"
 
     cats_str = ''
     data_str = ''
     seriesname=''
     pyaxisname=''
     syaxisname=''
-    select ="'' as read_at,value"
+    select ="'' as read_at,value/10 as value"
 
     if size!='small'
-      select = "read_at,value"
+      select = "read_at,value/10 as value"
       seriesname='实时能耗'
       pyaxisname="用电量(千瓦时)"
       syaxisname="温度(℃)"
     end
-    datas = BData.select("#{select}").where("read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
+    datas = BData.select("#{select}").where("point_id='000004' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
     datas.each do |data|
-      cats_str += "<category label='#{data.read_at}'/>"
+      times=data.read_at[8..14]
+      if (!times.blank?)
+        times =times[0..1]+":"+times[2..3]+":"+times[4..5]
+
+      end
+      cats_str += "<category label='#{times}'/>"
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}</categories>"
@@ -213,8 +218,8 @@ numberscaleunit='GB' numberscalevalue='1024'>
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
-    start_time = "20140101010001"
-    end_time = "20150101010101"
+    start_time = "20140424134413"
+    end_time =   "20140424161437"
 
     cats_str = ''
     data_str = ''
@@ -223,15 +228,19 @@ numberscaleunit='GB' numberscalevalue='1024'>
     score=''
     pyaxisname=''
     if size!='small'
-      select = "read_at,value"
+      select = "read_at,value*10 as value"
       seriesname='实时网络'
       score="课堂测试成绩"
       pyaxisname="网速(比特/秒)"
     end
-    datas = BData.select("#{select}").where("read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
+    datas = BData.select("#{select}").where("point_id='000003' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
     datas.each do |data|
+      times=data.read_at[8..14]
+      if (!times.blank?)
+        times =times[0..1]+":"+times[2..3]+":"+times[4..5]
 
-      cats_str += "<category label='#{data.read_at}'/>"
+      end
+      cats_str += "<category label='#{times}'/>"
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}</categories>"
@@ -239,8 +248,8 @@ numberscaleunit='GB' numberscalevalue='1024'>
     charts = "<chart animation='0' manageResize='1' bgColor='000000' bgAlpha='100'
 canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='000000' canvasBgAlpha='100'
 divLineColor='008040' vDivLineColor='008040' divLineAlpha='100' baseFontColor='00dd00'
-caption='网络监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}'
- SYAxisName='#{score}' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
+caption='网络监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{score}'
+ SYAxisName='#{pyaxisname}' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate' slantLabels='1'
 labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='000000' toolTipBorderColor='008040'
 baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0' legendBgColor='000000'
@@ -353,36 +362,27 @@ legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
 <category start='1/1/2014' end='31/7/2014' name='2014' />
 </categories>
 <categories bgcolor='99cc00' bgalpha='40' fontcolor='333333' align='center' fontsize='10' isbold='1'>
-<category start='1/9/2013' end='30/9/2013' name='Sep' />
-<category start='1/10/2013' end='31/10/2013' name='Oct' />
-<category start='1/11/2013' end='30/11/2013' name='Nov' />
-<category start='1/12/2013' end='31/12/2013' name='Dec' />
-<category start='1/1/2014' end='31/1/2014' name='Jan' />
-<category start='1/2/2014' end='28/2/2014' name='Feb' />
-<category start='1/3/2014' end='31/3/2014' name='March' />
-<category start='1/4/2014' end='30/4/2014' name='Apr' />
-<category start='1/5/2014' end='31/5/2014' name='May' />
-<category start='1/6/2014' end='30/6/2014' name='June' />
-<category start='1/7/2014' end='31/7/2014' name='July' />
+<category start='1/9/2013' end='30/9/2013' name='第1周' />
+<category start='1/10/2013' end='31/10/2013' name='第2周' />
+<category start='1/11/2013' end='30/11/2013' name='第3周' />
+<category start='1/12/2013' end='31/12/2013' name='第4周' />
+<category start='1/1/2014' end='31/1/2014' name='第5周' />
+<category start='1/2/2014' end='28/2/2014' name='第6周' />
+<category start='1/3/2014' end='31/3/2014' name='第7周' />
+<category start='1/4/2014' end='30/4/2014' name='第8周' />
+<category start='1/5/2014' end='31/5/2014' name='第9周' />
+<category start='1/6/2014' end='30/6/2014' name='第10周' />
+<category start='1/7/2014' end='31/7/2014' name='第11周' />
 </categories>
 <processes positioningrid='right' align='center' headertext=' Leader  ' fontcolor='333333' fontsize='11' isbold='1' isanimated='1' bgcolor='99cc00' headerbgcolor='333333' headerfontcolor='99CC00' headerfontsize='16' bgalpha='40'>
-<process name='性别' id='1' />
-<process name='年龄' id='2' />
-<process name='地域' id='3' />
-<process name='学习时长' id='4' />
-<process name='学习时段' id='5' />
-<process name='学习终端' id='6' />
+<process name='学生1' id='1' />
+<process name='学生2' id='2' />
+<process name='学生3' id='3' />
+<process name='学生4' id='4' />
+<process name='学生5' id='5' />
+<process name='学生6' id='6' />
 </processes>
-<datatable showprocessname='1' fontcolor='333333' fontsize='11' isbold='1' headerfontcolor='000000' headerfontsize='11'>
-<datacolumn headerbgcolor='333333' width='150' headerfontsize='16' headeralign='left' headerfontcolor='99cc00' bgcolor='99cc00' headertext='学习路径' align='left' bgalpha='65'>
-<text label=' MANAGEMENT' />
-<text label=' PRODUCT MANAGER' />
-<text label=' CORE DEVELOPMENT' />
-<text label=' Q & A / DOC.' />
-<text label=' WEB TEAM' />
-<text label=' MANAGEMENT' />
-</datacolumn>
-</datatable>
+
 <tasks width='10'>
 <task name='Survey' hovertext='Market Survey' processid='1' start='7/9/2013' end='10/10/2013' id='Srvy' color='99cc00' alpha='60' toppadding='19' />
 <task name='Concept' hovertext='Develop Concept for Product' processid='1' start='25/10/2013' end='9/11/2013' id='Cpt1' color='99cc00' alpha='60' />
