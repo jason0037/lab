@@ -79,14 +79,14 @@ class MonitorsController < ApplicationController
 
     cats_str = ''
     data_str = ''
-    caption=''
+    seriesname=''
     pyaxisname=''
     syaxisname=''
     select ="'' as read_at,value"
 
     if size!='small'
       select = "read_at,value"
-      caption="能耗监测"
+      seriesname='实时能耗'
       pyaxisname="用电量(千瓦时)"
       syaxisname="温度(℃)"
     end
@@ -96,11 +96,11 @@ class MonitorsController < ApplicationController
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}</categories>"
-    datasets = "<dataset seriesName='实时能耗' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
+    datasets = "<dataset seriesName='#{seriesname}' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
     charts = "<chart animation='0' manageResize='1' bgColor='000000' bgAlpha='100'
 canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='000000'
 canvasBgAlpha='100' divLineColor='008040' vDivLineColor='008040' divLineAlpha='100'
-baseFontColor='00dd00' caption='#{caption}' dataStreamURL='' refreshInterval='900'
+baseFontColor='00dd00' caption='能耗监测' dataStreamURL='' refreshInterval='900'
 PYAxisName='#{pyaxisname}' SYAxisName='#{syaxisname}' SYAxisMinValue='0' SYAXisMaxValue='40' setAdaptiveYMin='1'
  setAdaptiveSYMin='1'  showRealTimeValue='0' realTimeValuePadding='10' showLabel='0'
 labelDisplay='Rotate' slantLabels='1' labelStep='2' numDisplaySets='95' numVDivLines='47'
@@ -209,12 +209,12 @@ vdivlinealpha='0' showalternatevgridcolor='1' alternatevgridalpha='5' canvaspadd
     cats_str = ''
     data_str = ''
     select =" '' as read_at ,value"
-    caption=''
+    seriesname=''
     score=''
     pyaxisname=''
     if size!='small'
       select = "read_at,value"
-      caption="网络监测"
+      seriesname='实时网络'
       score="课堂测试成绩"
       pyaxisname="网速(比特/秒)"
     end
@@ -225,11 +225,11 @@ vdivlinealpha='0' showalternatevgridcolor='1' alternatevgridalpha='5' canvaspadd
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}</categories>"
-    datasets = "<dataset seriesName='实时网络' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
+    datasets = "<dataset seriesName='#{seriesname}' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
     charts = "<chart animation='0' manageResize='1' bgColor='000000' bgAlpha='100'
 canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='000000' canvasBgAlpha='100'
 divLineColor='008040' vDivLineColor='008040' divLineAlpha='100' baseFontColor='00dd00'
-caption='#{caption}' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}'
+caption='网络监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}'
  SYAxisName='#{score}' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate' slantLabels='1'
 labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='000000' toolTipBorderColor='008040'
@@ -249,18 +249,15 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     start_time = "20140420010001"
     end_time = "20150101010101"
 
-
-
     cats_str = ''
     data_str = ''
-
     select =" '' as read_at,sum(value) as value"
-    caption=''
+    seriesname=''
     score=''
     pyaxisname=''
     if size!='small'
       select =" read_at,sum(value) as value "
-      caption="行为体态监测"
+      seriesname='实时体态'
       score="课堂测试成绩"
       pyaxisname="体态变化值"
     end
@@ -271,11 +268,11 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}</categories>"
-    datasets = "<dataset seriesName='实时体态' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
+    datasets = "<dataset seriesName='#{seriesname}' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
     charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'
 canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100'
 divLineColor='008040' vDivLineColor='008040' divLineAlpha='100' baseFontColor='#28004D'
-caption='#{caption}' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}'
+caption='行为体态监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}'
 SYAxisName='#{score}' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate' slantLabels='1'
 labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='FFFFFF' toolTipBorderColor='008040'
