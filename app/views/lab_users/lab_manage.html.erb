@@ -33,7 +33,7 @@
         </a>
       </li>
     </ul>
-    <%= link_to 'hide_btn',get_big_chart_monitors_path, :class => 'stub hide fancybox fancybox.iframe' %>
+    <%= link_to 'hide_btn',get_big_chart_monitors_path,:base_data=>get_big_chart_monitors_path,:class => 'stub hide fancybox fancybox.iframe' %>
     <div class="tab-content full_height"> 
       <div class="tab-pane full_height active" id="apply_manage">
         <iframe id="tab1_frame" src="<%=apply_lab_eval_projects_path%>"></iframe>
@@ -94,8 +94,9 @@
 <script type="text/javascript">
   function show_fancybox(data_source,chart_type)
   {
-    var url = $(".stub").attr("href")+"?chart_type="+chart_type+"&data_source="+data_source;
-    $(".stub").attr("href","");
+    // alert($(".stub").attr("href"));
+    var base_url = $(".stub").attr("base_data");
+    var url = base_url+"?chart_type="+chart_type+"&data_source="+data_source;
     $(".stub").attr("href",url);
     $(".stub").trigger("click");  
   }
