@@ -110,7 +110,7 @@ class LabEvalProjectsController < ApplicationController
     @lab_eval_project = LabEvalProject.find(params[:id])
 
     respond_to do |format|
-      if @lab_eval_project.update_attributes(:status => '3')
+      if @lab_eval_project.update_attributes(:status => '2')
         format.html { redirect_to @lab_eval_project, notice: 'Lab eval project was successfully approved.' }
         format.json { head :no_content }
       else
