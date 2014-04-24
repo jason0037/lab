@@ -95,6 +95,7 @@
   function show_fancybox(data_source,chart_type)
   {
     var url = $(".stub").attr("href")+"?chart_type="+chart_type+"&data_source="+data_source;
+    $(".stub").attr("href","");
     $(".stub").attr("href",url);
     $(".stub").trigger("click");  
   }
