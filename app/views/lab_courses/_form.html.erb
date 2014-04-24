@@ -1,52 +1,49 @@
 <%= form_for @lab_course, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
+    课堂测试名称
     <div class="controls">
       <%= f.text_field :name, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :category_id, :class => 'control-label' %>
+    学科分类
     <div class="controls">
-      <%= f.number_field :category_id, :class => 'number_field' %>
+      <%=f.select :course_type, options_from_collection_for_select(Option.where(:key=>"course_type"),'value','name',@lab_course.course_type),:include_blank=>"请选择" %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :course_type, :class => 'control-label' %>
+    评测对象类型
     <div class="controls">
-      <%= f.number_field :course_type, :class => 'number_field' %>
+      <%=f.select :category_id, options_from_collection_for_select(Option.where(:key=>"eval_object_type"),'value','name',@lab_course.category_id),:include_blank=>"请选择" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    开始时间
+    <div class="controls">
+      <%=f.text_field :start_time,:class=>"datetime"%>
+
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :teacher_id, :class => 'control-label' %>
+    结束时间
     <div class="controls">
-      <%= f.number_field :teacher_id, :class => 'number_field' %>
+      <%=f.text_field :end_time,:class=>"datetime"%>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :start_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.datetime_select :start_time, :class => 'datetime_select' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :end_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.datetime_select :end_time, :class => 'datetime_select' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :status, :class => 'control-label' %>
+    状态
     <div class="controls">
       <%= f.number_field :status, :class => 'number_field' %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :project_id, :class => 'control-label' %>
+    评测对象ID
     <div class="controls">
       <%= f.number_field :project_id, :class => 'number_field' %>
     </div>
   </div>
+    <!--
   <div class="control-group">
     <%= f.label :progress, :class => 'control-label' %>
     <div class="controls">
@@ -71,12 +68,14 @@
       <%= f.text_field :approve_time, :class => 'text_field' %>
     </div>
   </div>
+  -->
   <div class="control-group">
-    <%= f.label :scene_id, :class => 'control-label' %>
+    教学场景
     <div class="controls">
       <%= f.number_field :scene_id, :class => 'number_field' %>
     </div>
   </div>
+    <!--
   <div class="control-group">
     <%= f.label :course_property, :class => 'control-label' %>
     <div class="controls">
@@ -89,19 +88,27 @@
       <%= f.number_field :is_teach, :class => 'number_field' %>
     </div>
   </div>
+  -->
   <div class="control-group">
-    <%= f.label :before, :class => 'control-label' %>
+    是否需要教师授课？
     <div class="controls">
       <%= f.number_field :before, :class => 'number_field' %>
     </div>
   </div>
+    <div class="control-group">
+      教师
+      <div class="controls">
+        <%=f.select :teacher_id, options_from_collection_for_select(LabUser.where(:role_id=>"2"),'id','name',@lab_course.teacher_id),:include_blank=>"请选择" %>
+      </div>
+    </div>
+    <!--
   <div class="control-group">
     <%= f.label :desc, :class => 'control-label' %>
     <div class="controls">
       <%= f.number_field :desc, :class => 'number_field' %>
     </div>
   </div>
-
+-->
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
