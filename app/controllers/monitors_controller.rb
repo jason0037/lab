@@ -160,36 +160,48 @@ legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><defi
 <apply toObject='Caption' styles='MyFontStyle' /></application></styles>#{categorys}#{datasets}</chart>"
 =end
 
-    axistitle=''
+    axistitle1=''
+    axistitle2=''
+    axistitle3=''
     seriesname1=''
-
+    seriesname2=''
+    seriesname3=''
+    seriesname4=''
+    categories=''
       if size!='small'
-        axistitle='注意力-放松度'
+        axistitle1='注意力-放松度'
+        axistitle2='课堂测试成绩'
+        axistitle3='Processes'
         seriesname1='注意力'
-      end
-charts="<chart palette='2' caption='脑波监测' subcaption='(Last 10 Hours)' xaxisname='Time' showvalues='0' divlinealpha='100' numvdivlines='4'
-vdivlinealpha='0' showalternatevgridcolor='1' alternatevgridalpha='5' canvaspadding='0' labeldisplay='ROTATE' >
-<categories>
+        seriesname2='放松度'
+        seriesname3='课堂测验成绩'
+        seriesname4='阿尔法波'
+        categories="<categories>
 <category label='10:35' /><category label='10:37' /><category label='10:38' />
 <category label='10:39' /><category label='10:40' /><category label='10:41' />
 <category label='10:42' /><category label='10:43' /><category label='10:44' /><category label='10:45' />
-</categories>
-<axis title='#{axistitle}' titlepos='left' tickwidth='10' divlineisdashed='1' numbersuffix='%'>
+</categories>"
+      end
+charts="<chart palette='2' caption='脑波监测' subcaption='' xaxisname='Time' showvalues='0'
+divlinealpha='100' numvdivlines='4' vdivlinealpha='0' showalternatevgridcolor='1' alternatevgridalpha='5'
+canvaspadding='0' labeldisplay='ROTATE' >#{categories}
+<axis title='#{axistitle1}' titlepos='left' tickwidth='10' divlineisdashed='1' numbersuffix='%'>
 <dataset seriesname='#{seriesname1}' linethickness='3' color='CC0000'>
 <set value='16' /><set value='19' /><set value='16' /><set value='17' />
 <set value='23' /><set value='23' /><set value='15' />
 <set value='14' /><set value='19' /><set value='21' /></dataset>
-<dataset seriesname='放松度' linethickness='3' color='0372AB'>
+<dataset seriesname='#{seriesname2}' linethickness='3' color='0372AB'>
 <set value='12' /><set value='12' /><set value='9' /><set value='9' />
 <set value='11' /><set value='13' /><set value='16' /><set value='14' />
 <set value='16' /><set value='11' /></dataset></axis>
-<axis title='PF Usage' axisonleft='0' titlepos='right' numdivlines='4' tickwidth='10' divlineisdashed='1' formatnumberscale='1' defaultnumberscale=' MB' numberscaleunit='GB' numberscalevalue='1024'>
-<dataset seriesname='课堂测验成绩'>
+<axis title='#{axistitle2}' axisonleft='0' titlepos='right' numdivlines='4' tickwidth='10'
+divlineisdashed='1' formatnumberscale='1' defaultnumberscale=' MB' numberscaleunit='GB' numberscalevalue='1024'>
+<dataset seriesname='#{seriesname3}'>
 <set value='96' /><set value='71' /><set value='36' /><set value='71' />
 <set value='100' /><set value='89' /><set value='93' /><set value='93' />
 <set value='57' /><set value='93' /></dataset></axis>
-<axis title='Processes' titlepos='RIGHT' axisonleft='0' numdivlines='5' tickwidth='10' divlineisdashed='1'>
-<dataset seriesname='theta'>
+<axis title='#{axistitle3}' titlepos='RIGHT' axisonleft='0' numdivlines='5' tickwidth='10' divlineisdashed='1'>
+<dataset seriesname='#{seriesname4}'>
 <set value='543' /><set value='511' /><set value='536' /><set value='449' />
 <set value='668' /><set value='588' /><set value='511' /><set value='536' />
 <set value='449' /><set value='668' /></dataset></axis></chart>"
@@ -416,50 +428,26 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
 
   def interactive_study_data
 
-    charts = "<chart caption='常用的交互方式' numberprefix='人次' plotgradientcolor='' bgcolor='FFFFFF' showalternatehgridcolor='0' divlinecolor='CCCCCC' showvalues='0' showcanvasborder='0' canvasborderalpha='0' canvasbordercolor='CCCCCC' canvasborderthickness='1' yaxismaxvalue='30000' captionpadding='30' yaxisvaluespadding='15' legendshadow='0' legendborderalpha='0' palettecolors='#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78' showplotborder='0' >
+    charts = "<chart caption='常用的交互方式' numberprefix='人次' plotgradientcolor='' bgcolor='FFFFFF'
+showalternatehgridcolor='0' divlinecolor='CCCCCC' showvalues='0' showcanvasborder='0' canvasborderalpha='0'
+canvasbordercolor='CCCCCC' canvasborderthickness='1' yaxismaxvalue='30000' captionpadding='30'
+yaxisvaluespadding='15' legendshadow='0' legendborderalpha='0'
+palettecolors='#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78' showplotborder='0' >
 <categories>
-<category label='Jan' />
-<category label='Feb' />
-<category label='Mar' />
-<category label='Apr' />
-<category label='May' />
-<category label='Jun' />
-<category label='Jul' />
-<category label='Aug' />
-<category label='Sep' />
-<category label='Oct' />
-<category label='Nov' />
-<category label='Dec' />
+<category label='Jan' /><category label='Feb' /><category label='Mar' /><category label='Apr' />
+<category label='May' /><category label='Jun' /><category label='Jul' /><category label='Aug' />
+<category label='Sep' /><category label='Oct' /><category label='Nov' /><category label='Dec' />
 </categories>
 <dataset seriesname='异步'>
-<set value='22400' />
-<set value='24800' />
-<set value='21800' />
-<set value='21800' />
-<set value='24600' />
-<set value='27600' />
-<set value='26800' />
-<set value='27700' />
-<set value='23700' />
-<set value='25900' />
-<set value='26800' />
-<set value='24800' />
+<set value='22400' /><set value='24800' /><set value='21800' /><set value='21800' />
+<set value='24600' /><set value='27600' /><set value='26800' /><set value='27700' />
+<set value='23700' /><set value='25900' /><set value='26800' /><set value='24800' />
 </dataset>
 <dataset seriesname='同步'>
-<set value='10000' />
-<set value='11500' />
-<set value='12500' />
-<set value='15000' />
-<set value='16000' />
-<set value='17600' />
-<set value='18800' />
-<set value='19700' />
-<set value='21700' />
-<set value='21900' />
-<set value='22900' />
-<set value='20800' />
-</dataset>
-</chart>"
+<set value='10000' /><set value='11500' /><set value='12500' /><set value='15000' />
+<set value='16000' /><set value='17600' /><set value='18800' /><set value='19700' />
+<set value='21700' /><set value='21900' /><set value='22900' /><set value='20800' />
+</dataset></chart>"
     render :text => charts
   end
 

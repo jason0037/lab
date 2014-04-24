@@ -11,20 +11,20 @@
 
 <ul class="muti_charts" style="margin-left:3px">
   <li>
+    <div id="chart-00">
+      <%= text_field_tag('data_source_0', "/monitors/dashboard_data?equipment_code=002001&point_id=000000&size=small&chart=AngularGauge", :type=>'hidden')%>
+      <div class="small_chart" chart-type="/FusionCharts/AngularGauge.swf"
+           data-source="/monitors/dashboard_data?equipment_code=002001"
+           id="chart-container-0">
+      </div>
+    </div>
+  </li>
+  <li>
     <div id="chart-multiaxisline">
       <%= text_field_tag('data_source_multiaxisline' , "/monitors/mind_wave_data?equipment_code=002001&point_id=000000&size=small&chart=MultiAxisLine", :type=>'hidden')%>
       <div class="small_chart" chart-type="/FusionCharts/MultiAxisLine.swf"
            data-source="/monitors/mind_wave_data?equipment_code=002001"
            id="chart-container-multiaxisline">
-      </div>
-    </div>
-  </li>
-  <li>
-    <div id="chart-00" style="display:none">
-      <%#= text_field_tag('data_source_0', "/monitors/dashboard_data?equipment_code=002001&point_id=000000&size=small&chart=AngularGauge", :type=>'hidden')%>
-      <div class="small_chart" chart-type="/FusionCharts/AngularGauge.swf"
-           data-source="/monitors/dashboard_data?equipment_code=002001"
-           id="chart-container-0">
       </div>
     </div>
   </li>
