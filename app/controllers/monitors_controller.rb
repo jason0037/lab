@@ -74,8 +74,8 @@ class MonitorsController < ApplicationController
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
-    start_time = "20140101010001"
-    end_time = "20150101010101"
+    start_time = "20140424130509"
+    end_time =   "20140424191437"
 
     cats_str = ''
     data_str = ''
@@ -91,6 +91,7 @@ class MonitorsController < ApplicationController
       syaxisname="温度(℃)"
     end
     datas = BData.select("#{select}").where("read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
+
     datas.each do |data|
       cats_str += "<category label='#{data.read_at}'/>"
       data_str += "<set value='#{data.value}' />"
@@ -113,10 +114,10 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
   end
 
   def mind_wave_data
-    equipment_code = params[:equipment_code]
-    point_id = params[:point_id]
     size = params[:size]
 =begin
+    equipment_code = params[:equipment_code]
+    point_id = params[:point_id]
     if (point_id.blank?)
       point_id='000000'
     end
@@ -160,51 +161,48 @@ legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><defi
 <apply toObject='Caption' styles='MyFontStyle' /></application></styles>#{categorys}#{datasets}</chart>"
 =end
 
-    axistitle1=''
-    axistitle2=''
-    axistitle3=''
-    seriesname1=''
-    seriesname2=''
-    seriesname3=''
-    seriesname4=''
-    categories="<category label='' /><category label='' /><category label='' />
-    <category label='' /><category label='' /><category label='' />
-    <category label='' /><category label='' /><category label='' /><category label='' />"
-      if size!='small'
-        axistitle1='注意力-放松度'
-        axistitle2='课堂测试成绩'
-        axistitle3='Processes'
-        seriesname1='注意力'
-        seriesname2='放松度'
-        seriesname3='课堂测验成绩'
-        seriesname4='阿尔法波'
-        categories="<category label='10:35' /><category label='10:37' /><category label='10:38' />
-<category label='10:39' /><category label='10:40' /><category label='10:41' />
-<category label='10:42' /><category label='10:43' /><category label='10:44' /><category label='10:45' />"
+    xaxisname = '时间'
+    axistitle1='注意力-放松度'
+    axistitle2='课堂测试成绩'
+    seriesname1='注意力'
+    seriesname2='放松度'
+    showlegend='1'
+    labelstep='1'
+      if size=='small'
+        xaxisname =''
+        axistitle1=''
+        axistitle2=''
+        seriesname1=''
+        seriesname2=''
+        showlegend='0'
+        labelstep=100
       end
-charts="<chart palette='2' caption='脑波监测' subcaption='' xaxisname='Time' showvalues='0'
-divlinealpha='100' numvdivlines='4' vdivlinealpha='0' showalternatevgridcolor='1' alternatevgridalpha='5'
-canvaspadding='0' labeldisplay='ROTATE' ><categories>#{categories}</categories>
+
+
+    charts="<chart palette='2' caption='脑波监测' subcaption='' xaxisname='#{xaxisname}' showvalues='0'
+divlinealpha='100' numvdivlines='4' vdivlinealpha='0' showalternatevgridcolor='1'
+alternatevgridalpha='5' canvaspadding='0' labeldisplay='ROTATE' labelStep='#{labelstep}' showLegend='#{showlegend}'>
+<categories>
+<category label='10:35' /><category label='10:37' /><category label='10:38' />
+<category label='10:39' /><category label='10:40' /><category label='10:41' />
+<category label='10:42' /><category label='10:43' /><category label='10:44' /><category label='10:45' />
+</categories>
 <axis title='#{axistitle1}' titlepos='left' tickwidth='10' divlineisdashed='1' numbersuffix='%'>
 <dataset seriesname='#{seriesname1}' linethickness='3' color='CC0000'>
-<set value='16' /><set value='19' /><set value='16' /><set value='17' />
-<set value='23' /><set value='23' /><set value='15' />
+<set value='61' /><set value='91' /><set value='61' /><set value='71' />
+<set value='23' /><set value='23' /><set value='51' />
 <set value='14' /><set value='19' /><set value='21' /></dataset>
 <dataset seriesname='#{seriesname2}' linethickness='3' color='0372AB'>
-<set value='12' /><set value='12' /><set value='9' /><set value='9' />
-<set value='11' /><set value='13' /><set value='16' /><set value='14' />
+<set value='52' /><set value='42' /><set value='49' /><set value='39' />
+<set value='61' /><set value='73' /><set value='36' /><set value='14' />
 <set value='16' /><set value='11' /></dataset></axis>
-<axis title='#{axistitle2}' axisonleft='0' titlepos='right' numdivlines='4' tickwidth='10'
-divlineisdashed='1' formatnumberscale='1' defaultnumberscale=' MB' numberscaleunit='GB' numberscalevalue='1024'>
-<dataset seriesname='#{seriesname3}'>
-<set value='96' /><set value='71' /><set value='36' /><set value='71' />
-<set value='100' /><set value='89' /><set value='93' /><set value='93' />
-<set value='57' /><set value='93' /></dataset></axis>
-<axis title='#{axistitle3}' titlepos='RIGHT' axisonleft='0' numdivlines='5' tickwidth='10' divlineisdashed='1'>
-<dataset seriesname='#{seriesname4}'>
-<set value='543' /><set value='511' /><set value='536' /><set value='449' />
-<set value='668' /><set value='588' /><set value='511' /><set value='536' />
-<set value='449' /><set value='668' /></dataset></axis></chart>"
+<axis title='#{axistitle2}' axisonleft='0' titlepos='right' numdivlines='4'
+tickwidth='10' divlineisdashed='1' formatnumberscale='1' defaultnumberscale='%'
+numberscaleunit='GB' numberscalevalue='1024'>
+<dataset seriesname='#{axistitle2}'>
+<set value='69' /><set value='71' /><set value='63' /><set value='71' /><set value='93' />
+<set value='89' /><set value='93' /><set value='99' /><set value='65' />
+<set value='69' /></dataset></axis></chart>"
     render :text => charts
 
   end
@@ -258,25 +256,30 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
     #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
-    start_time = "20140420010001"
-    end_time = "20150101010101"
+    start_time = "20140424130509"
+    end_time =   "20140424141437"
 
     cats_str = ''
     data_str = ''
-    select =" '' as read_at,sum(value) as value"
-    seriesname=''
-    score=''
+    select =" '' as read_at"
+    seriesname = ''
+    score = ''
     pyaxisname=''
     if size!='small'
-      select =" read_at,sum(value) as value "
+      select =" read_at"
       seriesname='实时体态'
-      score="课堂测试成绩"
-      pyaxisname="体态变化值"
+      score = "课堂测试成绩"
+      pyaxisname = "体态变化值"
     end
-    datas = BData.select("#{select}").group("read_at").where("read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
+    datas = BData.select("#{select},sum(value)/4 as value").group("read_at").where("read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
     datas.each do |data|
-      cats_str += "<category label='#{data.read_at}'/>"
+      times=data.read_at[8..14]
+      if (!times.blank?)
+        times =times[0..1]+":"+times[2..3]+":"+times[4..5]
+
+      end
+      cats_str += "<category label='#{times}'/>"
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}</categories>"
@@ -284,8 +287,8 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'
 canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100'
 divLineColor='008040' vDivLineColor='008040' divLineAlpha='100' baseFontColor='#28004D'
-caption='行为体态监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}'
-SYAxisName='#{score}' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
+caption='行为体态监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{score}'
+SYAxisName='#{pyaxisname}' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate' slantLabels='1'
 labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='FFFFFF' toolTipBorderColor='008040'
 baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0' legendBgColor='FFFFFF'
@@ -319,26 +322,15 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
   end
 
   def comprehensive_data
-    equipment_code = params[:equipment_code]
+   # equipment_code = params[:equipment_code]
     size = params[:size]
-    category1=''
-    category2=''
-    category3=''
-    category4=''
-    category5=''
-    if size!='small'
-      category1='行为体态指数'
-      category2='注意力脑波指数'
-      category3='网速'
-      category4='课堂测试成绩'
-      category5='放松度脑波指数'
-    end
+
     charts = "<chart caption='综合分析' canvasborderalpha='0' radarborderalpha='50' radarborderthickness='1'
 radarfillcolor='FFFFFF' showlabels='1' drawanchors='0' ymaxvalue='10' showlimits='0' bgcolor='FFFFFF'
 legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
 <categories>
-<category label='#{category1}' /><category label='#{category2}' />
-<category label='#{category3}' /><category label='#{category4}' /><category label='#{category5}' />
+<category label='行为体态指数' /><category label='注意力脑波指数' />
+<category label='网速' /><category label='课堂测试成绩' /><category label='放松度脑波指数' />
 </categories>
 <dataset seriesname=' ' color='008ee4' alpha='40'>
 <set value='8' /><set value='9' /><set value='9' />
@@ -349,6 +341,7 @@ legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
 <set value='4' /><set value='7' /><set value='6' /><set value='5' />
 </dataset>
 </chart>"
+
     render :text => charts
   end
 
