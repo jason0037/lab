@@ -320,34 +320,34 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
   end
 
   def comprehensive_data
-
-    charts = "<chart caption='综合分析' canvasborderalpha='0' radarborderalpha='50' radarborderthickness='1' radarfillcolor='FFFFFF' showlabels='1' drawanchors='0' ymaxvalue='10' showlimits='0' bgcolor='FFFFFF' legendborderalpha='0' >
+    equipment_code = params[:equipment_code]
+    size = params[:size]
+    category1=''
+    category2=''
+    category3=''
+    category4=''
+    category5=''
+    if size!='small'
+      category1='行为体态指数'
+      category2='注意力脑波指数'
+      category3='网速'
+      category4='课堂测试成绩'
+      category5='放松度脑波指数'
+    end
+    charts = "<chart caption='综合分析' canvasborderalpha='0' radarborderalpha='50' radarborderthickness='1'
+radarfillcolor='FFFFFF' showlabels='1' drawanchors='0' ymaxvalue='10' showlimits='0' bgcolor='FFFFFF'
+legendborderalpha='0' >
 <categories>
-<category label='行为体态指数' />
-<category label='注意力脑波指数' />
-<category label='网速' />
-<category label='课堂测试成绩' />
-<category label='' />
-<category label='' />
-<category label='放松度脑波指数' />
+<category label='#{category1}' /><category label='#{category2}' />
+<category label='#{category3}' /><category label='#{category4}' /><category label='#{category5}' />
 </categories>
 <dataset seriesname=' ' color='008ee4' alpha='40'>
-<set value='8' />
-<set value='9' />
-<set value='9' />
-<set value='8' />
-<set value='7' />
-<set value='9' />
-<set value='8' />
+<set value='8' /><set value='9' /><set value='9' />
+<set value='8' /><set value='7' /><set value='9' /><set value='8' />
 </dataset>
 <dataset seriesname=' ' color='6baa01' alpha='40'>
-<set value='7' />
-<set value='6' />
-<set value='6' />
-<set value='4' />
-<set value='7' />
-<set value='6' />
-<set value='5' />
+<set value='7' /><set value='6' /><set value='6' />
+<set value='4' /><set value='7' /><set value='6' /><set value='5' />
 </dataset>
 </chart>"
     render :text => charts
