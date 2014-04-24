@@ -171,7 +171,13 @@ legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><defi
     <category label='' /><category label='' /><category label='' />
     <category label='' /><category label='' /><category label='' /><category label='' />"
       if size!='small'
-       
+        axistitle1='注意力-放松度'
+        axistitle2='课堂测试成绩'
+        axistitle3='Processes'
+        seriesname1='注意力'
+        seriesname2='放松度'
+        seriesname3='课堂测验成绩'
+        seriesname4='阿尔法波'
         categories="<category label='10:35' /><category label='10:37' /><category label='10:38' />
 <category label='10:39' /><category label='10:40' /><category label='10:41' />
 <category label='10:42' /><category label='10:43' /><category label='10:44' /><category label='10:45' />"
