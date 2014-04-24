@@ -12,11 +12,21 @@
 <ul class="muti_charts" style="margin-left:3px">
   <li>
     <div id="chart-01">
-      <%= text_field_tag('data_source_gantt', "/monitors/behaviour_data?equipment_code=001001&size=small", :type=>'hidden')%>
-        <div chart-type="/FusionCharts/RealTimeLineDY.swf"
-             data-source="/monitors/behaviour_data?equipment_code=001001&point_id=000001"
-             id="chart-container-1">
-        </div>
+      <%= text_field_tag('data_source_ghubllet-1', "/monitors/course_study_data?equipment_code=001001&size=small", :type=>'hidden')%>
+      <div chart-type="/FusionCharts/HBullet.swf"
+           data-source="/monitors/behaviour_data?equipment_code=001001&point_id=000001"
+           id="chart-container-hbullet-1">
+      </div>
+      <%= text_field_tag('data_source_ghubllet-1', "/monitors/course_study_data?equipment_code=001001&size=small", :type=>'hidden')%>
+      <div chart-type="/FusionCharts/HBullet.swf"
+           data-source="/monitors/behaviour_data?equipment_code=001001&point_id=000001"
+           id="chart-container-hbullet-1">
+      </div>
+      <%= text_field_tag('data_source_ghubllet-1', "/monitors/course_study_data?equipment_code=001001&size=small", :type=>'hidden')%>
+      <div chart-type="/FusionCharts/HBullet.swf"
+           data-source="/monitors/behaviour_data?equipment_code=001001&point_id=000001"
+           id="chart-container-hbullet-1">
+      </div>
     </div>
   </li>
   <li>
