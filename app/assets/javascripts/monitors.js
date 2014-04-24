@@ -48,4 +48,11 @@ $(document).ready(function(){
         chart.setXMLUrl(data_source);
         chart.render("chart-container-mscolumn2d");
     }
+    if($('#data_source_multiaxisline')!='undefined'){
+        var chart = new FusionCharts( "/FusionCharts/MultiAxisLine.swf",
+            "chart_multiaxisline_01", "100%", "300", "0", "1" );
+        var data_source = $('#data_source_multiaxisline').val();
+        chart.setXMLUrl(data_source);
+        chart.render("chart-container-multiaxisline");
+    }
 });

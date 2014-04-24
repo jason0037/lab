@@ -109,7 +109,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     equipment_code = params[:equipment_code]
     point_id = params[:point_id]
     size = params[:size]
-
+=begin
     if (point_id.blank?)
       point_id='000000'
     end
@@ -151,7 +151,77 @@ toolTipBorderColor='008040' baseFontSize='16' baseFont='微软雅黑' showAltern
 legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><definition>
 <style name='MyFontStyle' type='font' size='20' bold='0'/></definition><application>
 <apply toObject='Caption' styles='MyFontStyle' /></application></styles>#{categorys}#{datasets}</chart>"
+=end
+charts='<chart palette="2" caption="脑波监测" subcaption="(Last 10 Hours)" xaxisname="Time" showvalues="0" divlinealpha="100" numvdivlines="4" vdivlinealpha="0" showalternatevgridcolor="1" alternatevgridalpha="5" canvaspadding="0" labeldisplay="ROTATE" >
+<categories>
+<category label="10:00" />
+<category label="11:00" />
+<category label="12:00" />
+<category label="13:00" />
+<category label="14:00" />
+<category label="15:00" />
+<category label="16:00" />
+<category label="17:00" />
+<category label="18:00" />
+<category label="19:00" />
+</categories>
+<axis title="CPU Usage" titlepos="left" tickwidth="10" divlineisdashed="1" numbersuffix="%">
+<dataset seriesname="CPU 1" linethickness="3" color="CC0000">
+<set value="16" />
+<set value="19" />
+<set value="16" />
+<set value="17" />
+<set value="23" />
+<set value="23" />
+<set value="15" />
+<set value="14" />
+<set value="19" />
+<set value="21" />
+</dataset>
+<dataset seriesname="CPU 2" linethickness="3" color="0372AB">
+<set value="12" />
+<set value="12" />
+<set value="9" />
+<set value="9" />
+<set value="11" />
+<set value="13" />
+<set value="16" />
+<set value="14" />
+<set value="16" />
+<set value="11" />
+</dataset>
+</axis>
+<axis title="PF Usage" axisonleft="0" titlepos="right" numdivlines="4" tickwidth="10" divlineisdashed="1" formatnumberscale="1" defaultnumberscale=" MB" numberscaleunit="GB" numberscalevalue="1024">
+<dataset seriesname="PF Usage">
+<set value="696" />
+<set value="711" />
+<set value="636" />
+<set value="671" />
+<set value="1293" />
+<set value="789" />
+<set value="793" />
+<set value="993" />
+<set value="657" />
+<set value="693" />
+</dataset>
+</axis>
+<axis title="Processes" titlepos="RIGHT" axisonleft="0" numdivlines="5" tickwidth="10" divlineisdashed="1">
+<dataset seriesname="Processes">
+<set value="543" />
+<set value="511" />
+<set value="536" />
+<set value="449" />
+<set value="668" />
+<set value="588" />
+<set value="511" />
+<set value="536" />
+<set value="449" />
+<set value="668" />
+</dataset>
+</axis>
+</chart>'
     render :text => charts
+
   end
 
   def network_data
