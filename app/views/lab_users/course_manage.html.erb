@@ -41,8 +41,9 @@
         </a>
       </li>
     </ul>
+  <%= link_to 'hide_btn',get_big_chart_monitors_path,:base_data=>get_big_chart_monitors_path,:class => 'stub hide fancybox fancybox.iframe' %>
     <div class="tab-content"> 
-      <div class="tab-pane full_height " id="teach_resources">
+      <div class="tab-pane full_height  active" id="teach_resources">
         <iframe id="tab1_frame" src="<%=lab_teach_resources_path%>"></iframe>
       </div>
       <div class="tab-pane full_height" id="teach_designs">
@@ -59,12 +60,13 @@
       <div class="tab-pane full_height" id="base_data">
           <div class="help-inline full_width">
             <%= link_to '学科分类',
-                        options_path(:key => "course_type"), :class => 'btn iframe_btn' %>
+                        options_path(:key => "course_type"), :class => 'btn iframe_btns' %>
           </div>
-          <iframe id="tab1_frames" src="<%=options_path%>?key=course_type"></iframe>
+          <iframe id="tab1_framess" src="<%=options_path%>?key=course_type"></iframe>
       </div>
 
       <div class="tab-pane full_height" id="data_analysis">
+
         <div class="help-inline full_width">
           <%= link_to general_behaviour_monitors_path, :class => 'metro-btn iframe_btn' do%>
               <span>一般学习习惯</span>
@@ -78,9 +80,37 @@
           <%= link_to comprehensive_monitors_path, :class => 'metro-btn iframe_btn' do%>
               <span>课堂测试</span>
           <%end%>
+
         </div>
         <iframe id="tab1_frames" src="<%=online_monitors_path%>"></iframe>
       </div>
 
     </div> 
 </div>
+
+<%= javascript_include_tag "jquery.fancybox", "jquery_mousewheel_pack" %>
+<%= stylesheet_link_tag "jquery_fancybox", :media => "screen" %>
+<script type="text/javascript">
+    function show_fancybox(data_source,chart_type)
+    {
+        // alert($(".stub").attr("href"));
+        var base_url = $(".stub").attr("base_data");
+        var url = base_url+"?chart_type="+chart_type+"&data_source="+data_source;
+        $(".stub").attr("href",url);
+        $(".stub").trigger("click");
+    }
+    $(document).ready(function(){
+        $('.fancybox').fancybox({
+            width:$(document).width(),
+            height:$(document).height(),
+            margin: [15,15,15,15],
+            closeBtn  : true,
+            fitToView : true,
+            autoSize:false,
+            // height: 'auto',
+            afterShow: function(){
+                $.fancybox.update();
+            }
+        });
+    });
+</script>

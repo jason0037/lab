@@ -446,7 +446,8 @@ palettecolors='#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78' showplotborder='
 
   def course_study_data
 
-    charts1 = "<chart manageResize='1' palette='1' lowerLimit='0' upperLimit='300' canvasLeftMargin='120' canvasRightMargin='40' caption='Revenue' subcaption='US $ (1,000s)' showBorder='0' showValue='1'>
+    charts1 = "<chart manageResize='1' palette='1' lowerLimit='0' upperLimit='300' canvasLeftMargin='120'
+canvasRightMargin='40' caption='课程数量' subcaption='1,000s' showBorder='0' showValue='1'>
 <colorRange><color minValue='0' maxValue='150'/>
 <color minValue='150' maxValue='220'/>
 <color minValue='220' maxValue='300'/>
@@ -457,8 +458,88 @@ palettecolors='#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78' showplotborder='
 <apply toObject='CAPTION' styles='smallCaption'/>
 </application></styles></chart>"
 
+charts2="<chart manageResize='1' palette='1' lowerLimit='0' upperLimit='30' canvasLeftMargin='120'
+canvasRightMargin='40' caption='课程进度' subcaption='%' numberSuffix='%' showBorder='0' showValue='1'>
+<colorRange>
+<color minValue='0' maxValue='20'/><color minValue='20' maxValue='25'/>
+<color minValue='25' maxValue='30'/>
+</colorRange><value>22</value><target>26</target><styles>
+<definition><style name='smallCaption' type='Font' size='11'/></definition>
+<application><apply toObject='CAPTION' styles='smallCaption'/></application>
+</styles></chart>"
 
-    charts = charts1
+charts3="<chart manageResize='1' palette='1' lowerLimit='0' upperLimit='600' canvasLeftMargin='120'
+canvasRightMargin='40' caption='平均' subcaption='' showBorder='0' showValue='1'>
+<colorRange>
+<color minValue='0' maxValue='350'/>
+<color minValue='350' maxValue='500'/>
+<color minValue='500' maxValue='600'/>
+</colorRange>
+<value>320</value>
+<target>550</target>
+<styles>
+<definition>
+<style name='smallCaption' type='Font' size='11'/>
+</definition>
+<application>
+<apply toObject='CAPTION' styles='smallCaption'/>
+</application>
+</styles>
+</chart>"
+    charts4="This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<chart manageResize='1' palette='1' lowerLimit='0' upperLimit='2000' canvasLeftMargin='120' canvasRightMargin='40'
+caption='课程报名人数' subcaption='Count' showBorder='0' showValue='1'>
+<colorRange>
+<color minValue='0' maxValue='1200'/>
+<color minValue='1200' maxValue='1800'/>
+<color minValue='1800' maxValue='2000'/>
+</colorRange>
+<value>1700</value>
+<target>1900</target>
+<styles>
+<definition>
+<style name='smallCaption' type='Font' size='11'/>
+</definition>
+<application>
+<apply toObject='CAPTION' styles='smallCaption'/>
+</application>
+</styles>
+</chart>"
+    charts5="This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<chart manageResize='1' palette='1' lowerLimit='0' upperLimit='5' canvasLeftMargin='120' canvasRightMargin='40'
+caption='作业评分' subcaption='Top Rating of 5' showBorder='0' showValue='1'>
+<colorRange>
+<color minValue='0' maxValue='3.5'/>
+<color minValue='3.5' maxValue='4.5'/>
+<color minValue='4.5' maxValue='5'/>
+</colorRange>
+<value>4.7</value>
+<target>4.6</target>
+<styles>
+<definition>
+<style name='smallCaption' type='Font' size='11'/>
+</definition>
+<application>
+<apply toObject='CAPTION' styles='smallCaption'/>
+</application>
+</styles>
+</chart>"
+    point_id = params[:point_id]
+
+    charts = case point_id
+               when  "000001"
+                 charts1
+               when  "000002"
+                 charts2
+               when "000003"
+                 charts3
+               when "000004"
+                 charts4
+               when  "000005"
+                 charts5
+              else charts1
+            end
+
     render :text => charts
   end
 

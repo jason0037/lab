@@ -9,23 +9,35 @@
   </nav>
 </div>
 
-<ul class="muti_charts" style="margin-left:3px">
+<ul>
   <li>
     <div id="chart-01">
-      <%= text_field_tag('data_source_ghubllet-1', "/monitors/course_study_data?equipment_code=001001&size=small", :type=>'hidden')%>
+
+
+      <%= text_field_tag('data_source_hbullet_1', "/monitors/course_study_data?equipment_code=001001&point_id=000001&size=small", :type=>'hidden')%>
       <div chart-type="/FusionCharts/HBullet.swf"
-           data-source="/monitors/behaviour_data?equipment_code=001001&point_id=000001"
+           data-source="/monitors/course_study_data?equipment_code=001001&point_id=000001"
            id="chart-container-hbullet-1">
       </div>
-      <%= text_field_tag('data_source_ghubllet-1', "/monitors/course_study_data?equipment_code=001001&size=small", :type=>'hidden')%>
+      <%= text_field_tag('data_source_hbullet_2', "/monitors/course_study_data?equipment_code=001001&point_id=000002&size=small", :type=>'hidden')%>
       <div chart-type="/FusionCharts/HBullet.swf"
-           data-source="/monitors/behaviour_data?equipment_code=001001&point_id=000001"
-           id="chart-container-hbullet-1">
+           data-source="/monitors/course_study_data?equipment_code=001001&point_id=000002"
+           id="chart-container-hbullet-2">
       </div>
-      <%= text_field_tag('data_source_ghubllet-1', "/monitors/course_study_data?equipment_code=001001&size=small", :type=>'hidden')%>
+      <%= text_field_tag('data_source_hbullet_3', "/monitors/course_study_data?equipment_code=001001&point_id=000003&size=small", :type=>'hidden')%>
       <div chart-type="/FusionCharts/HBullet.swf"
-           data-source="/monitors/behaviour_data?equipment_code=001001&point_id=000001"
-           id="chart-container-hbullet-1">
+           data-source="/monitors/course_study_data?equipment_code=001001&point_id=000003"
+           id="chart-container-hbullet-3">
+      </div>
+      <%= text_field_tag('data_source_hbullet_4', "/monitors/course_study_data?equipment_code=001001&point_id=000004&size=small", :type=>'hidden')%>
+      <div chart-type="/FusionCharts/HBullet.swf"
+           data-source="/monitors/course_study_data?equipment_code=001001&point_id=000004"
+           id="chart-container-hbullet-4">
+      </div>
+      <%= text_field_tag('data_source_hbullet_5', "/monitors/course_study_data?equipment_code=001001&point_id=000005&size=small", :type=>'hidden')%>
+      <div chart-type="/FusionCharts/HBullet.swf"
+           data-source="/monitors/course_study_data?equipment_code=001001&point_id=000005"
+           id="chart-container-hbullet-5">
       </div>
     </div>
   </li>
