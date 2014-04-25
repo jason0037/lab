@@ -55,4 +55,14 @@ $(document).ready(function(){
         chart.setXMLUrl(data_source);
         chart.render("chart-container-multiaxisline");
     }
+
+    for( var i=1;i<=4;i++){
+
+        if($('#data_source_'+i)!='undefined'){
+            var data_source = $('#data_source_'+i).val();
+            eval('var rc'+i+tempString);
+            eval('rc'+i+'.setXMLUrl(data_source)');
+            eval('rc'+i+'.render("chart-container-'+i+'")');
+        }
+    }
 });

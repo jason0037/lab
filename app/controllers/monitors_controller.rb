@@ -446,7 +446,19 @@ palettecolors='#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78' showplotborder='
 
   def course_study_data
 
-    charts = ""
+    charts1 = "<chart manageResize='1' palette='1' lowerLimit='0' upperLimit='300' canvasLeftMargin='120' canvasRightMargin='40' caption='Revenue' subcaption='US $ (1,000s)' showBorder='0' showValue='1'>
+<colorRange><color minValue='0' maxValue='150'/>
+<color minValue='150' maxValue='220'/>
+<color minValue='220' maxValue='300'/>
+</colorRange><value>260</value>
+<target>250</target><styles>
+<definition><style name='smallCaption' type='Font' size='11'/>
+</definition><application>
+<apply toObject='CAPTION' styles='smallCaption'/>
+</application></styles></chart>"
+
+
+    charts = charts1
     render :text => charts
   end
 
