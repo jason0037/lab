@@ -76,8 +76,9 @@ Lab::Application.routes.draw do
   resources :lab_coursewares
 
 
-  resources :lab_courses
-
+  resources :lab_courses do
+    resources :lab_questions_scores
+  end
 
   resources :lab_eval_projects do
 
