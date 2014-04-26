@@ -77,7 +77,7 @@ Lab::Application.routes.draw do
 
 
   resources :lab_courses do
-    resources :lab_questions_scores
+    resources :monitors
   end
 
   resources :lab_eval_projects do

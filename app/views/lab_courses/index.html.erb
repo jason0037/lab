@@ -42,7 +42,7 @@
         <td><%= lab_course.project_id %></td>
         <td><%= lab_course.scene_id %></td>
         <td><%= lab_course.is_teach %></td>
-        <td><%= link_to "分析图表" , monitors_lab_course %></td>
+        <td><%= link_to "分析图表" , monitors_lab_course_path(lab_course) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_course_path(lab_course), :class => 'btn btn-mini' %>
