@@ -20,21 +20,16 @@
   </li>
   <li><!--demo 用体态数据表 -->
     <div id="chart-01">
-      <div class="small_chart" chart-type="/FusionCharts/RealTimeLineDY.swf"
+      <div class="small_chart" chart-type="RealTimeLineDY.swf"
            data-source="/monitors/network_data?equipment_code=001001&size=small"
            id="chart-container-1"></div>
     </div>
   </li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
 </ul>
 <script type="text/javascript">
     $(".small_chart").click(function(e){
-        var chart_type = $(this).attr("chart-type");
-        var data_source = $(this).attr("data-source");
+        var chart_type = '/FusionCharts/' + $(this).attr("chart-type");
+        var data_source = $(this).attr("data-source").replace(/&size=small/,'');
         window.parent.show_fancybox(data_source,chart_type);
     })
 </script>
