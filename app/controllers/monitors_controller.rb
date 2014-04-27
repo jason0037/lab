@@ -407,13 +407,14 @@ legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
 </categories>
 <dataset seriesname=' ' color='008ee4' alpha='40'>
 <set value='8' /><set value='9' /><set value='9' />
-<set value='8' /><set value='7' /><set value='9' /><set value='8' />
-<set value='10'/><set value='12'/><set value='14'>
+<set value='8' /><set value='7' /><set value='9' />
+<set value='12'/><set value='14'>
 </dataset>
 <dataset seriesname=' ' color='6baa01' alpha='40'>
-<set value='7' /><set value='6' /><set value='6' />
-<set value='4' /><set value='7' /><set value='6' /><set value='5' />
-<set value='8' /><set value='9' /><set value='9' /></dataset>
+<set value='6' /><set value='4' /><set value='7' />
+<set value='6' /><set value='5' />
+<set value='8' /><set value='9' /><set value='9' />
+</dataset>
 </chart>"
 
    case equipment_code
