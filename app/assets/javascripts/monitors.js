@@ -14,26 +14,6 @@ $(document).ready(function(){
         }
     }
 
-  /*  var tempString =' = new FusionCharts( "/FusionCharts/RealTimeLineDY.swf","chart_realtime_01", "100%", "300", "0", "1" )';
-  for( var i=1;i<=4;i++){
-
-        if($('#data_source_'+i)!='undefined'){
-            var data_source = $('#data_source_'+i).val();
-            eval('var rc'+i+tempString);
-            eval('rc'+i+'.setXMLUrl(data_source)');
-            eval('rc'+i+'.render("chart-container-'+i+'")');
-        }
-    }
-*/
-    if($('#data_source_10')!='undefined'){
-        var chart = new FusionCharts( "/FusionCharts/Radar.swf",
-            "chart_radar_01", "100%", "300", "0", "1" );
-        var data_source = $('#data_source_10').val();
-        chart.setXMLUrl(data_source);
-        chart.render("chart-container-10");
-    }
-
-
     if($('#data_source_gantt')!='undefined'){
         var chart = new FusionCharts( "/FusionCharts/Gantt.swf",
             "chart_gantt_01", "100%", "300", "0", "1" );
@@ -48,13 +28,6 @@ $(document).ready(function(){
         var data_source = $('#data_source_mscolumn2d').val();
         chart.setXMLUrl(data_source);
         chart.render("chart-container-mscolumn2d");
-    }
-    if($('#data_source_multiaxisline')!='undefined'){
-        var chart = new FusionCharts( "/FusionCharts/MultiAxisLine.swf",
-            "chart_multiaxisline_01", "100%", "300", "0", "1" );
-        var data_source = $('#data_source_multiaxisline').val();
-        chart.setXMLUrl(data_source);
-        chart.render("chart-container-multiaxisline");
     }
 
     if ($('#data_source_hbullet_1')!='undefined'){
