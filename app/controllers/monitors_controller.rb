@@ -397,26 +397,23 @@ legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
 </dataset>
 </chart>"
 
-   charts2 = "<chart caption='综合分析' canvasborderalpha='0' radarborderalpha='50' radarborderthickness='1'
-radarfillcolor='FFFFFF' showlabels='1' drawanchors='0' ymaxvalue='10' showlimits='0' bgcolor='FFFFFF'
-legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
+
+charts2="<chart caption='线上课堂综合分析' canvasborderalpha='0' radarborderalpha='50' radarborderthickness='1'
+   radarfillcolor='FFFFFF' showlabels='1' drawanchors='0' ymaxvalue='10' showlimits='0' bgcolor='FFFFFF' legendborderalpha='0' >
 <categories>
 <category label='潜在辍学者辨识' /><category label='学习者行为模式' />
 <category label='个性化推荐' /><category label='课程资源优化' /><category label='管理决策支持' />
 <category label='管理决策支持'/><category label='学习平台优化'/><category label='学习成效评估'/>
 </categories>
-<dataset seriesname=' ' color='008ee4' alpha='40'>
-<set value='8' /><set value='9' /><set value='9' />
-<set value='8' /><set value='7' /><set value='9' />
-<set value='12'/><set value='14'>
+<dataset seriesname='Kaspersky' color='008ee4' alpha='40'>
+<set value='8' /><set value='9' /><set value='9' /><set value='8' />
+<set value='7' /><set value='9' /><set value='8' /><set value='7' />
 </dataset>
-<dataset seriesname=' ' color='6baa01' alpha='40'>
-<set value='6' /><set value='4' /><set value='7' />
-<set value='6' /><set value='5' />
-<set value='8' /><set value='9' /><set value='9' />
+<dataset seriesname='Norton' color='6baa01' alpha='40'>
+<set value='7' /><set value='6' /><set value='6' /><set value='4' />
+<set value='7' /><set value='6' /><set value='5' /><set value='7' />
 </dataset>
 </chart>"
-
    case equipment_code
      when "100"
        charts=charts1
