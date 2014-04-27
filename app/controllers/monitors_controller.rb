@@ -23,7 +23,13 @@ class MonitorsController < ApplicationController
   end
 
   def index
-    @lab_courses = LabCourse.limit(5).order("created_at DESC")
+    course_id = params[:id]
+    if  course_id.blank?
+      @lab_course =LabCourse.where(:status=>1).limit(1).order("created_at DESC")
+    else
+      @lab_course = LabCourse.find(course_id)
+    end
+
   end
 
   def comprehensive
@@ -103,10 +109,10 @@ class MonitorsController < ApplicationController
     end
     categorys = "<categories>#{cats_str}</categories>"
     datasets = "<dataset seriesName='#{seriesname}' showValues='0' parentYAxis='P'>#{data_str}</dataset>"
-    charts = "<chart animation='0' manageResize='1' bgColor='000000' bgAlpha='100'
+    charts = "<chart animation='0' manageResize='1' bgColor='00A600,006000'  basefontcolor='FFFFDD' bgAlpha='100'
 canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='000000'
 canvasBgAlpha='100' divLineColor='008040' vDivLineColor='008040' divLineAlpha='100'
-baseFontColor='00dd00' caption='能耗监测' dataStreamURL='' refreshInterval='900'
+caption='能耗监测' dataStreamURL='' refreshInterval='900'
 PYAxisName='#{syaxisname}' SYAxisName='#{pyaxisname}' SYAxisMinValue='0' SYAXisMaxValue='40' setAdaptiveYMin='1'
  setAdaptiveSYMin='1'  showRealTimeValue='0' realTimeValuePadding='10' showLabel='0'
 labelDisplay='Rotate' slantLabels='1' labelStep='2' numDisplaySets='95' numVDivLines='47'
@@ -244,9 +250,9 @@ numberscaleunit='GB' numberscalevalue='1024'>
     end
     categorys = "<categories>#{cats_str}</categories>"
     datasets = "<dataset seriesName='#{seriesname}' showValues='0' parentYAxis='P'>#{data_str}</dataset>"
-    charts = "<chart animation='0' manageResize='1' bgColor='000000' bgAlpha='100'
+    charts = "<chart animation='0' manageResize='1' bgColor='009999,333333' basefontcolor='FFFFDD' bgAlpha='100'
 canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='000000' canvasBgAlpha='100'
-divLineColor='008040' vDivLineColor='008040' divLineAlpha='100' baseFontColor='00dd00'
+divLineColor='008040' vDivLineColor='008040' divLineAlpha='100'
 caption='网络监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}' PYAxisMinValue='0' PYAXisMaxValue='100'
  SYAxisName='#{score}' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate' slantLabels='1'
@@ -292,16 +298,17 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     end
     categorys = "<categories>#{cats_str}</categories>"
     datasets = "<dataset seriesName='#{seriesname}' showValues='0' parentYAxis='P'>#{data_str}</dataset>"
-    charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'
-canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100'
-divLineColor='008040' vDivLineColor='008040' divLineAlpha='100' baseFontColor='#28004D'
-caption='行为体态监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}' PYAxisMinValue='0' PYAXisMaxValue='100'
+    charts = "<chart animation='0' manageResize='1' bgColor='FF0000,AE0000' basefontcolor='FFFFDD'
+bgAlpha='100' canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='FFFFFF'
+canvasBgAlpha='100' divLineColor='008040' vDivLineColor='008040' divLineAlpha='100'
+caption='行为体态监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}'
+PYAxisMinValue='0' PYAXisMaxValue='100'
 SYAxisName='#{score}' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
 showRealTimeValue='0' realTimeValuePadding='10' showLabel='1'  labelDisplay='Rotate' slantLabels='1'
 labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='FFFFFF' toolTipBorderColor='008040'
-baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0' legendBgColor='FFFFFF'
+baseFontSize='14' baseFont='微软雅黑' showAlternateHGridColor='0' legendBgColor='FFFFFF'
 legendBorderColor='008040' legendShadow='0'><styles><definition>
-<style name='MyFontStyle' type='font' size='24' bold='0'/></definition>
+<style name='MyFontStyle' type='font' size='20' bold='0'/></definition>
 <application><apply toObject='Caption' styles='MyFontStyle' /></application>
 </styles>#{categorys}#{datasets}</chart>"
     render :text => charts
@@ -386,7 +393,14 @@ legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
 
   def general_behaviour_data
 
-    charts = "<chart showtasknames='1' dateformat='dd/mm/yyyy' tooltextbgcolor='FFFFFF' tooltextbordercolor='333333' ganttlinecolor='99CC00' ganttlinealpha='20' basefontcolor='333333' gridbordercolor='99CC00' taskbarroundradius='4' showshadow='0' >
+    charts0="<chart manageresize='1' decimals='0' numbersuffix='%25' placevaluesinside='1' is3d='0' bordercolor='638400' bgcolor='FFFFFF' usecolornameasvalue='1' >
+<colorrange>
+<color minvalue='0' maxvalue='50' name='Normal' code='99CC00' />
+<color minvalue='50' maxvalue='75' name='Warning' code='FFFF00' />
+<color minvalue='75' maxvalue='100' name='Danger' code='FF0000' />
+</colorrange><value>32</value></chart>"
+
+    charts1 = "<chart showtasknames='1' dateformat='dd/mm/yyyy' tooltextbgcolor='FFFFFF' tooltextbordercolor='333333' ganttlinecolor='99CC00' ganttlinealpha='20' basefontcolor='333333' gridbordercolor='99CC00' taskbarroundradius='4' showshadow='0' >
 <categories bgcolor='333333' fontcolor='99cc00' isbold='1' fontsize='14'>
 <category start='1/9/2013' end='31/12/2013' name='2013' />
 <category start='1/1/2014' end='31/7/2014' name='2014' />
@@ -446,6 +460,13 @@ legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
 <milestone date='2/3/2014' taskid='PD2' radius='10' color='333333' shape='Star' numsides='5' borderthickness='1' />
 </milestones>
 </chart>"
+    point_id = params[:point_id]
+    case point_id
+      when "000000"
+        charts=charts0
+      else
+        charts= charts1
+    end
     render :text => charts
   end
 

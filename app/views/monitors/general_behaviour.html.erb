@@ -9,8 +9,13 @@
   </nav>
 </div>
 
-<ul>
-
+<ul  class="muti_charts" style="margin-left:3px">
+  <li>
+    <div  chart-type="Bulb.swf"
+          data-source="/monitors/general_behaviour_data?equipment_code=001001&point_id=000000"
+          id="chart-container-0">
+    </div>
+  </li>
   <li>
     <div>
       <%= text_field_tag('data_source_gantt', "/monitors/general_behaviour_data?equipment_code=001001&size=small", :type=>'hidden')%>
