@@ -334,9 +334,15 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
       when "100"
         caption = "实验室综合分析"
         fillcolor ="8F4586,6C3365"
-      when "201"
+      when "202"
         caption = "交互学习行为"
         fillcolor = "737300,424200"
+      when "203"
+        caption ="课程学习行为"
+        fillcolor = "FF9224,EA7500"
+      when "200"
+        caption = "在线课堂综合分析"
+        fillcolor ="8F4586,6C3365"
     end
     charts="<chart caption='#{caption}' manageresize='1' origw='350' origh='200' palette='2' bgalpha='0' bgcolor='FFFFFF'
 lowerlimit='0' upperlimit='100' numbersuffix='%' showborder='0' basefontcolor='FFFFDD' charttopmargin='5'
@@ -391,7 +397,7 @@ legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
 </dataset>
 </chart>"
 
-   charts1 = "<chart caption='综合分析' canvasborderalpha='0' radarborderalpha='50' radarborderthickness='1'
+   charts2 = "<chart caption='综合分析' canvasborderalpha='0' radarborderalpha='50' radarborderthickness='1'
 radarfillcolor='FFFFFF' showlabels='1' drawanchors='0' ymaxvalue='10' showlimits='0' bgcolor='FFFFFF'
 legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
 <categories>
