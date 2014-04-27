@@ -334,6 +334,9 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
       when "100"
         caption = "实验室综合分析"
         fillcolor ="8F4586,6C3365"
+      when "201"
+        caption = "交互学习行为"
+        fillcolor = "737300,424200"
     end
     charts="<chart caption='#{caption}' manageresize='1' origw='350' origh='200' palette='2' bgalpha='0' bgcolor='FFFFFF'
 lowerlimit='0' upperlimit='100' numbersuffix='%' showborder='0' basefontcolor='FFFFDD' charttopmargin='5'
@@ -393,7 +396,8 @@ legendborderalpha='0' baseFontSize='16' baseFont='微软雅黑' >
 
   def general_behaviour_data
 
-    charts0="<chart manageresize='1' decimals='0' numbersuffix='%25' placevaluesinside='1' is3d='0' bordercolor='638400' bgcolor='FFFFFF' usecolornameasvalue='1' >
+    charts0="<chart manageresize='1' decimals='0' numbersuffix='%' placevaluesinside='1' is3d='0'
+bordercolor='638400' bgcolor='FFFFFF' usecolornameasvalue='1' caption='一般学习习惯分析'>
 <colorrange>
 <color minvalue='0' maxvalue='50' name='Normal' code='99CC00' />
 <color minvalue='50' maxvalue='75' name='Warning' code='FFFF00' />

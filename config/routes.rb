@@ -13,7 +13,8 @@ Lab::Application.routes.draw do
 
 
   resources :monitors do
-    get :comprehensive,:on=>:collection
+    get :lab_comprehensive,:on=>:collection
+    get :online_comprehensive,:on=>:collection
     get :comprehensive_data,:on=>:collection
     get :dashboard_data,:on=>:collection
     get :energy_consumption,:on=>:collection
