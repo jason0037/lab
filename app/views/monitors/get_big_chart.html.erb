@@ -3,6 +3,7 @@
   </div>
 </div>
 
+<% if params[:data_source][params[:data_source].size-6..params[:data_source].size-6]!='2'#线上的不显示%>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -31,7 +32,7 @@
   </tr>
   </tbody>
 </table>
-
+<%end%>
 <script type="text/javascript">
 $(document).ready(function(){
 	 // alert("<%=params[:chart_type]%>");
