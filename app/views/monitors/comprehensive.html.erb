@@ -20,10 +20,9 @@
   </li>
   <li>
     <div id="chart-01">
-      <%= text_field_tag('data_source_10', "/monitors/comprehensive_data?equipment_code=001001&size=small", :type=>'hidden')%>
-      <div class="small_chart" chart-type="/FusionCharts/Radar.swf"
-           data-source="/monitors/comprehensive_data?equipment_code=001001&point_id=000001"
-           id="chart-container-10">
+      <div class="small_chart" chart-type="Radar.swf"
+           data-source="/monitors/comprehensive_data?equipment_code=001001&point_id=000001&size=small"
+           id="chart-container-1">
       </div>
     </div>
   </li>
@@ -50,8 +49,8 @@
 </ul>
 <script type="text/javascript">
     $(".small_chart").click(function(e){
-        var chart_type = $(this).attr("chart-type");
-        var data_source = $(this).attr("data-source");
+        var chart_type = '/FusionCharts/' + $(this).attr("chart-type");
+        var data_source = $(this).attr("data-source").replace(/&size=small/,'');
         window.parent.show_fancybox(data_source,chart_type);
     })
 </script>

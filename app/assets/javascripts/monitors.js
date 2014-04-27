@@ -33,13 +33,7 @@ $(document).ready(function(){
         chart.render("chart-container-10");
     }
 
-    if($('#data_source_0')!='undefined'){
-        var chart = new FusionCharts( "/FusionCharts/AngularGauge.swf",
-            "chart_angular_gauge_01", "100%", "300", "0", "1" );
-        var data_source = $('#data_source_0').val();
-        chart.setXMLUrl(data_source);
-        chart.render("chart-container-0");
-    }
+
     if($('#data_source_gantt')!='undefined'){
         var chart = new FusionCharts( "/FusionCharts/Gantt.swf",
             "chart_gantt_01", "100%", "300", "0", "1" );

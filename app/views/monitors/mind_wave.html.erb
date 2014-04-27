@@ -20,10 +20,9 @@
   </li>
   <li>
     <div id="chart-01">
-      <%= text_field_tag('data_source_multiaxisline' , "/monitors/mind_wave_data?equipment_code=002001&point_id=000000&size=small&chart=MultiAxisLine", :type=>'hidden')%>
-      <div class="small_chart" chart-type="/FusionCharts/MultiAxisLine.swf"
-           data-source="/monitors/mind_wave_data?equipment_code=002001"
-           id="chart-container-multiaxisline">
+      <div class="small_chart" chart-type="MultiAxisLine.swf"
+           data-source="/monitors/mind_wave_data?equipment_code=002001&size=small"
+           id="chart-container-1">
       </div>
     </div>
   </li>
@@ -31,8 +30,8 @@
 </ul>
 <script type="text/javascript">
     $(".small_chart").click(function(e){
-        var chart_type = $(this).attr("chart-type");
-        var data_source = $(this).attr("data-source");
+        var chart_type = '/FusionCharts/' + $(this).attr("chart-type");
+        var data_source = $(this).attr("data-source").replace(/&size=small/,'');
         window.parent.show_fancybox(data_source,chart_type);
     })
 </script>
