@@ -3,12 +3,19 @@
 
 $(document).ready(function(){
 
+    for( var i=0;i<=9;i++){
+        if($('#chart-container-'+i)!='undefined'){
+            var chartDiv =  $('#chart-container-'+i);
+            var chart_type = chartDiv.attr("chart-type");
+            var data_source = chartDiv.attr("data-source");
+            var rc = new FusionCharts( "/FusionCharts/"+chart_type,"chart_new_"+i, "100%", "100%", "0", "1" );
+            rc.setXMLUrl(data_source);
+            rc.render("chart-container-"+i);
+        }
+    }
 
-    //realtimeChart.setXMLUrl("/monitors/camera_data?equipment_code=000001");
-
-    var tempString =' = new FusionCharts( "/FusionCharts/RealTimeLineDY.swf","chart_realtime_01", "100%", "300", "0", "1" )';
-
-    for( var i=1;i<=4;i++){
+  /*  var tempString =' = new FusionCharts( "/FusionCharts/RealTimeLineDY.swf","chart_realtime_01", "100%", "300", "0", "1" )';
+  for( var i=1;i<=4;i++){
 
         if($('#data_source_'+i)!='undefined'){
             var data_source = $('#data_source_'+i).val();
@@ -17,7 +24,7 @@ $(document).ready(function(){
             eval('rc'+i+'.render("chart-container-'+i+'")');
         }
     }
-
+*/
     if($('#data_source_10')!='undefined'){
         var chart = new FusionCharts( "/FusionCharts/Radar.swf",
             "chart_radar_01", "100%", "300", "0", "1" );

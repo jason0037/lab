@@ -308,24 +308,55 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
   end
 
   def dashboard_data
-
-    charts = "<chart manageresize='1' origw='300' origh='300' bgcolor='FFFFFF' upperlimit='100' lowerlimit='0' basefontcolor='FFFFFF' majortmnumber='11' majortmcolor='FFFFFF' majortmheight='8' minortmnumber='5' minortmcolor='FFFFFF' minortmheight='3' tooltipbordercolor='FFFFFF' tooltipbgcolor='333333' gaugeouterradius='100' gaugestartangle='225' gaugeendangle='-45' placevaluesinside='1' gaugeinnerradius='80%' annrenderdelay='0' gaugefillmix='' pivotradius='10' showpivotborder='0' pivotfillmix='{CCCCCC},{333333}' pivotfillratio='50,50' showshadow='0' gaugeoriginx='150' gaugeoriginy='150' >
+    equipment_code = params[:equipment_code][0..2]
+    caption=''
+    fillcolor=''
+    case equipment_code
+      when "001"
+        caption = "行为体态分析"
+        fillcolor = "FF0000,AE0000"
+      when "002"
+        caption = "脑波分析"
+        fillcolor = "FF9224,EA7500"
+      when "003"
+        caption = "网络分析"
+        fillcolor="009999,333333"
+      when "004"
+        caption = "能耗分析"
+        fillcolor = "00A600,006000"
+      when "100"
+        caption = "实验室综合分析"
+        fillcolor ="8F4586,6C3365"
+    end
+    charts="<chart caption='#{caption}' manageresize='1' origw='350' origh='200' palette='2' bgalpha='0' bgcolor='FFFFFF'
+lowerlimit='0' upperlimit='100' numbersuffix='%' showborder='0' basefontcolor='FFFFDD' charttopmargin='5'
+chartbottommargin='5' tooltipbgcolor='009999' gaugefillmix='{dark-10},{light-70},{dark-10}' gaugefillratio='3'
+pivotradius='8' gaugeouterradius='120' gaugeinnerradius='70%' gaugeoriginx='175' gaugeoriginy='170'
+trendvaluedistance='5' tickvaluedistance='3' managevalueoverlapping='1' autoaligntickvalues='1' >
 <colorrange>
-<color minvalue='0' maxvalue='50' code='C1E1C1' alpha='40' />
-<color minvalue='50' maxvalue='85' code='F6F164' alpha='40' />
-<color minvalue='85' maxvalue='120' code='F70118' alpha='40' />
+<color minvalue='0' maxvalue='45' code='FF654F' />
+<color minvalue='45' maxvalue='80' code='F6BD0F' />
+<color minvalue='80' maxvalue='100' code='8BBA00' />
 </colorrange>
-<dials>
-<dial value='65' bordercolor='FFFFFF' bgcolor='000000,CCCCCC,000000' borderalpha='0' basewidth='10' />
-</dials>
+<dials><dial value='72' rearextension='10' basewidth='10' /></dials>
+<trendpoints>
+<point startvalue='62' displayvalue='Average' usemarker='1' markerradius='8' dashed='1' dashlen='2' dashgap='2' />
+</trendpoints>
 <annotations>
-<annotationgroup x='150' y='150' showbelow='1'>
-<annotation type='circle' x='0' y='0' radius='145' fillcolor='CCCCCC,111111' fillpattern='linear' fillalpha='100,100' fillratio='50,50' fillangle='-45' />
-<annotation type='circle' x='0' y='0' radius='120' fillcolor='111111,cccccc' fillpattern='linear' fillalpha='100,100' fillratio='50,50' fillangle='-45' />
-<annotation type='circle' x='0' y='0' radius='110' color='666666' />
+<annotationgroup id='Grp1' showbelow='1' showshadow='1'>
+<annotation type='rectangle' x='$chartStartX+5' y='$chartStartY+5' tox='$chartEndX-5' toy='$chartEndY-5'
+radius='10' fillcolor='#{fillcolor}' showborder='0' />
 </annotationgroup>
 </annotations>
-</chart>"
+<styles>
+<definition>
+<style name='RectShadow' type='shadow' strength='3' />
+<style name='trendvaluefont' type='font' bold='1' bordercolor='FFFFDD' />
+</definition>
+<application>
+<apply toobject='Grp1' styles='RectShadow' /><apply toobject='Trendvalues' styles='trendvaluefont' />
+</application>
+</styles></chart>"
     render :text => charts
   end
 
