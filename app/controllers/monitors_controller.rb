@@ -364,7 +364,7 @@ trendvaluedistance='5' tickvaluedistance='3' managevalueoverlapping='1' autoalig
 </colorrange>
 <dials><dial value='#{value}' rearextension='10' basewidth='10' /></dials>
 <trendpoints>
-<point startvalue='62' displayvalue='Average' usemarker='1' markerradius='8' dashed='1' dashlen='2' dashgap='2' />
+<point startvalue='62' displayvalue=' ' usemarker='0' markerradius='8' dashed='1' dashlen='2' dashgap='2' />
 </trendpoints>
 <annotations>
 <annotationgroup id='Grp1' showbelow='1' showshadow='1'>
@@ -385,14 +385,25 @@ radius='10' fillcolor='000079,28004D' showborder='0' />
   def comprehensive_data
    equipment_code = params[:equipment_code][0..2]
     size = params[:size]
-
+   showlegend='1'
+   category1="<category label='行为体态指数' /><category label='注意力脑波指数' />
+<category label='网速' /><category label='学习效果' /><category label='放松度脑波指数' />"
+   category2="<category label='潜在辍学者辨识' /><category label='学习者行为模式' />
+<category label='个性化推荐' /><category label='课程资源优化' /><category label='管理决策支持' />
+<category label='管理决策支持'/><category label='学习平台优化'/><category label='学习成效评估'/>"
+   if (size=="small")
+     category1="<category label=' ' /><category label=' ' />
+<category label=' ' /><category label=' ' /><category label=' ' />"
+     category2="<category label=' ' /><category label=' ' />
+<category label=' ' /><category label=' ' /><category label=' ' />
+<category label=' '/><category label=' '/><category label=' '/>"
+     showlegend='0'
+   end
     charts1 = "<chart caption='实验课程综合分析' canvasborderalpha='0' radarborderalpha='50' radarborderthickness='1'
 radarfillcolor='FFFFFF' showlabels='1' drawanchors='0' ymaxvalue='10' showlimits='0' bgcolor='FFFFFF'
-legendborderalpha='0' baseFontSize='14' baseFont='微软雅黑' >
-<categories>
-<category label='行为体态指数' /><category label='注意力脑波指数' />
-<category label='网速' /><category label='学习效果' /><category label='放松度脑波指数' />
-</categories>
+showLegend='#{showlegend}'
+legendborderalpha='0' baseFontSize='14' baseFont='微软雅黑'  >
+<categories>#{category1}</categories>
 <dataset seriesname=' ' color='008ee4' alpha='40'>
 <set value='8' /><set value='9' /><set value='9' />
 <set value='8' /><set value='7' /><set value='9' /><set value='8' />
@@ -406,12 +417,8 @@ legendborderalpha='0' baseFontSize='14' baseFont='微软雅黑' >
 
 charts2="<chart caption='线上课堂综合分析' canvasborderalpha='0' radarborderalpha='50' radarborderthickness='1'
    radarfillcolor='FFFFFF' showlabels='1' drawanchors='0' ymaxvalue='10' showlimits='0' bgcolor='FFFFFF'
-legendborderalpha='0' baseFontSize='14' baseFont='微软雅黑' >
-<categories>
-<category label='潜在辍学者辨识' /><category label='学习者行为模式' />
-<category label='个性化推荐' /><category label='课程资源优化' /><category label='管理决策支持' />
-<category label='管理决策支持'/><category label='学习平台优化'/><category label='学习成效评估'/>
-</categories>
+legendborderalpha='0' baseFontSize='14' baseFont='微软雅黑'  showLegend='#{showlegend}' >
+<categories>#{category2}</categories>
 <dataset seriesname=' ' color='008ee4' alpha='40'>
 <set value='8' /><set value='9' /><set value='9' /><set value='8' />
 <set value='7' /><set value='9' /><set value='8' /><set value='7' />

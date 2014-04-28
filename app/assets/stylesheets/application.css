@@ -138,6 +138,8 @@
 #main .control-label{
     width: 60px;
 }
+.contorls .long_text_field{width:500px;}
+.muti_columns{float:left;margin-right:20px;}
 
 .lab_top_info{
 	margin-right: 20px;

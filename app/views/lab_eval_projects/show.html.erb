@@ -4,6 +4,7 @@
 </div>
 
 <dl class="dl-horizontal">
+  <div><div class="muti_columns">
   <dt><strong>版本:</strong></dt>
   <dd><%= @lab_eval_project.version %></dd>
   <dt><strong>评测对象类别:</strong></dt>
@@ -29,25 +30,28 @@
   <dt><strong>申请人:</strong></dt>
   <dd><%= @lab_eval_project.lab_user.name %></dd>
   <dt><strong>创建时间:</strong></dt>
-  <dd><%= @lab_eval_project.created_at %></dd>
+  <dd><%=l @lab_eval_project.created_at %></dd>
   <dt><strong>修改时间:</strong></dt>
-  <dd><%= @lab_eval_project.updated_at %></dd>
+  <dd><%=l @lab_eval_project.updated_at %></dd>
   <dt><strong>项目简介:</strong></dt>
   <dd><%= @lab_eval_project.brief %></dd>
   <dt><strong>申请过程:</strong></dt>
   <dd><%= @lab_eval_project.status_log %></dd>
+</div>
+    <div class="muti_columns"></div>
   <dt><strong>评测项目:</strong></dt>
   <dd>
     <ul>
       <%@eval_means.each do |means|%>
           <li>
-            <%=check_box_tag "#{means.key}[#{means.value}]","",:checked=>true%> <!--#@lab_eval_projects.has_eval_means_of(means.value)-->
-            <label for='eval_means_<%="#{means.key}[#{means.value}]"%>'><%=means.name%></label>
+            <%=check_box_tag "#{means.key}[#{means.value}]","",:checked=>true%>
+            <%=means.name%>
           </li>
       <%end%>
     </ul>
   </dd>
-
+    </div>
+</div>
 </dl>
 
 <div class="form-actions">
