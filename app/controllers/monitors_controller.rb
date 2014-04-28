@@ -298,7 +298,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     end
     categorys = "<categories>#{cats_str}</categories>"
     datasets = "<dataset seriesName='#{seriesname}' showValues='0' parentYAxis='P'>#{data_str}</dataset>"
-    charts = "<chart animation='0' manageResize='1' bgColor='FF0000,AE0000' basefontcolor='FFFFDD'
+    charts = "<chart animation='0' manageResize='1' bgColor='000079,28004D' basefontcolor='FFFFDD'
 bgAlpha='100' canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='FFFFFF'
 canvasBgAlpha='100' divLineColor='008040' vDivLineColor='008040' divLineAlpha='100'
 caption='行为体态监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}'
@@ -321,28 +321,36 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
     case equipment_code
       when "001"
         caption = "行为体态分析"
+        value="65"
         fillcolor = "FF0000,AE0000"
       when "002"
         caption = "脑波分析"
         fillcolor = "FF9224,EA7500"
+        value=85
       when "003"
         caption = "网络分析"
         fillcolor="009999,333333"
+        value="70"
       when "004"
         caption = "能耗分析"
         fillcolor = "00A600,006000"
+        value="20"
       when "100"
         caption = "实验室综合分析"
         fillcolor ="8F4586,6C3365"
+        value="98"
       when "202"
         caption = "交互学习行为"
         fillcolor = "737300,424200"
+        value="60"
       when "203"
         caption ="课程学习行为"
         fillcolor = "FF9224,EA7500"
+        value="45"
       when "200"
         caption = "在线课堂综合分析"
         fillcolor ="8F4586,6C3365"
+        value="46"
     end
     charts="<chart caption='#{caption}' manageresize='1' origw='350' origh='200' palette='2' bgalpha='0' bgcolor='FFFFFF'
 lowerlimit='0' upperlimit='100' numbersuffix='%' showborder='0' basefontcolor='FFFFDD' charttopmargin='5'
@@ -354,25 +362,23 @@ trendvaluedistance='5' tickvaluedistance='3' managevalueoverlapping='1' autoalig
 <color minvalue='45' maxvalue='80' code='F6BD0F' />
 <color minvalue='80' maxvalue='100' code='8BBA00' />
 </colorrange>
-<dials><dial value='72' rearextension='10' basewidth='10' /></dials>
+<dials><dial value='#{value}' rearextension='10' basewidth='10' /></dials>
 <trendpoints>
 <point startvalue='62' displayvalue='Average' usemarker='1' markerradius='8' dashed='1' dashlen='2' dashgap='2' />
 </trendpoints>
 <annotations>
 <annotationgroup id='Grp1' showbelow='1' showshadow='1'>
 <annotation type='rectangle' x='$chartStartX+5' y='$chartStartY+5' tox='$chartEndX-5' toy='$chartEndY-5'
-radius='10' fillcolor='#{fillcolor}' showborder='0' />
+radius='10' fillcolor='000079,28004D' showborder='0' />
 </annotationgroup>
 </annotations>
-<styles>
-<definition>
+<styles><definition>
 <style name='RectShadow' type='shadow' strength='3' />
 <style name='trendvaluefont' type='font' bold='1' bordercolor='FFFFDD' />
-</definition>
-<application>
+</definition><application>
 <apply toobject='Grp1' styles='RectShadow' /><apply toobject='Trendvalues' styles='trendvaluefont' />
-</application>
-</styles></chart>"
+</application></styles></chart>"
+
     render :text => charts
   end
 
