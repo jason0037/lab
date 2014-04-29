@@ -6,6 +6,15 @@ $(document).ready(function(){
         if (this.href.indexOf('#')>0){
             e.preventDefault();//阻止a链接的跳转行为
             $(this).tab('show');//显示当前选中的链接及关联的content
+
+            if (this.href.indexOf('#data_analysis')>0){
+                var url="/monitors/online"
+                $("#tab1_frames").attr("src",url);
+            }
+            else if (this.href.indexOf('#lab_manage')>0){
+                var url="/monitors"
+                $("#tab1_frames").attr("src",url);
+            }
         }
     });
     $(".iframe_btn").click(function(e){
