@@ -2,7 +2,7 @@
 class LabUser < ActiveRecord::Base
   attr_accessible :account, :email, :mobile, :name, :password, :role_id, :status
 
-  has_one :lab_role,:foreign_key=>"id"
+  belongs_to :lab_role,:foreign_key=>"role_id"
 
   has_many :lab_questions_score, :foreign_key=>"evaluator_id"
   has_many :lab_eval_project,:foreign_key=>"applicant_id"

@@ -23,6 +23,17 @@ class LabCoursesController < ApplicationController
     end
   end
 
+
+  def learn
+    # pp "-----a----------s------"
+    passwd = Base64.decode64 @user.secret_key
+    secKey = @user.name + "-" + passwd
+    key = Base64.encode64 secKey
+    # pp "---------a--------"
+    # pp key
+    redirect_to "http://101.226.163.149/login_auto?key=#{key}&forword=dashboard"
+  end
+
   # GET /lab_courses/new
   # GET /lab_courses/new.json
   def new
