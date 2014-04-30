@@ -29,7 +29,7 @@
   <dt><strong>发布时间:</strong></dt>
   <dd><%=l( @lab_course.publish_time,:format=>:long) if @lab_course.publish_time %></dd>
   <dt><strong>申请时间:</strong></dt>
-  <dd><%= l (@lab_course.apply_time, :format => :long) if @lab_course.apply_time %></dd>
+  <dd><%=l (@lab_course.apply_time, :format => :long) if @lab_course.apply_time %></dd>
   <dt><strong>批准时间:</strong></dt>
   <dd><%=l (@lab_course.approve_time, :format => :long) if @lab_course.approve_time%></dd>
   <dt><strong>场景:</strong></dt>
