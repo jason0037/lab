@@ -10,8 +10,16 @@
         <span>教学设计</span></a></li>
       <li><a href="#teach_resources"><i class="icon-bar-chart"></i>
         <span>教学资源库</span></a></li>
-      <li><a href="http://101.226.163.149:18010/"  target="_blank"><i class="icon-bar-chart"></i>
-        <span>MOOC教学课程</span></a></li>
+      <li>
+        <!-- <a href="http://101.226.163.149:18010/"  target="_blank">
+          <i class="icon-bar-chart"></i>
+          <span>MOOC教学课程</span>
+        </a> -->
+        <%= link_to teach_lab_courses_path, :class => 'metro-btn',:target=>"_blank" do%>
+            <i class="icon-bar-chart"></i>
+            <span>MOOC课程</span>
+        <%end%>
+      </li>
       <li><a href="#mobile_courses"><i class="icon-bar-chart"></i>
         <span>移动课程</span></a></li>
       <li><a href="#eval"><i class="icon-bar-chart"></i>

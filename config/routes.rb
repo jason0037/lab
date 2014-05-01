@@ -80,6 +80,7 @@ Lab::Application.routes.draw do
   resources :lab_courses do
     resources :monitors
     get :learn,:on=>:collection
+    get :teach,:on=>:collection
   end
 
   resources :lab_eval_projects do
