@@ -14,6 +14,18 @@ class LabUsersController < ApplicationController
     render :layout => "blank"
   end
 
+  def query
+    if params[:s].blank?
+      @query_text = ""
+      @lab_users = LabUser.where(:role_id=>5).paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    else
+      @query_text = params[:s][:name]
+      @lab_users = LabUser.where("role_id = ? and name like ?",5,"%#{params[:s][:name]}%").paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    end
+
+    render :layout => "blank"
+  end
+
   def home
     @articles = LabNotice.where(:notice_type=>1,:published=>1).paginate(:page => params[:page], :per_page => 5).order("published_at DESC")
     @projects = LabEvalProject.where(:status=>1).paginate(:page => params[:page], :per_page => 5).order("created_at DESC")

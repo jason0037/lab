@@ -1,20 +1,26 @@
 <div class="panel">
    <header>
-            <i class="icon-asterisk"></i>
-            <span>操作列表</span>
+        <i class="icon-asterisk"></i>
+        <span>操作列表</span>
    </header>
     <ul class="nav nav-tabs" id="myTab"> 
       <li class="active"><a href="#home"><i class="icon-bar-chart"></i>
         <span>教学首页</span></a></li>
       <li><a href="#teach_design"><i class="icon-bar-chart"></i>
         <span>教学设计</span></a></li>
-      <li><a href="#teach_resources"><i class="icon-bar-chart"></i>
-        <span>教学资源库</span></a></li>
       <li>
-        <!-- <a href="http://101.226.163.149:18010/"  target="_blank">
+        <a href="#teach_resources">
           <i class="icon-bar-chart"></i>
-          <span>MOOC教学课程</span>
-        </a> -->
+          <span>教学资源库</span>
+        </a>
+      </li>
+      <li>
+        <%= link_to query_lab_users_path, :class => 'fancybox fancybox.iframe' do%>
+          <i class="icon-bar-chart"></i>
+          <span>学生查询</span>
+        <%end%>
+      </li>
+      <li>
         <%= link_to teach_lab_courses_path, :class => 'metro-btn',:target=>"_blank" do%>
             <i class="icon-bar-chart"></i>
             <span>MOOC课程</span>
@@ -58,3 +64,21 @@
       </div>
     </div> 
 </div>
+<%= javascript_include_tag "jquery.fancybox", "jquery_mousewheel_pack" %>
+<%= stylesheet_link_tag "jquery_fancybox", :media => "screen" %>
+<script type="text/javascript">
+  $(document).ready(function(){
+        $('.fancybox').fancybox({
+            width:$(document).width(),
+            height:$(document).height(),
+            margin: [15,15,15,15],
+            closeBtn  : true,
+            fitToView : true,
+            autoSize:false,
+            // height: 'auto',
+            afterShow: function(){
+                $.fancybox.update();
+            }
+        });
+    });
+</script>

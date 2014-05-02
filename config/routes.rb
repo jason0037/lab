@@ -121,6 +121,7 @@ Lab::Application.routes.draw do
     get :student_manage,:on=>:collection
     get :system_manage,:on=>:collection
     get :home,:on=>:collection
+    get :query,:on=>:collection
   end
 
   root :to => "lab_users#home"
