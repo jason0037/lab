@@ -71,7 +71,7 @@ class MonitorsController < ApplicationController
   end
 
   class BData < LabData
-   set_table_name "#{table_name}"
+   set_table_name "#{table_name}_reading"
   end
 
   def energy_consumption_data
@@ -125,10 +125,11 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
   end
 
   def mind_wave_data
-    size = params[:size]
 
+    size = params[:size]
     equipment_code = params[:equipment_code]
     point_id = params[:point_id]
+
     if (point_id.blank?)
       point_id='000000'
     end
@@ -140,16 +141,20 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
         mind_wave_meaning="放松度"
         meaning_color="000093"
     end
-    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
-    end_time = Time.now.strftime('%Y%m%d%H%M%S')
-    start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
-    #start_time = "20140101010001"
-    #end_time = "20150101010001"
-    datas = BData.where("point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
+    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
+    #end_time = Time.now.strftime('%Y%m%d%H%M%S')
+   #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
+    start_time = "2014050316812"
+    end_time = "2014050317812"
+
+    datas = BData.where("point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
+str="point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time
     cats_str = ''
     data_str = ''
     read_at = ''
+    seriesname1=''
+    seriesname2=''
     datas.each do |data|
       if size!='small'
         read_at = data.read_at[8..14]
@@ -159,12 +164,12 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
       cats_str += "<category label='#{read_at}'/>"
       data_str += "<set value='#{data.value}' />"
     end
-    categorys = "<categories>#{cats_str}</categories>"
+    categorys = "<categories>#{cats_str}#{table_name}</categories>"
     datasets = "<dataset seriesName='实时脑波' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
-
-    charts="<chart manageresize='1' palette='3' caption='Stock Price Monitor'
-subcaption='(Updates every 3 seconds) - Random data' datastreamurl='/DataProviders/RealTimeDYLine1.php'
-canvasbottommargin='150' refreshinterval='3' numberprefix='' snumberprefix='' setadaptiveymin='1'
+=begin
+    #datastreamurl='http://www.fusioncharts.com/DataProviders/RealTimeDYLine1.php'
+    charts="<chart manageresize='1' palette='3' caption='实时脑波' subcaption='(每5秒采集一次)'
+canvasbottommargin='150' refreshinterval='5' numberprefix='' snumberprefix='' setadaptiveymin='1'
 setadaptivesymin='1' xaxisname='Time' showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1'
 numdisplaysets='40' labelstep='2' pyaxisminvalue='29' pyaxismaxvalue='36' syaxisminvalue='21' syaxismaxvalue='26' >
 <categories />
@@ -182,9 +187,10 @@ numdisplaysets='40' labelstep='2' pyaxisminvalue='29' pyaxismaxvalue='36' syaxis
 <trendlines>
 <line parentyaxis='P' startvalue='32.7' displayvalue='Open' thickness='1' color='0372AB' dashed='1' />
 <line parentyaxis='S' startvalue='22.5' displayvalue='Open' thickness='1' color='DF8600' dashed='1' />
-</trendlines>
+</trendlines>#{categorys}#{datasets}
 </chart>"
-=begin
+=end
+
     charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'  canvasBorderThickness='1'
 canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100' divLineColor='008040'
 vDivLineColor='008040' divLineAlpha='100' baseFontColor='#{meaning_color}' caption='#{mind_wave_meaning}监测'
@@ -196,7 +202,7 @@ toolTipBorderColor='008040' baseFontSize='16' baseFont='微软雅黑' showAltern
 legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><definition>
 <style name='MyFontStyle' type='font' size='20' bold='0'/></definition><application>
 <apply toObject='Caption' styles='MyFontStyle' /></application></styles>#{categorys}#{datasets}</chart>"
-
+=begin
 
     xaxisname = '时间'
     axistitle1='注意力-放松度'
