@@ -153,6 +153,8 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     datas.each do |data|
       if size!='small'
         read_at = data.read_at[8..14]
+        seriesname1="注意力"
+        seriesname2="放松度"
       end
       cats_str += "<category label='#{read_at}'/>"
       data_str += "<set value='#{data.value}' />"
@@ -160,6 +162,29 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     categorys = "<categories>#{cats_str}</categories>"
     datasets = "<dataset seriesName='实时脑波' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
 
+    charts="<chart manageresize='1' palette='3' caption='Stock Price Monitor'
+subcaption='(Updates every 3 seconds) - Random data' datastreamurl='/DataProviders/RealTimeDYLine1.php'
+canvasbottommargin='150' refreshinterval='3' numberprefix='' snumberprefix='' setadaptiveymin='1'
+setadaptivesymin='1' xaxisname='Time' showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1'
+numdisplaysets='40' labelstep='2' pyaxisminvalue='29' pyaxismaxvalue='36' syaxisminvalue='21' syaxismaxvalue='26' >
+<categories />
+<dataset seriesname='#{seriesname1}' showvalues='0' />
+<dataset seriesname='#{seriesname2}' showvalues='0' parentyaxis='S' />
+<styles>
+<definition>
+<style type='font' name='captionFont' size='14' />
+</definition>
+<application>
+<apply toobject='Caption' styles='captionFont' />
+<apply toobject='Realtimevalue' styles='captionFont' />
+</application>
+</styles>
+<trendlines>
+<line parentyaxis='P' startvalue='32.7' displayvalue='Open' thickness='1' color='0372AB' dashed='1' />
+<line parentyaxis='S' startvalue='22.5' displayvalue='Open' thickness='1' color='DF8600' dashed='1' />
+</trendlines>
+</chart>"
+=begin
     charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'  canvasBorderThickness='1'
 canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100' divLineColor='008040'
 vDivLineColor='008040' divLineAlpha='100' baseFontColor='#{meaning_color}' caption='#{mind_wave_meaning}监测'
@@ -172,7 +197,7 @@ legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><defi
 <style name='MyFontStyle' type='font' size='20' bold='0'/></definition><application>
 <apply toObject='Caption' styles='MyFontStyle' /></application></styles>#{categorys}#{datasets}</chart>"
 
-=begin
+
     xaxisname = '时间'
     axistitle1='注意力-放松度'
     axistitle2='学习效果'
