@@ -126,7 +126,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 
   def mind_wave_data
     size = params[:size]
-=begin
+
     equipment_code = params[:equipment_code]
     point_id = params[:point_id]
     if (point_id.blank?)
@@ -141,10 +141,10 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
         meaning_color="000093"
     end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
-    #end_time = Time.now.strftime('%Y%m%d%H%M%S')
-    #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
-    start_time = "20140101010001"
-    end_time = "20150101010001"
+    end_time = Time.now.strftime('%Y%m%d%H%M%S')
+    start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
+    #start_time = "20140101010001"
+    #end_time = "20150101010001"
     datas = BData.where("point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
     cats_str = ''
@@ -159,6 +159,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     end
     categorys = "<categories>#{cats_str}</categories>"
     datasets = "<dataset seriesName='实时脑波' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
+
     charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'  canvasBorderThickness='1'
 canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100' divLineColor='008040'
 vDivLineColor='008040' divLineAlpha='100' baseFontColor='#{meaning_color}' caption='#{mind_wave_meaning}监测'
@@ -170,8 +171,8 @@ toolTipBorderColor='008040' baseFontSize='16' baseFont='微软雅黑' showAltern
 legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><definition>
 <style name='MyFontStyle' type='font' size='20' bold='0'/></definition><application>
 <apply toObject='Caption' styles='MyFontStyle' /></application></styles>#{categorys}#{datasets}</chart>"
-=end
 
+=begin
     xaxisname = '时间'
     axistitle1='注意力-放松度'
     axistitle2='学习效果'
@@ -213,6 +214,7 @@ numberscaleunit='GB' numberscalevalue='1024'>
 <set value='85' /><set value='85' /><set value='85' /><set value='85' /><set value='85' />
 <set value='85' /><set value='85' /><set value='85' /><set value='85' />
 <set value='85' /></dataset></axis></chart>"
+=end
     render :text => charts
 
   end
