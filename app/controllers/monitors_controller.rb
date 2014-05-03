@@ -71,7 +71,7 @@ class MonitorsController < ApplicationController
   end
 
   class BData < LabData
-   set_table_name "#{table_name}_reading"
+   set_table_name "#{table_name}"
   end
 
   def energy_consumption_data
