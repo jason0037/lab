@@ -164,15 +164,28 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
   end
 
   def mind_wave_data
-
     size = params[:size]
     equipment_code = params[:equipment_code]
     point_id = params[:point_id]
 
     caption =case point_id
-      when '000001'
-        "delta"
-               else "实时脑波"
+      when '000002'
+        "delta波"
+      when '000003'
+        "theta波"
+      when '000003'
+        "lowAlpha波"
+      when '000004'
+         "highAlpha波"
+      when '000005'
+         "lowBeta波"
+      when '000006'
+        "highBeta波"
+      when '000007'
+          "lowGamma波"
+      when '000006'
+          "highGamma波"
+      else "实时脑波"
 
     end
 
