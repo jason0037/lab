@@ -6,20 +6,43 @@ class MonitorsController < ApplicationController
   # GET /lab_cats
   # GET /lab_cats.json
   layout "blank"#,:except => [:show]
-  def get_realtime_date
+
+  def get_realtime_data
     equipment_code = params[:equipment_code]
     point_id = params[:point_id]
 
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
-    read_at = (Time.now-1.days).strftime('%Y%m%d%H%M%S')
-    #start_time = "2014050316812"
+    read_at = (Time.now-1.minutes).strftime('%Y%m%d%H%M%S')
+    read_at_format = read_at[8..14]
+    read_at_format = read_at_format[0..1]+":"+read_at_format[2..3]+":"+read_at_format[4..5]
+    value1 = 0
+    value2 = 0
+if point_id.blank?
+  point_id='000001'
+end
+    case table_name
+      when 'M000001'
+        if point_id!='000001'
+          point_id='000000'
+          sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+            and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
+          results = ActiveRecord::Base.connection.execute(sql)
 
-      sql = "select * from #{table_name}_reading where point_id = '#{point_id.to_s}' and read_at >= '#{read_at.to_s}' limit(1)"
-      @results = Emc::Base.connection.execute(sql)
+          results.each(:as => :hash) do |row|
+             value2= row["value"]
+          end
+        end
+    end
 
-      @results.each do |row|
-        render row.value
-      end
+    sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+          and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
+    results = ActiveRecord::Base.connection.execute(sql)
+
+    results.each(:as => :hash) do |row|
+      value1= row["value"]
+    end
+
+    render :text=>"&label=#{read_at_format}&value=#{value1}|#{value2}"
   end
 
   def online
@@ -168,26 +191,41 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 
     cats_str = ''
     data_str = ''
-    read_at = ''
     seriesname1=''
     seriesname2=''
+    subcaption=''
+    xaxisname=''
+    showlegend='0'
+    showLabels='0'
+
+    if size!='small'
+      seriesname1="注意力"
+      seriesname2="放松度"
+      subcaption="(每10秒采集一次)"
+      xaxisname="采集时间"
+      showlegend='1'
+      showLabels='1'
+    end
+=begin
+#分析数据
     datas.each do |data|
       if size!='small'
         read_at = data.read_at[8..14]
-        seriesname1="注意力"
-        seriesname2="放松度"
       end
       cats_str += "<category label='#{read_at}'/>"
       data_str += "<set value='#{data.value}' />"
     end
     categorys = "<categories>#{cats_str}#{table_name}</categories>"
     datasets = "<dataset seriesName='实时脑波' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
-=begin
-    #datastreamurl='http://www.fusioncharts.com/DataProviders/RealTimeDYLine1.php'
-    charts="<chart manageresize='1' palette='3' caption='实时脑波' subcaption='(每5秒采集一次)'
-canvasbottommargin='150' refreshinterval='5' numberprefix='' snumberprefix='' setadaptiveymin='1'
-setadaptivesymin='1' xaxisname='Time' showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1'
-numdisplaysets='40' labelstep='2' pyaxisminvalue='29' pyaxismaxvalue='36' syaxisminvalue='21' syaxismaxvalue='26' >
+=end
+
+    charts="<chart manageresize='1' palette='3' caption='实时脑波' subcaption='#{subcaption}'
+datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'
+canvasbottommargin='10' refreshinterval='5' numbersuffix='%'
+showlegend='#{showlegend}' showLabels='#{showLabels}'
+snumbersuffix='%' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
+showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
+labelstep='2' pyaxisminvalue='29' pyaxismaxvalue='36' syaxisminvalue='21' syaxismaxvalue='26' >
 <categories />
 <dataset seriesname='#{seriesname1}' showvalues='0' />
 <dataset seriesname='#{seriesname2}' showvalues='0' parentyaxis='S' />
@@ -200,13 +238,10 @@ numdisplaysets='40' labelstep='2' pyaxisminvalue='29' pyaxismaxvalue='36' syaxis
 <apply toobject='Realtimevalue' styles='captionFont' />
 </application>
 </styles>
-<trendlines>
-<line parentyaxis='P' startvalue='32.7' displayvalue='Open' thickness='1' color='0372AB' dashed='1' />
-<line parentyaxis='S' startvalue='22.5' displayvalue='Open' thickness='1' color='DF8600' dashed='1' />
-</trendlines>#{categorys}#{datasets}
+<trendlines></trendlines>
 </chart>"
-=end
 
+=begin
     charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'  canvasBorderThickness='1'
 canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100' divLineColor='008040'
 vDivLineColor='008040' divLineAlpha='100' baseFontColor='#{meaning_color}' caption='#{mind_wave_meaning}监测'
@@ -218,7 +253,7 @@ toolTipBorderColor='008040' baseFontSize='16' baseFont='微软雅黑' showAltern
 legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><definition>
 <style name='MyFontStyle' type='font' size='20' bold='0'/></definition><application>
 <apply toObject='Caption' styles='MyFontStyle' /></application></styles>#{categorys}#{datasets}</chart>"
-=begin
+
 
     xaxisname = '时间'
     axistitle1='注意力-放松度'
