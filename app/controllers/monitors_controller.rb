@@ -219,8 +219,10 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     showLabels='0'
 
     if size!='small'
-      seriesname1="注意力"
-      seriesname2="放松度"
+      if point_id='000000'
+        seriesname1="注意力"
+        seriesname2="放松度"
+      end
       subcaption="(每10秒采集一次)"
       xaxisname="采集时间"
       showlegend='1'
