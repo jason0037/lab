@@ -189,10 +189,11 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
           "highGamma波"
       when '00000011'
          "blinkstrength"
+
       else "实时脑波"
 
     end
-
+=begin
     if (point_id.blank?)
       point_id='000000'
     end
@@ -204,7 +205,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
         mind_wave_meaning="放松度"
         meaning_color="000093"
     end
-
+=end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     #end_time = Time.now.strftime('%Y%m%d%H%M%S')
    #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
