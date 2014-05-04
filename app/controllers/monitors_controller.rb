@@ -224,7 +224,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     showLabels='0'
 
     if size!='small'
-      if point_id='000000'
+      if point_id=='000000'
         seriesname1="注意力"
         seriesname2="放松度"
       end
