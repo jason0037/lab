@@ -17,9 +17,11 @@ class MonitorsController < ApplicationController
     read_at_format = read_at_format[0..1]+":"+read_at_format[2..3]+":"+read_at_format[4..5]
     value1 = 0
     value2 = 0
-if point_id.blank?
-  point_id='000001'
-end
+    
+    if point_id.blank?
+      point_id='000001'
+    end
+
     case table_name
       when 'M000001'
         if point_id!='000001'
@@ -173,17 +175,17 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
         "delta波"
       when '000003'
         "theta波"
-      when '000003'
-        "lowAlpha波"
       when '000004'
-         "highAlpha波"
+        "lowAlpha波"
       when '000005'
+         "highAlpha波"
+      when '000006'
          "lowBeta波"
-      when '000006'
-        "highBeta波"
       when '000007'
+        "highBeta波"
+      when '000008'
           "lowGamma波"
-      when '000006'
+      when '000009'
           "highGamma波"
       else "实时脑波"
 
