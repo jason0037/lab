@@ -207,8 +207,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     end
 =end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
-    #end_time = Time.now.strftime('%Y%m%d%H%M%S')
-   #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
+
     start_time = "2014050316812"
     end_time = "2014050317812"
 
@@ -224,9 +223,10 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     showLabels='0'
 
     if size!='small'
-      if point_id=='000000'
+      if (point_id == '000000' || point_id.blank?)
         seriesname1="注意力"
         seriesname2="放松度"
+        point_id = '000000'
       end
       subcaption="(每10秒采集一次)"
       xaxisname="采集时间"
