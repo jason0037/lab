@@ -6,6 +6,22 @@ class MonitorsController < ApplicationController
   # GET /lab_cats
   # GET /lab_cats.json
   layout "blank"#,:except => [:show]
+  def get_realtime_date
+    equipment_code = params[:equipment_code]
+    point_id = params[:point_id]
+
+    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
+    read_at = (Time.now-1.days).strftime('%Y%m%d%H%M%S')
+    #start_time = "2014050316812"
+
+      sql = "select * from #{table_name}_reading where point_id = '#{point_id.to_s}' and read_at >= '#{read_at.to_s}' limit(1)"
+      @results = Emc::Base.connection.execute(sql)
+
+      @results.each do |row|
+        render row.value
+      end
+  end
+
   def online
 
   end
@@ -149,7 +165,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     end_time = "2014050317812"
 
     datas = BData.where("point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
-str="point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time
+
     cats_str = ''
     data_str = ''
     read_at = ''

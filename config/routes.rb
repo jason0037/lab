@@ -33,6 +33,7 @@ Lab::Application.routes.draw do
     get :course_study_data, :on=> :collection
     get :interactive_study, :on=> :collection
     get :interactive_study_data, :on=> :collection
+    get :get_realtime_data, :on=> :collection
   end
 
 
