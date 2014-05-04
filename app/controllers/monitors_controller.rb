@@ -169,6 +169,13 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     equipment_code = params[:equipment_code]
     point_id = params[:point_id]
 
+    caption =case point_id
+      when '000001'
+        "delta"
+               else "实时脑波"
+
+    end
+
     if (point_id.blank?)
       point_id='000000'
     end
@@ -206,6 +213,8 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
       showlegend='1'
       showLabels='1'
     end
+
+
 =begin
 #分析数据
     datas.each do |data|
@@ -219,7 +228,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     datasets = "<dataset seriesName='实时脑波' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
 =end
 
-    charts="<chart manageresize='1' palette='3' caption='实时脑波' subcaption='#{subcaption}'
+    charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
 datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'
 canvasbottommargin='10' refreshinterval='5' numbersuffix='%'
 showlegend='#{showlegend}' showLabels='#{showLabels}'
