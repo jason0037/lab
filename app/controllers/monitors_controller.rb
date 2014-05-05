@@ -250,9 +250,9 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 
     charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
 datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'
-canvasbottommargin='10' refreshinterval='5' numbersuffix='%'
+canvasbottommargin='10' refreshinterval='5' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
-snumbersuffix='%' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
+snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
 labelstep='2' pyaxisminvalue='29' pyaxismaxvalue='36' syaxisminvalue='21' syaxismaxvalue='26' >
 <categories />
