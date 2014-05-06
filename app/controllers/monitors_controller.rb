@@ -208,13 +208,14 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 =end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
 
-    start_time = "2014050316812"
-    end_time = "2014050317812"
+    end_time = Time.now.strftime('%Y%m%d%H%M%S')
+    start_time = (Time.now - 45.minutes).strftime('%Y%m%d%H%M%S')
 
-    datas = BData.where("point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
+    #datas = BData.where("point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
     cats_str = ''
-    data_str = ''
+    data_str1 = ''
+    data_str2 = ''
     seriesname1=''
     seriesname2=''
     subcaption=''
@@ -234,19 +235,31 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
       showLabels='1'
     end
 
+    if point_id=='000000'
+      sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id desc"
+      results = ActiveRecord::Base.connection.execute(sql)
 
-=begin
-#分析数据
-    datas.each do |data|
-      if size!='small'
-        read_at = data.read_at[8..14]
+      results.each(:as => :hash) do |row|
+        data_str2 += "<set value='#{row["value"]}' />"
       end
-      cats_str += "<category label='#{read_at}'/>"
-      data_str += "<set value='#{data.value}' />"
+      point_id='000001'
     end
-    categorys = "<categories>#{cats_str}#{table_name}</categories>"
-    datasets = "<dataset seriesName='实时脑波' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
-=end
+
+    sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id desc"
+    results = ActiveRecord::Base.connection.execute(sql)
+
+    results.each(:as => :hash) do |row|
+      data_str1 += "<set value='#{row["value"]}' />"
+      times = row["read_at"][7..14]
+      times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
+      cats_str += "<category label='#{times}'/>"
+    end
+
+    categories = "<categories>#{cats_str}#{table_name}</categories>"
+    dataset1 = "<dataset seriesName='#{seriesname1}' showValues='0'>#{data_str1}</dataset>"
+    dataset2 = "<dataset seriesName='#{seriesname2}' showValues='0' parentYAxis='S'>#{data_str2}</dataset>"
 
     charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
 datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'
@@ -255,9 +268,7 @@ showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
 labelstep='2' pyaxisminvalue='29' pyaxismaxvalue='36' syaxisminvalue='21' syaxismaxvalue='26' >
-<categories />
-<dataset seriesname='#{seriesname1}' showvalues='0' />
-<dataset seriesname='#{seriesname2}' showvalues='0' parentyaxis='S' />
+#{categories} #{dataset1} #{dataset2}
 <styles>
 <definition>
 <style type='font' name='captionFont' size='14' />
@@ -436,34 +447,42 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
         caption = "行为体态分析"
         value="65"
         fillcolor = "FF0000,AE0000"
+        clickURL='/monitors/behaviour'
       when "002"
         caption = "脑波分析"
         fillcolor = "FF9224,EA7500"
         value=85
+        clickURL='/monitors/mind_wave'
       when "003"
         caption = "网络分析"
         fillcolor="009999,333333"
         value="70"
+        clickURL='/monitors/network'
       when "004"
         caption = "能耗分析"
         fillcolor = "00A600,006000"
         value="20"
+        clickURL='/monitors/energe_consumption'
       when "100"
         caption = "实验室综合分析"
         fillcolor ="8F4586,6C3365"
         value="98"
+        clickURL='/monitors/lab_comprehensive'
       when "202"
         caption = "交互学习行为"
         fillcolor = "737300,424200"
         value="60"
+        clickURL='/monitors/interactive_study'
       when "203"
         caption ="课程学习行为"
         fillcolor = "FF9224,EA7500"
         value="45"
+        clickURL='/monitors/course_study'
       when "200"
         caption = "在线课堂综合分析"
         fillcolor ="8F4586,6C3365"
         value="46"
+        clickURL='/monitors/online_comprehensive'
     end
     charts="<chart caption='#{caption}' manageresize='1' origw='350' origh='200' palette='2' bgalpha='0' bgcolor='FFFFFF'
 lowerlimit='0' upperlimit='100' numbersuffix='%' showborder='0' basefontcolor='FFFFDD' charttopmargin='5'
