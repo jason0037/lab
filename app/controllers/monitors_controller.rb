@@ -572,7 +572,7 @@ legendborderalpha='0' baseFontSize='14' baseFont='微软雅黑'  showLegend='#{s
 
   def general_behaviour_data
 
-    charts0="<chart manageresize='1' decimals='0' numbersuffix='%' placevaluesinside='1' is3d='0'
+    charts0="<chart clickURL='/monitor/general_behaviour' manageresize='1' decimals='0' numbersuffix='%' placevaluesinside='1' is3d='0'
 bordercolor='638400' bgcolor='FFFFFF' usecolornameasvalue='1' caption='一般学习习惯分析'>
 <colorrange>
 <color minvalue='0' maxvalue='50' name='Normal' code='99CC00' />
