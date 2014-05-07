@@ -16,6 +16,13 @@ class LabUser < ActiveRecord::Base
   validates :role_id, :presence=>{:presence=>true,:message=>"请选择用户类型."}
 
 
+  def status_text
+    text = "未审核"
+    if self.status == 1
+      text = "已审核"
+    end
+    text
+  end
   #after_save :sync_edx_user
 
 end
