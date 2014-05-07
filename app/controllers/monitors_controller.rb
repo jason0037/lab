@@ -6,6 +6,47 @@ class MonitorsController < ApplicationController
   # GET /lab_cats
   # GET /lab_cats.json
   layout "blank"#,:except => [:show]
+
+  def get_realtime_data
+    equipment_code = params[:equipment_code]
+    point_id = params[:point_id]
+
+    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
+    read_at = (Time.now-1.minutes).strftime('%Y%m%d%H%M%S')
+    read_at_format = read_at[8..14]
+    read_at_format = read_at_format[0..1]+":"+read_at_format[2..3]+":"+read_at_format[4..5]
+    value1 = 0
+    value2 = 0
+
+    if point_id.blank?
+      point_id='000001'
+    end
+
+    case table_name
+      when 'M000001'
+        if point_id!='000001'
+          point_id='000000'
+          sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+            and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
+          results = ActiveRecord::Base.connection.execute(sql)
+
+          results.each(:as => :hash) do |row|
+             value2= row["value"]
+          end
+        end
+    end
+
+    sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+          and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
+    results = ActiveRecord::Base.connection.execute(sql)
+
+    results.each(:as => :hash) do |row|
+      value1= row["value"]
+    end
+
+    render :text=>"&label=#{read_at_format}&value=#{value1}|#{value2}"
+  end
+
   def online
 
   end
@@ -126,9 +167,33 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 
   def mind_wave_data
     size = params[:size]
-=begin
     equipment_code = params[:equipment_code]
     point_id = params[:point_id]
+
+    caption =case point_id
+      when '000002'
+        "delta波"
+      when '000003'
+        "theta波"
+      when '000004'
+        "lowAlpha波"
+      when '000005'
+         "highAlpha波"
+      when '000006'
+         "lowBeta波"
+      when '000007'
+        "highBeta波"
+      when '000008'
+          "lowGamma波"
+      when '000009'
+          "highGamma波"
+      when '00000011'
+         "blinkstrength"
+
+      else "实时脑波"
+
+    end
+=begin
     if (point_id.blank?)
       point_id='000000'
     end
@@ -140,25 +205,83 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
         mind_wave_meaning="放松度"
         meaning_color="000093"
     end
+=end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
-    #end_time = Time.now.strftime('%Y%m%d%H%M%S')
-    #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
-    start_time = "20140101010001"
-    end_time = "20150101010001"
-    datas = BData.where("point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
+
+    end_time = Time.now.strftime('%Y%m%d%H%M%S')
+    start_time = (Time.now - 45.minutes).strftime('%Y%m%d%H%M%S')
+
+    #datas = BData.where("point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
     cats_str = ''
-    data_str = ''
-    read_at = ''
-    datas.each do |data|
-      if size!='small'
-        read_at = data.read_at[8..14]
+    data_str1 = ''
+    data_str2 = ''
+    seriesname1=''
+    seriesname2=''
+    subcaption=''
+    xaxisname=''
+    showlegend='0'
+    showLabels='0'
+
+    if size!='small'
+      if (point_id == '000000' || point_id.blank?)
+        seriesname1="注意力"
+        seriesname2="放松度"
+        point_id = '000000'
       end
-      cats_str += "<category label='#{read_at}'/>"
-      data_str += "<set value='#{data.value}' />"
+      subcaption="(每10秒采集一次)"
+      xaxisname="采集时间"
+      showlegend='1'
+      showLabels='1'
     end
-    categorys = "<categories>#{cats_str}</categories>"
-    datasets = "<dataset seriesName='实时脑波' showValues='0' parentYAxis='S'>#{data_str}</dataset>"
+
+    if point_id=='000000'
+      sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id desc"
+      results = ActiveRecord::Base.connection.execute(sql)
+
+      results.each(:as => :hash) do |row|
+        data_str2 += "<set value='#{row["value"]}' />"
+      end
+      point_id='000001'
+    end
+
+    sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id desc"
+    results = ActiveRecord::Base.connection.execute(sql)
+
+    results.each(:as => :hash) do |row|
+      data_str1 += "<set value='#{row["value"]}' />"
+      times = row["read_at"][7..14]
+      times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
+      cats_str += "<category label='#{times}'/>"
+    end
+
+    categories = "<categories>#{cats_str}#{table_name}</categories>"
+    dataset1 = "<dataset seriesName='#{seriesname1}' showValues='0'>#{data_str1}</dataset>"
+    dataset2 = "<dataset seriesName='#{seriesname2}' showValues='0' parentYAxis='S'>#{data_str2}</dataset>"
+
+    charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
+datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'
+canvasbottommargin='10' refreshinterval='5' numbersuffix=''
+showlegend='#{showlegend}' showLabels='#{showLabels}'
+snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
+showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
+labelstep='2' pyaxisminvalue='29' pyaxismaxvalue='36' syaxisminvalue='21' syaxismaxvalue='26' >
+#{categories} #{dataset1} #{dataset2}
+<styles>
+<definition>
+<style type='font' name='captionFont' size='14' />
+</definition>
+<application>
+<apply toobject='Caption' styles='captionFont' />
+<apply toobject='Realtimevalue' styles='captionFont' />
+</application>
+</styles>
+<trendlines></trendlines>
+</chart>"
+
+=begin
     charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'  canvasBorderThickness='1'
 canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100' divLineColor='008040'
 vDivLineColor='008040' divLineAlpha='100' baseFontColor='#{meaning_color}' caption='#{mind_wave_meaning}监测'
@@ -170,7 +293,7 @@ toolTipBorderColor='008040' baseFontSize='16' baseFont='微软雅黑' showAltern
 legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><definition>
 <style name='MyFontStyle' type='font' size='20' bold='0'/></definition><application>
 <apply toObject='Caption' styles='MyFontStyle' /></application></styles>#{categorys}#{datasets}</chart>"
-=end
+
 
     xaxisname = '时间'
     axistitle1='注意力-放松度'
@@ -213,6 +336,7 @@ numberscaleunit='GB' numberscalevalue='1024'>
 <set value='85' /><set value='85' /><set value='85' /><set value='85' /><set value='85' />
 <set value='85' /><set value='85' /><set value='85' /><set value='85' />
 <set value='85' /></dataset></axis></chart>"
+=end
     render :text => charts
 
   end
@@ -323,36 +447,44 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
         caption = "行为体态分析"
         value="65"
         fillcolor = "FF0000,AE0000"
+        clickURL='/monitors/behaviour'
       when "002"
         caption = "脑波分析"
         fillcolor = "FF9224,EA7500"
         value=85
+        clickURL='/monitors/mind_wave'
       when "003"
         caption = "网络分析"
         fillcolor="009999,333333"
         value="70"
+        clickURL='/monitors/network'
       when "004"
         caption = "能耗分析"
         fillcolor = "00A600,006000"
         value="20"
+        clickURL='/monitors/energe_consumption'
       when "100"
         caption = "实验室综合分析"
         fillcolor ="8F4586,6C3365"
         value="98"
+        clickURL='/monitors/lab_comprehensive'
       when "202"
         caption = "交互学习行为"
         fillcolor = "737300,424200"
         value="60"
+        clickURL='/monitors/interactive_study'
       when "203"
         caption ="课程学习行为"
         fillcolor = "FF9224,EA7500"
         value="45"
+        clickURL='/monitors/course_study'
       when "200"
         caption = "在线课堂综合分析"
         fillcolor ="8F4586,6C3365"
         value="46"
+        clickURL='/monitors/online_comprehensive'
     end
-    charts="<chart caption='#{caption}' manageresize='1' origw='350' origh='200' palette='2' bgalpha='0' bgcolor='FFFFFF'
+    charts="<chart caption='#{caption}' clickURL='#{clickURL}' manageresize='1' origw='350' origh='200' palette='2' bgalpha='0' bgcolor='FFFFFF'
 lowerlimit='0' upperlimit='100' numbersuffix='%' showborder='0' basefontcolor='FFFFDD' charttopmargin='5'
 chartbottommargin='5' tooltipbgcolor='009999' gaugefillmix='{dark-10},{light-70},{dark-10}' gaugefillratio='3'
 pivotradius='8' gaugeouterradius='120' gaugeinnerradius='70%' gaugeoriginx='175' gaugeoriginy='170'
@@ -440,7 +572,7 @@ legendborderalpha='0' baseFontSize='14' baseFont='微软雅黑'  showLegend='#{s
 
   def general_behaviour_data
 
-    charts0="<chart manageresize='1' decimals='0' numbersuffix='%' placevaluesinside='1' is3d='0'
+    charts0="<chart clickURL='/monitor/general_behaviour' manageresize='1' decimals='0' numbersuffix='%' placevaluesinside='1' is3d='0'
 bordercolor='638400' bgcolor='FFFFFF' usecolornameasvalue='1' caption='一般学习习惯分析'>
 <colorrange>
 <color minvalue='0' maxvalue='50' name='Normal' code='99CC00' />
