@@ -12,11 +12,11 @@ class MonitorsController < ApplicationController
     point_id = params[:point_id]
 
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
-    read_at = (Time.now-1.minutes).strftime('%Y%m%d%H%M%S')
-    read_at_format = read_at[8..14]
-    read_at_format = read_at_format[0..1]+":"+read_at_format[2..3]+":"+read_at_format[4..5]
+    read_at = Time.now.strftime('%Y%m%d%H%M%S')
+
     value1 = 0
     value2 = 0
+    sql =''
 
     if point_id.blank?
       point_id='000001'
@@ -31,20 +31,26 @@ class MonitorsController < ApplicationController
           results = ActiveRecord::Base.connection.execute(sql)
 
           results.each(:as => :hash) do |row|
-             value2= row["value"]
+             value2= "|#{row["value"]}"
           end
         end
+        sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+          and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
+
+      when 'B000001'
+        read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
+        sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where read_at = '#{read_at.to_s}'
+        group by read_at order by read_at limit 0,1"
+
     end
 
-    sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
-          and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
     results = ActiveRecord::Base.connection.execute(sql)
-
     results.each(:as => :hash) do |row|
       value1= row["value"]
     end
-
-    render :text=>"&label=#{read_at_format}&value=#{value1}|#{value2}"
+    read_at_format = read_at[8..14]
+    read_at_format = read_at_format[0..1]+":"+read_at_format[2..3]+":"+read_at_format[4..5]
+    render :text=>"&label=#{read_at_format}&value=#{value1}#{value2}"
   end
 
   def online
@@ -90,6 +96,8 @@ class MonitorsController < ApplicationController
   end
 
   def behaviour
+=begin
+#从服务器端采集数据
     scheduler = Rufus::Scheduler.start_new(:thread_name => 'behaviour001')
     @logger ||= Logger.new("log/scheduler.log")
     puts Time.new
@@ -109,6 +117,7 @@ class MonitorsController < ApplicationController
         scheduler.stop
       end
     end
+=end
   end
 
   class BData < LabData
@@ -190,7 +199,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
       when '00000011'
          "blinkstrength"
 
-      else "实时脑波"
+      else "实时脑波分析"
 
     end
 =begin
@@ -207,7 +216,6 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     end
 =end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
-
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
     start_time = (Time.now - 45.minutes).strftime('%Y%m%d%H%M%S')
 
@@ -229,7 +237,9 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
         seriesname2="放松度"
         point_id = '000000'
       end
-      subcaption="(每10秒采集一次)"
+      if (caption!='实时脑波分析')
+        subcaption="信号功率"
+      end
       xaxisname="采集时间"
       showlegend='1'
       showLabels='1'
@@ -247,27 +257,28 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     end
 
     sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
-            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id desc"
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|
       data_str1 += "<set value='#{row["value"]}' />"
-      times = row["read_at"][7..14]
+      times = row["read_at"][8..14]
       times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
+
       cats_str += "<category label='#{times}'/>"
     end
 
-    categories = "<categories>#{cats_str}#{table_name}</categories>"
+    categories = "<categories>#{cats_str}</categories>"
     dataset1 = "<dataset seriesName='#{seriesname1}' showValues='0'>#{data_str1}</dataset>"
     dataset2 = "<dataset seriesName='#{seriesname2}' showValues='0' parentYAxis='S'>#{data_str2}</dataset>"
 
     charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
 datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'
-canvasbottommargin='10' refreshinterval='5' numbersuffix=''
+canvasbottommargin='10' refreshinterval='1' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
-labelstep='2' pyaxisminvalue='29' pyaxismaxvalue='36' syaxisminvalue='21' syaxismaxvalue='26' >
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' >
 #{categories} #{dataset1} #{dataset2}
 <styles>
 <definition>
@@ -392,11 +403,61 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     equipment_code = params[:equipment_code]
     size = params[:size]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
-    #end_time = Time.now.strftime('%Y%m%d%H%M%S')
-    #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
-    start_time = "20140424130509"
-    end_time =   "20140424141437"
+    end_time = Time.now.strftime('%Y%m%d%H%M%S')
+    start_time = (Time.now - 45.minutes).strftime('%Y%m%d%H%M%S')
 
+    caption="实时行为体态"
+    cats_str = ''
+    data_str1 = ''
+    seriesname1=''
+    subcaption=''
+    xaxisname=''
+    showlegend='0'
+    showLabels='0'
+
+    if size!='small'
+      seriesname1="行为体态分析"
+      subcaption="动作幅度"
+      xaxisname="采集时间"
+      showlegend='1'
+      showLabels='1'
+    end
+
+    sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where
+     read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at"
+    results = ActiveRecord::Base.connection.execute(sql)
+
+    results.each(:as => :hash) do |row|
+      data_str1 += "<set value='#{row["value"]}' />"
+      times = row["read_at"][8..14]
+      times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
+
+      cats_str += "<category label='#{times}'/>"
+    end
+
+    categories = "<categories>#{cats_str}</categories>"
+    dataset1 = "<dataset seriesName='#{seriesname1}' showValues='0'>#{data_str1}</dataset>"
+
+    charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
+datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}'
+canvasbottommargin='10' refreshinterval='1' numbersuffix=''
+showlegend='#{showlegend}' showLabels='#{showLabels}'
+snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
+showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' >
+#{categories} #{dataset1}
+<styles>
+<definition>
+<style type='font' name='captionFont' size='14' />
+</definition>
+<application>
+<apply toobject='Caption' styles='captionFont' />
+<apply toobject='Realtimevalue' styles='captionFont' />
+</application>
+</styles>
+<trendlines></trendlines>
+</chart>"
+=begin
     cats_str = ''
     data_str = ''
     select =" '' as read_at"
@@ -435,6 +496,7 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
 <style name='MyFontStyle' type='font' size='20' bold='0'/></definition>
 <application><apply toObject='Caption' styles='MyFontStyle' /></application>
 </styles>#{categorys}#{datasets}</chart>"
+=end
     render :text => charts
   end
 
@@ -485,7 +547,7 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
         clickURL='/monitors/online_comprehensive'
     end
     charts="<chart caption='#{caption}' clickURL='#{clickURL}' manageresize='1' origw='350' origh='200' palette='2' bgalpha='0' bgcolor='FFFFFF'
-lowerlimit='0' upperlimit='100' numbersuffix='%' showborder='0' basefontcolor='FFFFDD' charttopmargin='5'
+lowerlimit='0' upperlimit='100' numbersuffix='%' showborder='0' basefontcolor='000000' charttopmargin='5'
 chartbottommargin='5' tooltipbgcolor='009999' gaugefillmix='{dark-10},{light-70},{dark-10}' gaugefillratio='3'
 pivotradius='8' gaugeouterradius='120' gaugeinnerradius='70%' gaugeoriginx='175' gaugeoriginy='170'
 trendvaluedistance='5' tickvaluedistance='3' managevalueoverlapping='1' autoaligntickvalues='1' >
@@ -501,7 +563,7 @@ trendvaluedistance='5' tickvaluedistance='3' managevalueoverlapping='1' autoalig
 <annotations>
 <annotationgroup id='Grp1' showbelow='1' showshadow='1'>
 <annotation type='rectangle' x='$chartStartX+5' y='$chartStartY+5' tox='$chartEndX-5' toy='$chartEndY-5'
-radius='10' fillcolor='000079,28004D' showborder='0' />
+radius='10' fillcolor='FFFFFF,FFFFFF' showborder='0' />
 </annotationgroup>
 </annotations>
 <styles><definition>
@@ -572,7 +634,7 @@ legendborderalpha='0' baseFontSize='14' baseFont='微软雅黑'  showLegend='#{s
 
   def general_behaviour_data
 
-    charts0="<chart clickURL='/monitor/general_behaviour' manageresize='1' decimals='0' numbersuffix='%' placevaluesinside='1' is3d='0'
+    charts0="<chart clickURL='/monitors/general_behaviour' manageresize='1' decimals='0' numbersuffix='%' placevaluesinside='1' is3d='0'
 bordercolor='638400' bgcolor='FFFFFF' usecolornameasvalue='1' caption='一般学习习惯分析'>
 <colorrange>
 <color minvalue='0' maxvalue='50' name='Normal' code='99CC00' />
