@@ -551,7 +551,7 @@ lowerlimit='0' upperlimit='100' numbersuffix='%' showborder='0' basefontcolor='0
 chartbottommargin='5' tooltipbgcolor='009999' gaugefillmix='{dark-10},{light-70},{dark-10}' gaugefillratio='3'
 pivotradius='8' gaugeouterradius='120' gaugeinnerradius='70%' gaugeoriginx='175' gaugeoriginy='170'
 trendvaluedistance='5' tickvaluedistance='3' managevalueoverlapping='1' autoaligntickvalues='1' >
-<colorrange>
+<colorrange> 
 <color minvalue='0' maxvalue='45' code='FF654F' />
 <color minvalue='45' maxvalue='80' code='F6BD0F' />
 <color minvalue='80' maxvalue='100' code='8BBA00' />
