@@ -26,6 +26,14 @@ class LabUsersController < ApplicationController
     render :layout => "blank"
   end
 
+  def pass
+    @lab_user = LabUser.find(params[:id])
+    @lab_user.status = 1
+    @lab_user.save
+
+    redirect_to lab_users_path
+  end
+
   def home
     @articles = LabNotice.where(:notice_type=>1,:published=>1).paginate(:page => params[:page], :per_page => 5).order("published_at DESC")
     @projects = LabEvalProject.where(:status=>1).paginate(:page => params[:page], :per_page => 5).order("created_at DESC")

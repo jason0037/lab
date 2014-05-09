@@ -123,6 +123,7 @@ Lab::Application.routes.draw do
     get :system_manage,:on=>:collection
     get :home,:on=>:collection
     get :query,:on=>:collection
+    get :pass,:on=>:member
   end
 
   root :to => "lab_users#home"

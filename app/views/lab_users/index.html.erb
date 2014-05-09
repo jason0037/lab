@@ -31,11 +31,13 @@
         <td><%= lab_user.mobile %></td>
         <td><%= lab_user.email %></td>
         <td><%= lab_user.account %></td>
-        <td><%= lab_user.status %></td>
+        <td><%= lab_user.status_text %></td>
         <td><%= lab_user.lab_role.name %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_user_path(lab_user), :class => 'btn btn-mini' %>
+          <%= link_to "审核通过",
+                      pass_lab_user_path(lab_user), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       lab_user_path(lab_user),
                       :method => :delete,
