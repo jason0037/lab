@@ -41,8 +41,8 @@ class MonitorsController < ApplicationController
         read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
         sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where read_at = '#{read_at.to_s}'
         group by read_at order by read_at limit 0,1"
-        
-      when 'COOOOO1'
+
+      else
         read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
         sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
           and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
@@ -55,7 +55,7 @@ class MonitorsController < ApplicationController
     end
     read_at_format = read_at[8..14]
     read_at_format = read_at_format[0..1]+":"+read_at_format[2..3]+":"+read_at_format[4..5]
-    render :text=>"&label=#{read_at_format}&value=#{value1}#{value2}"
+    render :text=>"&label=#{read_at_format}&value=#{value1}#{value2}#{sql}"
   end
 
   def online
