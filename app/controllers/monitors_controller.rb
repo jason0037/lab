@@ -187,7 +187,7 @@ canvasbottommargin='10' refreshinterval='1' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
-labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' >
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='1' syaxisminvalue='0' syaxismaxvalue='1' >
 #{categories} #{dataset1} #{dataset2}
 <styles>
 <definition>
