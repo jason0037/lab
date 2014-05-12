@@ -41,6 +41,10 @@ class MonitorsController < ApplicationController
         read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
         sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where read_at = '#{read_at.to_s}'
         group by read_at order by read_at limit 0,1"
+      when 'COOOOO1'
+        read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
+        sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+          and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
 
     end
 
@@ -125,6 +129,79 @@ class MonitorsController < ApplicationController
   end
 
   def energy_consumption_data
+    size = params[:size]
+    equipment_code = params[:equipment_code]
+    point_id = params[:point_id]
+
+    caption =case point_id
+               when '000000'
+                 "电压（V）"
+               when '000001'
+                 "功率（kW）"
+               when '000002'
+                 "电流（A）"
+               when '000003'
+                 "电能（度）"
+             end
+
+    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
+    end_time = Time.now.strftime('%Y%m%d%H%M%S')
+    start_time = (Time.now - 45.minutes).strftime('%Y%m%d%H%M%S')
+
+    cats_str = ''
+    data_str1 = ''
+    data_str2 = ''
+    seriesname1=''
+    seriesname2=''
+    subcaption=''
+    xaxisname=''
+    showlegend='0'
+    showLabels='0'
+
+    if size!='small'
+      xaxisname="采集时间"
+      showlegend='1'
+      showLabels='1'
+    end
+
+    sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
+    results = ActiveRecord::Base.connection.execute(sql)
+
+    results.each(:as => :hash) do |row|
+      data_str1 += "<set value='#{row["value"]}' />"
+      times = row["read_at"][8..14]
+      times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
+
+      cats_str += "<category label='#{times}'/>"
+    end
+
+    categories = "<categories>#{cats_str}</categories>"
+    dataset1 = "<dataset seriesName='#{seriesname1}' showValues='0'>#{data_str1}</dataset>"
+    dataset2 =''
+#    dataset2 = "<dataset seriesName='#{seriesname2}' showValues='0' parentYAxis='S'>#{data_str2}</dataset>"
+
+    charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
+datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'
+canvasbottommargin='10' refreshinterval='1' numbersuffix=''
+showlegend='#{showlegend}' showLabels='#{showLabels}'
+snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
+showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' >
+#{categories} #{dataset1} #{dataset2}
+<styles>
+<definition>
+<style type='font' name='captionFont' size='14' />
+</definition>
+<application>
+<apply toobject='Caption' styles='captionFont' />
+<apply toobject='Realtimevalue' styles='captionFont' />
+</application>
+</styles>
+<trendlines></trendlines>
+</chart>"
+=begin
+
     equipment_code = params[:equipment_code]
     size = params[:size]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
@@ -171,6 +248,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 <styles><definition><style name='MyFontStyle' type='font' size='24' bold='0'/></definition>
 <application><apply toObject='Caption' styles='MyFontStyle' />
 </application></styles>#{categorys}#{datasets}</chart>"
+=end
     render :text => charts
   end
 
@@ -551,7 +629,7 @@ lowerlimit='0' upperlimit='100' numbersuffix='%' showborder='0' basefontcolor='0
 chartbottommargin='5' tooltipbgcolor='009999' gaugefillmix='{dark-10},{light-70},{dark-10}' gaugefillratio='3'
 pivotradius='8' gaugeouterradius='120' gaugeinnerradius='70%' gaugeoriginx='175' gaugeoriginy='170'
 trendvaluedistance='5' tickvaluedistance='3' managevalueoverlapping='1' autoaligntickvalues='1' >
-<colorrange> 
+<colorrange>
 <color minvalue='0' maxvalue='45' code='FF654F' />
 <color minvalue='45' maxvalue='80' code='F6BD0F' />
 <color minvalue='80' maxvalue='100' code='8BBA00' />
