@@ -312,13 +312,13 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 
     if size!='small'
       if (point_id == '000000' || point_id.blank?)
-        seriesname1="注意力"
-        seriesname2="放松度"
+        seriesname2="注意力"
+        seriesname1="放松度"
         point_id = '000000'
-      end
-      if (caption!='实时脑波分析')
+      else
         subcaption="信号功率"
       end
+
       xaxisname="采集时间"
       showlegend='1'
       showLabels='1'
