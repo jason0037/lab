@@ -24,8 +24,7 @@ class MonitorsController < ApplicationController
 
     case table_name
       when 'M000001'
-        if point_id!='000001'
-          point_id='000000'
+        if point_id='000000'
           sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
             and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
           results = ActiveRecord::Base.connection.execute(sql)
@@ -33,6 +32,7 @@ class MonitorsController < ApplicationController
           results.each(:as => :hash) do |row|
              value2= "|#{row["value"]}"
           end
+          point_id='000001'
         end
         sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
           and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
@@ -55,78 +55,7 @@ class MonitorsController < ApplicationController
     end
     read_at_format = read_at[8..14]
     read_at_format = read_at_format[0..1]+":"+read_at_format[2..3]+":"+read_at_format[4..5]
-    render :text=>"&label=#{read_at_format}&value=#{value1}#{value2}#{sql}"
-  end
-
-  def online
-
-  end
-
-  def general_behaviour
-
-  end
-
-  def interactive_study
-
-  end
-
-  def course_study
-
-  end
-
-  def index
-    course_id = params[:id]
-    if  course_id.blank?
-      @lab_course =LabCourse.where(:status=>1).limit(1).order("created_at DESC")
-    else
-      @lab_course = LabCourse.find(course_id)
-    end
-
-  end
-
-  def comprehensive
-
-  end
-
-  def energy_consumption
-
-  end
-
-  def network
-
-  end
-
-  def mind_wave
-
-  end
-
-  def behaviour
-=begin
-#从服务器端采集数据
-    scheduler = Rufus::Scheduler.start_new(:thread_name => 'behaviour001')
-    @logger ||= Logger.new("log/scheduler.log")
-    puts Time.new
-    j=0
-    scheduler.every  '5s', :timeout => '1m' do
-      j= j+1
-      read_at = Time.now.strftime('%Y%m%d%H%M%S')
-      res = Net::HTTP.get_response(URI.parse('http://180.173.14.8:23456/')).body.split("\r\n")
-
-      res.each do |value|
-        sql ="insert B000001_reading (point_id,read_at,saved_at,value,source) values('00000#{value[1,1]}'
-          ,'#{read_at}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{value[2,5]}','#{value[0,1]}')"
-        ActiveRecord::Base.connection.execute sql
-
-      end
-      if (j>100)
-        scheduler.stop
-      end
-    end
-=end
-  end
-
-  class BData < LabData
-   set_table_name "#{table_name}"
+    render :text=>"&label=#{read_at_format}&value=#{value1}#{value2}"
   end
 
   def energy_consumption_data
@@ -915,5 +844,75 @@ caption='作业评分' subcaption='Top Rating of 5' showBorder='0' showValue='1'
     render :text => charts
   end
 
+  def online
+
+  end
+
+  def general_behaviour
+
+  end
+
+  def interactive_study
+
+  end
+
+  def course_study
+
+  end
+
+  def index
+    course_id = params[:id]
+    if  course_id.blank?
+      @lab_course =LabCourse.where(:status=>1).limit(1).order("created_at DESC")
+    else
+      @lab_course = LabCourse.find(course_id)
+    end
+
+  end
+
+  def comprehensive
+
+  end
+
+  def energy_consumption
+
+  end
+
+  def network
+
+  end
+
+  def mind_wave
+
+  end
+
+  def behaviour
+=begin
+#从服务器端采集数据
+    scheduler = Rufus::Scheduler.start_new(:thread_name => 'behaviour001')
+    @logger ||= Logger.new("log/scheduler.log")
+    puts Time.new
+    j=0
+    scheduler.every  '5s', :timeout => '1m' do
+      j= j+1
+      read_at = Time.now.strftime('%Y%m%d%H%M%S')
+      res = Net::HTTP.get_response(URI.parse('http://180.173.14.8:23456/')).body.split("\r\n")
+
+      res.each do |value|
+        sql ="insert B000001_reading (point_id,read_at,saved_at,value,source) values('00000#{value[1,1]}'
+          ,'#{read_at}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{value[2,5]}','#{value[0,1]}')"
+        ActiveRecord::Base.connection.execute sql
+
+      end
+      if (j>100)
+        scheduler.stop
+      end
+    end
+=end
+  end
+
+  class BData < LabData
+    set_table_name "#{table_name}"
+  end
 end
 
