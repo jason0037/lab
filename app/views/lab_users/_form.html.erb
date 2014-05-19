@@ -22,6 +22,7 @@
     <%end%>
     <div class="controls">
       <%= f.text_field :email, :class => 'text_field' %>
+      <span class="help-inline error"><%=@lab_user.errors[:email].join(",")%></span>
     </div>
   </div>
   <div class="control-group">

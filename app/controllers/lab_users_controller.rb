@@ -77,10 +77,11 @@ class LabUsersController < ApplicationController
 
     @lab_user.password = Digest::MD5.hexdigest(params[:lab_user][:password])
 
+    @check_user = EdxUser.find_by_email(params[:lab_user][:email])
+
     LabUser.transaction do
       respond_to do |format|
-        if @lab_user.save
-          
+        if @lab_user.save && @check_user.blank?
           edx = EdxUser.new
           edx.username = @lab_user.name
           edx.email = @lab_user.email
@@ -130,6 +131,9 @@ class LabUsersController < ApplicationController
           format.html { redirect_to login_lab_users_path, notice: '用户注册完成，请等待管理员审核通过.' }
           format.json { render json: @lab_user, status: :created, location: @lab_user }
         else
+          if !@check_user.blank?
+            @lab_user.errors[:email].push "Email已经存在."
+          end
           format.html { render action: "new" ,:layout => "blank"}
           format.json { render json: @lab_user.errors, status: :unprocessable_entity }
         end
