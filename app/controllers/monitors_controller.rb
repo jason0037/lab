@@ -39,8 +39,8 @@ class MonitorsController < ApplicationController
 
       when 'B000001'
         read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
-        sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where read_at = '#{read_at.to_s}'
-        group by read_at order by read_at limit 0,1"
+        sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} read_at = '#{read_at.to_s}'
+        group by read_at,source order by read_at limit 0,1"
 
       else
         read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
@@ -410,11 +410,12 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
   def behaviour_data
     equipment_code = params[:equipment_code]
     size = params[:size]
+    source = params[:source]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
     start_time = (Time.now - 45.minutes).strftime('%Y%m%d%H%M%S')
 
-    caption="实时行为体态"
+    caption="学生#{source}实时行为体态"
     cats_str = ''
     data_str1 = ''
     seriesname1=''
@@ -431,8 +432,8 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
       showLabels='1'
     end
 
-    sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where
-     read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at"
+    sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and
+     read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at,source"
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|
@@ -447,7 +448,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     dataset1 = "<dataset seriesName='#{seriesname1}' showValues='0'>#{data_str1}</dataset>"
 
     charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
-datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}'
+datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&source=#{source}'
 canvasbottommargin='10' refreshinterval='1' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
