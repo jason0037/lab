@@ -186,6 +186,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     size = params[:size]
     equipment_code = params[:equipment_code]
     point_id = params[:point_id]
+    source = params[:source]
 
     caption =case point_id
       when '000002'
@@ -207,7 +208,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
       when '00000011'
          "blinkstrength"
 
-      else "实时脑波分析"
+      else "实时脑波分析(学生#{source})"
 
     end
 =begin
@@ -254,6 +255,9 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     end
 
     if point_id=='000000'
+      if !params[:link].blank?
+        click_url="clickURL='mind_wave?source=#{source}'"
+      end
       sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
             and read_at >= '#{start_time}' and read_at<=#{end_time} order by id desc"
       results = ActiveRecord::Base.connection.execute(sql)
@@ -280,7 +284,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     dataset1 = "<dataset seriesName='#{seriesname1}' showValues='0'>#{data_str1}</dataset>"
     dataset2 = "<dataset seriesName='#{seriesname2}' showValues='0' parentYAxis='S'>#{data_str2}</dataset>"
 
-    charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
+    charts="<chart  #{click_url} manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
 datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'
 canvasbottommargin='10' refreshinterval='1' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
@@ -415,7 +419,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
     start_time = (Time.now - 45.minutes).strftime('%Y%m%d%H%M%S')
 
-    caption="学生#{source}实时行为体态"
+    caption="实时行为体态(学生#{source})"
     cats_str = ''
     data_str1 = ''
     seriesname1=''
@@ -884,7 +888,7 @@ caption='作业评分' subcaption='Top Rating of 5' showBorder='0' showValue='1'
   end
 
   def mind_wave
-
+    @source = params[:source]
   end
 
   def behaviour

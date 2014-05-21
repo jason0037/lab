@@ -9,6 +9,7 @@ class LabUser < ActiveRecord::Base
   has_many :lab_teach_resource,:foreign_key=>"author_id"
   has_many :lab_teach_design,:foreign_key=>"author_id"
   has_many :lab_mobile_course,:foreign_key=>"author_id"
+  has_many :lab_course, :foreign_key=>"tearcher_id"
 
 
   validates :account, :presence=>{:presence=>true,:message=>"请填写用户名."}
