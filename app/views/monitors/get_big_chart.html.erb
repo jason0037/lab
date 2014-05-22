@@ -4,34 +4,7 @@
 </div>
 
 <% if params[:data_source][params[:data_source].size-6..params[:data_source].size-6]!='2'#线上的不显示%>
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th>课程编号</th>
-    <th>课程名称</th>
-    <th>学生姓名</th>
-    <th>终端型号</th>
-    <th>评测对象</th>
-    <th>教师</th>
-    <th>开始时间</th>
-    <th>结束时间</th>
-    <th>状态</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td><a href="/lab_courses/1">1</a></td>
-    <td>实验课堂教学1</td>
-    <td>student</td>
-    <td>mini Pad / ios7</td>
-    <td>电子书包评测1</td>
-    <td>teacher</td>
-    <td>2014-04-21 09:00:00</td>
-    <td>2014-04-21 10:00:00</td>
-    <td>结束</td>
-  </tr>
-  </tbody>
-</table>
+    <%= render :partial => 'course_info' %>
 <%end%>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -40,7 +13,7 @@ $(document).ready(function(){
     var customerChart = new FusionCharts( "<%=params[:chart_type]%>", 
                                                   "chart_realtime_01", "100%", "450", "0", "1" );
     //realtimeChart.setXMLUrl("/monitors/camera_data?equipment_code=000001");
-    var data_source = "<%=params[:data_source]%>&point_id=<%=params[:point_id]%>";//document.getElementById('data_source').value; //
+    var data_source = "<%=params[:data_source]%>&point_id=<%=params[:point_id]%>&source=<%=@source%>";//document.getElementById('data_source').value; //
     customerChart.setXMLUrl(data_source);
     customerChart.render("big_chart_render");
 });

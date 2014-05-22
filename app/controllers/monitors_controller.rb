@@ -10,6 +10,7 @@ class MonitorsController < ApplicationController
   def get_realtime_data
     equipment_code = params[:equipment_code]
     point_id = params[:point_id]
+    source = params[:source]
 
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     read_at = Time.now.strftime('%Y%m%d%H%M%S')
@@ -25,7 +26,7 @@ class MonitorsController < ApplicationController
     case table_name
       when 'M000001'
         if point_id='000000'
-          sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+          sql = "select value from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
             and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
           results = ActiveRecord::Base.connection.execute(sql)
 
@@ -34,12 +35,12 @@ class MonitorsController < ApplicationController
           end
           point_id='000001'
         end
-        sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+        sql = "select value from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
           and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
 
       when 'B000001'
         read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
-        sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} read_at = '#{read_at.to_s}'
+        sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and read_at = '#{read_at.to_s}'
         group by read_at,source order by read_at limit 0,1"
 
       else
@@ -257,6 +258,10 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     if point_id=='000000'
       if !params[:link].blank?
         click_url="clickURL='mind_wave?source=#{source}'"
+      else
+      # click_url="clickURL='P-detailsPopUp,width=100%,height=450,toolbar=no,scrollbars=no,menubar=0,location=0,status=0
+#    ,resizable=no-/monitors/get_big_chart?chart_type=/FusionCharts/RealTimeLineDY.swf&data_source=/monitors/mind_wave_data?equipment_code=002001&point_id=000002&source=#{source}'"
+        1
       end
       sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
             and read_at >= '#{start_time}' and read_at<=#{end_time} order by id desc"
@@ -285,7 +290,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     dataset2 = "<dataset seriesName='#{seriesname2}' showValues='0' parentYAxis='S'>#{data_str2}</dataset>"
 
     charts="<chart  #{click_url} manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
-datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'
+datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'&source='#{source}'
 canvasbottommargin='10' refreshinterval='1' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
@@ -918,6 +923,15 @@ caption='作业评分' subcaption='Top Rating of 5' showBorder='0' showValue='1'
 
   class BData < LabData
     set_table_name "#{table_name}"
+  end
+
+  def get_big_chart
+    course_id = params[:id]
+    if  course_id.blank?
+      @lab_course =LabCourse.where(:status=>1).limit(1).order("created_at DESC")
+    else
+      @lab_course = LabCourse.find(course_id)
+    end
   end
 end
 
