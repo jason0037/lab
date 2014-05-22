@@ -25,9 +25,11 @@ class MonitorsController < ApplicationController
 
     case table_name
       when 'M000001'
-        if point_id='000000'
+        if point_id=='000000'
+          read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
           sql = "select value from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
-            and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
+          and read_at>= '#{read_at.to_s}'
+          order by id desc limit 0,1"
           results = ActiveRecord::Base.connection.execute(sql)
 
           results.each(:as => :hash) do |row|
@@ -35,24 +37,31 @@ class MonitorsController < ApplicationController
           end
           point_id='000001'
         end
-        sql = "select value from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
-          and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
+        sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
+            and read_at>= '#{read_at.to_s}'
+           order by id desc limit 0,1"
 
       when 'B000001'
         read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
-        sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and read_at = '#{read_at.to_s}'
-        group by read_at,source order by read_at limit 0,1"
+        #and read_at = '#{read_at.to_s}'
 
+        sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source}
+        group by read_at,source order by read_at desc limit 0,1"
+      when 'C000001'
+       read_at = (Time.now-60.seconds).strftime('%Y%m%d%H%M%S')
+        sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
+          order by id desc limit 0,1"
       else
         read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
-        sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
-          and read_at >= '#{read_at.to_s}' order by id desc limit 0,1"
+        sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
+        order by id desc limit 0,1"
 
     end
 
     results = ActiveRecord::Base.connection.execute(sql)
     results.each(:as => :hash) do |row|
       value1= row["value"]
+      read_at = row["read_at"]
     end
     read_at_format = read_at[8..14]
     read_at_format = read_at_format[0..1]+":"+read_at_format[2..3]+":"+read_at_format[4..5]
@@ -64,16 +73,20 @@ class MonitorsController < ApplicationController
     equipment_code = params[:equipment_code]
     point_id = params[:point_id]
 
-    caption =case point_id
+    case point_id
                when '000000'
-                 "电压（V）"
+                 caption ="电压（V）"
+                 max_value="500"
                when '000001'
-                 "功率（kW）"
+                 caption ="功率（kW）"
+                 max_value="0.3"
                when '000002'
-                 "电流（A）"
+                 caption ="电流（A）"
+                 max_value="1.5"
                when '000003'
-                 "电能（度）"
-             end
+                 caption ="电能（度）"
+                 max_value="0.05"
+    end
 
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
@@ -118,7 +131,7 @@ canvasbottommargin='10' refreshinterval='1' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
-labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='1' syaxisminvalue='0' syaxismaxvalue='1' >
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='#{max_value}' syaxisminvalue='0' syaxismaxvalue='1' >
 #{categories} #{dataset1} #{dataset2}
 <styles>
 <definition>
@@ -290,7 +303,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
     dataset2 = "<dataset seriesName='#{seriesname2}' showValues='0' parentYAxis='S'>#{data_str2}</dataset>"
 
     charts="<chart  #{click_url} manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
-datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'&source='#{source}'
+datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}&source=#{source}'
 canvasbottommargin='10' refreshinterval='1' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
@@ -420,6 +433,9 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     equipment_code = params[:equipment_code]
     size = params[:size]
     source = params[:source]
+    if source.blank?
+      source=1
+    end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
     start_time = (Time.now - 45.minutes).strftime('%Y%m%d%H%M%S')
