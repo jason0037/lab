@@ -113,6 +113,10 @@ Lab::Application.routes.draw do
 
   resources :lab_users do
     get :login,:on=>:collection
+    get :forgot_pass,:on=>:collection
+    get :reset_pass,:on=>:member
+    post :modify_pass,:on=>:collection
+    post :pass_change,:on=>:collection
     post :login_in,:on=>:collection
     get :logout,:on=>:collection
     get :teacher_manage,:on=>:collection

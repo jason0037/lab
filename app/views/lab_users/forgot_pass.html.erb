@@ -1,0 +1,25 @@
+<div class="login_page">
+  <div id="login_form_div">
+    <%=form_for :lab_user,:url=>pass_change_lab_users_path,:html=>{:id=>"login_form"} do |f|%>
+        <div class="login-div clearfix">
+            <div class="control-group clearfix">
+              <label class="control-label">EMAIL：</label>
+              <div class="controls">
+                <%= f.text_field :email, :required => false,:class => "login_input", :autofocus => true %>
+              </div>
+            </div>
+            <div class="btn-groups">
+                <%= f.submit "", :class => 'btn',:value=>"提交"%>
+            </div>
+        </div>
+        <div class="login_flash_div">
+            <%- flash.each do |name, msg| -%>
+                  <script>
+                    $(".login_flash_div").show();
+                  </script>
+                  <%=raw msg %>&nbsp;&nbsp;<a style="text-decoration:none; color:red" href="#" class="close">×</a>
+            <%- end -%>
+        </div>
+    <% end %>
+  </div>
+</div>

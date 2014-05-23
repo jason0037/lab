@@ -1,22 +1,23 @@
 <div class="login_page">
   <div id="login_form_div">
-    <%=form_for :lab_user,:url=>login_in_lab_users_path,:html=>{:id=>"login_form"} do |f|%>
+    <%=form_for :lab_user,:url=>modify_pass_lab_users_path,:html=>{:id=>"login_form"} do |f|%>
+        <%= f.hidden_field :user_id,:value=>params[:id]%>
+        <%= f.hidden_field :token,:value=>params[:reset_token]%>
         <div class="login-div clearfix">
             <div class="control-group clearfix">
-              <label class="control-label">用户名：</label>
+              <label class="control-label">新密码：</label>
               <div class="controls">
-                <%= f.text_field :account, :required => false,:class => "login_input", :autofocus => true %>
+                <%= f.password_field :password, :required => false,:class => "login_input", :autofocus => true %>
               </div>
             </div>
-            <div class="control-group">
-              <label class="control-label">密码：</label>
+            <div class="control-group clearfix">
+              <label class="control-label">确认：</label>
               <div class="controls">
-                <%= f.password_field :password,:class => "login_input", :required => false %> <a href="/lab_users/forgot_pass">忘记密码？</a><br>
+                <%= f.password_field :confirm_password, :required => false,:class => "login_input", :autofocus => true %>
               </div>
             </div>
             <div class="btn-groups">
-                <%= f.submit "", :class => 'btn',:value=>"登录"%>
-                <%= link_to "注册", new_lab_user_path, :class => 'btn'%>
+                <%= f.submit "", :class => 'btn',:value=>"提交"%>
             </div>
         </div>
         <div class="login_flash_div">
