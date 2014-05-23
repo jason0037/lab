@@ -103,7 +103,7 @@ class MonitorsController < ApplicationController
     showLabels='0'
 
     if size!='small'
-      xaxisname="采集时间"
+      xaxisname="当前数值"
       showlegend='1'
       showLabels='1'
     end
@@ -263,7 +263,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
         subcaption="信号功率"
       end
 
-      xaxisname="采集时间"
+      xaxisname="当前数值"
       showlegend='1'
       showLabels='1'
     end
@@ -452,7 +452,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     if size!='small'
       seriesname1="行为体态分析"
       subcaption="动作幅度"
-      xaxisname="采集时间"
+      xaxisname="当前数值"
       showlegend='1'
       showLabels='1'
     end
