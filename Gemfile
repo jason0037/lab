@@ -17,6 +17,7 @@ gem 'rufus-scheduler', '~> 2.0.17'
 gem "mongo_mapper"
 gem 'bson_ext'
 gem 'pbkdf256'
+gem 'mailfactory'
 
 
 # Gems used only for assets and not required

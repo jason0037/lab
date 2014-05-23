@@ -2,7 +2,7 @@
 require 'pp'
 
 class LabUsersController < ApplicationController
-  before_filter :authorize_user!,:except => [:login,:login_in,:new,:create,:home]
+  before_filter :authorize_user!,:except => [:login,:login_in,:new,:create,:home,:forgot_pass,:pass_change,:reset_pass,:modify_pass]
 
   #layout "blank"
 
@@ -24,6 +24,64 @@ class LabUsersController < ApplicationController
     end
 
     render :layout => "blank"
+  end
+
+  def pass_change
+    if params[:lab_user][:email].blank?
+      redirect_to forgot_pass_lab_users_path, :notice => "请输入EMAIL."
+      return
+    else
+      @user = LabUser.find_by_email(params[:lab_user][:email])
+      if @user.blank?
+        redirect_to forgot_pass_lab_users_path, :notice => "EMAIL不存在."
+      else
+        @token = SecureRandom.hex 20
+        @user.reset_token = @token
+        result = SendMail.send_mail params[:lab_user][:email],@token,@user.id
+        @user.save
+      end
+    end
+    redirect_to login_lab_users_path, :notice => "已经发送重置邮件到您的邮箱."
+    return
+  end
+
+  def reset_pass
+    @user = LabUser.find(params[:id])
+
+    if @user.reset_token != params[:reset_token]
+      redirect_to login_lab_users_path, :notice => "重置参数不正确，请重新操作."
+      return
+    end
+    render :layout => "home"
+  end
+
+  def modify_pass
+    @user = LabUser.find(params[:lab_user][:user_id])
+    if params[:lab_user][:password].blank? || params[:lab_user][:confirm_password].blank?
+        redirect_to reset_pass_lab_user_path(@user,:reset_token=>params[:lab_user][:token]), :notice => "密码或者确认密码不能为空."
+        return 
+    else
+      if params[:lab_user][:password] != params[:lab_user][:confirm_password]
+        redirect_to reset_pass_lab_user_path(@user,:reset_token=>params[:lab_user][:token]), :notice => "密码和确认密码不一致."
+        return
+      end
+    end
+
+    @user.secret_key = Base64.encode64 params[:lab_user][:password]
+    @user.password = Digest::MD5.hexdigest(params[:lab_user][:password])
+    @user.save
+
+    @edx_user = EdxUser.find_by_email(@user.email)
+    encode_str = Base64.encode64 PBKDF256.dk(params[:lab_user][:password],"uFocFWnOvIKN",10000,32)
+    new_pass = "pbkdf2_sha256$10000$uFocFWnOvIKN$"+encode_str
+    @edx_user.password = new_pass.chomp
+    @edx_user.save
+
+    redirect_to login_lab_users_path, notice: '密码修改完成，请用新密码登录.'
+  end
+
+  def forgot_pass
+    render :layout => "home"
   end
 
   def pass
