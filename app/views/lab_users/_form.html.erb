@@ -1,6 +1,7 @@
 <%= form_for @lab_user, :html => { :class => 'form-horizontal' } do |f| %>
+ <div class="login-div clearfix">
   <%= f.hidden_field :status,:value=>0%>
-  <div class="control-group">
+  <div class="control-group clearfix">
     <%= f.label :name, :class => 'control-label' do%>
       姓名：
     <%end%>
@@ -54,8 +55,9 @@
   </div>
 
   <div class="form-actions">
-    <%= f.submit "确定", :class => 'btn btn-primary' %>
+    <%= f.submit "确定", :class => 'btn btn-primary' %>&nbsp;&nbsp;
     <%= link_to '返回',
                 login_lab_users_path, :class => 'btn' %>
   </div>
+</div>
 <% end %>

@@ -84,12 +84,12 @@
 .number_field{width:30px;}
 
 .login-div .control-label {
-  width: 80px;
+  width: 120px;
   float: left;
 }
 
 .login-div .controls {
-  margin-left: 40px;
+  margin-left: 20px;
   float: left;
 }
 
