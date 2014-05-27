@@ -16,6 +16,16 @@ class LabUser < ActiveRecord::Base
   validates :password, :presence=>{:presence=>true,:message=>"请填写密码."}
   validates :role_id, :presence=>{:presence=>true,:message=>"请选择用户类型."}
 
+  def self.get_user(id)
+    dc = Dalli::Client.new('localhost:11211',{:namespace => "lab_v1", :compress => true})
+    user_key = "uid-#{id}"
+    if dc.get(user_key).blank?
+      @user = LabUser.find(id)
+      dc.set(user_key,@user)
+      @user = dc.get(user_key)
+    end
+    return @user
+  end
 
   def status_text
     text = "未审核"
