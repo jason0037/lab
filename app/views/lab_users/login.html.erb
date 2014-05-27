@@ -3,20 +3,20 @@
     <%=form_for :lab_user,:url=>login_in_lab_users_path,:html=>{:id=>"login_form"} do |f|%>
         <div class="login-div clearfix">
             <div class="control-group clearfix">
-              <label class="control-label">用户名：</label>
+              <label class="control-label"><img src="/images/icon_user.png">&nbsp;&nbsp;用户名：</label>
               <div class="controls">
                 <%= f.text_field :account, :required => false,:class => "login_input", :autofocus => true %>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">密码：</label>
+              <label class="control-label"><img src="/images/icon_key.png">&nbsp;&nbsp;密&nbsp;&nbsp;码：</label>
               <div class="controls">
                 <%= f.password_field :password,:class => "login_input", :required => false %> <a href="/lab_users/forgot_pass">忘记密码？</a><br>
               </div>
             </div>
             <div class="btn-groups">
-                <%= f.submit "", :class => 'btn',:value=>"登录"%>
-                <%= link_to "注册", new_lab_user_path, :class => 'btn'%>
+                <%= f.submit "", :class => 'btn btn-primary',:value=>"登 录"%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <%= link_to "注 册", new_lab_user_path, :class => 'btn'%>
             </div>
         </div>
         <div class="login_flash_div">
