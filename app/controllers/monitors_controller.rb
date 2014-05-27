@@ -42,17 +42,17 @@ class MonitorsController < ApplicationController
            order by id desc limit 0,1"
 
       when 'B000001'
-        read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
+       # read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
         #and read_at = '#{read_at.to_s}'
 
         sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source}
         group by read_at,source order by read_at desc limit 0,1"
       when 'C000001'
-       read_at = (Time.now-60.seconds).strftime('%Y%m%d%H%M%S')
+     #  read_at = (Time.now-60.seconds).strftime('%Y%m%d%H%M%S')
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
           order by id desc limit 0,1"
       else
-        read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
+     #   read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
         order by id desc limit 0,1"
 
@@ -76,16 +76,16 @@ class MonitorsController < ApplicationController
     case point_id
                when '000000'
                  caption ="电压（V）"
-                 max_value="500"
+                 max_value="300"
                when '000001'
                  caption ="功率（kW）"
-                 max_value="0.3"
+                 max_value="0.30"
                when '000002'
                  caption ="电流（A）"
-                 max_value="1.5"
+                 max_value="1.50"
                when '000003'
                  caption ="电能（度）"
-                 max_value="0.05"
+                 max_value="0.10"
     end
 
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
@@ -109,7 +109,7 @@ class MonitorsController < ApplicationController
     end
 
     sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
-            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id desc"
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|
@@ -547,6 +547,7 @@ legendBorderColor='008040' legendShadow='0'><styles><definition>
       when "002"
         caption = "脑波分析"
         fillcolor = "FF9224,EA7500"
+        dail2="<dial id='Dial2' value='60.2' rearextension='10' basewidth='10' />"
         value=85
         clickURL='/monitors/mind_wave'
       when "003"
@@ -586,11 +587,15 @@ chartbottommargin='5' tooltipbgcolor='009999' gaugefillmix='{dark-10},{light-70}
 pivotradius='8' gaugeouterradius='120' gaugeinnerradius='70%' gaugeoriginx='175' gaugeoriginy='170'
 trendvaluedistance='5' tickvaluedistance='3' managevalueoverlapping='1' autoaligntickvalues='1' >
 <colorrange>
-<color minvalue='0' maxvalue='45' code='FF654F' />
-<color minvalue='45' maxvalue='80' code='F6BD0F' />
-<color minvalue='80' maxvalue='100' code='8BBA00' />
+<color minvalue='0' maxvalue='45' code='ceceff' />
+<color minvalue='45' maxvalue='80' code='6bbef6' />
+<color minvalue='80' maxvalue='100' code='16499a' />
 </colorrange>
-<dials><dial value='#{value}' rearextension='10' basewidth='10' /></dials>
+<dials>
+<dial id='Dial1' value='#{value}' rearextension='10' basewidth='10' />
+#{dail2}
+</dials>
+
 <trendpoints>
 <point startvalue='62' displayvalue=' ' usemarker='0' markerradius='8' dashed='1' dashlen='2' dashgap='2' />
 </trendpoints>
