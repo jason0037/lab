@@ -21,6 +21,7 @@ class LabUser < ActiveRecord::Base
     user_key = "uid-#{id}"
     if dc.get(user_key).blank?
       @user = LabUser.find(id)
+    else
       dc.set(user_key,@user)
       @user = dc.get(user_key)
     end
