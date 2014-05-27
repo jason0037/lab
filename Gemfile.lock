@@ -45,6 +45,7 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     commonjs (0.2.6)
+    dalli (2.7.2)
     erubis (2.7.0)
     execjs (2.0.2)
     hike (1.2.3)
@@ -158,6 +159,7 @@ DEPENDENCIES
   bson_ext
   ckeditor (~> 3.7.3)
   coffee-rails (~> 3.2.1)
+  dalli
   jquery-rails (~> 2.1.4)
   jquery-ui-rails
   less-rails
