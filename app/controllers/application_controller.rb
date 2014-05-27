@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 		redirect_to login_lab_users_path
 		return
 	else
-		@user = LabUser.find(cookies[:lab_member_id])
+		@user = LabUser.get_user(cookies[:lab_member_id])
 		check_key = "_m_lab" + @user.password
 		if !Digest::MD5.hexdigest(check_key) == cookies[:lab_login]
 			redirect_to login_lab_users_path

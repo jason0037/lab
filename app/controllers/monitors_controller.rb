@@ -12,7 +12,7 @@ class MonitorsController < ApplicationController
     point_id = params[:point_id]
     source = params[:source]
 
-    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
+    table_name = LabEquipmentMapping.get_table_name(equipment_code)
     read_at = Time.now.strftime('%Y%m%d%H%M%S')
 
     value1 = 0
