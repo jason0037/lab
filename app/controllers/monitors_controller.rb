@@ -109,7 +109,7 @@ class MonitorsController < ApplicationController
     end
 
     sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
-            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id desc"
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id "
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|
