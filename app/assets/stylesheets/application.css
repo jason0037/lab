@@ -147,6 +147,7 @@
 
 .lab_top_info{
 	margin-right: 20px;
+  padding-top: 15px;
 }
 .lab_top_info a,.lab_top_info a:hover{
 	color: white;
