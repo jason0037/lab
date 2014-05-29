@@ -352,3 +352,6 @@
   padding: .1em 1em;
   font-size: 10.5px;
 }
+.arrow_op{
+  cursor: pointer;
+}

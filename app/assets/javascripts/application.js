@@ -14,3 +14,20 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require ckeditor/init
+
+
+$(document).ready(function(){
+    $(".icon-circle-arrow-up").click(function(e){
+    	if($(this).hasClass("icon-circle-arrow-down"))
+    	{
+    		$(this).addClass("icon-circle-arrow-up");
+    		$(this).removeClass("icon-circle-arrow-down");
+    		$("#myTab",parent.document).show(500);
+    	}else
+    	{
+    		$(this).addClass("icon-circle-arrow-down");
+    		$(this).removeClass("icon-circle-arrow-up");
+    		$("#myTab",parent.document).hide(500);
+    	}
+    });
+});
