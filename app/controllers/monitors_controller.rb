@@ -90,7 +90,7 @@ class MonitorsController < ApplicationController
 
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
-    start_time = (Time.now - 45.minutes).strftime('%Y%m%d%H%M%S')
+    start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
 
     cats_str = ''
     data_str1 = ''
@@ -109,7 +109,7 @@ class MonitorsController < ApplicationController
     end
 
     sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
-            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id "
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|
@@ -127,7 +127,7 @@ class MonitorsController < ApplicationController
 
     charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
 datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'
-canvasbottommargin='10' refreshinterval='1' numbersuffix=''
+canvasbottommargin='10' refreshinterval='6' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
@@ -240,7 +240,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 =end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
-    start_time = (Time.now - 45.minutes).strftime('%Y%m%d%H%M%S')
+    start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
 
     #datas = BData.where("point_id='#{point_id}' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
 
@@ -277,7 +277,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
         1
       end
       sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
-            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id desc"
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
       results = ActiveRecord::Base.connection.execute(sql)
 
       results.each(:as => :hash) do |row|
@@ -438,7 +438,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
-    start_time = (Time.now - 45.minutes).strftime('%Y%m%d%H%M%S')
+    start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
 
     caption="实时行为体态(学生#{source})"
     cats_str = ''
