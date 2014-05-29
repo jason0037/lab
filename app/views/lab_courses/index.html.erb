@@ -5,9 +5,9 @@
       <li><a href="#"><i class="icon-home"></i></a></li>
       <li><%=link_to "实验课堂" %></li>
       <li class="new_button" style="float:right">
+        <i class="icon-pencil"></i>
         <%= link_to t('.new', :default => t("helpers.links.new")),
-                    new_lab_course_path,
-                    :class => 'btn btn-primary' %>
+                    new_lab_course_path%>
       </li>
     </ul>
   </nav>

@@ -4,9 +4,9 @@
     <span><i class="icon-circle-arrow-up arrow_op"></i></span>
     <span><%=t '.title', :default => model_class.model_name.human.pluralize %></span>
      <span class="new_button">
+        <i class="icon-pencil"></i>
         <%= link_to t('.new', :default => t("helpers.links.new")),
-                    new_lab_device_support_path,
-                    :class => 'btn btn-primary' %>
+                    new_lab_device_support_path%>
      </span>
   </header>
 </div>

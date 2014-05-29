@@ -1,20 +1,17 @@
 <%- model_class = LabEvalProject -%>
-<div class="metro adjust-lab">
-  <nav class="breadcrumbs" style="margin-top: 20px">
-    <ul>
-      <li><a href="#"><i class="icon-home"></i></a></li>
-      <li><%=link_to "评测申请" %></li>
-      <li class="new_button" style="float:right">
-        <%if @user.role_id==1 || @user.role_id ==2 #只有教师和电子书包供应商有权限申请%>
-            <%= link_to t('.new', :default => t("helpers.links.new")),
-                        new_lab_eval_project_path,
-                        :class => 'btn btn-primary' %>
-        <%end%>
-      </li>
-    </ul>
-  </nav>
+<div class="panel">
+  <header>
+    <span><i class="icon-circle-arrow-up arrow_op"></i></span>
+    <span>评测申请</span>
+     <span class="new_button">
+      <i class="icon-pencil"></i>
+      <%if @user.role_id==1 || @user.role_id ==2 #只有教师和电子书包供应商有权限申请%>
+        <%= link_to t('.new', :default => t("helpers.links.new")),
+                    new_lab_eval_project_path%>
+      <%end%>
+     </span>
+  </header>
 </div>
-
 <table class="table table-striped">
   <thead>
     <tr>

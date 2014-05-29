@@ -32,7 +32,10 @@
   border: 1px solid #f0f0fb;
 }
 
-.panel header .new_button{float:right;margin-top:-5px}
+.panel header .new_button{
+  float:right;
+  padding-right: 10px;
+}
 
 .page_bg{
     background: #f1f1f1;
