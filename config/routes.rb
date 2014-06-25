@@ -130,6 +130,24 @@ Lab::Application.routes.draw do
     get :pass,:on=>:member
   end
 
+  resources :app_tests do
+    get :forgot_pass,:on=>:collection
+    get :reset_pass,:on=>:member
+    post :modify_pass,:on=>:collection
+    post :pass_change,:on=>:collection
+    post :login,:on=>:collection
+    get :logout,:on=>:collection
+    get :teacher_manage,:on=>:collection
+    get :apply_manage,:on=>:collection
+    get :course_manage,:on=>:collection
+    get :lab_manage,:on=>:collection
+    get :student_manage,:on=>:collection
+    get :system_manage,:on=>:collection
+    get :home,:on=>:collection
+    get :query,:on=>:collection
+    get :pass,:on=>:member
+  end
+
   root :to => "lab_users#home"
   # The priority is based upon order of creation:
   # first created -> highest priority.
