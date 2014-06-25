@@ -207,26 +207,26 @@ class AppTestsController < ApplicationController
   end
 
   def login
-    result = 9999
 
     @user = LabUser.find_by_account(params[:lab_user][:account])
 
     if @user.blank?
       result = 200 # "用户不存在."
-      return render :text=>result
+      return render :text=>{ :code => result }.to_json
     end
 
     if @user.password != Digest::MD5.hexdigest(params[:lab_user][:password])
       result = 201 #"用户名或者密码不正确."
-      return render :text=>result
+      return render :text=>{ :code => result }.to_json
     else
       result = 0
-      score = 0
+      score = 0 
+      render :text => { :code => result,:userInfo => { :userId => @user.id,:name=>@user.name,:age=>@user.age,:sex=>@user.sex,:school=>@user.school,:score=>score} }.to_json
     end
-    render :text => { :code => result,:userInfo => { :userId => @user.id,:name=>@user.name,:age=>@user.age,:sex=>@user.sex,:school=>@user.school,:score=>score} }.to_json
-=begin
-<code>0</code> <userInfo> <userId>0xxxxxxx</userId> <name>xxxxx</name> <age>16</age> <sex>男</sex> <school>上海开放大学</school> <score>84</score> </userInfo>
-=end
+  rescue
+    result = 9999
+    return render :text=>{ :code => result }.to_json
+
   end
 
   def logout
