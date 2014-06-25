@@ -135,17 +135,14 @@ Lab::Application.routes.draw do
     get :reset_pass,:on=>:member
     post :modify_pass,:on=>:collection
     post :pass_change,:on=>:collection
+
+    get :register,on=>:collection
     post :login,:on=>:collection
-    get :logout,:on=>:collection
-    get :teacher_manage,:on=>:collection
-    get :apply_manage,:on=>:collection
-    get :course_manage,:on=>:collection
-    get :lab_manage,:on=>:collection
-    get :student_manage,:on=>:collection
-    get :system_manage,:on=>:collection
-    get :home,:on=>:collection
-    get :query,:on=>:collection
-    get :pass,:on=>:member
+    post :updateUserInfo,:on=>:collection
+    get :getUserInf,on=>:collection
+    get :saveTestScore,:on=>:collection
+    get :getTestScore,:on=>:collection
+    get :getTestHist,:on=>:member
   end
 
   root :to => "lab_users#home"

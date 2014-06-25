@@ -105,13 +105,6 @@ class AppTestsController < ApplicationController
     end
   end
 
-  # GET /lab_users/new
-  # GET /lab_users/new.json
-  def register
-   redirect_to "/lab_users/new"
-  end
-
-  # GET /lab_users/1/edit
   def edit
     @lab_user = LabUser.find(params[:id])
     render :layout => "blank"
@@ -190,22 +183,26 @@ class AppTestsController < ApplicationController
     end
   end
 
-  # PUT /lab_users/1
-  # PUT /lab_users/1.json
-  def update
-    @lab_user = LabUser.find(params[:id])
-
-    respond_to do |format|
-      if @lab_user.update_attributes(params[:lab_user])
-        format.html { redirect_to @lab_user, notice: 'Lab user was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @lab_user.errors, status: :unprocessable_entity }
-      end
-    end
+  def register
+   redirect_to "/lab_users/new"
   end
 
+  # POST
+  def updateUserInfo
+      @lab_user = LabUser.find(params[:id])
+      if @lab_user.update_attributes(params[:lab_user])
+        result =0
+        return render :text=>{ :code => result }.to_json
+      else
+        result = 9999
+        return render :text=>{ :code => result }.to_json
+      end
+  rescue
+      result = 9999
+      return render :text=>{ :code => result }.to_json
+  end
+
+  # POST
   def login
 
     @user = LabUser.find_by_account(params[:lab_user][:account])
@@ -220,21 +217,79 @@ class AppTestsController < ApplicationController
       return render :text=>{ :code => result }.to_json
     else
       result = 0
-      score = 0 
+      score = 0
       render :text => { :code => result,:userInfo => { :userId => @user.id,:name=>@user.name,:age=>@user.age,:sex=>@user.sex,:school=>@user.school,:score=>score} }.to_json
     end
   rescue
     result = 9999
     return render :text=>{ :code => result }.to_json
-
   end
 
-  def logout
-#add to log
+  def getUserInfo
+    @user = LabUser.find_by_id(params[:userId])
+
+    if @user.blank?
+      result = 200 # "用户不存在."
+      return render :text=>{ :code => result }.to_json
+    else
+      result = 0
+      score = 0
+      render :text => { :code => result,:userInfo => {:name=>@user.name,:age=>@user.age,:sex=>@user.sex,:school=>@user.school,:score=>score} }.to_json
+    end
+  rescue
+    result = 9999
+    return render :text=>{ :code => result }.to_json
   end
 
-  def destroy
-    @app_test = AppTest.find(params[:id])
-    @app_test.destroy
+  # POST
+  def saveTestScore
+    # Merg -> userId ,classId,score
+    @app_test = AppTest.new(params[:app_test])
+    if @app_test.save
+      result =0
+      return render :text=>{ :code => result }.to_json
+    else
+      result = 9999
+      return render :text=>{ :code => result }.to_json
+    end
+  rescue
+    result = 9999
+    return render :text=>{ :code => result }.to_json
   end
+
+  def getTestScore
+    @app_test = AppTest.where(:user_id=>params[:userID],:class_id=>params[:classID])
+
+    if @user.blank?
+      result =9999 # "用户不存在."
+      return render :text=>{ :code => result }.to_json
+    else
+      result = 0
+      score = 0
+      render :text => { :code => result,:score=>score}.to_json
+    end
+  rescue
+    result = 9999
+    return render :text=>{ :code => result }.to_json
+  end
+
+  def getTestList
+    @app_test = AppTest.where(:user_id=>params[:userID],:class_id=>params[:classID])
+
+    if @user.blank?
+      result =9999 # "用户不存在."
+      return render :text=>{ :code => result }.to_json
+    else
+      result = 0
+      score = 0
+      render :text => { :code => result,:score=>score}.to_json
+      #{"code:0", "testlist":[{"topic":"水星游戏测","time":"2014-10-12", "score":"50"},{"topic":"水 星游戏测2","time":"2014-10-14", "score":"50"}]
+    end
+  rescue
+    result = 9999
+    return render :text=>{ :code => result }.to_json
+  end
+
+
+
 end
