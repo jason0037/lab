@@ -223,7 +223,7 @@ class AppTestsController < ApplicationController
       result = 0
       score = 0
     end
-    render :text => { :code => result,:userInfo => { :userId => @user.id,:name=>@user.name,:age=>@user.age,:sex=>@user.sex,:school=>@user.school,:score=>score} }
+    render :text => { :code => result,:userInfo => { :userId => @user.id,:name=>@user.name,:age=>@user.age,:sex=>@user.sex,:school=>@user.school,:score=>score} }.to_json
 =begin
 <code>0</code> <userInfo> <userId>0xxxxxxx</userId> <name>xxxxx</name> <age>16</age> <sex>男</sex> <school>上海开放大学</school> <score>84</score> </userInfo>
 =end
