@@ -216,15 +216,12 @@ class AppTestsController < ApplicationController
       return render :text=>result
     end
 
-    if @user.password == Digest::MD5.hexdigest(params[:lab_user][:password])
-      result = 0
-
-    else
-      result = 201 "用户名或者密码不正确."
+    if @user.password != Digest::MD5.hexdigest(params[:lab_user][:password])
+      result = 201 #"用户名或者密码不正确."
       return render :text=>result
+    else
+      result = 0
     end
-
-
     render :json =>
                @user.to_json(:only => [:email])
   end
