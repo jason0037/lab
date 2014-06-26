@@ -189,7 +189,7 @@ class AppTestsController < ApplicationController
 
   # POST
   def updateUserInfo
-      @lab_user = LabUser.find(params[:id])
+      @lab_user = LabUser.find(params[:userId])
       if @lab_user.update_attributes(params[:lab_user])
         result =0
         return render :text=>{ :code => result }.to_json
