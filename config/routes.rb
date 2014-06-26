@@ -138,6 +138,7 @@ Lab::Application.routes.draw do
     post :saveTestScore,:on=>:collection
     get :getTestScore,:on=>:collection
     get :getTestHist,:on=>:collection
+    get :changePwd, :on=>:collection
   end
 
   root :to => "lab_users#home"
