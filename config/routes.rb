@@ -134,7 +134,7 @@ Lab::Application.routes.draw do
     get :register,:on=>:collection
     post :login,:on=>:collection
     post :updateUserInfo,:on=>:collection
-    get :getUserInf,on=>:collection
+    get :getUserInfo,:on=>:collection
     get :saveTestScore,:on=>:collection
     get :getTestScore,:on=>:collection
     get :getTestHist,:on=>:member
