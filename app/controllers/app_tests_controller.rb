@@ -176,6 +176,9 @@ class AppTestsController < ApplicationController
    redirect_to "/lab_users/new"
   end
 
+  def update
+    
+  end
   # POST
   def updateUserInfo
     result = 9999
