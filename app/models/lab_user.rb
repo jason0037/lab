@@ -1,6 +1,6 @@
 # encoding: utf-8
 class LabUser < ActiveRecord::Base
-  attr_accessible :account, :email, :mobile, :name, :password, :role_id, :status
+  attr_accessible :account, :email, :mobile, :name, :password, :role_id, :status,:age,:school,:icon
 
   belongs_to :lab_role,:foreign_key=>"role_id"
 

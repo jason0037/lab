@@ -177,24 +177,24 @@ class AppTestsController < ApplicationController
   end
 
   def update
-    
-  end
-  # POST
-  def updateUserInfo
     result = 9999
     if params[:userId].blank?
       return render :text=>{ :code => result }.to_json
     end
 
-      @lab_user = LabUser.find(params[:userId])
-      if @lab_user.update_attributes(params[:lab_user])
-        result =0
-        return render :text=>{ :code => result }.to_json
-      else
-        return render :text=>{ :code => result }.to_json
-      end
-  rescue
+    @lab_user = LabUser.find(params[:userId])
+    if @lab_user.update_attributes(params[:lab_user])
+      result =0
       return render :text=>{ :code => result }.to_json
+    else
+      return render :text=>{ :code => result }.to_json
+    end
+  rescue
+    return render :text=>{ :code => result }.to_json
+  end
+  # POST
+  def updateUserInfo
+
   end
 
   # POST
@@ -238,37 +238,37 @@ class AppTestsController < ApplicationController
 
   # POST
   def saveTestScore
-    # Merg -> userId ,classId,score
+    return render :text=>params[:app_test]
+
+    result = 9999
     @app_test = AppTest.new(params[:app_test])
     if @app_test.save
       result =0
       return render :text=>{ :code => result }.to_json
     else
-      result = 9999
       return render :text=>{ :code => result }.to_json
     end
-  rescue
-    result = 9999
-    return render :text=>{ :code => result }.to_json
+
+ # rescue
+ #   return render :text=>{ :code => result }.to_json
   end
 
   def getTestScore
-    @app_test = AppTest.where(:user_id=>params[:userID],:class_id=>params[:classID])
+    @app_test = AppTest.where(:user_id=>params[:userID],:class_id=>params[:classID]).order(created_at: :desc).first
 
     if @user.blank?
       result =9999 # "用户不存在."
       return render :text=>{ :code => result }.to_json
     else
       result = 0
-      score = 0
-      render :text => { :code => result,:score=>score}.to_json
+      render :text => { :code => result,:score=>@app_test.score}.to_json
     end
   rescue
     result = 9999
     return render :text=>{ :code => result }.to_json
   end
 
-  def getTestList
+  def getTestHist
     @app_test = AppTest.where(:user_id=>params[:userID],:class_id=>params[:classID])
 
     if @user.blank?
