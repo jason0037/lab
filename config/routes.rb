@@ -131,11 +131,6 @@ Lab::Application.routes.draw do
   end
 
   resources :app_tests do
-    get :forgot_pass,:on=>:collection
-    get :reset_pass,:on=>:member
-    post :modify_pass,:on=>:collection
-    post :pass_change,:on=>:collection
-
     get :register,on=>:collection
     post :login,:on=>:collection
     post :updateUserInfo,:on=>:collection
