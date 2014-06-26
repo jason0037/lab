@@ -189,6 +189,7 @@ class AppTestsController < ApplicationController
 
   # POST
   def updateUserInfo
+    return render :text=>params[:userId]
       @lab_user = LabUser.find(params[:userId])
       if @lab_user.update_attributes(params[:lab_user])
         result =0
