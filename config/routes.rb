@@ -131,7 +131,7 @@ Lab::Application.routes.draw do
   end
 
   resources :app_tests do
-    get :register,on=>:collection
+    get :register,:on=>:collection
     post :login,:on=>:collection
     post :updateUserInfo,:on=>:collection
     get :getUserInf,on=>:collection
