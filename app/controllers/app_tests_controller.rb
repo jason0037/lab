@@ -88,12 +88,6 @@ class AppTestsController < ApplicationController
     redirect_to lab_users_path
   end
 
-  def home
-    @articles = LabNotice.where(:notice_type=>1,:published=>1).paginate(:page => params[:page], :per_page => 5).order("published_at DESC")
-    @projects = LabEvalProject.where(:status=>1).paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
-    render :layout => "home"
-  end
-
   # GET /lab_users/1
   # GET /lab_users/1.json
   def show
@@ -103,11 +97,6 @@ class AppTestsController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @lab_user }
     end
-  end
-
-  def edit
-    @lab_user = LabUser.find(params[:id])
-    render :layout => "blank"
   end
 
   # POST /lab_users
@@ -189,17 +178,19 @@ class AppTestsController < ApplicationController
 
   # POST
   def updateUserInfo
-    return render :text=>params[:userId]
+    result = 9999
+    if params[:userId].blank?
+      return render :text=>{ :code => result }.to_json
+    end
+
       @lab_user = LabUser.find(params[:userId])
       if @lab_user.update_attributes(params[:lab_user])
         result =0
         return render :text=>{ :code => result }.to_json
       else
-        result = 9999
         return render :text=>{ :code => result }.to_json
       end
   rescue
-      result = 9999
       return render :text=>{ :code => result }.to_json
   end
 
