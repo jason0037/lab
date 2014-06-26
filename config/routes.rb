@@ -137,7 +137,7 @@ Lab::Application.routes.draw do
     get :getUserInfo,:on=>:collection
     get :saveTestScore,:on=>:collection
     get :getTestScore,:on=>:collection
-    get :getTestHist,:on=>:member
+    get :getTestHist,:on=>:collection
   end
 
   root :to => "lab_users#home"
