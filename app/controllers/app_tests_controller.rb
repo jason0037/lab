@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class AppTestsController < ApplicationController
-  before_filter :authorize_user!,:except => [:register,:update,:getUserInfo,:saveTestScore,:getTestScore,:getTestHist,:pass_change,:reset_pass,:modify_pass]
+  before_filter :authorize_user!,:except => [:register,:update,:getUserInfo,:saveTestScore,:getTestScore,:getTestHist,:pass_change,:reset_pass,:modify_pass,:login]
   def pass_change
     if params[:lab_user][:email].blank?
       redirect_to forgot_pass_lab_users_path, :notice => "请输入EMAIL."
@@ -89,6 +89,7 @@ class AppTestsController < ApplicationController
   # POST
   def login
 
+    result = 9999
     @user = LabUser.find_by_account(params[:lab_user][:account])
 
     if @user.blank?
@@ -100,12 +101,16 @@ class AppTestsController < ApplicationController
       result = 201 #"用户名或者密码不正确."
       return render :text=>{ :code => result }.to_json
     else
-      result = 0
       score = 0
+      @app_test=AppTest.where(:user_id=>@user.id).select("SUM(score) as score")
+      .group(:user_id).order(created_at: :desc).first
+      if @app_test
+        score=@app_test.score
+      end
+      result = 0
       render :text => { :code => result,:userInfo => { :userId => @user.id,:name=>@user.name,:age=>@user.age,:sex=>@user.sex,:school=>@user.school,:score=>score} }.to_json
     end
   rescue
-    result = 9999
     return render :text=>{ :code => result }.to_json
   end
 
@@ -118,6 +123,13 @@ class AppTestsController < ApplicationController
     else
       result = 0
       score = 0
+
+      @app_test=AppTest.where(:user_id=>params[:userId]).select("SUM(score) as score")
+      .group(:user_id).order(created_at: :desc).first
+      if @app_test
+        score=@app_test.score
+      end
+
       render :text => { :code => result,:userInfo => {:name=>@user.name,:age=>@user.age,:sex=>@user.sex,:school=>@user.school,:score=>score} }.to_json
     end
   rescue
