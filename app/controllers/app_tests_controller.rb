@@ -6,6 +6,7 @@ class AppTestsController < ApplicationController
 
   # GET /lab_users
   # GET /lab_users.json
+
   def index
     @lab_users = LabUser.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
@@ -252,7 +253,7 @@ class AppTestsController < ApplicationController
  # rescue
  #   return render :text=>{ :code => result }.to_json
   end
-
+=begin
   def getTestScore
     @app_test = AppTest.where(:user_id=>params[:userID],:class_id=>params[:classID]).order(created_at: :desc).first
 
@@ -285,6 +286,6 @@ class AppTestsController < ApplicationController
     return render :text=>{ :code => result }.to_json
   end
 
-
+=end
 
 end
