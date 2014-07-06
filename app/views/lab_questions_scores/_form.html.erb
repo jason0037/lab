@@ -6,10 +6,14 @@
         <% @lab_questions.where(:question_category=>category.value).each do |question| %>
             <div><%="#{question.id}.#{question.desc}"%></div>
             <div>
-              <%= f.label "重要性", :class => 'control-label' %>
-              <%= number_field_tag "question#{question.id}[importance]",nil,in: 1..3, :class => 'number_field'  %>
-              <%= f.label "得分",:class => 'control-label'  %>
-              <%= number_field_tag "question#{question.id}[score]",nil ,in: 0..7, :class => 'number_field' %>
+              <span
+                  <%= f.label "重要性", :class => 'control-label' %>
+                  <%= number_field_tag "question#{question.id}[importance]",nil,in: 1..3, :class => 'number_field'  %>
+               </span>
+              <span>
+                  <%= f.label "得分",:class => 'control-label'  %>
+                  <%= number_field_tag "question#{question.id}[score]",nil ,in: 0..7, :class => 'number_field' %>
+              </span>
             </div>
         <% end %>
     <%end%>
