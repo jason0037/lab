@@ -6,7 +6,7 @@
         <% @lab_questions.where(:question_category=>category.value).each do |question| %>
             <div><%="#{question.id}.#{question.desc}"%></div>
             <div>
-              <span
+              <span>
                   <%= f.label "重要性", :class => 'control-label' %>
                   <%= number_field_tag "question#{question.id}[importance]",nil,in: 1..3, :class => 'number_field'  %>
                </span>
