@@ -45,8 +45,8 @@ class MonitorsController < ApplicationController
        # read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
         #and read_at = '#{read_at.to_s}'
 
-        sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source}
-        group by read_at,source order by read_at desc limit 0,1"
+       # sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} group by read_at,source order by read_at desc limit 0,1"
+        sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} point_id='000000' order by read_at desc limit 0,1"
       when 'C000001'
      #  read_at = (Time.now-60.seconds).strftime('%Y%m%d%H%M%S')
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
@@ -457,8 +457,8 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
       showLabels='1'
     end
 
-    sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and
-     read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at,source"
+   # sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at,source"
+    sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|
