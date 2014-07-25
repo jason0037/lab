@@ -46,7 +46,7 @@ class MonitorsController < ApplicationController
         #and read_at = '#{read_at.to_s}'
 
        # sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} group by read_at,source order by read_at desc limit 0,1"
-        sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} point_id='000000' order by read_at desc limit 0,1"
+        sql = "select value,read_at from #{table_name}_reading where source=#{source} point_id='000000' order by read_at desc limit 0,1"
       when 'C000001'
      #  read_at = (Time.now-60.seconds).strftime('%Y%m%d%H%M%S')
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
@@ -458,7 +458,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     end
 
    # sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at,source"
-    sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
+    sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|
@@ -491,46 +491,6 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
 </styles>
 <trendlines></trendlines>
 </chart>"
-=begin
-    cats_str = ''
-    data_str = ''
-    select =" '' as read_at"
-    seriesname = ''
-    score = ''
-    pyaxisname=''
-    if size!='small'
-      select =" read_at"
-      seriesname="实时体态"
-      score = "学习效果"
-      pyaxisname = "体态变化值"
-    end
-    datas = BData.select("#{select},sum(value)/4 as value").group("read_at").where("read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
-
-    datas.each do |data|
-      times=data.read_at[8..14]
-      if (!times.blank?)
-        times =times[0..1]+":"+times[2..3]+":"+times[4..5]
-
-      end
-      cats_str += "<category label='#{times}'/>"
-      data_str += "<set value='#{data.value}' />"
-    end
-    categorys = "<categories>#{cats_str}</categories>"
-    datasets = "<dataset seriesName='#{seriesname}' showValues='0' parentYAxis='P'>#{data_str}</dataset>"
-    charts = "<chart animation='0' manageResize='1' bgColor='000079,28004D' basefontcolor='FFFFDD'
-bgAlpha='100' canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='FFFFFF'
-canvasBgAlpha='100' divLineColor='008040' vDivLineColor='008040' divLineAlpha='100'
-caption='行为体态监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}'
-PYAxisMinValue='0' PYAXisMaxValue='100'
-SYAxisName='#{score}' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
-showRealTimeValue='0' realTimeValuePadding='10' showLabel='1'  labelDisplay='Rotate' slantLabels='1'
-labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='FFFFFF' toolTipBorderColor='008040'
-baseFontSize='14' baseFont='微软雅黑' showAlternateHGridColor='0' legendBgColor='FFFFFF'
-legendBorderColor='008040' legendShadow='0'><styles><definition>
-<style name='MyFontStyle' type='font' size='20' bold='0'/></definition>
-<application><apply toObject='Caption' styles='MyFontStyle' /></application>
-</styles>#{categorys}#{datasets}</chart>"
-=end
     render :text => charts
   end
 
