@@ -322,62 +322,6 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
 <trendlines></trendlines>
 </chart>"
 
-=begin
-    charts = "<chart animation='0' manageResize='1' bgColor='FFFFFF' bgAlpha='100'  canvasBorderThickness='1'
-canvasBorderColor='008040' canvasBgColor='FFFFFF' canvasBgAlpha='100' divLineColor='008040'
-vDivLineColor='008040' divLineAlpha='100' baseFontColor='#{meaning_color}' caption='#{mind_wave_meaning}监测'
-dataStreamURL='' refreshInterval='900' PYAxisName='100%' SYAxisName='学习效果'
-SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
-showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate'
-slantLabels='1' labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='FFFFFF'
-toolTipBorderColor='008040' baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0'
-legendBgColor='FFFFFF' legendBorderColor='008040' legendShadow='0'><styles><definition>
-<style name='MyFontStyle' type='font' size='20' bold='0'/></definition><application>
-<apply toObject='Caption' styles='MyFontStyle' /></application></styles>#{categorys}#{datasets}</chart>"
-
-
-    xaxisname = '时间'
-    axistitle1='注意力-放松度'
-    axistitle2='学习效果'
-    seriesname1='注意力'
-    seriesname2='放松度'
-    showlegend='1'
-    labelstep='1'
-      if size=='small'
-        xaxisname =''
-        axistitle1=''
-        axistitle2=''
-        seriesname1=''
-        seriesname2=''
-        showlegend='0'
-        labelstep=100
-      end
-
-
-    charts="<chart palette='2' caption='脑波监测' subcaption='' xaxisname='#{xaxisname}' showvalues='0'
-divlinealpha='100' numvdivlines='4' vdivlinealpha='0' showalternatevgridcolor='1'
-alternatevgridalpha='5' canvaspadding='0' labeldisplay='ROTATE' labelStep='#{labelstep}' showLegend='#{showlegend}'>
-<categories>
-<category label='10:35' /><category label='10:37' /><category label='10:38' /><category label='10:39' />
-<category label='10:40' /><category label='10:41' /><category label='10:42' /><category label='10:43' />
-<category label='10:44' /><category label='10:45' /></categories>
-<axis title='#{axistitle1}' titlepos='left' tickwidth='10' divlineisdashed='1' numbersuffix='%'>
-<dataset seriesname='#{seriesname1}' linethickness='3' color='CC0000'>
-<set value='61' /><set value='91' /><set value='61' /><set value='71' />
-<set value='23' /><set value='23' /><set value='51' />
-<set value='14' /><set value='19' /><set value='21' /></dataset>
-<dataset seriesname='#{seriesname2}' linethickness='3' color='0372AB'>
-<set value='52' /><set value='42' /><set value='49' /><set value='39' />
-<set value='61' /><set value='73' /><set value='36' /><set value='14' />
-<set value='16' /><set value='11' /></dataset></axis>
-<axis title='#{axistitle2}' axisonleft='0' titlepos='right' numdivlines='4' maxvalue='100'
-tickwidth='10' divlineisdashed='1' formatnumberscale='1' defaultnumberscale='%'
-numberscaleunit='GB' numberscalevalue='1024'>
-<dataset seriesname='#{axistitle2}'>
-<set value='85' /><set value='85' /><set value='85' /><set value='85' /><set value='85' />
-<set value='85' /><set value='85' /><set value='85' /><set value='85' />
-<set value='85' /></dataset></axis></chart>"
-=end
     render :text => charts
 
   end
