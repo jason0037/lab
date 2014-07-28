@@ -97,7 +97,7 @@
   {
     // alert($(".stub").attr("href"));
     var base_url = $(".stub").attr("base_data");
-    var url = base_url+"?chart_type="+chart_type+"&data_source="+data_source;
+    var url = base_url+"?chart_type="+chart_type+"&data_source="+escape(data_source);
     $(".stub").attr("href",url);
     $(".stub").trigger("click");  
   }

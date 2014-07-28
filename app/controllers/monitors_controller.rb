@@ -45,8 +45,8 @@ class MonitorsController < ApplicationController
        # read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
         #and read_at = '#{read_at.to_s}'
 
-       # sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} group by read_at,source order by read_at desc limit 0,1"
-        sql = "select value,read_at from #{table_name}_reading where source=#{source} point_id='000000' order by read_at desc limit 0,1"
+        #sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} group by read_at,source order by read_at desc limit 0,1"
+        sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' order by read_at desc limit 0,1"
       when 'C000001'
      #  read_at = (Time.now-60.seconds).strftime('%Y%m%d%H%M%S')
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
@@ -225,19 +225,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
       else "实时脑波分析(学生#{source})"
 
     end
-=begin
-    if (point_id.blank?)
-      point_id='000000'
-    end
-    case point_id
-      when "000000"
-        mind_wave_meaning="注意力"
-        meaning_color="00dd00"
-      when "000001"
-        mind_wave_meaning="放松度"
-        meaning_color="000093"
-    end
-=end
+
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
     start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
@@ -822,6 +810,7 @@ caption='作业评分' subcaption='Top Rating of 5' showBorder='0' showValue='1'
   end
 
   def behaviour
+
 =begin
 #从服务器端采集数据
     scheduler = Rufus::Scheduler.start_new(:thread_name => 'behaviour001')
