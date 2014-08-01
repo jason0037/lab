@@ -19,6 +19,10 @@ gem "mongo_mapper"
 gem 'bson_ext'
 gem 'pbkdf256'
 gem 'mailfactory'
+gem 'htmltoword'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem 'prawn'
 
 
 # Gems used only for assets and not required

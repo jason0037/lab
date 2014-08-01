@@ -51,7 +51,7 @@ Lab::Application.routes.draw do
 
   resources :lab_questions
 
-  resources :lab_reports
+ # resources :lab_reports
 
 
   resources :lab_equipments
@@ -76,6 +76,10 @@ Lab::Application.routes.draw do
 
 
   resources :lab_coursewares
+
+  resources :lab_reports do
+    get :export,:on=>:member
+  end
 
 
   resources :lab_courses do

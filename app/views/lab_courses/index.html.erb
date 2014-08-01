@@ -26,7 +26,6 @@
       <th>状态</th>
       <th>评测编号</th>
       <th>教学场景</th>
-      <th>需要教师？</th>
       <th>图表分析</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -44,7 +43,6 @@
         <td><%= lab_course.status %></td>
         <td><%= lab_course.project_id %></td>
         <td><%= lab_course.lab_scene.name %></td>
-        <td><%= lab_course.is_teach %></td>
         <td><%= link_to "图表分析" , lab_course_monitors_path(lab_course) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -54,6 +52,7 @@
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
+          <%=link_to '生成报告', export_lab_report_path(lab_course), :class => 'btn btn-mini' %>
         </td>
       </tr>
     <% end %>

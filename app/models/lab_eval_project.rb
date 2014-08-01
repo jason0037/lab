@@ -7,7 +7,9 @@ class LabEvalProject < ActiveRecord::Base
   belongs_to :option,:foreign_key=>"course_type"
   belongs_to :option,:foreign_key=>"category_id"
 
-  has_many :lab_questions_score,:foreign_key=>"porject_id"
+  has_many :lab_questions_score,:foreign_key=>"project_id"
+
+  has_many :lab_courses,:foreign_key=>"project_id"
 
   def has_eval_means_of(value=nil)
     # add function later

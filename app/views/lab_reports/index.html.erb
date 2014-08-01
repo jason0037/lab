@@ -19,7 +19,7 @@
       <th><%= model_class.human_attribute_name(:parent_report_id) %></th>
       <th><%= model_class.human_attribute_name(:child_report_index) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %> </th>
     </tr>
   </thead>
   <tbody>
@@ -39,6 +39,8 @@
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
+
+          <%= link_to '导出报告','/lab_reports/1/export', :class => 'btn btn-mini' %>
         </td>
       </tr>
     <% end %>

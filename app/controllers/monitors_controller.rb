@@ -25,9 +25,8 @@ class MonitorsController < ApplicationController
 
     case table_name
       when 'M000001'
-        if point_id=='000000'
-          read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
-          sql = "select value from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
+        if point_id=='000001'
+          sql = "select value from #{table_name}_reading where point_id = '000000' and source='#{source}'
           and read_at>= '#{read_at.to_s}'
           order by id desc limit 0,1"
           results = ActiveRecord::Base.connection.execute(sql)
@@ -35,16 +34,12 @@ class MonitorsController < ApplicationController
           results.each(:as => :hash) do |row|
              value2= "|#{row["value"]}"
           end
-          point_id='000001'
         end
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
             and read_at>= '#{read_at.to_s}'
            order by id desc limit 0,1"
 
       when 'B000001'
-       # read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
-        #and read_at = '#{read_at.to_s}'
-
         #sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} group by read_at,source order by read_at desc limit 0,1"
         sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' order by read_at desc limit 0,1"
       when 'C000001'
@@ -52,10 +47,8 @@ class MonitorsController < ApplicationController
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
           order by id desc limit 0,1"
       else
-     #   read_at = (Time.now-5.seconds).strftime('%Y%m%d%H%M%S')
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
         order by id desc limit 0,1"
-
     end
 
     results = ActiveRecord::Base.connection.execute(sql)
