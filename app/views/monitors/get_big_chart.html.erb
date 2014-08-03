@@ -7,6 +7,9 @@
     <%= render :partial => 'course_info' %>
 <%end%>
 <script type="text/javascript">
+  function pic_loaded(){
+    alert("pic loaded over");
+  }
 $(document).ready(function(){
 	 // alert("<%=params[:chart_type]%>");
 	 // alert("<%=params[:data_source]%>");
@@ -20,5 +23,11 @@ $(document).ready(function(){
 
     customerChart.setXMLUrl(data_source);
     customerChart.render("big_chart_render");
+    if("1"=="<%=params[:export_flag]%>")
+    {
+      customerChart.addEventListener("Rendered", function () { 
+        FusionCharts("chart_realtime_01").exportChart();
+      });
+    }
 });
 </script>

@@ -93,11 +93,11 @@
 <%= javascript_include_tag "jquery.fancybox", "jquery_mousewheel_pack" %>
 <%= stylesheet_link_tag "jquery_fancybox", :media => "screen" %>
 <script type="text/javascript">
-  function show_fancybox(data_source,chart_type)
+  function show_fancybox(data_source,chart_type,export_flag)
   {
     // alert($(".stub").attr("href"));
     var base_url = $(".stub").attr("base_data");
-    var url = base_url+"?chart_type="+chart_type+"&data_source="+escape(data_source);
+    var url = base_url+"?chart_type="+chart_type+"&data_source="+escape(data_source)+"&export_flag="+export_flag;
     $(".stub").attr("href",url);
     $(".stub").trigger("click");  
   }

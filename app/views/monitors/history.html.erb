@@ -10,7 +10,7 @@
 <ul>
   <li>
     <div id="chart-01">
-      <div class="home_chart" chart-type="RealTimeLineDY.swf"
+      <div class="home_chart" export-flag="1" chart-type="RealTimeLineDY.swf"
            data-source="/monitors/behaviour_data_history?equipment_code=001001&size=small&start_at=<%=@lab_course.start_time.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time.strftime('%Y%m%d%H%M%S')%>"
            id="chart-container-1"
            url= "behaviour">
@@ -65,4 +65,12 @@
   <%= link_to '查看更多课程图表>>' ,lab_courses_path , :class => 'btn btn-primary'%>
 </div>
 
+<script type="text/javascript">
+    $(".home_chart").click(function(e){
+        var chart_type = '/FusionCharts/' + $(this).attr("chart-type");
+        var export_flag = $(this).attr("export-flag");
+        var data_source = $(this).attr("data-source").replace(/&size=small/,'');
+        window.parent.show_fancybox(data_source,chart_type,export_flag);
+    })
+</script>
 

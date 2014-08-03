@@ -376,6 +376,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
       xaxisname="当前数值"
       showlegend='1'
       showLabels='1'
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='realtimemulti' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
     end
 
    # sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at,source"
@@ -419,7 +420,7 @@ canvasbottommargin='10' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
-labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' >
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' #{export_str}>
 #{categories} #{datasets}
 <styles>
 <definition>

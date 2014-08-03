@@ -8,9 +8,9 @@ Lab::Application.routes.draw do
 
   resources :lab_teach_designs
 
+  match ':controller(/:action(/:id))', :controller => /fusioncharts\/[^\/]+/
 
   resources :options
-
 
   resources :monitors do
     get :lab_comprehensive,:on=>:collection
@@ -117,7 +117,6 @@ Lab::Application.routes.draw do
   resources :lab_roles
 
   mount Ckeditor::Engine => "/ckeditor"
-
 
   resources :lab_users do
     get :login,:on=>:collection
