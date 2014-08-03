@@ -110,8 +110,18 @@ class LabReportsController < ApplicationController
 
     id=params[:id]
     @lab_course = LabCourse.find(id)
+    #@app_test =AppTest.where(:course_id=>id).limit(0,4)
+    @app_test =AppTest.limit(4)
+    students_score=''
+    @app_test.each do |app_test|
+      students_score= students_score +%Q{
+      <td style="width:106px;">
+        <p align="center">#{app_test.score}</p>
+      </td>
+     }
+    end
 
-    html=%Q{<!DOCTYPE html><html><head>
+      html=%Q{<!DOCTYPE html><html><head>
     <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 </head><body><p style="margin-left:21.0pt;">
 <p><img src='file:///root/lab/app/assets/images/logo.png' style="width:60px;">上海开放大学 </p>
@@ -139,7 +149,7 @@ class LabReportsController < ApplicationController
       <strong>申请单位</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">#{@lab_course.lab_eval_project.unit}</p>
   </td>
 </tr>
 <tr>
@@ -155,7 +165,7 @@ class LabReportsController < ApplicationController
       <strong>联系方式</strong></p>
   </td>
   <td colspan="2" style="width:196px;">
-    <p>#{@lab_course.category_id}</p>
+    <p>#{@lab_course.lab_eval_project.lab_user.mobile} / #{@lab_course.lab_eval_project.lab_user.email}</p>
   </td>
 </tr>
 <tr>
@@ -171,7 +181,7 @@ class LabReportsController < ApplicationController
       <strong>版本</strong></p>
   </td>
   <td colspan="2" style="width:196px;">
-    <p>#{@lab_course.category_id}</p>
+    <p>#{@lab_course.lab_eval_project.version}</p>
   </td>
 </tr>
 <tr>
@@ -204,7 +214,7 @@ class LabReportsController < ApplicationController
       <strong>测试地点</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">#{@lab_course.location}</p>
   </td>
 </tr>
 <tr>
@@ -213,7 +223,7 @@ class LabReportsController < ApplicationController
       <strong>参与人员</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">#{@lab_course.participants}</p>
   </td>
 </tr>
 <tr>
@@ -222,7 +232,7 @@ class LabReportsController < ApplicationController
       <strong>测试流程</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">采集学生在课堂的行为体态图像数据，进行分析</p>
   </td>
 </tr>
 <tr>
@@ -231,7 +241,7 @@ class LabReportsController < ApplicationController
       <strong>测试内容</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.lab_eval_project.brief}</p>
+    <p align="center">学生在课堂的行为体态表现</p>
   </td>
 </tr>
 <tr>
@@ -246,7 +256,7 @@ class LabReportsController < ApplicationController
       <strong>测试时间区间</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">#{@lab_course.start_time} -- #{@lab_course.end_time}</p>
   </td>
 </tr>
 <tr>
@@ -255,7 +265,7 @@ class LabReportsController < ApplicationController
       <strong>测试情景</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">#{@lab_course.lab_scene.name}</p>
   </td>
 </tr>
 <tr>
@@ -264,7 +274,7 @@ class LabReportsController < ApplicationController
       <strong>无线网络总流量</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center"> MB</p>
   </td>
 </tr>
 <tr>
@@ -294,18 +304,7 @@ class LabReportsController < ApplicationController
     <p>
       <strong>教学效果</strong></p>
   </td>
-  <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
+  #{students_score}
 </tr>
 <tr>
   <td style="width:130px;">
@@ -1712,6 +1711,7 @@ class LabReportsController < ApplicationController
 </tr>
 </tbody>
 </table>}
+  #  return :text=>html
     pdf = WickedPdf.new.pdf_from_string(html)
     save_path = "#{PIC_PATH}/teachResources/reports/report_#{id}.pdf"
     File.open(save_path, 'wb') do |file|
