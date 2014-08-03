@@ -23,6 +23,7 @@ gem 'htmltoword'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'prawn'
+gem 'rmagick'
 
 
 # Gems used only for assets and not required

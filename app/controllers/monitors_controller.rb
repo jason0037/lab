@@ -354,6 +354,169 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     render :text => charts
   end
 
+  def behaviour_data_history
+    equipment_code = params[:equipment_code]
+    size = params[:size]
+    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
+    start_time = params[:start_at]
+    end_time = params[:end_at]
+
+    caption="课堂行为体态"
+    cats_str = ''
+    data_str1 = ''
+    seriesname1=''
+    subcaption=''
+    xaxisname=''
+    showlegend='0'
+    showLabels='0'
+
+    if size!='small'
+      seriesname1="行为体态分析"
+      subcaption="动作幅度"
+      xaxisname="当前数值"
+      showlegend='1'
+      showLabels='1'
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='realtimemulti' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+    end
+
+   # sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at,source"
+    categories = ""
+    datasets = ""
+    cats_str = ""
+    data_str1 = ""
+    [1,2,3,4].each do |source|
+        sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
+        results = ActiveRecord::Base.connection.execute(sql)
+        data_str1 = ""
+        last_time = ""
+        results.each(:as => :hash) do |row|
+          if last_time == ""
+            last_time = row["read_at"]
+            times = row["read_at"][8..14]
+            times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
+            data_str1 += "<set value='#{row["value"]}' />"
+            cats_str += "<category label='#{times}'/>"
+          else
+            current = DateTime.parse(row["read_at"])
+            last = DateTime.parse(last_time)
+            dis = (current - last)* 24 * 60 * 60
+            if dis == 20
+              last_time = row["read_at"]
+              times = row["read_at"][8..14]
+              times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
+              data_str1 += "<set value='#{row["value"]}' />"
+              cats_str += "<category label='#{times}'/>"
+            end
+          end
+        end
+
+        if categories =""
+          categories = "<categories>#{cats_str}</categories>"
+        end
+        datasets = datasets + "<dataset seriesName='学生#{source}' showValues='0'>#{data_str1}</dataset>"
+    end
+    charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
+canvasbottommargin='10' numbersuffix=''
+showlegend='#{showlegend}' showLabels='#{showLabels}'
+snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
+showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' #{export_str}>
+#{categories} #{datasets}
+<styles>
+<definition>
+<style type='font' name='captionFont' size='14' />
+</definition>
+<application>
+<apply toobject='Caption' styles='captionFont' />
+<apply toobject='Realtimevalue' styles='captionFont' />
+</application>
+</styles>
+<trendlines></trendlines>
+</chart>"
+    render :text => charts
+  end
+
+  def mind_data_history
+    equipment_code = params[:equipment_code]
+    size = params[:size]
+    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
+    start_time = params[:start_at]
+    end_time = params[:end_at]
+
+    caption="实时行为体态"
+    cats_str = ''
+    data_str1 = ''
+    seriesname1=''
+    subcaption=''
+    xaxisname=''
+    showlegend='0'
+    showLabels='0'
+
+    if size!='small'
+      seriesname1="行为体态分析"
+      subcaption="动作幅度"
+      xaxisname="当前数值"
+      showlegend='1'
+      showLabels='1'
+    end
+
+   # sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at,source"
+    categories = ""
+    datasets = ""
+    cats_str = ""
+    data_str1 = ""
+    [1,2,3,4].each do |source|
+        sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
+        results = ActiveRecord::Base.connection.execute(sql)
+        data_str1 = ""
+        last_time = ""
+        results.each(:as => :hash) do |row|
+          if last_time == ""
+            last_time = row["read_at"]
+            times = row["read_at"][8..14]
+            times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
+            data_str1 += "<set value='#{row["value"]}' />"
+            cats_str += "<category label='#{times}'/>"
+          else
+            current = DateTime.parse(row["read_at"])
+            last = DateTime.parse(last_time)
+            dis = (current - last)* 24 * 60 * 60
+            if dis == 20
+              last_time = row["read_at"]
+              times = row["read_at"][8..14]
+              times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
+              data_str1 += "<set value='#{row["value"]}' />"
+              cats_str += "<category label='#{times}'/>"
+            end
+          end
+        end
+
+        if categories =""
+          categories = "<categories>#{cats_str}</categories>"
+        end
+        datasets = datasets + "<dataset seriesName='学生#{source}' showValues='0'>#{data_str1}</dataset>"
+    end
+    charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
+canvasbottommargin='10' numbersuffix=''
+showlegend='#{showlegend}' showLabels='#{showLabels}'
+snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
+showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' >
+#{categories} #{datasets}
+<styles>
+<definition>
+<style type='font' name='captionFont' size='14' />
+</definition>
+<application>
+<apply toobject='Caption' styles='captionFont' />
+<apply toobject='Realtimevalue' styles='captionFont' />
+</application>
+</styles>
+<trendlines></trendlines>
+</chart>"
+    render :text => charts
+  end
+
   def behaviour_data
     equipment_code = params[:equipment_code]
     size = params[:size]
@@ -776,9 +939,14 @@ caption='作业评分' subcaption='Top Rating of 5' showBorder='0' showValue='1'
 
   end
 
+  def history
+    course_id = params[:lab_course_id]
+    @lab_course = LabCourse.find(course_id)
+  end
+
   def index
     course_id = params[:id]
-    if  course_id.blank?
+    if course_id.blank?
       @lab_course =LabCourse.where(:status=>1).limit(1).order("created_at DESC")
     else
       @lab_course = LabCourse.find(course_id)

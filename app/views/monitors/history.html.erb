@@ -1,0 +1,76 @@
+<div class="metro adjust-lab">
+  <nav class="breadcrumbs" style="margin-top: 20px">
+    <ul>
+      <li><a href="#"><i class="icon-home"></i></a></li>
+      <li><%=link_to "实验室管理", monitors_path %></li>
+    </ul>
+  </nav>
+</div>
+
+<ul>
+  <li>
+    <div id="chart-01">
+      <div class="home_chart" export-flag="1" chart-type="RealTimeLineDY.swf"
+           data-source="/monitors/behaviour_data_history?equipment_code=001001&size=small&start_at=<%=@lab_course.start_time.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time.strftime('%Y%m%d%H%M%S')%>"
+           id="chart-container-1"
+           url= "behaviour">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-02">
+      <div class="home_chart" chart-type="AngularGauge.swf"
+           data-source="/monitors/dashboard_data?equipment_code=002001"
+           id="chart-container-2"
+           url="mind_wave">
+      </div>
+      <div class="home_chart" chart-type="RealTimeLineDY.swf"
+           data-source="/monitors/behaviour_data_history?equipment_code=003001&size=small&start_at=<%=@lab_course.start_time.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time.strftime('%Y%m%d%H%M%S')%>"
+           id="chart-container-2"
+           url= "mind_wave">
+      </div>
+    </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-03">
+      <div class="home_chart" chart-type="AngularGauge.swf"
+           data-source="/monitors/dashboard_data?equipment_code=003001"
+           id="chart-container-3"
+           url="network">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-04">
+      <div class="home_chart" chart-type="AngularGauge.swf"
+           data-source="/monitors/dashboard_data?equipment_code=004001"
+           id="chart-container-4"
+           url="energy_consumption">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-05">
+      <div class="home_chart" chart-type="AngularGauge.swf"
+           data-source="/monitors/dashboard_data?equipment_code=100001"
+           id="chart-container-5"
+           url="lab_comprehensive">
+      </div>
+    </div>
+  </li>
+</ul>
+<%= render :partial => 'history_info' %>
+<div style="margin:20px;float:right">
+  <%= link_to '查看更多课程图表>>' ,lab_courses_path , :class => 'btn btn-primary'%>
+</div>
+
+<script type="text/javascript">
+    $(".home_chart").click(function(e){
+        var chart_type = '/FusionCharts/' + $(this).attr("chart-type");
+        var export_flag = $(this).attr("export-flag");
+        var data_source = $(this).attr("data-source").replace(/&size=small/,'');
+        window.parent.show_fancybox(data_source,chart_type,export_flag);
+    })
+</script>
+
