@@ -23,6 +23,7 @@ Lab::Application.routes.draw do
     get :mind_wave_data, :on=>:collection
     get :behaviour, :on=> :collection
     get :behaviour_data, :on=> :collection
+    get :behaviour_data_history, :on=> :collection
     get :network, :on=> :collection
     get :network_data, :on=> :collection
     get :get_big_chart, :on=> :collection
@@ -34,6 +35,7 @@ Lab::Application.routes.draw do
     get :interactive_study, :on=> :collection
     get :interactive_study_data, :on=> :collection
     get :get_realtime_data, :on=> :collection
+    get :history,:on=>:collection
   end
 
 
@@ -83,7 +85,9 @@ Lab::Application.routes.draw do
 
 
   resources :lab_courses do
-    resources :monitors
+    resources :monitors do
+      get :history, :on=> :collection
+    end
     get :learn,:on=>:collection
     get :teach,:on=>:collection
   end

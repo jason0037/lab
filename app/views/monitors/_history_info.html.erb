@@ -1,0 +1,32 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>课程编号</th>
+    <th>名称</th>
+    <th>学科分类</th>
+    <th>评测对象</th>
+    <th>教师</th>
+    <th>开始时间</th>
+    <th>结束时间</th>
+    <th>状态</th>
+    <th>评测编号</th>
+    <th>教学场景</th>
+    <th>需要教师？</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= link_to @lab_course.id, lab_course_path(@lab_course) %></td>
+        <td><%= @lab_course.name %></td>
+        <td><%= Option.where(:key=>"eval_object_type",:value=>@lab_course.course_type).first.name %></td>
+        <td><%= Option.where(:key=>"course_type",:value=>@lab_course.course_type).first.name %></td>
+        <td><%= @lab_course.lab_user.name %></td>
+        <td><%=l @lab_course.start_time %></td>
+        <td><%=l @lab_course.end_time %></td>
+        <td><%= @lab_course.status %></td>
+        <td><%= @lab_course.project_id %></td>
+        <td><%= @lab_course.lab_scene.name %></td>
+        <td><%= @lab_course.is_teach %></td>
+      </tr>
+  </tbody>
+</table>
