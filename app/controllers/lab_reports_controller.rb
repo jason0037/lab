@@ -25,8 +25,6 @@ class LabReportsController < ApplicationController
 
   def export
 =begin
-    # create a pdf from a string
-    pdf = WickedPdf.new.pdf_from_string('<h1>Hello There!</h1>')
 
 # create a pdf file from a html file without converting it to string
 # Path must be absolute path
