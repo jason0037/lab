@@ -119,11 +119,12 @@ class LabReportsController < ApplicationController
      }
     end
 
-      html=%Q{<!DOCTYPE html><html><head>
+      html_head=%Q{<!DOCTYPE html><html><head>
     <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 </head><body><p style="margin-left:21.0pt;">
-<p><img src='file:///root/lab/app/assets/images/logo.png' style="width:60px;">上海开放大学 </p>
-  一、教学资源实验室体态分析评测报告</p>
+<p><img src='file:///root/lab/app/assets/images/logo.png' style="width:60px;">上海开放大学 </p>}
+
+html_common=%Q{
 <table border="1" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
@@ -223,7 +224,9 @@ class LabReportsController < ApplicationController
   <td colspan="6" style="width:423px;">
     <p align="center">#{@lab_course.participants}</p>
   </td>
-</tr>
+</tr>}
+   title_behaviours="<p>一、教学资源实验室体态分析评测报告</p>"
+    html_behaviour=%Q{
 <tr>
   <td style="width:130px;">
     <p align="center">
@@ -399,117 +402,13 @@ class LabReportsController < ApplicationController
     &nbsp;</td>
 </tr>
 </tbody>
-</table>
-<p>
-  &nbsp;</p>
-<p>
-  &nbsp;</p>
-<p style="margin-left:21.0pt;">
-  二、教学资源实验室脑波评测报告</p>
-<p>
-  &nbsp;</p>
-<table border="1" cellpadding="0" cellspacing="0">
-<tbody>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center">
-      <strong>基本信息</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试项目名称</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>申请单位</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>申请单位联系人</strong></p>
-  </td>
-  <td colspan="2" style="width:151px;">
-    <p>#{@lab_course.category_id}</p>
-  </td>
-  <td colspan="2" style="width:76px;">
-    <p>
-      <strong>联系方式</strong></p>
-  </td>
-  <td colspan="2" style="width:196px;">
-    <p>#{@lab_course.category_id}</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>申请时间</strong></p>
-  </td>
-  <td colspan="2" style="width:151px;">
-    <p>#{@lab_course.category_id}</p>
-  </td>
-  <td colspan="2" style="width:76px;">
-    <p>
-      <strong>版本</strong></p>
-  </td>
-  <td colspan="2" style="width:196px;">
-    <p>#{@lab_course.category_id}</p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center">
-      <strong>项目背景</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试目标</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>课程名称</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试地点</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>参与人员</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
+</table>}
+
+    title_mindwave=%Q{<p style="margin-left:21.0pt;">
+  二、教学资源实验室脑波评测报告</p><p>  &nbsp;</p>}
+
+html_mindwave=%Q{
+<td style="width:130px;">
     <p align="center">
       <strong>测试流程</strong></p>
   </td>
@@ -757,127 +656,21 @@ class LabReportsController < ApplicationController
 </tr>
 </tbody>
 </table>
+}
+    title_questions=%Q{<p style="margin-left:21.0pt;">
+  三、教学资源实验室评测问卷调查报告（以下为样例，需要参考问卷网站设计问题，以及产生问卷分析的图表）</p>
+<p>}
+    html_questions=%Q{
 <p>
   &nbsp;</p>
-<p style="margin-left:21.0pt;">
-  三、教学资源实验室评测问卷调查报告（以下为样例，需要参考问卷网站设计问题，以及产生问卷分析的图表）</p>
-<p>
   <img height="558" src="file:///C:/Users/scenery/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" width="554" /></p>
 <p>
   &nbsp;</p>
-<p style="margin-left:21.0pt;">
-  四、教学资源实验室评测总报告</p>
-<table border="1" cellpadding="0" cellspacing="0">
-<tbody>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center">
-      <strong>基本信息</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试项目名称</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>申请单位</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>申请单位联系人</strong></p>
-  </td>
-  <td colspan="2" style="width:151px;">
-    <p>
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:76px;">
-    <p>
-      <strong>联系方式</strong></p>
-  </td>
-  <td colspan="2" style="width:196px;">
-    <p>
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>申请时间</strong></p>
-  </td>
-  <td colspan="2" style="width:151px;">
-    <p>
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:76px;">
-    <p>
-      <strong>版本</strong></p>
-  </td>
-  <td colspan="2" style="width:196px;">
-    <p>
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center">
-      <strong>项目背景</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试目标</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>课程名称</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试地点</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>参与人员</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
+}
+
+  title_comprehensive=%Q{<p style="margin-left:21.0pt;">
+  四、教学资源实验室评测总报告</p>}
+    html_comprehensive=%{
   <td style="width:130px;">
     <p align="center">
       <strong>测试流程</strong></p>
@@ -1709,9 +1502,23 @@ class LabReportsController < ApplicationController
 </tr>
 </tbody>
 </table>}
+    html_foot=%Q{</body></html>}
+    title=params["title"]
+    case title
+      when 'behaviour'
+        html=html_head + title_behaviours + html_common + html_behaviour + html_foot
+      when 'mind_wave'
+        html=html_head + title_mindwave + html_common + html_mindwave + html_foot
+      when 'questions'
+        html=html_head + title_questions + html_common + html_questions + html_foot
+      else
+        title = 'comprehensive'
+        html=html_head + title_comprehensive + html_common + html_comprehensive + html_foot
+    end
+
   #  return :text=>html
     pdf = WickedPdf.new.pdf_from_string(html)
-    save_path = "#{PIC_PATH}/teachResources/reports/report_#{id}.pdf"
+    save_path = "#{PIC_PATH}/teachResources/reports/report_#{title}_#{id}.pdf"
     File.open(save_path, 'wb') do |file|
       file << pdf
     end
