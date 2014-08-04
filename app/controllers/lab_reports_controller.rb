@@ -111,9 +111,16 @@ class LabReportsController < ApplicationController
     #@app_test =AppTest.where(:course_id=>id).limit(0,4)
     @app_test =AppTest.limit(4)
     students_score=''
+    i = 0
     @app_test.each do |app_test|
+      i= i+1
+      if i==2
+        colspan='2'
+      else
+        colspan='1'
+      end
       students_score= students_score +%Q{
-      <td style="width:106px;">
+      <td style="width:106px;" colspan="#{colspan}">
         <p align="center">#{app_test.score}</p>
       </td>
      }
@@ -224,9 +231,10 @@ html_common=%Q{
   <td colspan="6" style="width:423px;">
     <p align="center">#{@lab_course.participants}</p>
   </td>
-</tr>}
+</tr></tbody></table>}
    title_behaviours="<p>一、教学资源实验室体态分析评测报告</p>"
-    html_behaviour=%Q{
+    html_behaviour=%Q{<table border="1" cellpadding="0" cellspacing="0">
+<tbody>
 <tr>
   <td style="width:130px;">
     <p align="center">
@@ -275,7 +283,7 @@ html_common=%Q{
       <strong>无线网络总流量</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center"> MB</p>
+    <p align="center"> 49.2MB</p>
   </td>
 </tr>
 <tr>
@@ -313,16 +321,16 @@ html_common=%Q{
       <strong>课堂最高安静指数</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">94</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">93</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">88</p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">99</p>
   </td>
 </tr>
 <tr>
@@ -331,16 +339,16 @@ html_common=%Q{
       <strong>课堂最低安静指数</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">24</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">41</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">34</p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">11</p>
   </td>
 </tr>
 <tr>
@@ -349,16 +357,16 @@ html_common=%Q{
       <strong>课堂平均安静指数</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">72</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">46</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">58</p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">39</p>
   </td>
 </tr>
 <tr>
@@ -369,8 +377,8 @@ html_common=%Q{
 </tr>
 <tr>
   <td colspan="7" style="width:553px;">
-    <p>
-      <strong>注：插入体态的图表，自带标题</strong></p>
+<p><img src='file:///root/pics/teachResources/reports/charts/behaviour.JPG' style="width:553px;"></p>
+
   </td>
 </tr>
 <tr>
@@ -379,41 +387,26 @@ html_common=%Q{
       <strong>意见和建议</strong></p>
   </td>
 </tr>
-<tr>
+<tr style="display:none">
   <td colspan="7" style="width:553px;">
     <p style="margin-left:31.5pt;">
       <strong>注：根据页面输入填写该部分内容</strong></p>
   </td>
 </tr>
-<tr height="0">
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-</tr>
 </tbody>
 </table>}
 
     title_mindwave=%Q{<p style="margin-left:21.0pt;">
-  二、教学资源实验室脑波评测报告</p><p>  &nbsp;</p>}
+  教学资源实验室脑波评测报告</p><p>  &nbsp;</p>}
 
-html_mindwave=%Q{
+html_mindwave=%Q{<table border="1" cellpadding="0" cellspacing="0">
+<tbody><tr>
 <td style="width:130px;">
     <p align="center">
       <strong>测试流程</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center"> </p>
   </td>
 </tr>
 <tr>
@@ -422,7 +415,7 @@ html_mindwave=%Q{
       <strong>测试内容</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">脑波分析</p>
   </td>
 </tr>
 <tr>
@@ -437,7 +430,7 @@ html_mindwave=%Q{
       <strong>测试时间区间</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">#{@lab_course.start_time} -- #{@lab_course.end_time}</p>
   </td>
 </tr>
 <tr>
@@ -446,7 +439,7 @@ html_mindwave=%Q{
       <strong>测试情景</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">#{@lab_course.lab_scene.name}</p>
   </td>
 </tr>
 <tr>
@@ -455,7 +448,7 @@ html_mindwave=%Q{
       <strong>无线网络总流量</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center"> 49.2MB</p>
   </td>
 </tr>
 <tr>
@@ -485,18 +478,7 @@ html_mindwave=%Q{
     <p>
       <strong>教学效果</strong></p>
   </td>
-  <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
-  </td>
+  #{students_score}
 </tr>
 <tr>
   <td style="width:130px;">
@@ -504,16 +486,16 @@ html_mindwave=%Q{
       <strong>专注度最高值</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">100</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">100</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">89</p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">95</p>
   </td>
 </tr>
 <tr>
@@ -522,16 +504,16 @@ html_mindwave=%Q{
       <strong>专注度最低值</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">24</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">0</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">12</p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">3</p>
   </td>
 </tr>
 <tr>
@@ -540,16 +522,16 @@ html_mindwave=%Q{
       <strong>专注度平均值</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">46</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">57</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">69</p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">34</p>
   </td>
 </tr>
 <tr>
@@ -558,16 +540,16 @@ html_mindwave=%Q{
       <strong>放松度最高值</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">89</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">93</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">99</p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{@lab_course.category_id}</p>
+    <p align="center">92</p>
   </td>
 </tr>
 <tr>
@@ -576,20 +558,16 @@ html_mindwave=%Q{
       <strong>放松度最低值</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
+    <p align="center">4</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
+    <p align="center">2</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
+    <p align="center">14</p>
   </td>
   <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
+    <p align="center">1</p>
   </td>
 </tr>
 <tr>
@@ -598,20 +576,16 @@ html_mindwave=%Q{
       <strong>放松度平均值</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
+    <p align="center">51</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
+    <p align="center">43</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
+    <p align="center">34</p>
   </td>
   <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
+    <p align="center">67</p>
   </td>
 </tr>
 <tr>
@@ -620,7 +594,7 @@ html_mindwave=%Q{
       <strong>图表</strong></p>
   </td>
 </tr>
-<tr>
+<tr style='display:none'>
   <td colspan="7" style="width:553px;">
     <p>
       <strong>注：插入脑波的图表，自带标题</strong></p>
@@ -632,33 +606,17 @@ html_mindwave=%Q{
       <strong>意见和建议</strong></p>
   </td>
 </tr>
-<tr>
+<tr style="display:none">
   <td colspan="7" style="width:553px;">
     <p style="margin-left:31.5pt;">
       <strong>注：根据页面输入填写该部分内容</strong></p>
   </td>
 </tr>
-<tr height="0">
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-</tr>
 </tbody>
 </table>
 }
     title_questions=%Q{<p style="margin-left:21.0pt;">
-  三、教学资源实验室评测问卷调查报告（以下为样例，需要参考问卷网站设计问题，以及产生问卷分析的图表）</p>
+  教学资源实验室评测问卷调查报告（以下为样例，需要参考问卷网站设计问题，以及产生问卷分析的图表）</p>
 <p>}
     html_questions=%Q{
 <p>
@@ -669,8 +627,9 @@ html_mindwave=%Q{
 }
 
   title_comprehensive=%Q{<p style="margin-left:21.0pt;">
-  四、教学资源实验室评测总报告</p>}
-    html_comprehensive=%{
+  教学资源实验室评测总报告</p>}
+    html_comprehensive=%Q{<table border="1" cellpadding="0" cellspacing="0">
+<tbody><tr>
   <td style="width:130px;">
     <p align="center">
       <strong>测试流程</strong></p>
@@ -1507,13 +1466,13 @@ html_mindwave=%Q{
     case title
       when 'behaviour'
         html=html_head + title_behaviours + html_common + html_behaviour + html_foot
-      when 'mind_wave'
+      when 'mindwave'
         html=html_head + title_mindwave + html_common + html_mindwave + html_foot
       when 'questions'
         html=html_head + title_questions + html_common + html_questions + html_foot
       else
         title = 'comprehensive'
-        html=html_head + title_comprehensive + html_common + html_comprehensive + html_foot
+        html=html_head + title_comprehensive + html_common + title_behaviours + html_behaviour+ title_mindwave+ html_mindwave + html_foot
     end
 
   #  return :text=>html
@@ -1522,7 +1481,7 @@ html_mindwave=%Q{
     File.open(save_path, 'wb') do |file|
       file << pdf
     end
-    render :text=>"报告成功生成<br/><a href='/teachResources/reports/report_#{id}.pdf'>下载报告</a><br/><a href='/lab_course'>返回</a>"
+    render :text=>"报告成功生成<br/><a href='/teachResources/reports/report_#{title}_#{id}.pdf'>下载#{title}报告</a><br/><a href='/lab_course'>返回</a>"
   end
 
   def export_docx
@@ -4429,12 +4388,19 @@ ul
   # GET /lab_reports/1
   # GET /lab_reports/1.json
   def show
-    @lab_report = LabReport.find(params[:id])
+    id = params[:id]
+    return render :text=>"<a href='/lab_reports/#{id}/export?title=behaviour'>行为体态分析报告</a></br>
+<a href='/lab_reports/#{id}/export?title=mindwave'>脑波分析报告</a></br>
+<a href='/lab_reports/#{id}/export?title=questions'>问卷评测报告</a></br>
+<a href='/lab_reports/#{id}/export?title=comprehensive'>综合报告</a></br>"
+=begin
+    @lab_report =  LabReport.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @lab_report }
     end
+=end
   end
 
   # GET /lab_reports/new

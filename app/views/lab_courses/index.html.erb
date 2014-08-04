@@ -52,7 +52,7 @@
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
-          <%=link_to '生成报告', export_lab_report_path(lab_course), :class => 'btn btn-mini' %>
+          <%=link_to '生成报告', lab_report_path(lab_course), :class => 'btn btn-mini' %>
         </td>
       </tr>
     <% end %>
