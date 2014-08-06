@@ -1,6 +1,6 @@
-worker_processes 2
+worker_processes 5
 preload_app true
-timeout 30
+timeout 300
 listen 9090
 
 require 'pathname'
