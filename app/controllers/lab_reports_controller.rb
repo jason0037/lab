@@ -9,103 +9,7 @@ class LabReportsController < ApplicationController
   # GET /lab_reports.json
   layout "blank"#,:except => [:show]
 
-  def export_prawn
-
-    Prawn::Document.generate("/root/lab/tmp/hello.pdf") do
-      text "Hello World!"
-    end
-=begin
-    cell_1 = make_cell(:content => "this row content comes directly ") cell_2 = make_cell(:content => "from cell objects")
-    two_dimensional_array = [ ["..."], ["subtable from an array"], ["..."] ]
-    my_table = make_table([ ["..."], ["subtable from another table"], ["..."] ])
-    image_path = "#{Prawn::DATADIR}/images/stef.jpg"
-    table([ ["just a regular row", "", "", "blah blah blah"],        [cell_1, cell_2, "", ""],        ["", "", two_dimensional_array, ""],        ["just another regular row", "", "", ""],        [{:image => image_path}, "", my_table, ""]])
-=end
-  end
-
   def export
-=begin
-
-# create a pdf file from a html file without converting it to string
-# Path must be absolute path
-    pdf = WickedPdf.new.pdf_from_html_file('/your/absolute/path/here')
-
-# create a pdf from string using templates, layouts and content option for header or footer
-    WickedPdf.new.pdf_from_string(
-        render_to_string('templates/pdf.html.erb', :layout => 'pdfs/layout_pdf'),
-        :footer => {
-            :content => render_to_string(:layout => 'pdfs/layout_pdf')
-        }
-    )
-
-# or from your controller, using views & templates and all wicked_pdf options as normal
-    pdf = render_to_string :pdf => "some_file_name"
-
-# then save to a file
-    save_path = Rails.root.join('pdfs','filename.pdf')
-    File.open(save_path, 'wb') do |file|
-      file << pdf
-    end
-
-    file_name =  "#{PIC_PATH}/teachResources/reports/abc.pdf"
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render :pdf => file_name #"file_name"
-      end
-    end
-=end
-#    pdf = WickedPdf.new.pdf_from_string('<h1>Hello There!</h1>')
-#    #save_path = Rails.root.join('pdfs','filename.pdf')
- #   save_path = PIC_PATH.join('teachResources','reports','report_abcd.pdf')
-#    File.open(save_path, 'wb') do |file|
-#      file << pdf
-#    end
-    #file_name =  "#{PIC_PATH}/teachResources/reports/report_abcd.pdf"
-=begin
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render :pdf => 'report1.pdf',
-               :wkhtmltopdf => '/usr/bin/wkhtmltopdf',
-              # :template => '/bills/printing.pdf.erb',
-               :disposition => "inline",
-        :save_to_file => "#{PIC_PATH}/teachResources/reports/report_abcd.pdf"#Rails.root.join('pdf', "rechnung_#{@bills.id}.pdf")
-      end
-    end
-=end
-    #render :text=>"<a href='/teachResources/reports/#{save_path[5]}'>#{save_path[5]}</a>"
-   # render :text=>"<a href='/teachResources/reports/report_abcd.pdf'>report_abcd.pdf</a>"
-=begin
-    format.pdf do
-      @example_text = "some text"
-      render :pdf => "file_name",
-             :template => 'layout/show.pdf.erb',
-             :layout => 'pdf',
-             :footer => {
-                 :center => "Center",
-                 :left => "Left",
-                 :right => "Right"
-             }
-      end
-=end
-=begin 没有反应
-@reports_id=21
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render :pdf => "report_#{@report_id}",
-               :wkhtmltopdf => '/usr/bin/wkhtmltopdf',
-               :template => '/layouts/show.pdf.erb',
-               :disposition => "inline",
-              :save_to_file=>"#{PIC_PATH}/teachResources/reports/report_abcd.pdf"
-        #:save_to_file => Rails.root.join('pdf', "rechnung_#{@bills.id}.pdf")
-      end
-    end
-=end
-  #  pdf = WickedPdf.new.pdf_from_html_file('http://101.226.163.150/lab_reports/1')
-   # save_path = Rails.root.join('pdfs','filename.pdf')
-
     id=params[:id]
     @lab_course = LabCourse.find(id)
     #@app_test =AppTest.where(:course_id=>id).limit(0,4)
@@ -1482,6 +1386,89 @@ html_mindwave=%Q{<table border="1" cellpadding="0" cellspacing="0">
       file << pdf
     end
     render :text=>"报告成功生成<br/><a href='/teachResources/reports/report_#{title}_#{id}.pdf'>下载#{title}报告</a><br/><a href='/lab_course'>返回</a>"
+
+=begin
+
+# create a pdf file from a html file without converting it to string
+# Path must be absolute path
+      pdf = WickedPdf.new.pdf_from_html_file('/your/absolute/path/here')
+
+# create a pdf from string using templates, layouts and content option for header or footer
+      WickedPdf.new.pdf_from_string(
+          render_to_string('templates/pdf.html.erb', :layout => 'pdfs/layout_pdf'),
+          :footer => {
+              :content => render_to_string(:layout => 'pdfs/layout_pdf')
+          }
+      )
+
+# or from your controller, using views & templates and all wicked_pdf options as normal
+      pdf = render_to_string :pdf => "some_file_name"
+
+# then save to a file
+      save_path = Rails.root.join('pdfs','filename.pdf')
+      File.open(save_path, 'wb') do |file|
+        file << pdf
+      end
+
+      file_name =  "#{PIC_PATH}/teachResources/reports/abc.pdf"
+      respond_to do |format|
+        format.html
+        format.pdf do
+          render :pdf => file_name #"file_name"
+        end
+      end
+=end
+#    pdf = WickedPdf.new.pdf_from_string('<h1>Hello There!</h1>')
+#    #save_path = Rails.root.join('pdfs','filename.pdf')
+#   save_path = PIC_PATH.join('teachResources','reports','report_abcd.pdf')
+#    File.open(save_path, 'wb') do |file|
+#      file << pdf
+#    end
+#file_name =  "#{PIC_PATH}/teachResources/reports/report_abcd.pdf"
+=begin
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => 'report1.pdf',
+               :wkhtmltopdf => '/usr/bin/wkhtmltopdf',
+              # :template => '/bills/printing.pdf.erb',
+               :disposition => "inline",
+        :save_to_file => "#{PIC_PATH}/teachResources/reports/report_abcd.pdf"#Rails.root.join('pdf', "rechnung_#{@bills.id}.pdf")
+      end
+    end
+=end
+    #render :text=>"<a href='/teachResources/reports/#{save_path[5]}'>#{save_path[5]}</a>"
+    # render :text=>"<a href='/teachResources/reports/report_abcd.pdf'>report_abcd.pdf</a>"
+=begin
+    format.pdf do
+      @example_text = "some text"
+      render :pdf => "file_name",
+             :template => 'layout/show.pdf.erb',
+             :layout => 'pdf',
+             :footer => {
+                 :center => "Center",
+                 :left => "Left",
+                 :right => "Right"
+             }
+      end
+=end
+=begin 没有反应
+@reports_id=21
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "report_#{@report_id}",
+               :wkhtmltopdf => '/usr/bin/wkhtmltopdf',
+               :template => '/layouts/show.pdf.erb',
+               :disposition => "inline",
+              :save_to_file=>"#{PIC_PATH}/teachResources/reports/report_abcd.pdf"
+        #:save_to_file => Rails.root.join('pdf', "rechnung_#{@bills.id}.pdf")
+      end
+    end
+=end
+    #  pdf = WickedPdf.new.pdf_from_html_file('http://101.226.163.150/lab_reports/1')
+    # save_path = Rails.root.join('pdfs','filename.pdf')
+
   end
 
   def export_docx

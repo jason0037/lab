@@ -361,7 +361,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     start_time = params[:start_at]
     end_time = params[:end_at]
 
-    caption="课堂行为体态"
+    caption="课堂行为体态分析"
     cats_str = ''
     data_str1 = ''
     seriesname1=''
@@ -378,8 +378,6 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
       showLabels='1'
       export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='realtimemulti' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
     end
-
-   # sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at,source"
     categories = ""
     datasets = ""
     cats_str = ""
@@ -416,23 +414,18 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
         datasets = datasets + "<dataset seriesName='学生#{source}' showValues='0'>#{data_str1}</dataset>"
     end
     charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
-canvasbottommargin='10' numbersuffix=''
-showlegend='#{showlegend}' showLabels='#{showLabels}'
+canvasbottommargin='10' numbersuffix='' showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
 labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' #{export_str}>
 #{categories} #{datasets}
 <styles>
-<definition>
-<style type='font' name='captionFont' size='14' />
-</definition>
+<definition><style type='font' name='captionFont' size='14' /></definition>
 <application>
 <apply toobject='Caption' styles='captionFont' />
 <apply toobject='Realtimevalue' styles='captionFont' />
 </application>
-</styles>
-<trendlines></trendlines>
-</chart>"
+</styles><trendlines></trendlines></chart>"
     render :text => charts
   end
 
