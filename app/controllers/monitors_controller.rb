@@ -355,6 +355,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
   end
 
   def behaviour_data_history
+    id = params[:id]
     equipment_code = params[:equipment_code]
     size = params[:size]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
@@ -376,7 +377,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
       xaxisname="当前数值"
       showlegend='1'
       showLabels='1'
-      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='realtimemulti' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='behaviour#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
     end
     categories = ""
     datasets = ""

@@ -149,16 +149,19 @@ class Fusioncharts::Exporter::FcExporter
       #folder_to_save + '/' + filename +"." + ext
       displayFileName = filename +"." + ext
       #Check if file exists and create new filename
+=begin
       if(FileTest.exists?(complete_file_path))
           notice += " File already exists."
           if( !Fusioncharts::Exporter::Properties.OVERWRITEFILE)
             notice+= " Using intelligent naming of file by adding an unique suffix to the exising name."
             # create new filename
             complete_file_path= Fusioncharts::Exporter::SaveHelper.generate_unique_filename(folder_to_save + '/' + filename ,ext)
+            #complete_file_path= folder_to_save + '/' + filename + '.'+ ext
             displayFileName=File.basename(complete_file_path)
             notice+= "The filename has changed to "+displayFileName
           end
       end
+=end
       #logger.info "Saving to location "+complete_file_path
       http_path = Fusioncharts::Exporter::Properties.HTTP_URI.gsub!(/\/$/, '')
       if(http_path==nil)
