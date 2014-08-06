@@ -18,7 +18,7 @@ class LabReportsController < ApplicationController
     i = 0
     @app_test.each do |app_test|
       i= i+1
-      if i==2
+      if i==2 || i==3
         colspan='2'
       else
         colspan='1'
@@ -35,8 +35,8 @@ class LabReportsController < ApplicationController
 </head><body><p style="margin-left:21.0pt;">
 <p><img src='file:///root/lab/app/assets/images/logo.png' style="width:60px;">上海开放大学 </p>}
 
-html_common=%Q{
-<table border="1" cellpadding="0" cellspacing="0">
+html_common_1=%Q{
+<table border="1" cellpadding="0" cellspacing="0" width="100%">
 <tbody>
 <tr>
   <td colspan="7" style="width:553px;">
@@ -63,7 +63,7 @@ html_common=%Q{
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
+  <td style="width:130px;text-align:center">
     <p>
       <strong>申请单位联系人</strong></p>
   </td>
@@ -136,27 +136,7 @@ html_common=%Q{
     <p align="center">#{@lab_course.participants}</p>
   </td>
 </tr></tbody></table>}
-   title_behaviours="<p>一、教学资源实验室体态分析评测报告</p>"
-    html_behaviour=%Q{<table border="1" cellpadding="0" cellspacing="0">
-<tbody>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试流程</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">采集学生在课堂的行为体态图像数据，进行分析</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试内容</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">学生在课堂的行为体态表现</p>
-  </td>
-</tr>
+    html_common_2=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
   <td colspan="7" style="width:553px;">
     <p align="center">
@@ -218,7 +198,31 @@ html_common=%Q{
       <strong>教学效果</strong></p>
   </td>
   #{students_score}
+</tr></tbody></table>}
+
+   title_behaviours="<p>一、教学资源实验室体态分析评测报告</p>"
+    html_behaviour_0=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
+<tr>
+  <td style="width:130px;">
+    <p align="center">
+      <strong>测试流程</strong></p>
+  </td>
+  <td colspan="6" style="width:423px;">
+    <p align="center">采集学生在课堂的行为体态图像数据，进行分析</p>
+  </td>
 </tr>
+<tr>
+  <td style="width:130px;">
+    <p align="center">
+      <strong>测试内容</strong></p>
+  </td>
+  <td colspan="6" style="width:423px;">
+    <p align="center">学生在课堂的行为体态表现</p>
+  </td>
+</tr></tbody></table>}
+
+
+html_behaviour_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
   <td style="width:130px;">
     <p>
@@ -281,7 +285,7 @@ html_common=%Q{
 </tr>
 <tr>
   <td colspan="7" style="width:553px;">
-<p><img src='file:///root/pics/teachResources/reports/charts/behaviour.JPG' style="width:553px;"></p>
+<p><img src='file:///root/pics/teachResources/reports/charts/behaviour.JPG' style="width:100%;"></p>
 
   </td>
 </tr>
@@ -303,8 +307,8 @@ html_common=%Q{
     title_mindwave=%Q{<p style="margin-left:21.0pt;">
   教学资源实验室脑波评测报告</p><p>  &nbsp;</p>}
 
-html_mindwave=%Q{<table border="1" cellpadding="0" cellspacing="0">
-<tbody><tr>
+html_mindwave_0=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
+<tr>
 <td style="width:130px;">
     <p align="center">
       <strong>测试流程</strong></p>
@@ -321,69 +325,8 @@ html_mindwave=%Q{<table border="1" cellpadding="0" cellspacing="0">
   <td colspan="6" style="width:423px;">
     <p align="center">脑波分析</p>
   </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center">
-      <strong>测试结果</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>测试时间区间</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.start_time} -- #{@lab_course.end_time}</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>测试情景</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.lab_scene.name}</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>无线网络总流量</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center"> 49.2MB</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>实验对象抽样</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      <strong>学生1</strong></p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      <strong>学生2</strong></p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      <strong>学生3</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      <strong>学生4</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>教学效果</strong></p>
-  </td>
-  #{students_score}
-</tr>
+</tr></tbody></table>}
+html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
   <td style="width:130px;">
     <p>
@@ -515,10 +458,8 @@ html_mindwave=%Q{<table border="1" cellpadding="0" cellspacing="0">
     <p style="margin-left:31.5pt;">
       <strong>注：根据页面输入填写该部分内容</strong></p>
   </td>
-</tr>
-</tbody>
-</table>
-}
+</tr></tbody></table>}
+
     title_questions=%Q{<p style="margin-left:21.0pt;">
   教学资源实验室评测问卷调查报告（以下为样例，需要参考问卷网站设计问题，以及产生问卷分析的图表）</p>
 <p>}
@@ -1369,14 +1310,14 @@ html_mindwave=%Q{<table border="1" cellpadding="0" cellspacing="0">
     title=params["title"]
     case title
       when 'behaviour'
-        html=html_head + title_behaviours + html_common + html_behaviour + html_foot
+        html=html_head + title_behaviours + html_common_1 + html_behaviour_0 + html_common_2 + html_behaviour_1 + html_foot
       when 'mindwave'
-        html=html_head + title_mindwave + html_common + html_mindwave + html_foot
+        html=html_head + title_mindwave + html_common_1 + html_mindwave_0 + html_common_2 + html_mindwave_1 +  html_foot
       when 'questions'
-        html=html_head + title_questions + html_common + html_questions + html_foot
+        html=html_head + title_questions + html_questions + html_foot
       else
         title = 'comprehensive'
-        html=html_head + title_comprehensive + html_common + title_behaviours + html_behaviour+ title_mindwave+ html_mindwave + html_foot
+        html=html_head + title_comprehensive + html_common_1 + title_behaviours + html_behaviour+ title_mindwave+ html_mindwave + html_foot
     end
 
   #  return :text=>html

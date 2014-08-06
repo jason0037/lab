@@ -383,7 +383,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     cats_str = ""
     data_str1 = ""
     [1,2,3,4].each do |source|
-        sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
+        sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time} order by read_at"
         results = ActiveRecord::Base.connection.execute(sql)
         data_str1 = ""
         last_time = ""
