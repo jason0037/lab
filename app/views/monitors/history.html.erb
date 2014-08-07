@@ -11,7 +11,7 @@
   <li>
     <div id="chart-01">
       <div class="home_chart" export-flag="1" chart-type="RealTimeLineDY.swf"
-           data-source="/monitors/behaviour_data_history?equipment_code=001001&id=<%=params[:id]%>&size=small&start_at=<%=@lab_course.start_time.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time.strftime('%Y%m%d%H%M%S')%>"
+           data-source="/monitors/behaviour_data_history?equipment_code=001001&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.start_time.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time.strftime('%Y%m%d%H%M%S')%>"
            id="chart-container-1"
            url= "behaviour">
       </div>
@@ -19,13 +19,8 @@
   </li>
   <li>
     <div id="chart-02">
-      <div class="home_chart" chart-type="AngularGauge.swf"
-           data-source="/monitors/dashboard_data?equipment_code=002001"
-           id="chart-container-2"
-           url="mind_wave">
-      </div>
       <div class="home_chart" chart-type="RealTimeLineDY.swf"
-           data-source="/monitors/behaviour_data_history?equipment_code=003001&id=<%=params[:id]%>&size=small&start_at=<%=@lab_course.start_time.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time.strftime('%Y%m%d%H%M%S')%>"
+           data-source="/monitors/mindwave_data_history?equipment_code=002001&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.start_time.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time.strftime('%Y%m%d%H%M%S')%>"
            id="chart-container-2"
            url= "mind_wave">
       </div>

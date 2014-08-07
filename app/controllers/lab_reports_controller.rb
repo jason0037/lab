@@ -33,13 +33,13 @@ class LabReportsController < ApplicationController
       html_head=%Q{<!DOCTYPE html><html><head>
     <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 </head><body><p style="margin-left:21.0pt;">
-<p><img src='file:///root/lab/app/assets/images/logo.png' style="width:60px;">上海开放大学 </p>}
+<p><img src='file:///root/lab/app/assets/images/logo.png' style="width:60px;">开放教学数字化实验室</p>}
 
 html_common_1=%Q{
 <table border="1" cellpadding="0" cellspacing="0" width="100%">
 <tbody>
 <tr>
-  <td colspan="7" style="width:553px;">
+  <td colspan="7" style="width:553px;;background-color:#66B3FF">
     <p align="center">
       <strong>基本信息</strong></p>
   </td>
@@ -75,7 +75,7 @@ html_common_1=%Q{
       <strong>联系方式</strong></p>
   </td>
   <td colspan="2" style="width:196px;">
-    <p>#{@lab_course.lab_eval_project.lab_user.mobile} / #{@lab_course.lab_eval_project.lab_user.email}</p>
+    <p>电话： #{@lab_course.lab_eval_project.lab_user.mobile} / #{@lab_course.lab_eval_project.lab_user.email}</p>
   </td>
 </tr>
 <tr>
@@ -84,7 +84,7 @@ html_common_1=%Q{
       <strong>申请时间</strong></p>
   </td>
   <td colspan="2" style="width:151px;">
-    <p>#{@lab_course.lab_eval_project.created_at}</p>
+    <p>#{@lab_course.lab_eval_project.created_at.strftime('%Y-%m-%d %H:%M:%S')}</p>
   </td>
   <td colspan="2" style="width:76px;">
     <p>
@@ -95,7 +95,7 @@ html_common_1=%Q{
   </td>
 </tr>
 <tr>
-  <td colspan="7" style="width:553px;">
+  <td colspan="7" style="width:553px;background-color:#66B3FF"">
     <p align="center">
       <strong>项目背景</strong></p>
   </td>
@@ -135,10 +135,20 @@ html_common_1=%Q{
   <td colspan="6" style="width:423px;">
     <p align="center">#{@lab_course.participants}</p>
   </td>
+<tr>
+  <td style="width:130px;">
+    <p align="center">
+      <strong>测试流程</strong></p>
+  </td>
+  <td colspan="6" style="width:423px;">
+    <p align="center"><img src='file:///root/lab/app/assets/images/evalue_flow.jpg' style="width:100%;">
+  </p>
+  </td>
+</tr>
 </tr></tbody></table>}
     html_common_2=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
-  <td colspan="7" style="width:553px;">
+  <td colspan="7" style="width:553px;background-color:#66B3FF"">
     <p align="center">
       <strong>测试结果</strong></p>
   </td>
@@ -149,7 +159,7 @@ html_common_1=%Q{
       <strong>测试时间区间</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.start_time} -- #{@lab_course.end_time}</p>
+    <p align="center">#{@lab_course.start_time.strftime('%Y-%m-%d %H:%M:%S')} -- #{@lab_course.end_time.strftime('%Y-%m-%d %H:%M:%S')}</p>
   </td>
 </tr>
 <tr>
@@ -200,12 +210,12 @@ html_common_1=%Q{
   #{students_score}
 </tr></tbody></table>}
 
-   title_behaviours="<p>一、教学资源实验室体态分析评测报告</p>"
+   title_behaviours="<p>实验室行为体态分析评测报告</p>"
     html_behaviour_0=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
   <td style="width:130px;">
     <p align="center">
-      <strong>测试流程</strong></p>
+      <strong>测试方法</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
     <p align="center">采集学生在课堂的行为体态图像数据，进行分析</p>
@@ -217,7 +227,7 @@ html_common_1=%Q{
       <strong>测试内容</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">学生在课堂的行为体态表现</p>
+    <p align="center">学生在课堂的行为体态</p>
   </td>
 </tr></tbody></table>}
 
@@ -278,19 +288,19 @@ html_behaviour_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100
   </td>
 </tr>
 <tr>
-  <td colspan="7" style="width:553px;">
+  <td colspan="7" style="width:553px;background-color:#66B3FF"">
     <p align="center">
       <strong>图表</strong></p>
   </td>
 </tr>
 <tr>
   <td colspan="7" style="width:553px;">
-<p><img src='file:///root/pics/teachResources/reports/charts/behaviour.JPG' style="width:100%;"></p>
+<p><img src='file:///root/lab/public/report/behaviour#{id}.jpg' style="width:100%;"></p>
 
   </td>
 </tr>
 <tr>
-  <td colspan="7" style="width:553px;">
+  <td colspan="7" style="width:553px;background-color:#66B3FF"">
     <p align="center" style="margin-left:31.5pt;">
       <strong>意见和建议</strong></p>
   </td>
@@ -305,16 +315,20 @@ html_behaviour_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100
 </table>}
 
     title_mindwave=%Q{<p style="margin-left:21.0pt;">
-  教学资源实验室脑波评测报告</p><p>  &nbsp;</p>}
+  实验室脑波评测报告</p><p>  &nbsp;</p>}
 
 html_mindwave_0=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
 <td style="width:130px;">
     <p align="center">
-      <strong>测试流程</strong></p>
+      <strong>测试方法</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center"> </p>
+    <p>1	可以对实验课程中的学生的脑波数据进行抽样采集；</p>
+<p>2	学生戴上脑波监测设备，数据通过无线设备传回服务器;</p>
+<p>3	对采集到的 delta波、theta波、lowAlpha波、highAlpha波、lowBeta波、highBeta波、lowGamma波、highGamma波、眨眼次数等数据进行分析，得出被测学生的注意力指数、放松度指数。
+
+</p>
   </td>
 </tr>
 <tr>
@@ -436,876 +450,87 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
   </td>
 </tr>
 <tr>
-  <td colspan="7" style="width:553px;">
+  <td colspan="7" style="width:553px;background-color:#66B3FF"">
     <p align="center">
       <strong>图表</strong></p>
   </td>
 </tr>
-<tr style='display:none'>
-  <td colspan="7" style="width:553px;">
-    <p>
-      <strong>注：插入脑波的图表，自带标题</strong></p>
+<tr>
+  <td colspan="7" style="width:100%;">
+    <p><img src='file:///root/lab/public/report/mindwave#{id}.jpg' style="width:100%;"></p>
   </td>
 </tr>
 <tr>
-  <td colspan="7" style="width:553px;">
+  <td colspan="7" style="width:553px;background-color:#66B3FF"">
     <p align="center" style="margin-left:31.5pt;">
       <strong>意见和建议</strong></p>
   </td>
 </tr>
-<tr style="display:none">
-  <td colspan="7" style="width:553px;">
-    <p style="margin-left:31.5pt;">
-      <strong>注：根据页面输入填写该部分内容</strong></p>
+<tr>
+  <td colspan="7" style="text-align:center">
+    <p style="margin-left:31.5pt;">放松度指数与注意力之间的关系</p>
+<p>	X=放松度小于40的时长 / 全部时间 * 100</p>
+<p>
+<table border="1" cellpadding="0" cellspacing="0" style="width:80%">
+	<tbody>
+		<tr>
+			<td style="width:277px;">
+				<p>
+					X &gt;= 25</p>
+			</td>
+			<td style="width:277px;">
+				<p>
+					注意力低下&mdash; 紧张、压力大</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:277px;">
+				<p>
+					10 &lt;&nbsp; X&lt;&nbsp; 25</p>
+			</td>
+			<td style="width:277px;">
+				<p>
+					注意力正常 &ndash; 平静</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:277px;">
+				<p>
+					X &lt;=10</p>
+			</td>
+			<td style="width:277px;">
+				<p>
+					注意力高度集中 &ndash; 非常平静</p>
+			</td>
+		</tr>
+	</tbody>
+</table></p>
   </td>
 </tr></tbody></table>}
 
-    title_questions=%Q{<p style="margin-left:21.0pt;">
-  教学资源实验室评测问卷调查报告（以下为样例，需要参考问卷网站设计问题，以及产生问卷分析的图表）</p>
-<p>}
-    html_questions=%Q{
-<p>
-  &nbsp;</p>
-  <img height="558" src="file:///C:/Users/scenery/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" width="554" /></p>
-<p>
-  &nbsp;</p>
-}
+    title_questions=%Q{<p style="margin-left:21.0pt;"> 实验室评测问卷调查报告</p>}
+    html_questions=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>}
+
+    @lab_questions = LabQuestion
+    @question_categories = Option.question_category
+
+  #  @lab_questions_score = LabQuestionsScore.find(params[:id])
+    @question_categories.each do |category|
+      html_questions = html_questions+ %Q{<tr><td style="width:50px;text-align:center;background-color:#66B3FF">&nbsp;#{category.value}.</td>
+      <td style="text-align:center;background-color:#66B3FF">#{category.name}</td>
+    <td style="width:80px;text-align:center;background-color:#66B3FF">重要性</td>
+  <td style="width:80px;text-align:center;background-color:#66B3FF">得分<td></tr>
+        <tr><td colspan="4">#{category.desc}</td><tr>}
+        @lab_questions.where(:question_category=>category.value).each do |question|
+          html_questions = html_questions+ %Q{<tr><td style="text-align:right;line-height:30px;">#{question.id}.&nbsp;&nbsp;</td><td>&nbsp;#{question.desc}</td>
+      <td style="text-align:center">#{(rand*3).to_i}</td><td style="text-align:center">#{(rand*7).to_i}</td></tr>}
+        end
+    end
+    html_questions = html_questions + %Q{<tr><td colspan="2" style="text-align:center">综合得分：</td>
+    <td colspan="2" style="text-align:center">#{(rand*100).to_i}</td></tr></tbody></table>}
 
   title_comprehensive=%Q{<p style="margin-left:21.0pt;">
-  教学资源实验室评测总报告</p>}
-    html_comprehensive=%Q{<table border="1" cellpadding="0" cellspacing="0">
-<tbody><tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试流程</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试内容</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center">
-      <strong>测试结果</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>测试时间区间</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>测试情景</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>无线网络总流量</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>实验对象抽样</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      <strong>学生1</strong></p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      <strong>学生2</strong></p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      <strong>学生3</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      <strong>学生4</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>教学效果</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>课堂最高安静指数</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>课堂最低安静指数</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>课堂平均安静指数</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>专注度最高值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>专注度最低值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>专注度平均值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>放松度最高值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>放松度最低值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>放松度平均值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center">
-      <strong>图表</strong></p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p>
-      <strong>注：插入体态和脑波的图表，自带标题</strong></p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center" style="margin-left:31.5pt;">
-      <strong>问卷调查结果</strong></p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p style="margin-left:31.5pt;">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center" style="margin-left:31.5pt;">
-      <strong>意见和建议</strong></p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p style="margin-left:31.5pt;">
-      <strong>注：根据页面输入填写该部分内容</strong></p>
-  </td>
-</tr>
-<tr height="0">
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-</tr>
-</tbody>
-</table>
-<p>
-  &nbsp;</p>
-<p>
-  &nbsp;</p>
-<p style="margin-left:21.0pt;">
-  五、电子书包实验室评测问卷调查报告（以下为样例，需要参考问卷网站设计问题，以及产生问卷分析的图表）</p>
-<p>
-  <img height="558" src="file:///C:/Users/scenery/AppData/Local/Temp/msohtmlclip1/01/clip_image003.jpg" width="554" /></p>
-<p>
-  &nbsp;</p>
-<p>
-  &nbsp;</p>
-<p style="margin-left:21.0pt;">
-  六、电子书包实验室评测报告</p>
-<p>
-  &nbsp;</p>
-<p>
-  &nbsp;</p>
-<table border="1" cellpadding="0" cellspacing="0">
-<tbody>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center">
-      <strong>基本信息</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试项目名称</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>申请单位</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>申请单位联系人</strong></p>
-  </td>
-  <td colspan="2" style="width:151px;">
-    <p>
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:76px;">
-    <p>
-      <strong>联系方式</strong></p>
-  </td>
-  <td colspan="2" style="width:196px;">
-    <p>
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>申请时间</strong></p>
-  </td>
-  <td colspan="2" style="width:151px;">
-    <p>
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:76px;">
-    <p>
-      <strong>版本</strong></p>
-  </td>
-  <td colspan="2" style="width:196px;">
-    <p>
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center">
-      <strong>项目背景</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试目标</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>产品名称</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试地点</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>参与人员</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试流程</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试内容</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center">
-      <strong>测试结果</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>测试时间区间</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>测试情景</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>无线网络总流量</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>实验对象抽样</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      <strong>学生1</strong></p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      <strong>学生2</strong></p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      <strong>学生3</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      <strong>学生4</strong></p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>教学效果</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>课堂最高安静指数</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>课堂最低安静指数</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>课堂平均安静指数</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>专注度最高值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>专注度最低值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>专注度平均值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>放松度最高值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>放松度最低值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td style="width:130px;">
-    <p>
-      <strong>放松度平均值</strong></p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-  <td style="width:106px;">
-    <p align="center">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center">
-      <strong>图表</strong></p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p>
-      <strong>注：插入体态和脑波的图表，自带标题</strong></p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center" style="margin-left:31.5pt;">
-      <strong>问卷调查结果</strong></p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p style="margin-left:31.5pt;">
-      &nbsp;</p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p align="center" style="margin-left:31.5pt;">
-      <strong>意见和建议</strong></p>
-  </td>
-</tr>
-<tr>
-  <td colspan="7" style="width:553px;">
-    <p style="margin-left:31.5pt;">
-      <strong>注：根据页面输入填写该部分内容</strong></p>
-  </td>
-</tr>
-<tr height="0">
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-  <td>
-    &nbsp;</td>
-</tr>
-</tbody>
-</table>}
+  教学资源/电子书包实验室评测总报告</p>}
     html_foot=%Q{</body></html>}
     title=params["title"]
     case title
@@ -1317,7 +542,7 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
         html=html_head + title_questions + html_questions + html_foot
       else
         title = 'comprehensive'
-        html=html_head + title_comprehensive + html_common_1 + title_behaviours + html_behaviour+ title_mindwave+ html_mindwave + html_foot
+        html=html_head + title_comprehensive + html_common_1  + html_behaviour_1 + html_mindwave_1 + title_questions + html_questions + html_foot
     end
 
   #  return :text=>html
@@ -1326,7 +551,8 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
     File.open(save_path, 'wb') do |file|
       file << pdf
     end
-    render :text=>"报告成功生成<br/><a href='/teachResources/reports/report_#{title}_#{id}.pdf'>下载#{title}报告</a><br/><a href='/lab_course'>返回</a>"
+    @title=title
+    @id=id
 
 =begin
 
@@ -4316,19 +3542,15 @@ ul
   # GET /lab_reports/1
   # GET /lab_reports/1.json
   def show
-    id = params[:id]
-    return render :text=>"<a href='/lab_reports/#{id}/export?title=behaviour'>行为体态分析报告</a></br>
-<a href='/lab_reports/#{id}/export?title=mindwave'>脑波分析报告</a></br>
-<a href='/lab_reports/#{id}/export?title=questions'>问卷评测报告</a></br>
-<a href='/lab_reports/#{id}/export?title=comprehensive'>综合报告</a></br>"
-=begin
-    @lab_report =  LabReport.find(params[:id])
+    @id = params[:id]
+
+
+   # @lab_report =  LabReport.find(@id)
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @lab_report }
     end
-=end
   end
 
   # GET /lab_reports/new

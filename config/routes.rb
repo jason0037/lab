@@ -21,6 +21,7 @@ Lab::Application.routes.draw do
     get :energy_consumption_data,:on=>:collection
     get :mind_wave, :on=>:collection
     get :mind_wave_data, :on=>:collection
+    get :mindwave_data_history, :on=> :collection
     get :behaviour, :on=> :collection
     get :behaviour_data, :on=> :collection
     get :behaviour_data_history, :on=> :collection

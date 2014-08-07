@@ -39,15 +39,28 @@ class MonitorsController < ApplicationController
             and read_at>= '#{read_at.to_s}'
            order by id desc limit 0,1"
 
+      when 'R000001'
+        if point_id=='000002'
+          sql = "select value from #{table_name}_reading where point_id = '000001' and source='#{source}'
+          and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
+          results = ActiveRecord::Base.connection.execute(sql)
+
+          results.each(:as => :hash) do |row|
+            value2= "|#{row["value"]}"
+          end
+        end
+        sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
+            and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
+
       when 'B000001'
         #sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} group by read_at,source order by read_at desc limit 0,1"
         sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' order by read_at desc limit 0,1"
       when 'C000001'
      #  read_at = (Time.now-60.seconds).strftime('%Y%m%d%H%M%S')
-        sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
+        sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
           order by id desc limit 0,1"
       else
-        sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
+        sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
         order by id desc limit 0,1"
     end
 
@@ -63,22 +76,30 @@ class MonitorsController < ApplicationController
 
   def energy_consumption_data
     size = params[:size]
+    source =params[:source]
+    @source = source
     equipment_code = params[:equipment_code]
     point_id = params[:point_id]
 
     case point_id
-               when '000000'
-                 caption ="电压（V）"
-                 max_value="300"
-               when '000001'
-                 caption ="功率（kW）"
-                 max_value="0.30"
-               when '000002'
-                 caption ="电流（A）"
-                 max_value="1.50"
-               when '000003'
-                 caption ="电能（度）"
-                 max_value="0.10"
+       when '000001'
+        caption ="电压（V）"
+        max_value="300"
+      when '000002'
+        caption ="电流（A）"
+        max_value="1.50"
+      when '000003'
+        caption ="功率（kW）"
+        max_value="200"
+      when '000004'
+         caption ="电能（度）"
+         max_value="0.5"
+      when '000011'
+        caption ="设备温度（℃）"
+        max_value="100"
+      when '000012'
+        caption ="湿度（%）"
+        max_value="100"
     end
 
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
@@ -102,7 +123,8 @@ class MonitorsController < ApplicationController
     end
 
     sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
-            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
+            and read_at >= '#{start_time}' and read_at<='#{end_time}' and source=#{source} order by id"
+   # return render :text=>sql
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|
@@ -119,7 +141,7 @@ class MonitorsController < ApplicationController
 #    dataset2 = "<dataset seriesName='#{seriesname2}' showValues='0' parentYAxis='S'>#{data_str2}</dataset>"
 
     charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
-datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}'
+datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}&source=#{source}'
 canvasbottommargin='10' refreshinterval='6' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
@@ -308,6 +330,111 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
   end
 
   def network_data
+    size = params[:size]
+    equipment_code = params[:equipment_code]
+    point_id = params[:point_id]
+    source = params[:source]
+
+    caption =case point_id
+               when '000003'
+                 "theta波"
+               when '000004'
+                 "lowAlpha波"
+               when '000005'
+                 "highAlpha波"
+               when '000006'
+                 "lowBeta波"
+               when '000007'
+                 "highBeta波"
+               when '000008'
+                 "lowGamma波"
+               when '000009'
+                 "highGamma波"
+               when '00000011'
+                 "blinkstrength"
+
+               else "上下行速率"
+
+             end
+
+    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
+    end_time = Time.now.strftime('%Y%m%d%H%M%S')
+    start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
+
+    cats_str = ''
+    data_str1 = ''
+    data_str2 = ''
+    seriesname1=''
+    seriesname2=''
+    subcaption=''
+    xaxisname=''
+    showlegend='0'
+    showLabels='0'
+
+    if size!='small'
+      if (point_id == '000001' || point_id.blank?)
+        seriesname2="上行速率"
+        seriesname1="下行速率"
+        point_id = '000001'
+      else
+        subcaption="总速率"
+      end
+
+      xaxisname="当前数值"
+      showlegend='1'
+      showLabels='1'
+    end
+
+    if point_id=='000001'
+      sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
+      results = ActiveRecord::Base.connection.execute(sql)
+
+      results.each(:as => :hash) do |row|
+        data_str2 += "<set value='#{row["value"]}' />"
+      end
+      point_id='000002'
+    end
+
+    sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
+            and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
+    results = ActiveRecord::Base.connection.execute(sql)
+
+    results.each(:as => :hash) do |row|
+      data_str1 += "<set value='#{row["value"]}' />"
+      times = row["read_at"][8..14]
+      times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
+
+      cats_str += "<category label='#{times}'/>"
+    end
+
+    categories = "<categories>#{cats_str}</categories>"
+    dataset1 = "<dataset seriesName='#{seriesname1}' showValues='0'>#{data_str1}</dataset>"
+    dataset2 = "<dataset seriesName='#{seriesname2}' showValues='0' parentYAxis='S'>#{data_str2}</dataset>"
+
+    charts="<chart  manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
+datastreamurl='/monitors/get_realtime_data?equipment_code=#{equipment_code}&point_id=#{point_id}&source=#{source}'
+canvasbottommargin='10' refreshinterval='1' numbersuffix=''
+showlegend='#{showlegend}' showLabels='#{showLabels}'
+snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
+showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' >
+#{categories} #{dataset1} #{dataset2}
+<styles>
+<definition>
+<style type='font' name='captionFont' size='14' />
+</definition>
+<application>
+<apply toobject='Caption' styles='captionFont' />
+<apply toobject='Realtimevalue' styles='captionFont' />
+</application>
+</styles>
+<trendlines></trendlines>
+</chart>"
+
+    render :text => charts
+
+=begin
     equipment_code = params[:equipment_code]
     size = params[:size]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
@@ -352,6 +479,7 @@ legendBorderColor='008040' legendShadow='0'><styles><definition><style name='MyF
 type='font' size='24' bold='0'/></definition><application><apply toObject='Caption' styles='MyFontStyle' />
 </application></styles>#{categorys}#{datasets}</chart>"
     render :text => charts
+=end
   end
 
   def behaviour_data_history
@@ -374,7 +502,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     if size!='small'
       seriesname1="行为体态分析"
       subcaption="动作幅度"
-      xaxisname="当前数值"
+      xaxisname="学生"
       showlegend='1'
       showLabels='1'
       export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='behaviour#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
@@ -430,14 +558,15 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     render :text => charts
   end
 
-  def mind_data_history
+  def mindwave_data_history
+    id = params[:id]
     equipment_code = params[:equipment_code]
     size = params[:size]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     start_time = params[:start_at]
     end_time = params[:end_at]
 
-    caption="实时行为体态"
+    caption="课堂脑波(放松度-注意力）分析"
     cats_str = ''
     data_str1 = ''
     seriesname1=''
@@ -447,14 +576,15 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     showLabels='0'
 
     if size!='small'
-      seriesname1="行为体态分析"
-      subcaption="动作幅度"
-      xaxisname="当前数值"
+      #seriesname1="行为体态分析"
+     # subcaption="动作幅度"
+     # xaxisname="当前数值"
       showlegend='1'
       showLabels='1'
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='mindwave#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+
     end
 
-   # sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at,source"
     categories = ""
     datasets = ""
     cats_str = ""
@@ -495,7 +625,7 @@ canvasbottommargin='10' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
-labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' >
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' #{export_str}>
 #{categories} #{datasets}
 <styles>
 <definition>

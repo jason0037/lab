@@ -1,0 +1,17 @@
+<div class="metro adjust-lab">
+  <nav class="breadcrumbs" style="margin-top: 20px">
+    <ul>
+      <li><a href="#"><i class="icon-home"></i></a></li>
+      <li><a href="#">实验课堂</a></li>
+      <li><a href="#"><%= @lab_course.name %></a></li>
+    </ul>
+  </nav>
+</div>
+<dl class="dl-horizontal">
+  <dt><strong>报告成功生成</strong></dt>
+ </dl>
+  <div class="form-actions">
+    <a href='/teachResources/reports/report_<%=@title%>_<%=@id%>.pdf' class = 'btn btn-danger'>下载报告</a>
+    <a href='/lab_course' class = 'btn'>返回</a>
+
+  </div>
