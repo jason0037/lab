@@ -3,7 +3,19 @@ class LabCatsController < ApplicationController
   # GET /lab_cats
   # GET /lab_cats.json
   layout "blank"#,:except => [:show]
+  def search
+    @action='/lab_cats/0/search'
+    @key=params[:key]
+
+    @lab_cats = LabCat.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @lab_cats =@lab_cats.where("name like '%#{@key}%'")
+    end
+    render 'lab_cats/index'
+  end
+
   def index
+    @action='/lab_cats/0/search'
     @lab_cats = LabCat.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
     respond_to do |format|
       format.html # index.html.erb

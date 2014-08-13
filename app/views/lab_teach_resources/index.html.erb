@@ -10,6 +10,13 @@
      </span>
   </header>
 </div>
+<div class="panel">
+  <br>
+  <form method="post" action="<%=@action%>" class=="form-search">
+    <input value='<%=@key%>' name="key" class = 'text_field search-query'/>
+    <input type="submit" value="查询" class ='btn'/>
+  </form>
+</div>
 <table class="table table-striped">
   <thead>
   <tr>

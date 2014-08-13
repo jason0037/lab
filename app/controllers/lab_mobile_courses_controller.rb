@@ -3,7 +3,19 @@ class LabMobileCoursesController < ApplicationController
   # GET /lab_mobile_courses
   # GET /lab_mobile_courses.json
   layout "blank"#,:except => [:show]
+  def search
+    @action='/lab_mobile_courses/0/search'
+    @key=params[:key]
+
+    @lab_mobile_courses =  LabMobileCourse.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @lab_mobile_courses =@lab_mobile_courses.where("name like '%#{@key}%'")
+    end
+    render 'lab_mobile_courses/index'
+  end
+
   def index
+    @action='/lab_mobile_courses/0/search'
     @lab_mobile_courses = LabMobileCourse.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|

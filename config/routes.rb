@@ -1,16 +1,25 @@
 Lab::Application.routes.draw do
 
-  resources :lab_mobile_courses
+  resources :lab_mobile_courses do
+    post :search , :on=>:member
+  end
 
 
-  resources :lab_teach_resources
+  resources :lab_teach_resources do
+    post :search , :on=>:member
+  end
 
 
-  resources :lab_teach_designs
+
+  resources :lab_teach_designs do
+    post :search , :on=>:member
+  end
 
   match ':controller(/:action(/:id))', :controller => /fusioncharts\/[^\/]+/
 
-  resources :options
+  resources :options do
+    post :search , :on=>:member
+  end
 
   resources :monitors do
     get :lab_comprehensive,:on=>:collection
@@ -42,17 +51,27 @@ Lab::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
-  resources :lab_cats
+  resources :lab_cats do
+    post :search , :on=>:member
+  end
 
 
-  resources :lab_notices
+  resources :lab_notices do
+    post :search , :on=>:member
+  end
 
 
-  resources :lab_seats
+  resources :lab_seats do
+    post :search , :on=>:member
+  end
 
-  resources :lab_questions_scores
+  resources :lab_questions_scores do
+    post :search , :on=>:member
+  end
 
-  resources :lab_questions
+  resources :lab_questions do
+    post :search , :on=>:member
+  end
 
  # resources :lab_reports
 
@@ -60,30 +79,44 @@ Lab::Application.routes.draw do
   resources :lab_equipments
 
 
-  resources :lab_scene_resources
+  resources :lab_scene_resources do
+    post :search , :on=>:member
+  end
 
 
-  resources :lab_scenes
+  resources :lab_scenes do
+    post :search , :on=>:member
+  end
 
 
-  resources :lab_suppliers
+  resources :lab_suppliers do
+    post :search , :on=>:member
+  end
 
 
   resources :lab_devices do
     get :app_query,:on=>:collection
-    post :app_save,:on=>:collection
+    get :app_save,:on=>:collection
+    post :search , :on=>:member
   end
 
 
-  resources :lab_device_supports
+  resources :lab_device_supports do
+    post :search , :on=>:member
+  end
 
-  resources :lab_course_students
+  resources :lab_course_students do
+    post :search , :on=>:member
+  end
 
 
-  resources :lab_coursewares
+  resources :lab_coursewares do
+    post :search , :on=>:member
+  end
 
   resources :lab_reports do
     get :export,:on=>:member
+    post :search , :on=>:member
   end
 
 
@@ -93,6 +126,7 @@ Lab::Application.routes.draw do
     end
     get :learn,:on=>:collection
     get :teach,:on=>:collection
+    post :search , :on=>:member
   end
 
   resources :lab_eval_projects do
@@ -112,13 +146,19 @@ Lab::Application.routes.draw do
   end
 
 
-  resources :lab_permissions_roles
+  resources :lab_permissions_roles do
+    post :search , :on=>:member
+  end
 
 
-  resources :lab_permissions
+  resources :lab_permissions do
+    post :search , :on=>:member
+  end
 
 
-  resources :lab_roles
+  resources :lab_roles do
+    post :search , :on=>:member
+  end
 
   mount Ckeditor::Engine => "/ckeditor"
 
@@ -139,6 +179,7 @@ Lab::Application.routes.draw do
     get :home,:on=>:collection
     get :query,:on=>:collection
     get :pass,:on=>:member
+    post :search , :on=>:member
   end
 
   resources :app_tests do
@@ -150,6 +191,7 @@ Lab::Application.routes.draw do
     get :getTestScore,:on=>:collection
     get :getTestHist,:on=>:collection
     get :changePwd, :on=>:collection
+    post :search , :on=>:member
   end
 
   root :to => "lab_users#home"

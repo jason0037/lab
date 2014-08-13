@@ -2,6 +2,28 @@
 
 class AppTestsController < ApplicationController
   before_filter :authorize_user!,:except => [:register,:update,:getUserInfo,:saveTestScore,:getTestScore,:getTestHist,:pass_change,:reset_pass,:modify_pass,:login]
+
+  def search
+    @action='/app_tests/0/search'
+    @key=params[:key]
+
+    @app_tests = AppTest.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @app_tests =@app_tests.where("name like '%#{@key}%'")
+    end
+    render 'app_tests/index'
+  end
+
+  def index
+    @action='/app_tests/0/search'
+
+    @app_tests = AppTest.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @app_tests }
+    end
+  end
+
   def pass_change
     if params[:lab_user][:email].blank?
       redirect_to forgot_pass_lab_users_path, :notice => "请输入EMAIL."

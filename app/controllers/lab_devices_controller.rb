@@ -21,30 +21,48 @@ class LabDevicesController < ApplicationController
   end
 
   def app_save
+    save='{"id":2,"name":"\u8def\u7531\u5668 lab_test","version":"","brand":"\u864e\u7b26","device_type":"\u8def\u7531\u5668","cost":"3439.0","bn":"3039393993","photo":"/teachResources/devices/20140813235914.jpg","supplier":"\u9f99\u8f6f"}'
+   # save = save.to_json
+    save =JSON.parse(save)
+   # return render :text=>save
+    return save(id)
     result = 9999
-    if params[:userId]
-      @lab_user = LabUser.find(params[:userId])
-      if @lab_user.update_attributes(params[:lab_user])
+    if  save['id']
+      @device = LabDevice.find(save['id'])
+      @device.name = save['name']
+      @device.version = save['version']
+      @device.brand = save['brand']
+      @device.device_type = save['brand']
+      @device.cost = save['cost']
+      @device.bn = save['bn']
+      @device.photo = save['photo']
+      @device.supplier = save ['supplier']
+    #  if @lab_user.update_attributes(params[:lab_user])
+      #  @app_test = AppTest.new(params[:app_test])
+      if @device.save
         result =0
         return render :text=>{ :code => result }.to_json
       else
         return render :text=>{ :code => result }.to_json
       end
     end
-    if params[:app_test]
-      @app_test = AppTest.new(params[:app_test])
-      if @app_test.save
-        result =0
-        return render :text=>{ :code => result }.to_json
-      else
-        return render :text=>{ :code => result }.to_json
-      end
+ # rescue
+ #   return render :text=>{ :code => result }.to_json
+  end
+
+  def search
+    @action='/lab_devices/0/search'
+    @key=params[:key]
+
+    @lab_devices =  LabDevice.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @lab_devices =@lab_devices.where("name like '%#{@key}%'")
     end
-  rescue
-    return render :text=>{ :code => result }.to_json
+    render 'lab_devices/index'
   end
 
   def index
+    @action='/lab_devices/0/search'
     @lab_devices = LabDevice.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|

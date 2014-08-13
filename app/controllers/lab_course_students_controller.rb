@@ -3,7 +3,19 @@ class LabCourseStudentsController < ApplicationController
   # GET /lab_course_students
   # GET /lab_course_students.json
   layout "blank"#,:except => [:show]
+  def search
+    @action='/lab_course_students/0/search'
+    @key=params[:key]
+
+    @lab_course_students = LabCourseStudent.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @lab_course_students =@lab_course_students.where("name like '%#{@key}%'")
+    end
+    render 'lab_course_students/index'
+  end
+
   def index
+    @action='/lab_course_students/0/search'
     @lab_course_students = LabCourseStudent.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|

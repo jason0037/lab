@@ -3,13 +3,14 @@
   <header>
       <i class="icon-circle-arrow-up arrow_op"></i>
       <span>评测管理</span>
-      <span>
-        <form method="post" action="<%=@action%>">
-            <input value='<%=@key%>' name="key" style="color:black"/>
-            <input type="submit" value="查询" class ='btn btn-primary'/>
-        </form>
-      </span>
    </header>
+</div>
+<div class="panel">
+  <br>
+  <form method="post" action="<%=@action%>" class=="form-search">
+    <input value='<%=@key%>' name="key" class = 'text_field search-query'/>
+    <input type="submit" value="查询" class ='btn'/>
+  </form>
 </div>
 <table class="table table-striped">
   <thead>
