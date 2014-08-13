@@ -69,11 +69,13 @@ Lab::Application.routes.draw do
   resources :lab_suppliers
 
 
-  resources :lab_devices
+  resources :lab_devices do
+    get :app_query,:on=>:collection
+    post :app_save,:on=>:collection
+  end
 
 
   resources :lab_device_supports
-
 
   resources :lab_course_students
 
@@ -102,6 +104,7 @@ Lab::Application.routes.draw do
       get 'approve'
       get 'reject'
       get 'submit_apply'
+      post 'search'
     end
 
     get :apply,:on=>:collection

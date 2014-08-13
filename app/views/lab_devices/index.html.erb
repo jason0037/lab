@@ -9,10 +9,11 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:version) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th>名称</th>
+      <th>类别</th>
+      <th>品牌</th>
+      <th>条码</th>
+      <th>价格</th>
     </tr>
   </thead>
   <tbody>
@@ -20,8 +21,10 @@
       <tr>
         <td><%= link_to lab_device.id, lab_device_path(lab_device) %></td>
         <td><%= lab_device.name %></td>
-        <td><%= lab_device.version %></td>
-        <td><%=l lab_device.created_at %></td>
+        <td><%= lab_device.device_type %></td>
+        <td><%= lab_device.brand %></td>
+        <td><%= lab_device.bn %></td>
+        <td><%= lab_device.cost %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_device_path(lab_device), :class => 'btn btn-mini' %>

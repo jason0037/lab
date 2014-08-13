@@ -511,29 +511,33 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     datasets = ""
     cats_str = ""
     data_str1 = ""
-    [1,2,3,4].each do |source|
-        sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time} order by read_at"
+    str = ""
+   # [1,2,3,4].each do |source|
+    [1].each do |source|
+        sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
+   #     str = str + sql
         results = ActiveRecord::Base.connection.execute(sql)
         data_str1 = ""
         last_time = ""
         results.each(:as => :hash) do |row|
           if last_time == ""
             last_time = row["read_at"]
-            times = row["read_at"][8..14]
-            times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
-            data_str1 += "<set value='#{row["value"]}' />"
+            times = row["read_at"][8..12]
+            #times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
+            times = times[0..1] + ":"+times[2..3]
+            data_str1 += "<set value='#{row["value"].to_i}' />"
             cats_str += "<category label='#{times}'/>"
           else
             current = DateTime.parse(row["read_at"])
             last = DateTime.parse(last_time)
-            dis = (current - last)* 24 * 60 * 60
-            if dis == 20
+            dis = (current - last)* 24 * 60
+        #    if dis == 20
               last_time = row["read_at"]
-              times = row["read_at"][8..14]
-              times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
-              data_str1 += "<set value='#{row["value"]}' />"
+              times = row["read_at"][8..12]
+              times = times[0..1] + ":"+times[2..3]
+              data_str1 += "<set value='#{row["value"].to_i}' />"
               cats_str += "<category label='#{times}'/>"
-            end
+        #    end
           end
         end
 
@@ -555,7 +559,9 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
 <apply toobject='Realtimevalue' styles='captionFont' />
 </application>
 </styles><trendlines></trendlines></chart>"
-    render :text => charts
+   render :text => charts
+   # render :text => str
+
   end
 
   def mindwave_data_history
@@ -589,12 +595,20 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     datasets = ""
     cats_str = ""
     data_str1 = ""
-    [1,2,3,4].each do |source|
-        sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
+   # [1,2,3,4].each do |source|
+    [1].each do |source|
+      sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
+
+#      sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}'"
         results = ActiveRecord::Base.connection.execute(sql)
         data_str1 = ""
         last_time = ""
         results.each(:as => :hash) do |row|
+          times = row["read_at"][8..12]
+          times = times[0..1] + ":"+times[2..3]
+          data_str1 += "<set value='#{row["value"]}' />"
+          cats_str += "<category label='#{times}'/>"
+=begin
           if last_time == ""
             last_time = row["read_at"]
             times = row["read_at"][8..14]
@@ -613,6 +627,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
               cats_str += "<category label='#{times}'/>"
             end
           end
+=end
         end
 
         if categories =""
@@ -699,9 +714,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
 <application>
 <apply toobject='Caption' styles='captionFont' />
 <apply toobject='Realtimevalue' styles='captionFont' />
-</application>
-</styles>
-<trendlines></trendlines>
+</application></styles><trendlines></trendlines>
 </chart>"
     render :text => charts
   end

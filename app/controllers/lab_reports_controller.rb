@@ -5,6 +5,7 @@ require 'wicked_pdf'
 require 'prawn'
 
 class LabReportsController < ApplicationController
+
   # GET /lab_reports
   # GET /lab_reports.json
   layout "blank"#,:except => [:show]
@@ -32,7 +33,11 @@ class LabReportsController < ApplicationController
 
       html_head=%Q{<!DOCTYPE html><html><head>
     <meta http-equiv=Content-Type content="text/html; charset=utf-8">
-</head><body><p style="margin-left:21.0pt;">
+<style>
+body {font-family:"Microsoft Yahei", "SimHei"}
+p {font-family:"Microsoft Yahei", "SimHei"}
+</style>
+</head><body><p style='margin-left:21.0pt;font-family:"Microsoft Yahei", "SimHei"'>
 <p><img src='file:///root/lab/app/assets/images/logo.png' style="width:60px;">开放教学数字化实验室</p>}
 
 html_common_1=%Q{

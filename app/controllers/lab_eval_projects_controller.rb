@@ -18,7 +18,24 @@ class LabEvalProjectsController < ApplicationController
     end
   end
 
+  def search
+    @action='/lab_eval_projects/0/search'
+    @key=params[:key]
+
+    if @user.role_id==4 || @user.role_id==6 #实验室管理员或系统管理员
+      @lab_eval_projects = LabEvalProject.where("status>1") #审批通过的项目进入评测
+    else
+      @lab_eval_projects = LabEvalProject.where(:applicant_id=>@user.id)
+    end
+    if @key
+      @lab_eval_projects =@lab_eval_projects.where("name like '%#{@key}%'")
+    end
+    @lab_eval_projects = @lab_eval_projects.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+   render 'lab_eval_projects/index'
+  end
+
   def index
+    @action='/lab_eval_projects/0/search'
     if @user.role_id==4 || @user.role_id==6 #实验室管理员或系统管理员
       @lab_eval_projects = LabEvalProject.where("status>1") #审批通过的项目进入评测
     else

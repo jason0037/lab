@@ -46,10 +46,14 @@ class LabMobileCoursesController < ApplicationController
     if !uploaded_io.blank?
       extension=uploaded_io.original_filename.split('.')
       filename= "#{Time.now.strftime('%Y%m%d%H%M%S')}.#{extension[-1]}"
-      File.open(Rails.root.join('public', 'upload','mobileCourses',filename), 'wb') do |file|
+      filepath = "#{PIC_PATH}/teachResources/mobileCourses/#{filename}"
+      File.open(filepath, 'wb') do |file|
         file.write(uploaded_io.read)
       end
-      params[:lab_mobile_course].merge!(:file=>"/upload/mobileCourses/#{filename}")
+ #     File.open(Rails.root.join('public', 'upload','mobileCourses',filename), 'wb') do |file|
+ #       file.write(uploaded_io.read)
+ #     end
+      params[:lab_mobile_course].merge!(:file=>"/teacherResources/mobileCourses/#{filename}")
     end
     params[:lab_mobile_course].merge!(:author_id=>@user.id)
     params[:lab_mobile_course].merge!(:status=>'0')

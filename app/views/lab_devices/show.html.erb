@@ -10,10 +10,22 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dt><strong>名称</strong></dt>
   <dd><%= @lab_device.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:version) %>:</strong></dt>
+  <dt><strong>类型</strong></dt>
+  <dd><%= @lab_device.device_type %></dd>
+  <dt><strong>品牌</strong></dt>
+  <dd><%= @lab_device.brand %></dd>
+  <dt><strong>价值</strong></dt>
+  <dd><%= @lab_device.cost%></dd>
+  <dt><strong>供应商</strong></dt>
+  <dd><%= @lab_device.supplier %></dd>
+  <dt><strong>条码</strong></dt>
+  <dd><%= @lab_device.bn %></dd>
+  <dt><strong>版本</strong></dt>
   <dd><%= @lab_device.version %></dd>
+  <dt><strong>照片</strong></dt>
+  <dd><%=image_tag @lab_device.photo,:alt=>@lab_device.name,:style=>"width:100px"%></dd>
 </dl>
 
 <div class="form-actions">
