@@ -3,7 +3,19 @@ class LabPermissionsController < ApplicationController
   # GET /lab_permissions
   # GET /lab_permissions.json
   layout "blank"#,:except => [:show]
-  def index
+  def search
+  @action='/lab_permissions/0/search'
+  @key=params[:key]
+
+  @lab_permissions =  LabPermission.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+  if @key
+    @lab_permissions =@lab_permissions.where("name like '%#{@key}%'")
+  end
+  render 'lab_permissions/index'
+end
+
+def index
+  @action='/lab_permissions/0/search'
     @lab_permissions = LabPermission.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|

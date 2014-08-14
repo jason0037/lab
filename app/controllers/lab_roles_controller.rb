@@ -3,7 +3,19 @@ class LabRolesController < ApplicationController
   # GET /lab_roles
   # GET /lab_roles.json
   layout "blank"#,:except => [:show]
+  def search
+    @action='/lab_roles/0/search'
+    @key=params[:key]
+
+    @lab_roles =  LabRole.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @lab_roles =@lab_roles.where("name like '%#{@key}%'")
+    end
+    render 'lab_roles/index'
+  end
+
   def index
+    @action='/lab_roles/0/search'
     @lab_roles = LabRole.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     render :layout => "blank"

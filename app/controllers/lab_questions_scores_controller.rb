@@ -3,7 +3,19 @@ class LabQuestionsScoresController < ApplicationController
   # GET /lab_questions_scores
   # GET /lab_questions_scores.json
   layout "blank"#,:except => [:show]
+  def search
+    @action='/lab_questions_scores/0/search'
+    @key=params[:key]
+
+    @lab_questions_scores =  LabQuestionsScore.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @lab_questions_scores =@lab_questions_scores.where("name like '%#{@key}%'")
+    end
+    render 'lab_questions_scores/index'
+  end
+
   def index
+    @action='/lab_questions_scores/0/search'
     @lab_questions_scores = LabQuestionsScore.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|

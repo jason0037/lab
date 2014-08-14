@@ -8,7 +8,19 @@ class LabUsersController < ApplicationController
 
   # GET /lab_users
   # GET /lab_users.json
+  def search
+    @action='/lab_users/0/search'
+    @key=params[:key]
+
+    @lab_users =  LabUser.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @lab_users =@lab_users.where("name like '%#{@key}%'")
+    end
+    render 'lab_users/index'
+  end
+
   def index
+    @action='/lab_users/0/search'
     @lab_users = LabUser.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     render :layout => "blank"

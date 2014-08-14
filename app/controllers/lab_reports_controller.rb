@@ -3535,7 +3535,19 @@ ul
     #  send_data package.to_stream.read,:filename=>"report_#{Time.now.strftime('%Y%m%d%H%M%S')}.doc"
   end
 
+  def search
+    @action='/lab_reports/0/search'
+    @key=params[:key]
+
+    @lab_reports =  LabReport.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @lab_reports =@lab_reports.where("name like '%#{@key}%'")
+    end
+    render 'lab_reports/index'
+  end
+
   def index
+    @action='/lab_reports/0/search'
     @lab_reports = LabReport.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|

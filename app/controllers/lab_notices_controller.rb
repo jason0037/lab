@@ -5,7 +5,19 @@ class LabNoticesController < ApplicationController
   layout "blank"#,:except => [:show]
   # GET /lab_notices
   # GET /lab_notices.json
+  def search
+    @action='/lab_notices/0/search'
+    @key=params[:key]
+
+    @lab_notices =  LabNotice.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @lab_notices =@lab_notices.where("name like '%#{@key}%'")
+    end
+    render 'lab_notices/index'
+  end
+
   def index
+    @action='/lab_notices/0/search'
     @lab_notices = LabNotice.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|

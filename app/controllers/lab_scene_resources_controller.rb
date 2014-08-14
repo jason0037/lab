@@ -3,7 +3,19 @@ class LabSceneResourcesController < ApplicationController
   # GET /lab_scene_resources
   # GET /lab_scene_resources.json
   layout "blank"#,:except => [:show]
+  def search
+    @action='/lab_scene_resources/0/search'
+    @key=params[:key]
+
+    @lab_scene_resources =  LabSceneResource.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @lab_scene_resources =@lab_scene_resources.where("name like '%#{@key}%'")
+    end
+    render 'lab_scene_resources/index'
+  end
+
   def index
+    @action='/lab_scene_resources/0/search'
     @lab_scene_resources = LabSceneResource.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|

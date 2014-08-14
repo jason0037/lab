@@ -4,8 +4,20 @@ class LabScenesController < ApplicationController
   # GET /lab_scenes.json
 
   layout "blank"#,:except => [:show]
-  
+
+  def search
+    @action='/lab_scenes/0/search'
+    @key=params[:key]
+
+    @lab_scenes =  LabScene.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @key
+      @lab_scenes =@lab_scenes.where("name like '%#{@key}%'")
+    end
+    render 'lab_scenes/index'
+  end
+
   def index
+    @action='/lab_scenes/0/search'
     @lab_scenes = LabScene.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|
