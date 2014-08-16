@@ -11,7 +11,7 @@ class LabNoticesController < ApplicationController
 
     @lab_notices =  LabNotice.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
     if @key
-      @lab_notices =@lab_notices.where("name like '%#{@key}%'")
+      @lab_notices =@lab_notices.where("title like '%#{@key}%'")
     end
     render 'lab_notices/index'
   end

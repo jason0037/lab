@@ -10,12 +10,19 @@
      </span>
   </header>
 </div>
+<div class="panel" style="display:none">
+  <br>
+  <form method="post" action="<%=@action%>" class=="form-search">
+    <input value='<%=@search%>' name="search" class = 'text_field search-query'/>
+    <input type="submit" value="查询" class ='btn'/>
+  </form>
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th>编号</th>
       <%if @user.role_id==6%>
-        <th><%= model_class.human_attribute_name(:key) %></th>
+        <th>键值</th>
       <%end%>
       <th>显示位置</th>
       <th>显示名称</th>
