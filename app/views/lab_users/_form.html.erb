@@ -56,8 +56,7 @@
 
   <div class="form-actions">
     <%= f.submit "确定", :class => 'btn btn-primary' %>&nbsp;&nbsp;
-    <%= link_to '返回',
-                login_lab_users_path, :class => 'btn' %>
+    <%= link_to '返回', request.referer, :class => 'btn' %>
   </div>
 </div>
 <% end %>
