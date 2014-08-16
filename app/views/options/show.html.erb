@@ -4,13 +4,13 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:key) %>:</strong></dt>
-  <dd><%= @option.key %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:index) %>:</strong></dt>
+  <dt style="display:none"><strong><%= model_class.human_attribute_name(:key) %>:</strong></dt>
+  <dd style="display:none"><%= @option.key %></dd>
+  <dt><strong>位置:</strong></dt>
   <dd><%= @option.index %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dt><strong>名称:</strong></dt>
   <dd><%= @option.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:value) %>:</strong></dt>
+  <dt><strong>值:</strong></dt>
   <dd><%= @option.value %></dd>
 </dl>
 

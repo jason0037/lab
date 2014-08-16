@@ -6,6 +6,7 @@ class LabEvalProjectsController < ApplicationController
 
   layout "blank"#,:except => [:show]
   def apply
+    @action='/lab_eval_projects/0/search'
     if @user.role_id==4 || @user.role_id==6 #实验室管理员或系统管理员
       @lab_eval_projects = LabEvalProject
     else

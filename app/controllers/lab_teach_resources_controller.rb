@@ -9,7 +9,7 @@ class LabTeachResourcesController < ApplicationController
 
     @lab_teach_resources =  LabTeachResource.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
     if @key
-      @lab_teach_resources =@lab_teach_resources.where("name like '%#{@key}%'")
+      @lab_teach_resources =@lab_teach_resources.where("title like '%#{@key}%'")
     end
     render 'lab_teach_resources/index'
   end

@@ -1,6 +1,6 @@
 require 'pp'
 class LabDevicesController < ApplicationController
-  before_filter :authorize_user!,:except => [:app_query,:app_add,:app_edit]
+  before_filter :authorize_user!,:except => [:app_query,:app_save,:create,:update]
   # GET /lab_devices
   # GET /lab_devices.json
   layout "blank"#,:except => [:show]
@@ -21,8 +21,8 @@ class LabDevicesController < ApplicationController
   end
 
   def app_save
-    save='{"id":2,"name":"\u8def\u7531\u5668 lab_test","version":"","brand":"\u864e\u7b26","device_type":"\u8def\u7531\u5668","cost":"3439.0","bn":"3039393993","photo":"/teachResources/devices/20140813235914.jpg","supplier":"\u9f99\u8f6f"}'
-   # save = save.to_json
+#    save='{"id":2,"name":"\u8def\u7531\u5668 lab_test","version":"","brand":"\u864e\u7b26","device_type":"\u8def\u7531\u5668","cost":"3439.0","bn":"3039393993","photo":"/teachResources/devices/20140813235914.jpg","supplier":"\u9f99\u8f6f"}'
+    save = params[:submit_data]
     save =JSON.parse(save)
    # return render :text=>save
     return save(id)
@@ -37,6 +37,7 @@ class LabDevicesController < ApplicationController
       @device.bn = save['bn']
       @device.photo = save['photo']
       @device.supplier = save ['supplier']
+      @device.status = save['status']
     #  if @lab_user.update_attributes(params[:lab_user])
       #  @app_test = AppTest.new(params[:app_test])
       if @device.save
