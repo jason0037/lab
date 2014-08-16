@@ -11,6 +11,7 @@ class CreateLabEvalProjects < ActiveRecord::Migration
       t.integer :applicant_id
       t.string :eval_means
       t.string :brief
+      t.string :unit
       t.string :status_log
       t.timestamps
     end
