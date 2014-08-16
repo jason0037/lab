@@ -16,7 +16,7 @@ class LabUsersController < ApplicationController
     if @key
       @lab_users =@lab_users.where("name like '%#{@key}%'")
     end
-    render 'lab_users/index'
+    render 'lab_users/index',:layout => "blank"
   end
 
   def index
