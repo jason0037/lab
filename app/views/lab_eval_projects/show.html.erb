@@ -1,83 +1,151 @@
 <%- model_class = LabEvalProject -%>
 <div class="page-header">
-  <h1><%= @lab_eval_project.name %></h1>
+  <h1>
+    <%= @lab_eval_project.name %></h1>
 </div>
-
-<dl class="dl-horizontal">
-  <div><div class="muti_columns">
-  <dt><strong>版本:</strong></dt>
-  <dd><%= @lab_eval_project.version %></dd>
-  <dt><strong>评测对象类别:</strong></dt>
-  <dd>
-    <%Option.where(:key=>"eval_object_type",:value=>@lab_eval_project.category_id).each do |category|%>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>值</th>
+      <th>类型</th>
+      <th>值</th>
+      <th>类型</th>
+      <th>值</th>
+      <th>类型</th>
+      <th>值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <strong>版本:</strong>
+      </td>
+      <td>
+        <%= @lab_eval_project.version %></td>
+      <td> <strong>评测对象类别:</strong>
+      </td>
+      <td>
+        <%Option.where(:key=>
+        "eval_object_type",:value=>@lab_eval_project.category_id).each do |category|%>
         <%=category.name%>
-    <%end%>
-  </dd>
-  <dt><strong>学科分类:</strong></dt>
-  <dd><%Option.where(:key=>"course_type",:value=>@lab_eval_project.course_type).each do |course|%>
+        <%end%></td>
+      <td>
+        <strong>学科分类:</strong>
+      </td>
+      <td>
+        <%Option.where(:key=>
+        "course_type",:value=>@lab_eval_project.course_type).each do |course|%>
         <%=course.name%>
-    <%end%></dd>
-  <dt><strong>教学场景:</strong></dt>
-  <dd><%=@lab_eval_project.lab_scene.name  %></dd>
-  <dt><strong>评测状态:</strong></dt>
-  <dd>
-    <%Option.where(:key=>"eval_status",:value=>@lab_eval_project.status).each do |status|%>
+        <%end%></td>
+      <td>
+        <strong>教学场景:</strong>
+      </td>
+      <td>
+        <%=@lab_eval_project.lab_scene.name  %></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>评测状态:</strong>
+      </td>
+      <td>
+        <%Option.where(:key=>
+        "eval_status",:value=>@lab_eval_project.status).each do |status|%>
         <%=status.name%>
-    <%end%>
-  </dd>
-  <dt><strong>供应商:</strong></dt>
-  <dd><%= @lab_eval_project.lab_supplier.name %></dd>
-  <dt><strong>申请人:</strong></dt>
-  <dd><%= @lab_eval_project.lab_user.name %></dd>
-    <dt><strong>申请单位:</strong></dt>
-    <dd><%= @lab_eval_project.unit %></dd>
-  <dt><strong>创建时间:</strong></dt>
-  <dd><%=l @lab_eval_project.created_at %></dd>
-  <dt><strong>修改时间:</strong></dt>
-  <dd><%=l @lab_eval_project.updated_at %></dd>
-  <dt><strong>项目简介:</strong></dt>
-  <dd><%= @lab_eval_project.brief %></dd>
-  <dt><strong>申请过程:</strong></dt>
-  <dd><%= @lab_eval_project.status_log %></dd>
-</div>
-    <div class="muti_columns"></div>
-  <dt><strong>评测项目:</strong></dt>
-  <dd>
-    <ul>
-      <%@eval_means.each do |means|%>
-          <li>
-            <%=check_box_tag "#{means.key}[#{means.value}]","",:checked=>true%>
+        <%end%></td>
+      <td>
+        <strong>供应商:</strong>
+      </td>
+      <td>
+        <%= @lab_eval_project.lab_supplier.name %></td>
+      <td>
+        <strong>申请人:</strong>
+      </td>
+      <td>
+        <%= @lab_eval_project.lab_user.name %></td>
+      <td>
+        <strong>申请单位:</strong>
+      </td>
+      <td>
+        <%= @lab_eval_project.unit %></td>
+    </tr>
+    <tr>
+      <td>
+        <strong>创建时间:</strong>
+      </td>
+      <td>
+        <%=l @lab_eval_project.created_at %></td>
+      <td>
+        <strong>修改时间:</strong>
+      </td>
+      <td>
+        <%=l @lab_eval_project.updated_at %></td>
+      <td>
+        <strong>项目简介:</strong>
+      </td>
+      <td>
+        <%= @lab_eval_project.brief %></dd>
+      <td>
+        <strong>申请过程:</strong>
+      </td>
+      <td>
+        <%= @lab_eval_project.status_log %></td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>评测项目:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <%@eval_means.each_with_index do |means,index|%>  
+          <td>
+            <%=check_box_tag "#{means.key}[#{means.value}]","",:checked=>
+          true%>
             <%=means.name%>
-          </li>
+          </td>
+        <%if index == 4 || index == 9%>
+            </tr>
+            <tr>
+        <%end%>
       <%end%>
-    </ul>
-  </dd>
-    </div>
-</div>
-</dl>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
 
 <div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
+  <%= link_to t('.back', :default =>
+  t("helpers.links.back")),
               lab_eval_projects_path, :class => 'btn'  %>
   <%if @lab_eval_project.status==0 && @lab_eval_project.applicant_id==@user.id #草稿状态%>
-      <%= link_to t('.apply to eval', :default => t("helpers.links.apply_eval")),
+  <%= link_to t('.apply to eval', :default =>
+  t("helpers.links.apply_eval")),
                   submit_apply_lab_eval_project_path(@lab_eval_project), :class => 'btn btn-mini' %>
-      <%= link_to t('.edit', :default => t("helpers.links.edit")),
+  <%= link_to t('.edit', :default =>
+  t("helpers.links.edit")),
                   edit_lab_eval_project_path(@lab_eval_project), :class => 'btn' %>
-      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+  <%= link_to t('.destroy', :default =>
+  t("helpers.links.destroy")),
                   lab_eval_project_path(@lab_eval_project),
                   :method => 'delete',
                   :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                   :class => 'btn btn-danger' %>
   <%else%>
-      <%if @user.role_id== 4 #实验室管理员可以审核%>
-          <%if @lab_eval_project.status==1 #申请状态%>
-              <%= link_to t('.approve', :default => t("helpers.links.approve")),
+  <%if @user.role_id== 4 #实验室管理员可以审核%>
+  <%if @lab_eval_project.status==1 #申请状态%>
+  <%= link_to t('.approve', :default =>
+  t("helpers.links.approve")),
                           approve_lab_eval_project_path(lab_eval_project), :class => 'btn btn-mini' %>
-
-              <%= link_to t('.reject', :default => t("helpers.links.reject")),
+  <%= link_to t('.reject', :default =>
+  t("helpers.links.reject")),
                           reject_lab_eval_project_path(lab_eval_project), :class => 'btn btn-mini' %>
-          <%end%>
-      <%end%>
   <%end%>
-</div>
+  <%end%>
+  <%end%></div>
