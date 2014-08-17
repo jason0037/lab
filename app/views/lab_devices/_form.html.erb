@@ -30,11 +30,17 @@
       </div>
     </div>
         <div class="control-group">
-          <%= f.label :bn,'条码', :class => 'control-label' %>
+          <%= f.label :bn,'设备条码', :class => 'control-label' %>
           <div class="controls">
             <%= f.text_field :bn, :class => 'text_field' %>
           </div>
         </div>
+    <div class="control-group">
+      <%= f.label :assets_no,'资产编号', :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :assets_no, :class => 'text_field' %>
+      </div>
+    </div>
         <div class="control-group">
           <%= f.label :file,'照片', :class => 'control-label' %>
           <div class="controls">
