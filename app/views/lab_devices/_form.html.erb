@@ -43,9 +43,16 @@
         </div>
   <div class="control-group">
     <%= f.label :version,'版本', :class => 'control-label' %>
-    <div class="controls">
+    <div class="controls">&nbsp;
       <%= f.text_field :version, :class => 'text_field' %>
     </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :status,'状态', :class => 'control-label'%>
+      <div class="controls">
+        <%=f.select :status, options_from_collection_for_select(Option.where(:key=>'device_status'),'value','name','') %>
+        <span class="help-inline error"></span>
+      </div>
   </div>
 
   <div class="form-actions">

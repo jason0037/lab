@@ -1,8 +1,8 @@
 <%= form_for @option, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="control-group" style="display:none">
-    <%= f.label :key, :class => 'control-label' %>
+  <div class="control-group">
+    <%= f.label :key,'数据类型', :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :key,:value=>'course_type', :class => 'text_field' %>
+      <%= f.text_field :key,:value=>@key, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">

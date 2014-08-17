@@ -1,11 +1,10 @@
 <%= form_for @lab_role, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= f.label :name, :class => 'control-label' do%>
-      角色名：
-    <%end%>
+    <%= f.label :name,'角色名：', :class => 'control-label'%>
     <div class="controls">
       <%= f.text_field :name, :class => 'text_field' %>
     </div>
+    <%= f.label :path,'路径：', :class => 'control-label'%>
     <div class="controls">
       <%= f.text_field :path, :class => 'text_field' %>
     </div>

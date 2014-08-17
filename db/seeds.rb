@@ -53,8 +53,12 @@ Option.create([{id:'1', name: '电子书包',value:"1",index:"0",key:"eval_objec
   {id:'36',name:'内容要求',value:"6",index:"6",key:"question_category",
    desc:"此部分用于考查课程或系统中内容信息是否可以接受。"},
   {id:'37',name:'技术要求',value:"7",index:"7",key:"question_category",
-   desc:"此部分用于考查前述问题中没有涉及的方面。"}
-  ])
+   desc:"此部分用于考查前述问题中没有涉及的方面。"},
+  {id:'38',name:'使用中',value:"1",index:"1",key:"device_status"},
+  {id:'39',name:'维修中',value:"0",index:"2",key:"device_status"},
+  {id:'40',name:'报废',value:"-1",index:"3",key:"device_status"}
+  ]
+)
 
 puts "Importign lab_questions"
 LabQuestion.delete_all

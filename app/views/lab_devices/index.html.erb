@@ -1,9 +1,14 @@
 <%- model_class = LabDevice -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-  <i class="icon-pencil"></i>
-  <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_lab_device_path%>
+<div class="panel">
+  <header>
+    <span><i class="icon-circle-arrow-up arrow_op"></i></span>
+    <span>实验室设备</span>
+     <span class="new_button">
+        <i class="icon-pencil"></i>
+       <%= link_to t('.new', :default => t("helpers.links.new")),
+                   new_lab_device_path %>
+     </span>
+  </header>
 </div>
 <table class="table table-striped">
   <thead>
@@ -14,6 +19,9 @@
       <th>品牌</th>
       <th>条码</th>
       <th>价格</th>
+      <th>状态</th>
+      <th>更新时间</th>
+      <th>创建时间</th>
     </tr>
   </thead>
   <tbody>
@@ -25,6 +33,9 @@
         <td><%= lab_device.brand %></td>
         <td><%= lab_device.bn %></td>
         <td><%= lab_device.cost %></td>
+        <td><%= Option.where(:key=>"device_status",:value=>lab_device.status).first.name %></td>
+        <td><%=l lab_device.updated_at %></td>
+        <td><%=l lab_device.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_device_path(lab_device), :class => 'btn btn-mini' %>

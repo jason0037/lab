@@ -11,21 +11,27 @@
 
 <dl class="dl-horizontal">
   <dt><strong>名称</strong></dt>
-  <dd><%= @lab_device.name %></dd>
+  <dd>&nbsp;<%= @lab_device.name %></dd>
   <dt><strong>类型</strong></dt>
-  <dd><%= @lab_device.device_type %></dd>
+  <dd>&nbsp;<%= @lab_device.device_type %></dd>
   <dt><strong>品牌</strong></dt>
-  <dd><%= @lab_device.brand %></dd>
+  <dd>&nbsp;<%= @lab_device.brand %></dd>
   <dt><strong>价值</strong></dt>
-  <dd><%= @lab_device.cost%></dd>
+  <dd>&nbsp;<%= @lab_device.cost%></dd>
   <dt><strong>供应商</strong></dt>
-  <dd><%= @lab_device.supplier %></dd>
+  <dd>&nbsp;<%= @lab_device.supplier %></dd>
   <dt><strong>条码</strong></dt>
-  <dd><%= @lab_device.bn %></dd>
+  <dd>&nbsp;<%= @lab_device.bn %></dd>
   <dt><strong>版本</strong></dt>
-  <dd><%= @lab_device.version %></dd>
+  <dd>&nbsp;<%= @lab_device.version %></dd>
+  <dt><strong>状态</strong></dt>
+  <dd>&nbsp;<%= Option.where(:key=>"device_status",:value=>@lab_device.status).first.name %></dd>
+  <dt><strong>修改时间</strong></dt>
+  <dd>&nbsp;<%=l @lab_device.updated_at %></dd>
+  <dt><strong>创建时间</strong></dt>
+  <dd>&nbsp;<%=l @lab_device.created_at %></dd>
   <dt><strong>照片</strong></dt>
-  <dd><%=image_tag @lab_device.photo,:alt=>@lab_device.name,:style=>"width:100px"%></dd>
+  <dd>&nbsp;<%=image_tag @lab_device.photo,:alt=>@lab_device.name,:style=>"width:100px"%></dd>
 </dl>
 
 <div class="form-actions">

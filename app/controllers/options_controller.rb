@@ -7,34 +7,28 @@ class OptionsController < ApplicationController
   def search
     @action='/options/0/search'
     @search=params[:search]
-=begin
     if params[:key].blank?
       @options = Option
     else
       @options = Option.where(:key=>params[:key])
     end
-=end
-n
-    @options = Option.where(:key=>'course_type').paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+
     if @search
       @options =@options.where(" name like '%#{@search}%'")
     end
 
-
+    @options = @options.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     render '/options/index'
   end
 
   def index
-=begin
     @action='/options/0/search'
     if params[:key].blank?
       @options = Option
     else
       @options = Option.where(:key=>params[:key])
     end
-=end
-    @options = Option.where(:key=>'course_type')
     @options = @options.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|
