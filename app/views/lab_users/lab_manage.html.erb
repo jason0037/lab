@@ -57,11 +57,12 @@
                 <span>网络监测</span>
           <%end%>
           <%= link_to energy_consumption_monitors_path, :class => 'lab_metro metro-btn iframe_btn' do%>
-                        <span>能耗监测</span>
+                 <span>环境监测</span>
           <%end%>
-          <%= link_to lab_comprehensive_monitors_path, :class => 'lab_metro metro-btn iframe_btn' do%>
-                         <span>综合分析</span>
-          <%end%>
+
+          <%#= link_to lab_comprehensive_monitors_path, :class => 'lab_metro metro-btn iframe_btn' do%>
+                 <span style="display:none">综合分析</span>
+          <%#end%>
         </div>
           <iframe id="tab1_frames" src="<%=monitors_path%>"></iframe>
       </div>

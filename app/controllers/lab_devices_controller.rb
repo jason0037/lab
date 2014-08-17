@@ -13,7 +13,7 @@ class LabDevicesController < ApplicationController
     else
       result=0
       render :text => { :code => result,:device =>
-          { :id=>@device.id,:name=>@device.name, :version=>@device.version,:brand=>@device.brand,:device_type=>@device.device_type ,:status=>@device.status,:cost=>@device.cost,:bn=>@device.bn,:photo=>@device.photo,:supplier=>@device.supplier} }.to_json
+          { :id=>@device.id,:name=>@device.name, :version=>@device.version,:brand=>@device.brand,:assets_no=>@device.assets_no,:device_type=>@device.device_type ,:status=>@device.status,:cost=>@device.cost,:bn=>@device.bn,:photo=>@device.photo,:supplier=>@device.supplier} }.to_json
     end
   rescue
     result = 9999

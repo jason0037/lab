@@ -37,7 +37,7 @@
   <dt><strong>课程属性:</strong></dt>
   <dd><%= @lab_course.course_property %></dd>
   <dt><strong>是否需要教师:</strong></dt>
-  <dd><%= @lab_course.is_teach %></dd>
+  <dd><%= @lab_course.need_teach %></dd>
   <dt><strong>在此之前:</strong></dt>
   <dd><%= @lab_course.before %></dd>
   <dt><strong>简介:</strong></dt>
@@ -46,7 +46,7 @@
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              lab_courses_path, :class => 'btn'  %>
+              'javascript:history.go(-1)', :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_lab_course_path(@lab_course), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

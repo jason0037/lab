@@ -83,7 +83,7 @@
         <strong>项目简介:</strong>
       </td>
       <td>
-        <%= @lab_eval_project.brief %></dd>
+        <%= @lab_eval_project.brief %></td>
       <td>
         <strong>申请过程:</strong>
       </td>
@@ -121,9 +121,10 @@
 </table>
 
 <div class="form-actions">
+
   <%= link_to t('.back', :default =>
   t("helpers.links.back")),
-              lab_eval_projects_path, :class => 'btn'  %>
+             'javascript:history.go(-1)', :class => 'btn'  %>
   <%if @lab_eval_project.status==0 && @lab_eval_project.applicant_id==@user.id #草稿状态%>
   <%= link_to t('.apply to eval', :default =>
   t("helpers.links.apply_eval")),

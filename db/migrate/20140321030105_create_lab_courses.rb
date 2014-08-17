@@ -15,7 +15,7 @@ class CreateLabCourses < ActiveRecord::Migration
       t.string :approve_time
       t.integer :scene_id
       t.integer :course_property
-      t.integer :is_teach
+      t.bit :need_teach
       t.integer :before
       t.integer :desc
 
