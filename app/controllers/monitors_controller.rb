@@ -704,44 +704,44 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     case equipment_code
       when "001"
         caption = "行为体态分析"
-        value="65"
+        value="0"
         fillcolor = "FF0000,AE0000"
         clickURL='/monitors/behaviour'
       when "002"
         caption = "脑波分析"
         fillcolor = "FF9224,EA7500"
-        dail2="<dial id='Dial2' value='60.2' rearextension='10' basewidth='10' />"
-        value=85
+        dail2="<dial id='Dial2' value='0' rearextension='10' basewidth='10' />"
+        value=0
         clickURL='/monitors/mind_wave'
       when "003"
         caption = "网络分析"
         fillcolor="009999,333333"
-        value="70"
+        value="0"
         clickURL='/monitors/network'
       when "004"
-        caption = "能耗分析"
+        caption = "环境分析"
         fillcolor = "00A600,006000"
-        value="20"
-        clickURL='/monitors/energe_consumption'
+        value="0"
+        clickURL='/monitors/energy_consumption'
       when "100"
         caption = "实验室综合分析"
         fillcolor ="8F4586,6C3365"
-        value="98"
+        value="0"
         clickURL='/monitors/lab_comprehensive'
       when "202"
         caption = "交互学习行为"
         fillcolor = "737300,424200"
-        value="60"
+        value="0"
         clickURL='/monitors/interactive_study'
       when "203"
         caption ="课程学习行为"
         fillcolor = "FF9224,EA7500"
-        value="45"
+        value="0"
         clickURL='/monitors/course_study'
       when "200"
         caption = "在线课堂综合分析"
         fillcolor ="8F4586,6C3365"
-        value="46"
+        value="0"
         clickURL='/monitors/online_comprehensive'
     end
     charts="<chart caption='#{caption}' clickURL='#{clickURL}' manageresize='1' origw='350' origh='200' palette='2' bgalpha='0' bgcolor='FFFFFF'

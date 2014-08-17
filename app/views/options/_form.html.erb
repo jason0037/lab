@@ -27,6 +27,6 @@
   <div class="form-actions">
     <%= f.submit '确定', :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                options_path, :class => 'btn' %>
+                'javascript:history.go(-1)', :class => 'btn' %>
   </div>
 <% end %>

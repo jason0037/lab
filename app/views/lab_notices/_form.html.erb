@@ -25,13 +25,13 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :published_at, :class => 'control-label' %>
+    <%= f.label :published_at,'发布时间', :class => 'control-label' %>
     <div class="controls">
         <%=f.text_field :published_at,:class=>"datetime"%>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :published, :class => 'control-label' %>
+    <%= f.label :published,'发布', :class => 'control-label' %>
     <div class="controls">
       <%= f.check_box :published, :class => 'check_box' %>
     </div>
@@ -44,8 +44,8 @@
   </div>
 
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.submit '确定', :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                lab_notices_path, :class => 'btn' %>
+                'javascript:history.go(-1)', :class => 'btn' %>
   </div>
 <% end %>

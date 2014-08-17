@@ -3,7 +3,7 @@ class LabSuppliersController < ApplicationController
   # GET /lab_suppliers
   # GET /lab_suppliers.json
 
-  layout "blank",:except => [:show]
+  layout "blank"#,:except => [:show]
 
   def search
     @action='/lab_suppliers/0/search'
