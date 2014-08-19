@@ -21,16 +21,16 @@
   <dt><strong>计划结束时间:</strong></dt>
   <dd>&nbsp;<%=l @lab_course.end_time %></dd>
   <dt><strong>状态:</strong></dt>
-  <dd>&nbsp;<%= @lab_course.status %></dd>
+  <dd>&nbsp;<%= Option.where(:key=>"course_status",:value=>lab_course.status).first.name%></dd>
   <dt><strong>评测对象:</strong></dt>
   <dd>&nbsp;<%= @lab_course.project_id %></dd>
   <dt><strong>过程:</strong></dt>
   <dd>&nbsp;<%= @lab_course.progress %></dd>
   <dt><strong>发布时间:</strong></dt>
   <dd>&nbsp;<%=l @lab_course.publish_time  if @lab_course.publish_time %></dd>
-  <dt><strong>申请时间:</strong></dt>
+  <dt><strong>实际开始时间:</strong></dt>
   <dd>&nbsp;<%=l @lab_course.apply_time  if @lab_course.begin_time_real %></dd>
-  <dt><strong>批准时间:</strong></dt>
+  <dt><strong>实际结束时间:</strong></dt>
   <dd>&nbsp;<%=l @lab_course.approve_time if @lab_course.end_time_real%></dd>
   <dt><strong>教学场景:</strong></dt>
   <dd>&nbsp;<%= @lab_course.scene_id %></dd>

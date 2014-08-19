@@ -56,7 +56,11 @@ Option.create([{id:'1', name: '电子书包',value:"1",index:"0",key:"eval_objec
    desc:"此部分用于考查前述问题中没有涉及的方面。"},
   {id:'38',name:'使用中',value:"1",index:"1",key:"device_status"},
   {id:'39',name:'维修中',value:"0",index:"2",key:"device_status"},
-  {id:'40',name:'报废',value:"-1",index:"3",key:"device_status"}
+  {id:'40',name:'报废',value:"-1",index:"3",key:"device_status"},
+  {id:'41',name:'未开课',value:"0",index:"1",key:"course_status"},
+  {id:'42',name:'准备就绪',value:"1",index:"2",key:"course_status"},
+  {id:'43',name:'上课中',value:"2",index:"3",key:"course_status"},
+  {id:'44',name:'课程结束',value:"3",index:"4",key:"course_status"},
   ]
 )
 

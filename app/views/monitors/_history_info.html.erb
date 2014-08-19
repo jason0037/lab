@@ -20,9 +20,19 @@
         <td><%= Option.where(:key=>"eval_object_type",:value=>lab_course.course_type).first.name if lab_course.course_type%></td>
         <td><%= Option.where(:key=>"course_type",:value=>lab_course.category_id).first.name if lab_course.category_id %></td>
         <td><%= @lab_course.lab_user.name %></td>
-        <td><%=l @lab_course.start_time %></td>
-        <td><%=l @lab_course.end_time %></td>
-        <td><%= @lab_course.status %></td>
+        <td><%if lab_course.begin_time_real%>
+              <%=l lab_course.begin_time_real%>
+          <%else%>
+              <%=l lab_course.begin_time%>
+          <%end%>
+        </td>
+        <td><%if lab_course.end_time_real%>
+              <%=l lab_course.end_time_real%>
+          <%else%>
+              <%=l lab_course.end_time%>
+          <%end%>
+        </td>
+        <td><%= Option.where(:key=>"course_status",:value=>lab_course.status).first.name%></td>
         <td><%= @lab_course.project_id %></td>
         <td><%= @lab_course.lab_scene.name %></td>
       </tr>

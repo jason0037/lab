@@ -4,7 +4,7 @@ class LabCoursesController < ApplicationController
   # GET /lab_courses
   # GET /lab_courses.json
   layout "blank"#,:except => [:show]
-  
+
   def status
     #app接口，由移动终端发起课程开始或结束
     status=params[:status]
@@ -109,7 +109,8 @@ class LabCoursesController < ApplicationController
   # POST /lab_courses
   # POST /lab_courses.json
   def create
-    params[:lab_course].merge!(:project_id=>params[:project_id])
+    params[:lab_course].merge!(:project_id=>params[:project_id],:status=>0)
+
 
     @lab_course = LabCourse.new(params[:lab_course])
 
