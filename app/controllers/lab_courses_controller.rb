@@ -1,10 +1,12 @@
 require 'pp'
 class LabCoursesController < ApplicationController
-  before_filter :authorize_user!, :status
+  before_filter :authorize_user!,:except => [ :status]
   # GET /lab_courses
   # GET /lab_courses.json
   layout "blank"#,:except => [:show]
+  
   def status
+    #app接口，由移动终端发起课程开始或结束
     status=params[:status]
     result = 9999
     @lab_course= LabCourse.order("id desc").first
@@ -13,6 +15,7 @@ class LabCoursesController < ApplicationController
       if  now_status == 1
         result=0
         @lab_course.status=2
+        @lab_course.begin_time_real=Time.now
         @lab_course.save
         #课程开始
       else
@@ -22,6 +25,7 @@ class LabCoursesController < ApplicationController
       if  now_status == 2
         result=0
         @lab_course.status = 3
+        @lab_course.end_time_real=Time.now
         @lab_course.save
         #课程结束
       else
@@ -32,6 +36,7 @@ class LabCoursesController < ApplicationController
   rescue
     return render :text=>{ :code => result }.to_json
   end
+
   def search
     @action='/lab_courses/0/search'
     @key=params[:key]
@@ -64,7 +69,6 @@ class LabCoursesController < ApplicationController
     end
   end
 
-
   def teach
     # pp "-----a----------s------"
     passwd = Base64.decode64 @user.secret_key
@@ -89,7 +93,7 @@ class LabCoursesController < ApplicationController
   # GET /lab_courses/new.json
   def new
     @lab_course = LabCourse.new
-    @id =params[:id]
+    @id = params[:lab_eval_project_id]
 
     respond_to do |format|
       format.html # new.html.erb

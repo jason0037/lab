@@ -3,7 +3,7 @@ require 'pp'
 require 'rufus-scheduler'
 
 class MonitorsController < ApplicationController
-  before_filter :authorize_user!, :receive_data
+  before_filter :authorize_user!,:except => [ :receive_data]
   # GET /lab_cats
   # GET /lab_cats.json
   layout "blank"#,:except => [:show]

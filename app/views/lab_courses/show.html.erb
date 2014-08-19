@@ -11,35 +11,35 @@
 
 <dl class="dl-horizontal">
   <dt><strong>学科类别:</strong></dt>
-  <dd><%= @lab_course.category_id %></dd>
+  <dd>&nbsp;<%= Option.where(:key=>"course_type",:value=>@lab_course.category_id).first.name if @lab_course.category_id %></dd>
   <dt><strong>课程类别:</strong></dt>
-  <dd><%= @lab_course.course_type %></dd>
+  <dd>&nbsp;<%= Option.where(:key=>"eval_object_type",:value=>@lab_course.course_type).first.name if @lab_course.course_type%></dd>
   <dt><strong>教师:</strong></dt>
-  <dd><%= @lab_course.teacher_id %></dd>
-  <dt><strong>开始时间:</strong></dt>
-  <dd><%=l @lab_course.start_time %></dd>
-  <dt><strong>结束时间:</strong></dt>
-  <dd><%=l @lab_course.end_time %></dd>
+  <dd>&nbsp;<%= @lab_course.lab_user.name %></dd>
+  <dt><strong>计划开始时间:</strong></dt>
+  <dd>&nbsp;<%=l @lab_course.begin_time %></dd>
+  <dt><strong>计划结束时间:</strong></dt>
+  <dd>&nbsp;<%=l @lab_course.end_time %></dd>
   <dt><strong>状态:</strong></dt>
-  <dd><%= @lab_course.status %></dd>
+  <dd>&nbsp;<%= @lab_course.status %></dd>
   <dt><strong>评测对象:</strong></dt>
-  <dd><%= @lab_course.project_id %></dd>
+  <dd>&nbsp;<%= @lab_course.project_id %></dd>
   <dt><strong>过程:</strong></dt>
-  <dd><%= @lab_course.progress %></dd>
+  <dd>&nbsp;<%= @lab_course.progress %></dd>
   <dt><strong>发布时间:</strong></dt>
-  <dd><%=l @lab_course.publish_time  if @lab_course.publish_time %></dd>
+  <dd>&nbsp;<%=l @lab_course.publish_time  if @lab_course.publish_time %></dd>
   <dt><strong>申请时间:</strong></dt>
-  <dd><%=l @lab_course.apply_time  if @lab_course.apply_time %></dd>
+  <dd>&nbsp;<%=l @lab_course.apply_time  if @lab_course.begin_time_real %></dd>
   <dt><strong>批准时间:</strong></dt>
-  <dd><%= @lab_course.approve_time if @lab_course.approve_time%></dd>
+  <dd>&nbsp;<%=l @lab_course.approve_time if @lab_course.end_time_real%></dd>
   <dt><strong>教学场景:</strong></dt>
-  <dd><%= @lab_course.scene_id %></dd>
+  <dd>&nbsp;<%= @lab_course.scene_id %></dd>
   <dt><strong>课程属性:</strong></dt>
-  <dd><%= @lab_course.course_property %></dd>
+  <dd>&nbsp;<%= @lab_course.course_property %></dd>
   <dt><strong>是否教师授课:</strong></dt>
-  <dd><%= @lab_course.need_teacher %></dd>
+  <dd>&nbsp;<%= @lab_course.need_teacher %></dd>
   <dt><strong>在此课程之前:</strong></dt>
-  <dd><%= @lab_course.before %></dd>
+  <dd>&nbsp;<%= @lab_course.before %></dd>
   <dt><strong>简介:</strong></dt>
   <dd><%= @lab_course.desc %></dd>
 </dl>

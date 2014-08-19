@@ -1,6 +1,6 @@
 <%= form_for @lab_course, :html => { :class => 'form-horizontal' } do |f| %>
   <div>
-    <input text="<%=@id%>" name="project_id"/>
+    <input value="<%=@id%>" name="project_id"/>
   </div>
   <div class="control-group">
     课堂测试名称
@@ -23,20 +23,20 @@
   <div class="control-group">
     学科分类
     <div class="controls">
-      <%=f.select :course_type, options_from_collection_for_select(Option.where(:key=>"course_type"),'value','name',@lab_course.course_type),:include_blank=>"请选择" %>
+      <%=f.select :course_type, options_from_collection_for_select(Option.where(:key=>"eval_object_type"),'value','name',@lab_course.course_type),:include_blank=>"请选择" %>
     </div>
   </div>
   <div class="control-group">
     评测对象类型
     <div class="controls">
-      <%=f.select :category_id, options_from_collection_for_select(Option.where(:key=>"eval_object_type"),'value','name',@lab_course.category_id),:include_blank=>"请选择" %>
+      <%=f.select :category_id, options_from_collection_for_select(Option.where(:key=>"course_type"),'value','name',@lab_course.category_id),:include_blank=>"请选择" %>
     </div>
   </div>
 
   <div class="control-group">
     开始时间
     <div class="controls">
-      <%=f.text_field :start_time,:class=>"datetime"%>
+      <%=f.text_field :begin_time,:class=>"datetime"%>
 
     </div>
   </div>
@@ -46,13 +46,14 @@
       <%=f.text_field :end_time,:class=>"datetime"%>
     </div>
   </div>
+  <!--
   <div class="control-group">
     状态
     <div class="controls">
       <%= f.number_field :status, :class => 'number_field' %>
     </div>
   </div>
-    <!--
+
   <div class="control-group">
     <%= f.label :progress, :class => 'control-label' %>
     <div class="controls">
