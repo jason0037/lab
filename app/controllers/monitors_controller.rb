@@ -3,9 +3,28 @@ require 'pp'
 require 'rufus-scheduler'
 
 class MonitorsController < ApplicationController
+  before_filter :authorize_user!, :receive_data
   # GET /lab_cats
   # GET /lab_cats.json
   layout "blank"#,:except => [:show]
+
+  def receive_data
+    # { "router": { "up": 2929, "down": 9092 ,"read_at":"当前时间20140819104034"} }
+    if params[:router].blank?
+      return  render :text => { :code => 9999}.to_json
+    end
+    router = params[:router]
+
+    sql ="insert R000001_reading (point_id,read_at,saved_at,value,source) values
+          ('000001' ,'#{router[:read_at]}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{router[:up]}','1')
+          ,('000002','#{router[:read_at]}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{router[:down]}','1')"
+    ActiveRecord::Base.connection.execute sql
+
+    render :text => { :code => 0}.to_json
+    #  rescue
+    #    return render :text=>{ :code => 9999 }.to_json
+    #  end
+  end
 
   def get_realtime_data
     equipment_code = params[:equipment_code]

@@ -5,15 +5,23 @@ class LabDevicesController < ApplicationController
   # GET /lab_devices.json
   layout "blank"#,:except => [:show]
   def app_query
-    @device = LabDevice.find_by_bn(params[:bn])
+    bn = params[:bn]
+    device = LabDevice.find_by_bn(bn)
 
-    if @device.blank?
+    if device.blank?
       result = 200 # "设备不存在."
-      return render :text=>{ :code => result }.to_json
+      device = LabDevice.where("bn like '%#{bn[0,8]}%'").first
+      if device.blank?
+        render :text=>{ :code => result }.to_json
+      else
+
+        render :text => { :code => result,:device =>
+            { :id=>device.id,:name=>device.name, :version=>device.version,:brand=>device.brand,:assets_no=>device.assets_no,:device_type=>device.device_type ,:status=>device.status,:cost=>device.cost,:bn=>device.bn,:photo=>device.photo,:supplier=>device.supplier} }.to_json
+      end
     else
       result=0
       render :text => { :code => result,:device =>
-          { :id=>@device.id,:name=>@device.name, :version=>@device.version,:brand=>@device.brand,:assets_no=>@device.assets_no,:device_type=>@device.device_type ,:status=>@device.status,:cost=>@device.cost,:bn=>@device.bn,:photo=>@device.photo,:supplier=>@device.supplier} }.to_json
+          { :id=>device.id,:name=>device.name, :version=>device.version,:brand=>device.brand,:assets_no=>device.assets_no,:device_type=>device.device_type ,:status=>device.status,:cost=>device.cost,:bn=>device.bn,:photo=>device.photo,:supplier=>device.supplier} }.to_json
     end
   rescue
     result = 9999
@@ -21,6 +29,7 @@ class LabDevicesController < ApplicationController
   end
 
   def app_save
+#目前没有用到
 #    save='{"id":2,"name":"\u8def\u7531\u5668 lab_test","version":"","brand":"\u864e\u7b26","device_type":"\u8def\u7531\u5668","cost":"3439.0","bn":"3039393993","photo":"/teachResources/devices/20140813235914.jpg","supplier":"\u9f99\u8f6f"}'
     save = params[:submit_data]
     save =JSON.parse(save)
@@ -115,28 +124,47 @@ class LabDevicesController < ApplicationController
     @lab_device = LabDevice.new(params[:lab_device])
 
     respond_to do |format|
-      if @lab_device.save
-        format.html { redirect_to @lab_device, notice: 'Lab device was successfully created.' }
-        format.json { render json: @lab_device, status: :created, location: @lab_device }
+        if @lab_device.save
+          if params[:lab_device][:from]=='app'
+            render render :text => { :code => 0}.to_json
+          else
+            format.html { redirect_to @lab_device, notice: 'Lab device was successfully created.' }
+            format.json { render json: @lab_device, status: :created, location: @lab_device }
+          end
       else
-        format.html { render action: "new" }
-        format.json { render json: @lab_device.errors, status: :unprocessable_entity }
+          format.html { render action: "new" }
+          format.json { render json: @lab_device.errors, status: :unprocessable_entity }
       end
-    end
+
   end
 
   # PUT /lab_devices/1
   # PUT /lab_devices/1.json
   def update
     @lab_device = LabDevice.find(params[:id])
+    uploaded_io = params[:file]
+    if !uploaded_io.blank?
+      extension = uploaded_io.original_filename.split('.')
+      filename = "#{Time.now.strftime('%Y%m%d%H%M%S')}.#{extension[-1]}"
+      filepath = "#{PIC_PATH}/teachResources/devices/#{filename}"
+      File.open(filepath, 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+      params[:lab_device].merge!(:photo=>"/teachResources/devices/#{filename}")
+    end
 
-    respond_to do |format|
-      if @lab_device.update_attributes(params[:lab_device])
-        format.html { redirect_to @lab_device, notice: 'Lab device was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @lab_device.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @lab_device.update_attributes(params[:lab_device])
+          if params[:lab_device][:from]=='app'
+            render render :text => { :code => 0}.to_json
+          else
+            format.html { redirect_to @lab_device, notice: 'Lab device was successfully updated.' }
+            format.json { head :no_content }
+          end
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @lab_device.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

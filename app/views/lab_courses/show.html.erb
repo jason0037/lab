@@ -27,18 +27,18 @@
   <dt><strong>过程:</strong></dt>
   <dd><%= @lab_course.progress %></dd>
   <dt><strong>发布时间:</strong></dt>
-  <dd><%=l(@lab_course.publish_time,:format=>:long) if @lab_course.publish_time %></dd>
+  <dd><%=l @lab_course.publish_time  if @lab_course.publish_time %></dd>
   <dt><strong>申请时间:</strong></dt>
-  <dd><%=l(@lab_course.apply_time, :format => :long) if @lab_course.apply_time %></dd>
+  <dd><%=l @lab_course.apply_time  if @lab_course.apply_time %></dd>
   <dt><strong>批准时间:</strong></dt>
-  <dd><%=l(@lab_course.approve_time, :format => :long) if @lab_course.approve_time%></dd>
-  <dt><strong>场景:</strong></dt>
+  <dd><%= @lab_course.approve_time if @lab_course.approve_time%></dd>
+  <dt><strong>教学场景:</strong></dt>
   <dd><%= @lab_course.scene_id %></dd>
   <dt><strong>课程属性:</strong></dt>
   <dd><%= @lab_course.course_property %></dd>
-  <dt><strong>是否需要教师:</strong></dt>
+  <dt><strong>是否教师授课:</strong></dt>
   <dd><%= @lab_course.need_teacher %></dd>
-  <dt><strong>在此之前:</strong></dt>
+  <dt><strong>在此课程之前:</strong></dt>
   <dd><%= @lab_course.before %></dd>
   <dt><strong>简介:</strong></dt>
   <dd><%= @lab_course.desc %></dd>

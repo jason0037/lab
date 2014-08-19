@@ -1,8 +1,37 @@
 require 'pp'
 class LabCoursesController < ApplicationController
+  before_filter :authorize_user!, :status
   # GET /lab_courses
   # GET /lab_courses.json
   layout "blank"#,:except => [:show]
+  def status
+    status=params[:status]
+    result = 9999
+    @lab_course= LabCourse.order("id desc").first
+    now_status = @lab_course.status
+    if status  == "1"
+      if  now_status == 1
+        result=0
+        @lab_course.status=2
+        @lab_course.save
+        #课程开始
+      else
+        result=200
+      end
+    elsif status=="0"
+      if  now_status == 2
+        result=0
+        @lab_course.status = 3
+        @lab_course.save
+        #课程结束
+      else
+        result=200
+      end
+    end
+    render :text => { :code => result}.to_json
+  rescue
+    return render :text=>{ :code => result }.to_json
+  end
   def search
     @action='/lab_courses/0/search'
     @key=params[:key]
@@ -60,6 +89,7 @@ class LabCoursesController < ApplicationController
   # GET /lab_courses/new.json
   def new
     @lab_course = LabCourse.new
+    @id =params[:id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -75,6 +105,8 @@ class LabCoursesController < ApplicationController
   # POST /lab_courses
   # POST /lab_courses.json
   def create
+    params[:lab_course].merge!(:project_id=>params[:project_id])
+
     @lab_course = LabCourse.new(params[:lab_course])
 
     respond_to do |format|

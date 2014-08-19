@@ -1,4 +1,7 @@
 <%= form_for @lab_course, :html => { :class => 'form-horizontal' } do |f| %>
+  <div>
+    <input text="<%=@id%>" name="project_id"/>
+  </div>
   <div class="control-group">
     课堂测试名称
     <div class="controls">
@@ -47,12 +50,6 @@
     状态
     <div class="controls">
       <%= f.number_field :status, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    评测对象ID
-    <div class="controls">
-      <%= f.number_field :project_id, :class => 'number_field' %>
     </div>
   </div>
     <!--
