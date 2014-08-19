@@ -59,11 +59,18 @@
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_course_path(lab_course), :class => 'btn btn-mini' %>
+
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       lab_course_path(lab_course),
                       :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '您确定吗?')) },
                       :class => 'btn btn-mini btn-danger' %>
+          <%if lab_course.status==0%>
+                <%= link_to '准备就绪',
+                      ready_lab_course_path(lab_course),
+                      :data => { :confirm =>'您确定课程已经准备就绪了吗?'},
+                      :class => 'btn btn-mini btn-danger' %>
+          <%end%>
           <%=link_to '生成报告', lab_report_path(lab_course), :class => 'btn btn-mini' %>
         </td>
       </tr>

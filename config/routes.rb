@@ -129,6 +129,7 @@ Lab::Application.routes.draw do
     get :teach,:on=>:collection
     post :search , :on=>:member
     post :status , :on=>:collection
+    get :ready, :on =>:member
   end
 
   resources :lab_eval_projects do

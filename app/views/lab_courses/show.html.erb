@@ -3,7 +3,7 @@
   <nav class="breadcrumbs" style="margin-top: 20px">
     <ul>
       <li><a href="#"><i class="icon-home"></i></a></li>
-      <li><a href="#">实验课堂</a></li>
+      <li><%=link_to "实验课堂", lab_courses_path %></li>
       <li><a href="#"><%= @lab_course.name %></a></li>
     </ul>
   </nav>
@@ -21,7 +21,7 @@
   <dt><strong>计划结束时间:</strong></dt>
   <dd>&nbsp;<%=l @lab_course.end_time %></dd>
   <dt><strong>状态:</strong></dt>
-  <dd>&nbsp;<%= Option.where(:key=>"course_status",:value=>lab_course.status).first.name%></dd>
+  <dd>&nbsp;<%= Option.where(:key=>"course_status",:value=>@lab_course.status).first.name%></dd>
   <dt><strong>评测对象:</strong></dt>
   <dd>&nbsp;<%= @lab_course.project_id %></dd>
   <dt><strong>过程:</strong></dt>
@@ -33,7 +33,7 @@
   <dt><strong>实际结束时间:</strong></dt>
   <dd>&nbsp;<%=l @lab_course.approve_time if @lab_course.end_time_real%></dd>
   <dt><strong>教学场景:</strong></dt>
-  <dd>&nbsp;<%= @lab_course.scene_id %></dd>
+  <dd>&nbsp;<%= @lab_course.lab_scene.name %></dd>
   <dt><strong>课程属性:</strong></dt>
   <dd>&nbsp;<%= @lab_course.course_property %></dd>
   <dt><strong>是否教师授课:</strong></dt>

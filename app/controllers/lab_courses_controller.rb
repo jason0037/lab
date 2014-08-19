@@ -141,6 +141,13 @@ class LabCoursesController < ApplicationController
     end
   end
 
+  def ready
+    @lab_course = LabCourse.find(params[:id])
+    @lab_course.status=1
+    @lab_course.save
+    redirect_to lab_courses_path
+  end
+
   # DELETE /lab_courses/1
   # DELETE /lab_courses/1.json
   def destroy

@@ -1,81 +1,66 @@
 <%= form_for @lab_course, :html => { :class => 'form-horizontal' } do |f| %>
-  <div>
-    <input value="<%=@id%>" name="project_id"/>
+  <div style="display:none">
+    <input type ="hidden" value="<%=@id%>" name="project_id"/>
   </div>
   <div class="control-group">
-    课堂测试名称
+    <%= f.label :name,'课堂测试名称', :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :name, :class => 'text_field' %>
     </div>
   </div>
     <div class="control-group">
-      测试地点
+      <%= f.label :location,'测试地点', :class => 'control-label' %>
       <div class="controls">
         <%= f.text_field :location, :class => 'text_field' %>
       </div>
     </div>
     <div class="control-group">
-      参与人员
+      <%= f.label :participants,'参与人员', :class => 'control-label' %>
       <div class="controls">
         <%= f.text_field :participants, :class => 'text_field' %>
       </div>
     </div>
   <div class="control-group">
-    学科分类
+    <%= f.label :course_type,'学科分类', :class => 'control-label' %>
     <div class="controls">
       <%=f.select :course_type, options_from_collection_for_select(Option.where(:key=>"eval_object_type"),'value','name',@lab_course.course_type),:include_blank=>"请选择" %>
     </div>
   </div>
   <div class="control-group">
-    评测对象类型
+    <%= f.label :category_id,'评测对象类型', :class => 'control-label' %>
     <div class="controls">
       <%=f.select :category_id, options_from_collection_for_select(Option.where(:key=>"course_type"),'value','name',@lab_course.category_id),:include_blank=>"请选择" %>
     </div>
   </div>
 
   <div class="control-group">
-    开始时间
+    <%= f.label :begin_time,'开始时间', :class => 'control-label' %>
     <div class="controls">
       <%=f.text_field :begin_time,:class=>"datetime"%>
 
     </div>
   </div>
   <div class="control-group">
-    结束时间
+    <%= f.label :end_time,'结束时间', :class => 'control-label' %>
     <div class="controls">
       <%=f.text_field :end_time,:class=>"datetime"%>
     </div>
   </div>
+
   <!--
+
   <div class="control-group">
-    <%= f.label :progress, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :progress, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :publish_time, :class => 'control-label' %>
+    <%= f.label :publish_time,'发布时间', :class => 'control-label' %>
     <div class="controls">
       <%= f.datetime_select :publish_time, :class => 'datetime_select' %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :apply_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.datetime_select :apply_time, :class => 'datetime_select' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :approve_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :approve_time, :class => 'text_field' %>
-    </div>
-  </div>
+
   -->
   <div class="control-group">
-    教学场景
+    <%= f.label :scene_id,'教学场景', :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :scene_id, :class => 'number_field' %>
+      <%=f.select :scene_id, options_from_collection_for_select(LabScene.all,'id','name',@lab_course.scene_id),:include_blank=>"请选择" %>
     </div>
   </div>
     <!--
@@ -87,25 +72,23 @@
   </div>
   -->
   <div class="control-group">
-    是否需要教师授课？
+    <%= f.label :need_teacher,'需要教师授课', :class => 'control-label' %>
     <div class="controls">
-      <%=f.check_box :need_teacher%>
+      <%=f.check_box :need_teacher, :class => 'number_field' %>
     </div>
   </div>
     <div class="control-group">
-      教师
+      <%= f.label :teacher_id,'教师', :class => 'control-label' %>
       <div class="controls">
         <%=f.select :teacher_id, options_from_collection_for_select(LabUser.where(:role_id=>"2"),'id','name',@lab_course.teacher_id),:include_blank=>"请选择" %>
       </div>
     </div>
-    <!--
   <div class="control-group">
-    <%= f.label :desc, :class => 'control-label' %>
+    <%= f.label :desc,'备注', :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :desc, :class => 'number_field' %>
+      <%= f.text_field :desc, :class => 'text_field' %>
     </div>
   </div>
--->
   <div class="form-actions">
     <%= f.submit "确定", :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
