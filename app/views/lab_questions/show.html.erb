@@ -9,7 +9,7 @@
   <dt><strong>问题类别:</strong></dt>
   <dd>&nbsp;<%= @lab_question.question_category %></dd>
   <dt><strong>问题类型:</strong></dt>
-  <dd>&nbsp;<%= @lab_question.version %></dd>
+  <dd>&nbsp;<%= @lab_question.question_type %></dd>
   <dt><strong>最高权重:</strong></dt>
   <dd>&nbsp;<%= @lab_question.weight %></dd>
   <dt><strong>最高分值:</strong></dt>
@@ -17,14 +17,14 @@
   <dt><strong>回答选项:</strong></dt>
   <dd>&nbsp;<%= @lab_question.options %></dd>
   <dt><strong>创建时间:</strong></dt>
-  <dd>&nbsp;<%= @lab_question.created_at %></dd>
+  <dd>&nbsp;<%=l @lab_question.created_at %></dd>
   <dt><strong>修改时间:</strong></dt>
-  <dd>&nbsp;<%= @lab_question.updated_at %></dd>
+  <dd>&nbsp;<%=l @lab_question.updated_at %></dd>
 </dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              lab_questions_path, :class => 'btn'  %>
+              lab_questionnaire_lab_questions_path(@lab_question.questionnaire_id), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_lab_question_path(@lab_question), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

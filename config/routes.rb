@@ -69,7 +69,7 @@ Lab::Application.routes.draw do
   resources :lab_questions_scores do
     post :search , :on=>:member
   end
-
+  resources :lab_questions
   resources :lab_questionnaires do
     post :search , :on=>:member
     get :status , :on=>:member

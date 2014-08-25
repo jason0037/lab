@@ -1,11 +1,11 @@
 <%= form_for @lab_question, :html => { :class => 'form-horizontal' } do |f| %>
-    <input value="<%=@questionnaire_id%>">
+    <input value="<%=@questionnaire%>" name="questionnaire">
   <div class="control-group">
     <%= f.label :desc,'问题内容', :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :desc, :class => 'text_field' %>
     </div>
-  </div>:desc, :question_category,:version,:questionnaire_id,:question_type, :weight,:score,:options
+  </div>
     <div class="control-group">
       <%= f.label :question_category,'问题种类', :class => 'control-label' %>
       <div class="controls">
@@ -21,7 +21,7 @@
   <div class="control-group">
     <%= f.label :weight,'权重', :class => 'control-label' %>
     <div class="controls">
-     0- <%= f.number_field :weight, :class => 'number_field' %>
+     0 - <%= f.number_field :weight, :class => 'number_field' %>
     </div>
   </div>
     <div class="control-group">

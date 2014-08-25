@@ -9,7 +9,7 @@ class LabQuestionsController < ApplicationController
     @questionnaire = params[:lab_questionnaire_id]
 
     @lab_questions =  LabQuestion.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
-    @lab_questions = @lab_questions.find_by_questionnaire_id(@questionnaire)
+    @lab_questions = @lab_questions.where(:questionnaire_id=>@questionnaire)
     if @key
       @lab_questions =@lab_questions.where("desc like '%#{@key}%'")
     end
@@ -22,7 +22,7 @@ class LabQuestionsController < ApplicationController
     @questionnaire = params[:lab_questionnaire_id]
 
     @lab_questions =  LabQuestion.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
-    @lab_questions = @lab_questions.find_by_questionnaire_id(@questionnaire)
+    @lab_questions = @lab_questions.where(:questionnaire_id=>@questionnaire)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @lab_questions }
@@ -44,7 +44,7 @@ class LabQuestionsController < ApplicationController
   # GET /lab_questions/new.json
   def new
     @lab_question = LabQuestion.new
-    @questionnaire_id = params[:lab_questionnaire_id]
+    @questionnaire = params[:lab_questionnaire_id]
 
     respond_to do |format|
       format.html # new.html.erb
