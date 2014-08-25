@@ -20,6 +20,8 @@ zh_cn:
       questionnaire: "问卷评测"
       lab_prepaire: "教学准备"
       lab_course:  "教学评测"
+      abandon: "废除"
+      publish: "发布"
 
     titles:
       edit: "修改"

@@ -37,9 +37,13 @@ class LabQuestionnairesController < ApplicationController
 
   # GET /lab_questionnaires/1/status?status=1
   def status
-    @questionnaire= LabQuestionnaire.find(params[:id])
-    @questionnaire.status=params[:status]
-    @questionnaire.save
+    questionnaire= LabQuestionnaire.find(params[:id])
+    if questionnaire.status==1
+      questionnaire.status=-1
+    elsif questionnaire.status==0
+      questionnaire.status=1
+    end
+    questionnaire.save
     redirect_to lab_questionnaires_path
   end
 

@@ -6,7 +6,7 @@
     <span class="new_button">
         <i class="icon-pencil"></i>
         <%= link_to t('.new', :default => t("helpers.links.new")),
-                    new_lab_question_path%>
+                    new_lab_questionnaire_path%>
      </span>
   </header>
 </div>
@@ -21,26 +21,38 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:desc) %></th>
-      <th><%= model_class.human_attribute_name(:question_category) %></th>
-      <th><%= model_class.human_attribute_name(:version) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>标题</th>
+      <th>版本</th>
+      <th>状态</th>
+      <th>创建时间</th>
+      <th>修改时间</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
-    <% @lab_questions.each do |lab_question| %>
+    <% @lab_questionnaires.each do |lab_questionnaire| %>
       <tr>
-        <td><%= link_to lab_question.id, lab_question_path(lab_question) %></td>
-        <td><%= lab_question.desc %></td>
-        <td><%= lab_question.question_category %></td>
-        <td><%= lab_question.version %></td>
-        <td><%=l lab_question.created_at %></td>
+        <td><%= link_to lab_questionnaire.id, lab_questionnaire_path(lab_questionnaire) %></td>
+        <td><%= lab_questionnaire.title %></td>
+        <td><%= lab_questionnaire.version %></td>
+        <td><%= lab_questionnaire.status %></td>
+        <td><%=l lab_questionnaire.created_at %></td>
+        <td><%=l lab_questionnaire.updated_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_lab_question_path(lab_question), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      lab_question_path(lab_question),
+                      edit_lab_questionnaire_path(lab_questionnaire), :class => 'btn btn-mini' %>
+          <% if lab_questionnaire.status==0%>
+              <%= link_to t('.publish', :default => t("helpers.links.publish")),
+                          edit_lab_questionnaire_path(lab_questionnaire), :class => 'btn btn-mini' %>
+          <%elsif lab_questionnaire.status==1%>
+              <%= link_to t('.abandon', :default => t("helpers.links.abandon")),
+                          status_lab_questionnaire_path(lab_questionnaire),
+                          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                          :class => 'btn btn-mini btn-danger' %>
+          <%end%>
+
+          <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      lab_questionnaire_path(lab_questionnaire),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
@@ -51,5 +63,5 @@
 </table>
 
 <div class="pagination">
-  <%= will_paginate @lab_questions, :container => false %>
+  <%= will_paginate @lab_questionnaires, :container => false %>
 </div>

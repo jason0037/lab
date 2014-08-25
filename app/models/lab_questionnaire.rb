@@ -2,6 +2,6 @@
 class LabQuestionnaire < ActiveRecord::Base
   attr_accessible :desc, :title,:version,:status
 
-  has_many :lab_questions, :foriegn_key=>'questionnaire_id'
+  has_many :lab_questions, :foreign_key=>'questionnaire_id'
 
 end
