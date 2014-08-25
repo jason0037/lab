@@ -1,6 +1,6 @@
 require 'pp'
 class LabCoursesController < ApplicationController
-  before_filter :authorize_user!,:except => [ :status]
+  before_filter :authorize_user!,:except => [:status]
   # GET /lab_courses
   # GET /lab_courses.json
   layout "blank"#,:except => [:show]
@@ -40,17 +40,31 @@ class LabCoursesController < ApplicationController
   def search
     @action='/lab_courses/0/search'
     @key=params[:key]
-
     @lab_courses = LabCourse.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
-    if @key
-      @lab_courses =@lab_courses.where("name like '%#{@key}%'")
+    if @user.role_id==4 || @user.role_id==6 #实验室管理员或系统管理员
+      if @key
+        @lab_courses =@lab_courses.where("name like '%#{@key}%'")
+      end
+    else
+      @lab_courses = @lab_courses.where(:teacher_id=>@user.id)
+      if @key
+        @lab_courses =@lab_courses.where("name like '%#{@key}%'")
+      end
     end
+
+
+    @lab_courses = @lab_courses.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
     render 'lab_courses/index'
   end
 
   def index
     @action='/lab_courses/0/search'
     @lab_courses = LabCourse.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    if @user.role_id==4 || @user.role_id==6 #实验室管理员或系统管理员
+      @lab_courses =@lab_courses.all
+    else
+      @lab_courses = @lab_courses.where(:teacher_id=>@user.id)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

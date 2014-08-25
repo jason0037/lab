@@ -72,7 +72,16 @@
         <iframe id="tab1_frame" src="<%=lab_mobile_courses_path%>"></iframe>
       </div>
       <div class="tab-pane full_height" id="eval">
-          <iframe id="tab1_frame" src="<%=apply_lab_eval_projects_path%>"></iframe>
+        <div class="help-inline full_width">
+          <%= link_to apply_lab_eval_projects_path, :class => 'lab_metro metro-btn iframe_btn' do%>
+              <span>评测申请</span>
+          <%end%>
+          <%= link_to lab_courses_path, :class => 'lab_metro metro-btn iframe_btn' do%>
+              <span>评测课程</span>
+          <%end%>
+        </div>
+
+        <iframe id="tab1_frames" src="<%=apply_lab_eval_projects_path%>"></iframe>
       </div>
     </div> 
 </div>

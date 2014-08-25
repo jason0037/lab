@@ -9,11 +9,13 @@ class MonitorsController < ApplicationController
   layout "blank"#,:except => [:show]
 
   def receive_data
-    # { "router": { "up": 2929, "down": 9092 ,"read_at":"当前时间20140819104034"} }
+    # router={ "up": 2929, "down": 9092 ,"read_at":"20140820154334"}
     if params[:router].blank?
       return  render :text => { :code => 9999}.to_json
     end
-    router = params[:router]
+    router = JSON.parse(params[:router])
+    #return render :text=>router
+
 
     sql ="insert R000001_reading (point_id,read_at,saved_at,value,source) values
           ('000001' ,'#{router[:read_at]}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{router[:up]}','1')

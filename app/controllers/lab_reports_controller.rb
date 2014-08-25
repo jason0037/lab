@@ -164,7 +164,7 @@ html_common_1=%Q{
       <strong>测试时间区间</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.start_time.strftime('%Y-%m-%d %H:%M:%S')} -- #{@lab_course.end_time.strftime('%Y-%m-%d %H:%M:%S')}</p>
+    <p align="center">#{@lab_course.begin_time_real.strftime('%Y-%m-%d %H:%M:%S')} -- #{@lab_course.end_time_real.strftime('%Y-%m-%d %H:%M:%S')}</p>
   </td>
 </tr>
 <tr>

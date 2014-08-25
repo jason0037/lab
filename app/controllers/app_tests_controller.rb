@@ -180,7 +180,7 @@ class AppTestsController < ApplicationController
 
   def getTestHist
 
-    @app_test = AppTest.where(:user_id=>params[:userId],:class_id=>params[:classId])
+    @app_test = AppTest.select("class_id,date_format(created_at,'%Y-%m-%d %h:%I') as time,score").where(:user_id=>params[:userId],:class_id=>params[:classId])
     result = 9999
     if @app_test.blank?
 
@@ -188,10 +188,10 @@ class AppTestsController < ApplicationController
 
     else
 
-      topic = ["","人体奥秘","八大行星","模拟法庭","信息检索"]
+      topic = ["人体奥秘","八大行星","模拟法庭","信息检索"]
 
   
-      testlist= @app_test.to_json(:only =>[:class_id,:created_at,:score])
+      testlist= @app_test.to_json(:only =>[:class_id,:time,:score])
       #testlist=@app_test.to_json(:only =>[:class_id,:created_at,:score])
       result = 0
       render :text => {:code=> result,:testlist=> testlist}.to_json .gsub('\\', '')

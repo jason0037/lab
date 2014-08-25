@@ -22,7 +22,7 @@ Lab::Application.routes.draw do
   end
 
   resources :monitors do
-    post :receive_data , :on=>:collection
+    get :receive_data , :on=>:collection
     get :lab_comprehensive,:on=>:collection
     get :online_comprehensive,:on=>:collection
     get :comprehensive_data,:on=>:collection
@@ -128,7 +128,7 @@ Lab::Application.routes.draw do
     get :learn,:on=>:collection
     get :teach,:on=>:collection
     post :search , :on=>:member
-    post :status , :on=>:collection
+    get :status , :on=>:collection
     get :ready, :on =>:member
   end
 

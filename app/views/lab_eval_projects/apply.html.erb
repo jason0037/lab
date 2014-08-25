@@ -38,12 +38,12 @@
       <tr>
         <td><%= link_to lab_eval_project.name, lab_eval_project_path(lab_eval_project)%></td>
         <td><%= lab_eval_project.version %></td>
-        <td><%= Option.where(:key=>"eval_object_type",:value=>lab_eval_project.category_id).first.name %></td>
-        <td><%= Option.where(:key=>"course_type",:value=>lab_eval_project.course_type).first.name %></td>
-        <td><%= lab_eval_project.lab_scene.name %></td>
-        <td><%= lab_eval_project.lab_supplier.name %></td>
+        <td><%= Option.where(:key=>"eval_object_type",:value=>lab_eval_project.category_id).first.name if lab_eval_project.category_id%></td>
+        <td><%= Option.where(:key=>"course_type",:value=>lab_eval_project.course_type).first.name if lab_eval_project.course_type%></td>
+        <td><%= lab_eval_project.lab_scene.name if  lab_eval_project.scene_id%></td>
+        <td><%= lab_eval_project.lab_supplier.name if  lab_eval_project.supplier_id%></td>
         <td><%= lab_eval_project.lab_user.name %></td>
-        <td><%= Option.where(:key=>"eval_status",:value=>lab_eval_project.status).first.name %></td>
+        <td><%= Option.where(:key=>"eval_status",:value=>lab_eval_project.status).first.name if lab_eval_project.status%></td>
         <td>
         <%if lab_eval_project.status==0 #草稿状态%>
           <%if lab_eval_project.applicant_id==@user.id #申请人可以修改%>

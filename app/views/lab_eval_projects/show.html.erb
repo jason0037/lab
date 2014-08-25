@@ -93,7 +93,50 @@
   </tbody>
 </table>
 
-<table class="table table-striped">
+<table class="table table-striped" >
+  <thead>
+  <tr>
+    <th>评测项目:</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <%eval(@lab_eval_project.eval_means).each do |means|%>
+            <td>
+              <%#=check_box_tag "#{means.key}[#{means.value}]","",:readonly=>true,:checked=>
+                      true%>
+              <%#if mean_value[1]=='"1"'%>
+              <%=means.key%>
+              <%#end%>
+            </td>
+    <%end%>
+    <%if  @lab_eval_project.eval_means%>
+        <% means=@lab_eval_project.eval_means.split(' ')%>
+        <%i=0%>
+        <%means.each do |mean|%>
+            <%=mean%>
+            <%i=i+1%>
+            <%=i%>
+            <%mean_value=mean.split(':')%>
+            <td>
+              <%#=check_box_tag "#{means.key}[#{means.value}]","",:readonly=>true,:checked=>
+                      true%>
+              <%#if mean_value[1]=='"1"'%>
+              <%=mean_value[0]%>
+              <%#end%>
+            </td>
+
+        <%end%>
+    <%end%>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    </tr>
+    </tbody>
+</table>
+
+<table class="table table-striped" >
   <thead>
     <tr>
       <th>评测项目:</th>
@@ -103,7 +146,7 @@
     <tr>
       <%@eval_means.each_with_index do |means,index|%>  
           <td>
-            <%=check_box_tag "#{means.key}[#{means.value}]","",:checked=>
+            <%=check_box_tag "#{means.key}[#{means.value}]","",:readonly=>true,:checked=>
           true%>
             <%=means.name%>
           </td>
@@ -143,10 +186,10 @@
   <%if @lab_eval_project.status==1 #申请状态%>
   <%= link_to t('.approve', :default =>
   t("helpers.links.approve")),
-                          approve_lab_eval_project_path(lab_eval_project), :class => 'btn btn-mini' %>
+                          approve_lab_eval_project_path(@lab_eval_project), :class => 'btn btn-mini' %>
   <%= link_to t('.reject', :default =>
   t("helpers.links.reject")),
-                          reject_lab_eval_project_path(lab_eval_project), :class => 'btn btn-mini' %>
+                          reject_lab_eval_project_path(@lab_eval_project), :class => 'btn btn-mini' %>
   <%end%>
   <%end%>
   <%end%></div>

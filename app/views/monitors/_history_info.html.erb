@@ -17,22 +17,12 @@
       <tr>
         <td><%= link_to @lab_course.id, lab_course_path(@lab_course) %></td>
         <td><%= @lab_course.name %></td>
-        <td><%= Option.where(:key=>"eval_object_type",:value=>lab_course.course_type).first.name if lab_course.course_type%></td>
-        <td><%= Option.where(:key=>"course_type",:value=>lab_course.category_id).first.name if lab_course.category_id %></td>
-        <td><%= @lab_course.lab_user.name %></td>
-        <td><%if lab_course.begin_time_real%>
-              <%=l lab_course.begin_time_real%>
-          <%else%>
-              <%=l lab_course.begin_time%>
-          <%end%>
-        </td>
-        <td><%if lab_course.end_time_real%>
-              <%=l lab_course.end_time_real%>
-          <%else%>
-              <%=l lab_course.end_time%>
-          <%end%>
-        </td>
-        <td><%= Option.where(:key=>"course_status",:value=>lab_course.status).first.name%></td>
+        <td><%= Option.where(:key=>"eval_object_type",:value=>@lab_course.course_type).first.name if @lab_course.course_type%></td>
+        <td><%= Option.where(:key=>"course_type",:value=>@lab_course.category_id).first.name if @lab_course.category_id %></td>
+        <td><%= @lab_course.lab_user.name if @lab_course.teacher_id%></td>
+        <td><%=l @lab_course.begin_time_real%></td>
+        <td><%=l @lab_course.end_time_real%></td>
+        <td><%= Option.where(:key=>"course_status",:value=>@lab_course.status).first.name%></td>
         <td><%= @lab_course.project_id %></td>
         <td><%= @lab_course.lab_scene.name %></td>
       </tr>
