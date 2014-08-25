@@ -37,7 +37,7 @@
         <td><%=l lab_questionnaire.created_at %></td>
         <td><%=l lab_questionnaire.updated_at %></td>
         <td>
-          <%= link_to t('.quesions', :default => t("helpers.links.edit")),
+          <%= link_to t('.quesions', :default => t("helpers.links.questions")),
                       lab_questionnaire_lab_questions_path(lab_questionnaire), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_questionnaire_path(lab_questionnaire), :class => 'btn btn-mini' %>
