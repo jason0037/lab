@@ -110,9 +110,9 @@
                 <%end%>
             <%end%>
             <%if checked==true%>
-                <%=check_box_tag "#{means.key}[#{means.value}]","1",true,:readonly=>"readonly",:disable=>true%>
+                <%=check_box_tag "#{means.key}[#{means.value}]","",true,:readonly=>"readonly",:disable=>true%>
             <%else%>
-                <%=check_box_tag "#{means.key}[#{means.value}]","1",false,:readonly=>"readonly",:disable=>true%>
+                <%=check_box_tag "#{means.key}[#{means.value}]","",false,:readonly=>"readonly",:disable=>true%>
             <%end%>
             <%=means.name%>
           </td>

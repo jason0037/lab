@@ -60,7 +60,7 @@
             <%@eval_means.each_with_index do |means,index|%>
                 <li>
                   <%checked=false%>
-                  <%if @lab_eval_project%>
+                  <%if @lab_eval_project.eval_means%>
                       <%eval(@lab_eval_project.eval_means).each do |mean|%>
                           <%if mean[0]==means.value && mean[1]=="1"%>
                               <%checked=true%>
@@ -68,9 +68,9 @@
                       <%end%>
                   <%end%>
                   <%if checked==true%>
-                      <%=check_box_tag "#{means.key}[#{means.value}]","1",true,:readonly=>"readonly",:disable=>true%>
+                      <%=f.check_box "#{means.key}[#{means.value}]",:checked=>true%>
                   <%else%>
-                      <%=check_box_tag "#{means.key}[#{means.value}]","1",false,:readonly=>"readonly",:disable=>true%>
+                      <%=f.check_box "#{means.key}[#{means.value}]",:checked=>false%>
                   <%end%>
                   <%=means.name%>
                 </li>

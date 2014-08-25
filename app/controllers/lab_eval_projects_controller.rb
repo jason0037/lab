@@ -76,11 +76,9 @@ class LabEvalProjectsController < ApplicationController
   # POST /lab_eval_projects
   # POST /lab_eval_projects.json
   def create
-    params[:lab_eval_project].merge!(:applicant_id=>@user.id)
-    params[:lab_eval_project].merge!(:status=>'0')
     eval_means = params[:lab_eval_project].delete(:eval_means).to_s
-    params[:lab_eval_project].merge!(:eval_means=>eval_means)
-   #return render :text=>eval_means
+
+    params[:lab_eval_project].merge!(:applicant_id=>@user.id,:eval_means=>eval_means,:status=>'0')
 
     @lab_eval_project = LabEvalProject.new(params[:lab_eval_project])
 
