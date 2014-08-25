@@ -20,22 +20,18 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:desc) %></th>
-      <th><%= model_class.human_attribute_name(:question_category) %></th>
-      <th><%= model_class.human_attribute_name(:version) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>问题内容</th>
+      <th>问题类型</th>
+      <th>修改时间</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @lab_questions.each do |lab_question| %>
       <tr>
-        <td><%= link_to lab_question.id, lab_question_path(lab_question) %></td>
-        <td><%= lab_question.desc %></td>
-        <td><%= lab_question.question_category %></td>
-        <td><%= lab_question.version %></td>
-        <td><%=l lab_question.created_at %></td>
+        <td><%= link_to lab_question.desc, lab_question_path(lab_question) %></td>
+        <td><%= lab_question.question_type %></td>
+        <td><%=l lab_question.updated_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_question_path(lab_question), :class => 'btn btn-mini' %>

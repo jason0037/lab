@@ -4,16 +4,22 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:desc) %>:</strong></dt>
-  <dd><%= @lab_question.desc %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:question_category) %>:</strong></dt>
-  <dd><%= @lab_question.question_category %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:version) %>:</strong></dt>
-  <dd><%= @lab_question.version %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:created_at) %>:</strong></dt>
-  <dd><%= @lab_question.created_at %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:updated_at) %>:</strong></dt>
-  <dd><%= @lab_question.updated_at %></dd>
+  <dt><strong>问题内容:</strong></dt>
+  <dd>&nbsp;<%= @lab_question.desc %></dd>
+  <dt><strong>问题类别:</strong></dt>
+  <dd>&nbsp;<%= @lab_question.question_category %></dd>
+  <dt><strong>问题类型:</strong></dt>
+  <dd>&nbsp;<%= @lab_question.version %></dd>
+  <dt><strong>最高权重:</strong></dt>
+  <dd>&nbsp;<%= @lab_question.weight %></dd>
+  <dt><strong>最高分值:</strong></dt>
+  <dd>&nbsp;<%= @lab_question.score %></dd>
+  <dt><strong>回答选项:</strong></dt>
+  <dd>&nbsp;<%= @lab_question.options %></dd>
+  <dt><strong>创建时间:</strong></dt>
+  <dd>&nbsp;<%= @lab_question.created_at %></dd>
+  <dt><strong>修改时间:</strong></dt>
+  <dd>&nbsp;<%= @lab_question.updated_at %></dd>
 </dl>
 
 <div class="form-actions">

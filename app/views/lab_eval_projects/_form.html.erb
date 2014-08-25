@@ -57,12 +57,22 @@
       <%= f.label :eval_means, "评测项目：", :class => 'control-label' %>
       <div class="controls">
         <ul>
-          <%@eval_means.each do |means|%>
-              <li>
-                <%=f.check_box "#{means.key}[#{means.value}]",:checked=>true%>
-                <%=means.name%>
-              </li>
-          <%end%>
+            <%@eval_means.each_with_index do |means,index|%>
+                <li>
+                  <%checked=false%>
+                  <%eval(@lab_eval_project.eval_means).each do |mean|%>
+                      <%if mean[0]==means.value && mean[1]=="1"%>
+                          <%checked=true%>
+                      <%end%>
+                  <%end%>
+                  <%if checked==true%>
+                      <%=check_box_tag "#{means.key}[#{means.value}]","1",true,:readonly=>"readonly",:disable=>true%>
+                  <%else%>
+                      <%=check_box_tag "#{means.key}[#{means.value}]","1",false,:readonly=>"readonly",:disable=>true%>
+                  <%end%>
+                  <%=means.name%>
+                </li>
+            <%end%>
         </ul>
       </div>
     </div>

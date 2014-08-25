@@ -70,8 +70,13 @@ Lab::Application.routes.draw do
     post :search , :on=>:member
   end
 
-  resources :lab_questions do
+  resources :lab_questionnaires do
     post :search , :on=>:member
+    get :status , :on=>:member
+
+    resources :lab_questions do
+      post :search , :on=>:member
+    end
   end
 
  # resources :lab_reports

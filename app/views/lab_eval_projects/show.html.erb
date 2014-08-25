@@ -41,7 +41,7 @@
         <strong>教学场景:</strong>
       </td>
       <td>
-        <%=@lab_eval_project.lab_scene.name  %></td>
+        <%=@lab_eval_project.lab_scene.name if @lab_eval_project.lab_scene  %></td>
     </tr>
     <tr>
       <td>
@@ -56,7 +56,7 @@
         <strong>供应商:</strong>
       </td>
       <td>
-        <%= @lab_eval_project.lab_supplier.name %></td>
+        <%= @lab_eval_project.lab_supplier.name if @lab_eval_project.lab_supplier%></td>
       <td>
         <strong>申请人:</strong>
       </td>
@@ -95,49 +95,6 @@
 
 <table class="table table-striped" >
   <thead>
-  <tr>
-    <th>评测项目:</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <%eval(@lab_eval_project.eval_means).each do |means|%>
-            <td>
-              <%#=check_box_tag "#{means.key}[#{means.value}]","",:readonly=>true,:checked=>
-                      true%>
-              <%#if mean_value[1]=='"1"'%>
-              <%=means.key%>
-              <%#end%>
-            </td>
-    <%end%>
-    <%if  @lab_eval_project.eval_means%>
-        <% means=@lab_eval_project.eval_means.split(' ')%>
-        <%i=0%>
-        <%means.each do |mean|%>
-            <%=mean%>
-            <%i=i+1%>
-            <%=i%>
-            <%mean_value=mean.split(':')%>
-            <td>
-              <%#=check_box_tag "#{means.key}[#{means.value}]","",:readonly=>true,:checked=>
-                      true%>
-              <%#if mean_value[1]=='"1"'%>
-              <%=mean_value[0]%>
-              <%#end%>
-            </td>
-
-        <%end%>
-    <%end%>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    </tr>
-    </tbody>
-</table>
-
-<table class="table table-striped" >
-  <thead>
     <tr>
       <th>评测项目:</th>
     </tr>
@@ -146,8 +103,17 @@
     <tr>
       <%@eval_means.each_with_index do |means,index|%>  
           <td>
-            <%=check_box_tag "#{means.key}[#{means.value}]","",:readonly=>true,:checked=>
-          true%>
+            <%checked=false%>
+            <%eval(@lab_eval_project.eval_means).each do |mean|%>
+                <%if mean[0]==means.value && mean[1]=="1"%>
+                    <%checked=true%>
+                <%end%>
+            <%end%>
+            <%if checked==true%>
+                <%=check_box_tag "#{means.key}[#{means.value}]","1",true,:readonly=>"readonly",:disable=>true%>
+            <%else%>
+                <%=check_box_tag "#{means.key}[#{means.value}]","1",false,:readonly=>"readonly",:disable=>true%>
+            <%end%>
             <%=means.name%>
           </td>
         <%if index == 4 || index == 9%>

@@ -1,0 +1,29 @@
+<%- model_class = LabQuestionnaire -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong>标题:</strong></dt>
+  <dd><%= @lab_question.question_category %></dd>
+  <dt><strong>说明:</strong></dt>
+  <dd><%= @lab_question.desc %></dd>
+  <dt><strong>版本:</strong></dt>
+  <dd><%= @lab_question.version %></dd>
+  <dt><strong>创建时间:</strong></dt>
+  <dd><%=l @lab_question.created_at %></dd>
+  <dt><strong>修改时间:</strong></dt>
+  <dd><%=l @lab_question.updated_at %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              lab_questionnaires_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_lab_questionnaire_path(@lab_question), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              lab_questionnaire_path(@lab_question),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

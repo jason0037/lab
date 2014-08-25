@@ -4,6 +4,11 @@ class CreateLabQuestions < ActiveRecord::Migration
       t.string :desc
       t.integer :question_category
       t.string :version
+      t.integer :questionnaire_id
+      t.integer :question_type
+      t.integer :weight
+      t.integer :score
+      t.string :options
 
       t.timestamps
     end

@@ -78,7 +78,7 @@ class LabEvalProjectsController < ApplicationController
   def create
     params[:lab_eval_project].merge!(:applicant_id=>@user.id)
     params[:lab_eval_project].merge!(:status=>'0')
-    eval_means = params[:lab_eval_project].delete(:eval_means).to_json.to_s
+    eval_means = params[:lab_eval_project].delete(:eval_means).to_s
     params[:lab_eval_project].merge!(:eval_means=>eval_means)
    #return render :text=>eval_means
 
@@ -116,8 +116,6 @@ class LabEvalProjectsController < ApplicationController
 
   def submit_apply
     @lab_eval_project = LabEvalProject.find(params[:id])
-    eval_means = params[:lab_eval_project].delete(:eval_means).to_json.to_s
-    params[:lab_eval_project].merge!(:eval_means=>eval_means)
     respond_to do |format|
       if @lab_eval_project.update_attributes(:status => '1')
         format.html { redirect_to @lab_eval_project, notice: 'Lab eval project was successfully approved.' }

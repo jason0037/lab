@@ -9,7 +9,7 @@ class LabQuestionsController < ApplicationController
 
     @lab_questions =  LabQuestion.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
     if @key
-      @lab_questions =@lab_questions.where("name like '%#{@key}%'")
+      @lab_questions =@lab_questions.where("desc like '%#{@key}%'")
     end
     render 'lab_questions/index'
   end
@@ -39,6 +39,7 @@ class LabQuestionsController < ApplicationController
   # GET /lab_questions/new.json
   def new
     @lab_question = LabQuestion.new
+    @questionnaire_id = params[:lab_questionnaire_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -54,7 +55,9 @@ class LabQuestionsController < ApplicationController
   # POST /lab_questions
   # POST /lab_questions.json
   def create
+    params[:lab_question].merge!(:questionnaire_id=>params[:questionnaire_id])
     @lab_question = LabQuestion.new(params[:lab_question])
+
 
     respond_to do |format|
       if @lab_question.save
