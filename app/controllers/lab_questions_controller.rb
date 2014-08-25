@@ -6,8 +6,9 @@ class LabQuestionsController < ApplicationController
   def search
     @action='/lab_questions/0/search'
     @key=params[:key]
+    @questionnaire = params[:lab_questionnaire_id]
 
-    @lab_questions =  LabQuestion.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    @lab_questions =  LabQuestion.find_by_questionnaire_id(@questionnaire).paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
     if @key
       @lab_questions =@lab_questions.where("desc like '%#{@key}%'")
     end
@@ -15,8 +16,11 @@ class LabQuestionsController < ApplicationController
   end
 
   def index
+    @questionnaire_id = params[:lab_questionnaire_id]
     @action='/lab_questions/0/search'
-    @lab_questions = LabQuestion.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+    @questionnaire = params[:lab_questionnaire_id]
+
+    @lab_questions =  LabQuestion.find_by_questionnaire_id(@questionnaire).paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb

@@ -20,7 +20,6 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th>标题</th>
       <th>版本</th>
       <th>状态</th>
@@ -32,18 +31,19 @@
   <tbody>
     <% @lab_questionnaires.each do |lab_questionnaire| %>
       <tr>
-        <td><%= link_to lab_questionnaire.id, lab_questionnaire_path(lab_questionnaire) %></td>
-        <td><%= lab_questionnaire.title %></td>
+        <td><%= link_to lab_questionnaire.title, lab_questionnaire_path(lab_questionnaire) %></td>
         <td><%= lab_questionnaire.version %></td>
         <td><%= lab_questionnaire.status %></td>
         <td><%=l lab_questionnaire.created_at %></td>
         <td><%=l lab_questionnaire.updated_at %></td>
         <td>
+          <%= link_to t('.quesions', :default => t("helpers.links.edit")),
+                      lab_questionnaire_lab_questions_path(lab_questionnaire), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_questionnaire_path(lab_questionnaire), :class => 'btn btn-mini' %>
           <% if lab_questionnaire.status==0%>
               <%= link_to t('.publish', :default => t("helpers.links.publish")),
-                          edit_lab_questionnaire_path(lab_questionnaire), :class => 'btn btn-mini' %>
+                          status_lab_questionnaire_path(lab_questionnaire), :class => 'btn btn-mini' %>
           <%elsif lab_questionnaire.status==1%>
               <%= link_to t('.abandon', :default => t("helpers.links.abandon")),
                           status_lab_questionnaire_path(lab_questionnaire),

@@ -35,7 +35,7 @@ class LabQuestionnairesController < ApplicationController
     end
   end
 
-  # GET /lab_questionnaires/1/status?status=1
+  # GET /lab_questionnaires/1/status
   def status
     questionnaire= LabQuestionnaire.find(params[:id])
     if questionnaire.status==1

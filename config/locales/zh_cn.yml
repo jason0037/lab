@@ -22,6 +22,7 @@ zh_cn:
       lab_course:  "教学评测"
       abandon: "废除"
       publish: "发布"
+      questions: "问题管理"
 
     titles:
       edit: "修改"
