@@ -12,7 +12,7 @@ class LabReportsController < ApplicationController
   layout "blank"#,:except => [:show]
 
   def export_excel
-    data = LabDataMinute.where(:course_id=>params[:id]).includes(:good_type,:brand,:cat,:products)
+    data = LabDataMinute.where(:course_id=>params[:id])
 
     package = Axlsx::Package.new
     workbook = package.workbook
