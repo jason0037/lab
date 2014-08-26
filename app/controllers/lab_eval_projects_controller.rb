@@ -37,10 +37,12 @@ class LabEvalProjectsController < ApplicationController
 
   def index
     @action='/lab_eval_projects/0/search'
+    @lab_eval_projects = LabEvalProject.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+
     if @user.role_id==4 || @user.role_id==6 #实验室管理员或系统管理员
-      @lab_eval_projects = LabEvalProject.where("status>1") #审批通过的项目进入评测
+      @lab_eval_projects = @lab_eval_projects.where("status>1") #审批通过的项目进入评测
     end
-    @lab_eval_projects = @lab_eval_projects.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @lab_eval_projects }
@@ -62,6 +64,7 @@ class LabEvalProjectsController < ApplicationController
   # GET /lab_eval_projects/new.json
   def new
     @eval_means = Option.where(:key=>"eval_means")
+    @questionnaires=LabQuestionnaire.where(:status=>1)
     @lab_eval_project = LabEvalProject.new
 
     render :layout => "blank"
@@ -99,8 +102,10 @@ class LabEvalProjectsController < ApplicationController
   # PUT /lab_eval_projects/1.json
   def update
     @lab_eval_project = LabEvalProject.find(params[:id])
+
     eval_means = params[:lab_eval_project].delete(:eval_means).to_s
     params[:lab_eval_project].merge!(:eval_means=>eval_means)
+
     respond_to do |format|
       if @lab_eval_project.update_attributes(params[:lab_eval_project])
         format.html { redirect_to @lab_eval_project, notice: 'Lab eval project was successfully updated.' }
@@ -159,7 +164,7 @@ class LabEvalProjectsController < ApplicationController
     @lab_eval_project.destroy
 
     respond_to do |format|
-      format.html { redirect_to lab_eval_projects_url }
+      format.html { redirect_to apply_lab_eval_projects_url }
       format.json { head :no_content }
     end
   end

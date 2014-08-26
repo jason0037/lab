@@ -137,6 +137,13 @@ Lab::Application.routes.draw do
     get :ready, :on =>:member
   end
 
+  resources :lab_courses do
+    member do
+      get 'grand'
+      get 'opinion'
+    end
+  end
+
   resources :lab_eval_projects do
 
     resources :lab_questions_scores

@@ -74,9 +74,9 @@
           <%if lab_course.status==3%>
                 <%= link_to "分析图表" , history_monitors_path("lab_course_id"=>lab_course.id), :class => 'btn btn-mini' %>
               <% if @user.role_id==4 || @user.role_id==6%>
-                  <%= link_to "评测意见" , history_monitors_path("lab_course_id"=>lab_course.id), :class => 'btn btn-mini' %>
+                  <%= link_to "评测意见" , opinion_lab_courses_path(lab_course), :class => 'btn btn-mini' %>
               <% elsif lab_courses.teacher_id==@user.id%>
-                  <%= link_to "学生成绩" , history_monitors_path("lab_course_id"=>lab_course.id), :class => 'btn btn-mini' %>
+                  <%= link_to "学生成绩" , grand_lab_courses_path(lab_course), :class => 'btn btn-mini' %>
               <%end%>
                 <%=link_to '生成报告', lab_report_path(lab_course), :class => 'btn btn-mini' %>
           <%end%>

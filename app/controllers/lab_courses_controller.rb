@@ -125,7 +125,6 @@ class LabCoursesController < ApplicationController
   def create
     params[:lab_course].merge!(:project_id=>params[:project_id],:status=>0)
 
-
     @lab_course = LabCourse.new(params[:lab_course])
 
     respond_to do |format|
@@ -139,11 +138,25 @@ class LabCoursesController < ApplicationController
     end
   end
 
+  # GET /lab_courses/1/grand
+  def grand
+    @lab_course = LabCourse.find(params[:id])
+  end
+
+  # GET /lab_course/1/opinion
+  def opinion
+    @lab_course = LabCourse.find(params[:id])
+  end
+
   # PUT /lab_courses/1
   # PUT /lab_courses/1.json
   def update
     @lab_course = LabCourse.find(params[:id])
 
+    if params[:lab_course][:grand]
+      grand = params[:lab_course].delete(:grand).to_s
+      params[:lab_course].merge!(:grand=>grand)
+    end
     respond_to do |format|
       if @lab_course.update_attributes(params[:lab_course])
         format.html { redirect_to @lab_course, notice: 'Lab course was successfully updated.' }

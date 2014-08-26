@@ -29,4 +29,10 @@ $(document).ready(function(){
         e.preventDefault();
         e.stopPropagation();
     });
+    $(".iframe_btnss").click(function(e){
+        var url = $(this).attr("href");
+        $("#tab1_framesss").attr("src",url);
+        e.preventDefault();
+        e.stopPropagation();
+    });
 });

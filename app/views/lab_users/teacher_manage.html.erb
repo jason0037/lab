@@ -9,30 +9,16 @@
       <li class="active"><a href="#home"><i class="icon-bar-chart"></i>
         <span>教学首页</span></a></li>
       -->
-      <li class="active"><a href="#teach_design"><i class="icon-bar-chart"></i>
-        <span>教学设计</span></a></li>
-      <li>
-        <a href="#teach_resources">
+      <li class="active">
+        <a href="#teach_tools">
           <i class="icon-bar-chart"></i>
-          <span>教学资源库</span>
+          <span>教学工具</span>
         </a>
       </li>
       <li>
-         <a href="#student_query">
-            <i class="icon-bar-chart"></i>
-            <span>学生查询</span>
-         </a>
-      </li>
-      <li>
-        <%= link_to teach_lab_courses_path, :class => 'metro-btn',:target=>"_blank" do%>
+        <a href="#mooc">
             <i class="icon-bar-chart"></i>
             <span>MOOC课程</span>
-        <%end%>
-      </li>
-      <li>
-        <a href="#mobile_courses">
-          <i class="icon-bar-chart"></i>
-          <span>移动课程</span>
         </a>
       </li>
       <li><a href="#eval"><i class="icon-bar-chart"></i>
@@ -40,7 +26,7 @@
     </ul>
     <div class="tab-content hide">
       <!--
-      <div class="tab-pane full_height active" id="home">
+      <div class="tab-pane full_height" id="home">
         <div class="home_top">
           <div class="home_top_left">
             <ul>
@@ -58,19 +44,44 @@
         </div>
       </div>
       -->
-      <div class="tab-pane full_height  active" id="teach_design">
-        <iframe id="tab1_frame" src="<%=lab_teach_designs_path%>"></iframe>
+      <div class="tab-pane full_height  active" id="teach_tools">
+        <div class="help-inline full_width" >
+          <%= link_to lab_teach_designs_path, :class => 'lab_metro metro-btn iframe_btnss' do%>
+              <span>教学设计</span>
+          <%end%>
+          <%= link_to lab_teach_resources_path, :class => 'lab_metro metro-btn iframe_btnss',:target=>"_blank" do%>
+              <span>教学资源库</span>
+          <%end%>
+          <%= link_to '/lab_notices/10', :class => 'lab_metro metro-btn iframe_btnss' do%>
+              <span>多屏互动</span>
+          <%end%>
+          <%= link_to '/lab_notices/11', :class => 'lab_metro metro-btn iframe_btnss' do%>
+              <span>3D</span>
+          <%end%>
+          <%= link_to '/lab_notices/12', :class => 'lab_metro metro-btn iframe_btnss' do%>
+              <span>投影</span>
+          <%end%>
+          <%= link_to '/lab_notices/13', :class => 'lab_metro metro-btn iframe_btnss' do%>
+              <span>幻影成像</span>
+          <%end%>
+        </div>
+        <iframe id="tab1_framesss" src="<%=lab_teach_designs_path%>"></iframe>
       </div>
-      <div class="tab-pane full_height" id="teach_resources">
-        <iframe id="tab1_frame" src="<%=lab_teach_resources_path%>"></iframe>
+      <div class="tab-pane full_height" id="mooc">
+        <div class="help-inline full_width">
+          <%= link_to query_lab_users_path, :class => 'lab_metro metro-btn iframe_btns' do%>
+              <span>学生查询</span>
+          <%end%>
+          <%= link_to teach_lab_courses_path, :class => 'lab_metro metro-btn iframe_btns',:target=>"_blank" do%>
+              <span>MOOC课程</span>
+          <%end%>
+          <%= link_to lab_mobile_courses_path, :class => 'lab_metro metro-btn iframe_btns' do%>
+              <span>移动课程</span>
+          <%end%>
+        </div>
+        <iframe id="tab1_framess" src="<%=lab_mobile_courses_path%>"></iframe>
       </div>
-      <div class="tab-pane full_height" id="student_query">
-        <iframe id="tab1_frame" src="<%=query_lab_users_path%>"></iframe>
-      </div>
-      <div class="tab-pane full_height" id="mooc">...</div>
-      <div class="tab-pane full_height" id="mobile_courses">
-        <iframe id="tab1_frame" src="<%=lab_mobile_courses_path%>"></iframe>
-      </div>
+
       <div class="tab-pane full_height" id="eval">
         <div class="help-inline full_width">
           <%= link_to apply_lab_eval_projects_path, :class => 'lab_metro metro-btn iframe_btn' do%>
@@ -83,7 +94,7 @@
 
         <iframe id="tab1_frames" src="<%=apply_lab_eval_projects_path%>"></iframe>
       </div>
-    </div> 
+    </div>
 </div>
 <%= javascript_include_tag "jquery.fancybox", "jquery_mousewheel_pack" %>
 <%= stylesheet_link_tag "jquery_fancybox", :media => "screen" %>
