@@ -80,7 +80,7 @@ Lab::Application.routes.draw do
   end
 
   resources :lab_reports do
-    get :export_excel , on=>:member
+    get :export_excel , :on=>:member
   end
 
 
