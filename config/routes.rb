@@ -79,7 +79,9 @@ Lab::Application.routes.draw do
     end
   end
 
- # resources :lab_reports
+  resources :lab_reports do
+    get :export_excel , on=>:member
+  end
 
 
   resources :lab_equipments
