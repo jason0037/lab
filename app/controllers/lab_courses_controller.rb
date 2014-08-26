@@ -153,10 +153,11 @@ class LabCoursesController < ApplicationController
   def update
     @lab_course = LabCourse.find(params[:id])
 
-    if params[:lab_course][:grand]
-      grand = params[:lab_course].delete(:grand).to_s
+    if params[:grand]
+      grand = params[:grand].to_s
       params[:lab_course].merge!(:grand=>grand)
     end
+
     respond_to do |format|
       if @lab_course.update_attributes(params[:lab_course])
         format.html { redirect_to @lab_course, notice: 'Lab course was successfully updated.' }

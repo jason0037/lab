@@ -3,12 +3,46 @@ require 'pp'
 require 'htmltoword'
 require 'wicked_pdf'
 require 'prawn'
+require 'axlsx'
 
 class LabReportsController < ApplicationController
 
   # GET /lab_reports
   # GET /lab_reports.json
   layout "blank"#,:except => [:show]
+
+  def export_excel
+    data = LabDataMinute.where(:course_id=>params[:id]).includes(:good_type,:brand,:cat,:products)
+
+    package = Axlsx::Package.new
+    workbook = package.workbook
+    workbook.styles do |s|
+      head_cell = s.add_style  :b=>true, :sz => 10, :alignment => { :horizontal => :center,
+                                                                    :vertical => :center}
+      goods_cell = s.add_style :b=>true,:bg_color=>"FFFACD", :sz => 10, :alignment => {:vertical => :center}
+      product_cell =  s.add_style  :sz => 9
+
+      workbook.add_worksheet(:name => "Product") do |sheet|
+
+        sheet.add_row ['时间',"注意力","放松度","体态","网络上行","网络下行","能耗","温度","湿度"],
+                      :style=>head_cell
+
+        row_count=0
+
+        data.each do |d|
+
+          sheet.add_row [d.read_at,d.attention,d.meditation,d.behaviour,d.network_up,d.network_down,d.energy_consumption,d.temperatrue,d.humidity],
+                        :style=>goods_cell,:height=> 40
+
+          row_count +=1
+
+          sheet.column_widths nil, nil,nil,nil,nil,10
+        end
+      end
+    end
+
+    send_data package.to_stream.read,:filename=>"report_#{Time.now.strftime('%Y%m%d%H%M%S')}.xlsx"
+  end
 
   def export
     id=params[:id]
