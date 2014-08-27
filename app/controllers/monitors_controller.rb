@@ -559,7 +559,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
           end
         end
 
-        if categories ==""
+        if categories =="" && cats_str !=""
           categories = "<categories>#{cats_str}</categories>"
         end
         datasets = datasets + "<dataset seriesName='学生#{source}' showValues='0'>#{data_str1}</dataset>"
@@ -626,7 +626,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
           cats_str += "<category label='#{times}'/>"
         end
 
-        if categories ==""
+        if categories =="" && cats_str !=""
           categories = "<categories>#{cats_str}</categories>"
         end
         datasets = datasets + "<dataset seriesName='学生#{source}' showValues='0'>#{data_str1}</dataset>"
