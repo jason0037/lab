@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class AppTestsController < ApplicationController
-  before_filter :authorize_user!,:except => [:register,:update,:getUserInfo,:saveTestScore,:getTestScore,:getTestHist,:modify_pass,:login]
+  before_filter :authorize_user!,:except => [:register,:update,:getUserInfo,:saveTestScore,:getTestScore,:getTestHist,:login,:getGameScore,:saveGameScore]
 
   def search
     @action='/app_tests/0/search'
