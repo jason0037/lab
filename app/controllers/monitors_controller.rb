@@ -559,7 +559,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
           end
         end
 
-        if categories ==""
+        if categories =="" && cats_str !=""
           categories = "<categories>#{cats_str}</categories>"
         end
         datasets = datasets + "<dataset seriesName='学生#{source}' showValues='0'>#{data_str1}</dataset>"
