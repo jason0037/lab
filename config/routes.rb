@@ -200,16 +200,19 @@ Lab::Application.routes.draw do
   end
 
   resources :app_tests do
-    get :register,:on=>:collection
-    post :login,:on=>:collection
-    post :updateUserInfo,:on=>:collection
-    get :getUserInfo,:on=>:collection
-    post :saveTestScore,:on=>:collection
-    get :getTestScore,:on=>:collection
-    post :saveGameScore,:on=>:collection
-    get :getGameScore,:on=>:collection
-    get :getTestHist,:on=>:collection
-    get :changePwd, :on=>:collection
+    collection do
+      get :register
+      post :login
+      post :updateUserInfo
+      get :getUserInfo
+      post :saveTestScore
+      get :getTestScore
+      post :saveGameScore
+      get :getGameScore
+      get :getTestHist
+      get :changePwd
+    end
+
     post :search , :on=>:member
   end
 

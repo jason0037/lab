@@ -52,7 +52,13 @@ class AppTestsController < ApplicationController
 
     #saveTestScore begin
    if params[:app_test]
+     game_id = params[:app_test].delete(:game_id)
+
+     if game_id
+        params[:app_test].merge!(:test_type=>1,:class_id=>game_id)
+     else
        params[:app_test].merge!(:test_type=>0)
+     end
        @app_test = AppTest.new(params[:app_test])
        if @app_test.save
          result =0
@@ -125,7 +131,6 @@ class AppTestsController < ApplicationController
 
   # POST
   def saveGameScore
-   #return render :text=>params[:app_test].to_s
     result = 9999
 
     if params[:app_test]
