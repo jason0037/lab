@@ -206,6 +206,8 @@ Lab::Application.routes.draw do
     get :getUserInfo,:on=>:collection
     post :saveTestScore,:on=>:collection
     get :getTestScore,:on=>:collection
+    post :saveGameScore,:on=>:collection
+    get :getGameScore,:on=>:collection
     get :getTestHist,:on=>:collection
     get :changePwd, :on=>:collection
     post :search , :on=>:member
