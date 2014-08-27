@@ -64,6 +64,7 @@ class LabEvalProjectsController < ApplicationController
   # GET /lab_eval_projects/new.json
   def new
     @eval_means = Option.where(:key=>"eval_means")
+    @teach_tools = Option.where(:key=>"teach_tools")
     @questionnaires=LabQuestionnaire.where(:status=>1)
     @lab_eval_project = LabEvalProject.new
 
@@ -73,15 +74,17 @@ class LabEvalProjectsController < ApplicationController
   # GET /lab_eval_projects/1/edit
   def edit
     @eval_means = Option.where(:key=>"eval_means")
+    @teach_tools = Option.where(:key=>"teach_tools")
     @lab_eval_project = LabEvalProject.find(params[:id])
   end
 
   # POST /lab_eval_projects
   # POST /lab_eval_projects.json
   def create
+    teach_tools = params[:lab_eval_project].delete(:teach_tools).to_s
     eval_means = params[:lab_eval_project].delete(:eval_means).to_s
 
-    params[:lab_eval_project].merge!(:applicant_id=>@user.id,:eval_means=>eval_means,:status=>'0')
+    params[:lab_eval_project].merge!(:applicant_id=>@user.id,:eval_means=>eval_means,:teach_tools=>teach_tools,:status=>'0')
 
     @lab_eval_project = LabEvalProject.new(params[:lab_eval_project])
 
@@ -89,8 +92,6 @@ class LabEvalProjectsController < ApplicationController
       if @lab_eval_project.save
         format.html { redirect_to apply_lab_eval_projects_path, notice: 'Lab eval project was successfully created.' }
         format.json { render json: apply_lab_eval_projects_path, status: :created, location: apply_lab_eval_projects_path }
-        #format.html { redirect_to @lab_eval_project, notice: 'Lab eval project was successfully created.' }
-        #format.json { render json: @lab_eval_project, status: :created, location: @lab_eval_project }
       else
         format.html { render action: "new" }
         format.json { render json: @lab_eval_project.errors, status: :unprocessable_entity }
@@ -103,8 +104,9 @@ class LabEvalProjectsController < ApplicationController
   def update
     @lab_eval_project = LabEvalProject.find(params[:id])
 
+    teach_tools = params[:lab_eval_project].delete(:teach_tools).to_s
     eval_means = params[:lab_eval_project].delete(:eval_means).to_s
-    params[:lab_eval_project].merge!(:eval_means=>eval_means)
+    params[:lab_eval_project].merge!(:eval_means=>eval_means,:teach_tools=>teach_tools)
 
     respond_to do |format|
       if @lab_eval_project.update_attributes(params[:lab_eval_project])

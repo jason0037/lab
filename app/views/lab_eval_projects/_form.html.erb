@@ -7,7 +7,7 @@
       <%= f.text_field :name, :class => 'text_field' ,:style=>'width:500px' %>
     </div>
   </div>
-    <div class="muti_columns_main">
+  <div class="muti_columns_main">
       <div class="muti_columns">
   <div class="control-group">
     <%= f.label :version, :class => 'control-label' do%>
@@ -52,38 +52,63 @@
           </div>
         </div>
   </div>
-  <div class="muti_columns">
-    <div class="control-group">
-      <%= f.label :eval_means, "评测项目：", :class => 'control-label' %>
-      <div class="controls">
-        <ul>
-            <%@eval_means.each_with_index do |means,index|%>
-                <li>
-                  <%checked=false%>
-                  <%if @lab_eval_project.eval_means%>
-                      <%eval(@lab_eval_project.eval_means).each do |mean|%>
-                          <%if mean[0]==means.value && mean[1]=="1"%>
-                              <%checked=true%>
+      <div class="muti_columns">
+        <div class="control-group">
+          <%= f.label :eval_means, "评测项目：", :class => 'control-label' %>
+          <div class="controls">
+            <ul>
+                <%@eval_means.each_with_index do |means,index|%>
+                    <li>
+                      <%checked=false%>
+                      <%if @lab_eval_project.eval_means%>
+                          <%eval(@lab_eval_project.eval_means).each do |mean|%>
+                              <%if mean[0]==means.value && mean[1]=="1"%>
+                                  <%checked=true%>
+                              <%end%>
                           <%end%>
                       <%end%>
-                  <%end%>
-                  <%if checked==true%>
-                      <%=f.check_box "#{means.key}[#{means.value}]",:checked=>true%>
-                  <%else%>
-                      <%=f.check_box "#{means.key}[#{means.value}]",:checked=>false%>
-                  <%end%>
-                  <%=means.name%>
-                </li>
-            <%end%>
-        </ul>
+                      <%if checked==true%>
+                          <%=f.check_box "#{means.key}[#{means.value}]",:checked=>true%>
+                      <%else%>
+                          <%=f.check_box "#{means.key}[#{means.value}]",:checked=>false%>
+                      <%end%>
+                      <%=means.name%>
+                    </li>
+                <%end%>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
     <div class="control-group" style="clear:both">
       <%= f.label :brief, "简介：", :class => 'control-label' %>
       <div class="controls">
         <%= f.text_area :brief, :class => 'text_field',:style=>"width:500px" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :eval_means, "教学工具：", :class => 'control-label' %>
+      <div class="controls">
+        <ul>
+          <%@teach_tools.each_with_index do |tools,index|%>
+              <li>
+                <%checked=false%>
+                <%if @lab_eval_project.teach_tools%>
+                    <%eval(@lab_eval_project.teach_tools).each do |tool|%>
+                        <%if tool[0]==tools.value && tool[1]=="1"%>
+                            <%checked=true%>
+                        <%end%>
+                    <%end%>
+                <%end%>
+                <%if checked==true%>
+                    <%=f.check_box "#{tools.key}[#{tools.value}]",:checked=>true%>
+                <%else%>
+                    <%=f.check_box "#{tools.key}[#{tools.value}]",:checked=>false%>
+                <%end%>
+                <%=tools.name%>
+              </li>
+          <%end%>
+        </ul>
       </div>
     </div>
 

@@ -31,7 +31,7 @@ class LabReportsController < ApplicationController
 
         data.each do |d|
 
-          sheet.add_row [d.read_at,d.attention,d.meditation,d.behaviour,d.network_up,d.network_down,d.energy_consumption,d.temperatrue,d.humidity],
+          sheet.add_row [d.read_at,d.attention,d.meditation,d.behaviour,d.network_up,d.network_down,d.energy_consumption,d.temperature,d.humidity],
                         :style=>goods_cell,:height=> 40
 
           row_count +=1

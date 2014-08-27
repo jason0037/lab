@@ -1,6 +1,6 @@
 # encoding: utf-8
 class AppTest < ActiveRecord::Base
-  attr_accessible :user_id, :class_id, :score, :deviceType, :version
+  attr_accessible :user_id, :class_id, :score, :deviceType, :version,:test_type
 
   belongs_to :lab_user,:foreign_key=>"user_id"
 

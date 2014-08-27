@@ -534,7 +534,6 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     data_str1 = ""
     str = ""
     [1,2,3,4].each do |source|
-   # [1].each do |source|
         sql = "select sum(value)/count(*)/80 as value ,left(read_at,12) as read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
    #     str = str + sql
         results = ActiveRecord::Base.connection.execute(sql)
@@ -551,8 +550,6 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
           else
             current = DateTime.parse(row["read_at"])
             last = DateTime.parse(last_time)
-            dis = (current - last)* 24 * 60
-        #    if dis == 20
               last_time = row["read_at"]
               times = row["read_at"][8..12]
               times = times[0..1] + ":"+times[2..3]
