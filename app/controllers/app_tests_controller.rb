@@ -162,7 +162,7 @@ class AppTestsController < ApplicationController
   end
 
   def getTestScore
-    @app_test = AppTest.where(:user_id=>params[:userId],:class_id=>params[:classId],:test_type=>1).order(created_at: :desc).first
+    @app_test = AppTest.where(:user_id=>params[:userId],:class_id=>params[:classId],:test_type=>0).order(created_at: :desc).first
     result =9999
     if @app_test.blank?
       # "用户不存在."

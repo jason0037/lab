@@ -12,7 +12,66 @@ class LabReportsController < ApplicationController
   layout "blank"#,:except => [:show]
 
   def export_excel
-    data = LabDataMinute.where(:course_id=>params[:id])
+    course_id =params[:id]
+    @data = LabDataMinute.where(:course_id=>course_id)
+
+    if @data.size==0
+     source = 1
+     source_max =4
+     @lab_course= LabCourse.find(course_id)
+     begin_time  = @lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')
+     end_time = @lab_course.end_time_real.strftime('%Y%m%d%H%M%S')
+      sql =''
+      while source <= source_max  do
+        sql +=" INSERT lab_development.lab_data_minutes (read_at,attention,course_id,source) SELECT minute,value,#{course_id},'#{source}' from lab_development.M000001_minute where source=#{source} and point_id='000000' and  minute>='#{begin_time}' and minute<='#{end_time}'; "
+        source +=1
+      end
+     #注意力
+    # return render  :text=> sql
+    # sql ="insert lab_development.lab_data_minutes (read_at,attention,course_id,source) select minute,value,6,1 from lab_development.M000001_minute where source=1 and point_id='000000' and minute>='20140812170000' and minute<='20140812174500'; insert lab_development.lab_data_minutes (read_at,attention,course_id,source) select minute,value,6,2 from lab_development.M000001_minute where source=2 and point_id='000000' and minute>='20140812170000' and minute<='20140812174500'; insert lab_development.lab_data_minutes (read_at,attention,course_id,source) select minute,value,6,3 from lab_development.M000001_minute where source=3 and point_id='000000' and minute>='20140812170000' and minute<='20140812174500'; insert lab_development.lab_data_minutes (read_at,attention,course_id,source) select minute,value,6,4 from lab_development.M000001_minute where source=4 and point_id='000000' and minute>='20140812170000' and minute<='20140812174500';"
+    ActiveRecord::Base.connection.execute(sql)
+     source = 1
+     while source <= source_max  do
+        #放松度
+        sql +=" UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.M000001_minute
+   ON lab_development.lab_data_minutes.read_at = lab_development.M000001_minute.minute
+  SET lab_development.lab_data_minutes.meditation = lab_development.M000001_minute.value
+  where lab_development.M000001_minute.source=#{source} and lab_development.M000001_minute.point_id='000001';"
+        #行为体态
+        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.B000001_minute
+   ON lab_development.lab_data_minutes.read_at = lab_development.B000001_minute.minute
+  SET lab_development.lab_data_minutes.behaviour = lab_development.B000001_minute.value
+  where lab_development.B000001_minute.source=#{source} and lab_development.B000001_minute.point_id='000000';"
+        #网络上行
+        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.R000001_minute
+   ON lab_development.lab_data_minutes.read_at = lab_development.R000001_minute.minute
+  SET lab_development.lab_data_minutes.network_up = lab_development.R000001_minute.value
+  where lab_development.R000001_minute.point_id='000001';"
+        #网络下行
+        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.R000001_minute
+   ON lab_development.lab_data_minutes.read_at = lab_development.R000001_minute.minute
+  SET lab_development.lab_data_minutes.network_down = lab_development.R000001_minute.value
+  where lab_development.R000001_minute.point_id='000002';"
+        #能耗
+        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
+   ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
+  SET lab_development.lab_data_minutes.energy_consumption = lab_development.C000001_minute.value
+  where lab_development.C000001_minute.point_id='000001';"
+        #设备温度
+        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
+   ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
+  SET lab_development.lab_data_minutes.temperature = lab_development.C000001_minute.value
+  where lab_development.C000001_minute.point_id='000002';"
+        #湿度
+        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
+   ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
+  SET lab_development.lab_data_minutes.humidity = lab_development.C000001_minute.value
+  where lab_development.C000001_minute.point_id='000003';"
+        source +=1
+      end
+     #return render  :text=> sql
+      #ActiveRecord::Base.connection.execute(sql)
+    end
 
     package = Axlsx::Package.new
     workbook = package.workbook
@@ -29,7 +88,7 @@ class LabReportsController < ApplicationController
 
         row_count=0
 
-        data.each do |d|
+        @data.each do |d|
 
           sheet.add_row [d.read_at,d.attention,d.meditation,d.behaviour,d.network_up,d.network_down,d.energy_consumption,d.temperature,d.humidity],
                         :style=>goods_cell,:height=> 40
@@ -47,8 +106,34 @@ class LabReportsController < ApplicationController
   def export
     id=params[:id]
     @lab_course = LabCourse.find(id)
+
+    source = 1
+    source_max = 4
+    getvalues = ['max','min','avg']
+
+    getvalues.each do |getvalue|
+      while source<=source_max do
+        sql = "select #{getvalue}(behaviour) from lab_development.lab_data_minutes where course_id =#{id} and source=#{source}"
+        behaviour_average[source] = ActiveRecord::Base.connection.execute(sql)
+      end
+    end
+    behaviour_average_1 = 0
+    behaviour_average_2 = 0
+    behaviour_average_3 = 0
+    behaviour_average_4 = 0
+    behaviour_low_1 = 0
+    behaviour_low_2 = 0
+    behaviour_low_3 = 0
+    behaviour_low_4 = 0
+    behaviour_height_1 = 0
+    behaviour_height_2 = 0
+    behaviour_height_3 = 0
+    behaviour_height_4 = 0
+
     #@app_test =AppTest.where(:course_id=>id).limit(0,4)
     @app_test =AppTest.limit(4)
+
+
     students_score=''
     i = 0
     @app_test.each do |app_test|
@@ -278,16 +363,16 @@ html_behaviour_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100
       <strong>课堂最高安静指数</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">94</p>
+    <p align="center">#{behaviour_height_1}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">93</p>
+    <p align="center">#{behaviour_height_2}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">88</p>
+    <p align="center">#{behaviour_height_3}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">99</p>
+    <p align="center">#{behaviour_height_4}</p>
   </td>
 </tr>
 <tr>
@@ -296,16 +381,16 @@ html_behaviour_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100
       <strong>课堂最低安静指数</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">24</p>
+    <p align="center">#{behaviour_low_1}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">41</p>
+    <p align="center">#{behaviour_low_2}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">34</p>
+    <p align="center">#{behaviour_low_3}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">11</p>
+    <p align="center">#{behaviour_low_4}</p>
   </td>
 </tr>
 <tr>
@@ -314,16 +399,16 @@ html_behaviour_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100
       <strong>课堂平均安静指数</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">72</p>
+    <p align="center">#{behaviour_average_1}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">46</p>
+    <p align="center">#{behaviour_average_2}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">58</p>
+    <p align="center">#{behaviour_average_3}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">39</p>
+    <p align="center">#{behaviour_average_4}</p>
   </td>
 </tr>
 <tr>

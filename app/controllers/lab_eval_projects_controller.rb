@@ -82,6 +82,7 @@ class LabEvalProjectsController < ApplicationController
   # POST /lab_eval_projects.json
   def create
     teach_tools = params[:lab_eval_project].delete(:teach_tools).to_s
+    return render :text=>teach_tools
     eval_means = params[:lab_eval_project].delete(:eval_means).to_s
 
     params[:lab_eval_project].merge!(:applicant_id=>@user.id,:eval_means=>eval_means,:teach_tools=>teach_tools,:status=>'0')

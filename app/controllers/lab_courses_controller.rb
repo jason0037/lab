@@ -10,6 +10,7 @@ class LabCoursesController < ApplicationController
     status=params[:status]
     result = 9999
     @lab_course= LabCourse.order("id desc").first
+
     now_status = @lab_course.status
     if status  == "1"
       if  now_status == 1
@@ -27,7 +28,32 @@ class LabCoursesController < ApplicationController
         @lab_course.status = 3
         @lab_course.end_time_real=Time.now
         @lab_course.save
+        begin_time  = @lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')
+        end_time = @lab_course.end_time_real.strftime('%Y%m%d%H%M%S')
         #课程结束
+        #生成分钟级数据
+        source_max = 4
+        point_max =3
+        sql =''
+
+        table =['R','M','B','C']
+        table.each do |t|
+          source = 1
+          while source <= source_max  do
+            point =0
+            while point <= point_max  do
+              sql += "insert lab_development.#{t}000001_minute (point_id,minute,value,source)
+  select '00000#{point}',left(read_at,12),sum(value)/count(*) as value, #{source}
+  from lab_development.#{t}000001_reading where source=#{source} and point_id='00000#{point}'
+   and read_at >= '#{begin_time}' and read_at<='#{end_time}'
+  group by left(read_at,12);"
+              point +=1
+            end
+            source +=1
+          end
+        end
+        #return render  :text=> sql
+        ActiveRecord::Base.connection.execute(sql)
       else
         result=200
       end

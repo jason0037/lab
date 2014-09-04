@@ -13,16 +13,20 @@ class MonitorsController < ApplicationController
     if params[:router].blank?
       return  render :text => { :code => 9999}.to_json
     end
-    router = JSON.parse(params[:router])
-    #return render :text=>router
 
+
+
+    router = JSON.parse(params[:router])
+    read_at =router["read_at"]
+    up = router["up"]
+    down = router["down"]
 
     sql ="insert R000001_reading (point_id,read_at,saved_at,value,source) values
-          ('000001' ,'#{router[:read_at]}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{router[:up]}','1')
-          ,('000002','#{router[:read_at]}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{router[:down]}','1')"
+          ('000001' ,'#{read_at}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{up}','1')
+          ,('000002','#{read_at}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{down}','1')"
     ActiveRecord::Base.connection.execute sql
 
-    render :text => { :code => 0}.to_json
+    render :text => read_at#{ :code => 0}.to_json
     #  rescue
     #    return render :text=>{ :code => 9999 }.to_json
     #  end

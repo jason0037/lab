@@ -1,6 +1,7 @@
 # encoding: utf-8
 class LabEvalProject < ActiveRecord::Base
-  attr_accessible :name,:version,:category_id,:course_type,:scene_id,:status,:supplier_id,:applicant_id,:brief,:status_log,:eval_means,:unit
+  attr_accessible :name,:version,:category_id,:course_type,:scene_id,:status,:supplier_id,:applicant_id,:brief,
+                  :status_log,:eval_means,:unit,:teach_tools,:teach_design,:teach_resource
   belongs_to :lab_user,:foreign_key=>"applicant_id"
   belongs_to :lab_supplier,:foreign_key=>"supplier_id"
   belongs_to :lab_scene,:foreign_key=>"scene_id"
