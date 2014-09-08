@@ -3,6 +3,13 @@
   <header>
       <i class="icon-circle-arrow-up arrow_op"></i>
       <span>评测管理</span>
+     <span class="new_button">
+      <i class="icon-pencil"></i>
+       <%if @user.role_id==4 || @user.role_id ==6 #只有超级管理员和实验室管理员有权新增%>
+         <%= link_to t('.new', :default => t("helpers.links.new")),
+                   new_lab_eval_project_path%>
+       <%end%>
+     </span>
    </header>
 </div>
 <div class="panel">

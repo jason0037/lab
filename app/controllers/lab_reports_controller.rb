@@ -16,124 +16,155 @@ class LabReportsController < ApplicationController
     @data = LabDataMinute.where(:course_id=>course_id)
 
     if @data.size==0
-     source = 1
-     source_max =4
-     @lab_course= LabCourse.find(course_id)
-     begin_time  = @lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')
-     end_time = @lab_course.end_time_real.strftime('%Y%m%d%H%M%S')
-      sql =''
-      while source <= source_max  do
-        sql +=" INSERT lab_development.lab_data_minutes (read_at,attention,course_id,source) SELECT minute,value,#{course_id},'#{source}' from lab_development.M000001_minute where source=#{source} and point_id='000000' and  minute>='#{begin_time}' and minute<='#{end_time}'; "
-        source +=1
-      end
-     #注意力
-    # return render  :text=> sql
-    # sql ="insert lab_development.lab_data_minutes (read_at,attention,course_id,source) select minute,value,6,1 from lab_development.M000001_minute where source=1 and point_id='000000' and minute>='20140812170000' and minute<='20140812174500'; insert lab_development.lab_data_minutes (read_at,attention,course_id,source) select minute,value,6,2 from lab_development.M000001_minute where source=2 and point_id='000000' and minute>='20140812170000' and minute<='20140812174500'; insert lab_development.lab_data_minutes (read_at,attention,course_id,source) select minute,value,6,3 from lab_development.M000001_minute where source=3 and point_id='000000' and minute>='20140812170000' and minute<='20140812174500'; insert lab_development.lab_data_minutes (read_at,attention,course_id,source) select minute,value,6,4 from lab_development.M000001_minute where source=4 and point_id='000000' and minute>='20140812170000' and minute<='20140812174500';"
-    ActiveRecord::Base.connection.execute(sql)
-     source = 1
-     while source <= source_max  do
-        #放松度
-        sql +=" UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.M000001_minute
-   ON lab_development.lab_data_minutes.read_at = lab_development.M000001_minute.minute
-  SET lab_development.lab_data_minutes.meditation = lab_development.M000001_minute.value
-  where lab_development.M000001_minute.source=#{source} and lab_development.M000001_minute.point_id='000001';"
-        #行为体态
-        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.B000001_minute
-   ON lab_development.lab_data_minutes.read_at = lab_development.B000001_minute.minute
-  SET lab_development.lab_data_minutes.behaviour = lab_development.B000001_minute.value
-  where lab_development.B000001_minute.source=#{source} and lab_development.B000001_minute.point_id='000000';"
-        #网络上行
-        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.R000001_minute
-   ON lab_development.lab_data_minutes.read_at = lab_development.R000001_minute.minute
-  SET lab_development.lab_data_minutes.network_up = lab_development.R000001_minute.value
-  where lab_development.R000001_minute.point_id='000001';"
-        #网络下行
-        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.R000001_minute
-   ON lab_development.lab_data_minutes.read_at = lab_development.R000001_minute.minute
-  SET lab_development.lab_data_minutes.network_down = lab_development.R000001_minute.value
-  where lab_development.R000001_minute.point_id='000002';"
-        #能耗
-        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
-   ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
-  SET lab_development.lab_data_minutes.energy_consumption = lab_development.C000001_minute.value
-  where lab_development.C000001_minute.point_id='000001';"
-        #设备温度
-        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
-   ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
-  SET lab_development.lab_data_minutes.temperature = lab_development.C000001_minute.value
-  where lab_development.C000001_minute.point_id='000002';"
-        #湿度
-        sql +="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
-   ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
-  SET lab_development.lab_data_minutes.humidity = lab_development.C000001_minute.value
-  where lab_development.C000001_minute.point_id='000003';"
-        source +=1
-      end
-     #return render  :text=> sql
-      #ActiveRecord::Base.connection.execute(sql)
+       source = 1
+       source_max =4
+       @lab_course= LabCourse.find(course_id)
+       begin_time  = @lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')
+       end_time = @lab_course.end_time_real.strftime('%Y%m%d%H%M%S')
+
+       while source <= source_max  do
+         #注意力
+         # return render  :text=> sql
+         sql =" INSERT lab_development.lab_data_minutes (read_at,attention,course_id,source) SELECT minute,value,#{course_id},'#{source}' from lab_development.M000001_minute where source=#{source} and point_id='000000' and  minute>='#{begin_time}' and minute<='#{end_time}'; "
+         ActiveRecord::Base.connection.execute(sql)
+          #放松度
+          sql =" UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.M000001_minute
+     ON lab_development.lab_data_minutes.read_at = lab_development.M000001_minute.minute
+    SET lab_development.lab_data_minutes.meditation = lab_development.M000001_minute.value
+    where lab_development.M000001_minute.source=#{source} and lab_development.M000001_minute.point_id='000001';"
+          ActiveRecord::Base.connection.execute(sql)
+          #行为体态
+          sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.B000001_minute
+     ON lab_development.lab_data_minutes.read_at = lab_development.B000001_minute.minute
+    SET lab_development.lab_data_minutes.behaviour = lab_development.B000001_minute.value
+    where lab_development.B000001_minute.source=#{source} and lab_development.B000001_minute.point_id='000000';"
+          ActiveRecord::Base.connection.execute(sql)
+          #网络上行
+          sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.R000001_minute
+     ON lab_development.lab_data_minutes.read_at = lab_development.R000001_minute.minute
+    SET lab_development.lab_data_minutes.network_up = lab_development.R000001_minute.value
+    where lab_development.R000001_minute.point_id='000001';"
+          ActiveRecord::Base.connection.execute(sql)
+          #网络下行
+          sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.R000001_minute
+     ON lab_development.lab_data_minutes.read_at = lab_development.R000001_minute.minute
+    SET lab_development.lab_data_minutes.network_down = lab_development.R000001_minute.value
+    where lab_development.R000001_minute.point_id='000002';"
+          ActiveRecord::Base.connection.execute(sql)
+          #能耗
+          sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
+     ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
+    SET lab_development.lab_data_minutes.energy_consumption = lab_development.C000001_minute.value
+    where lab_development.C000001_minute.point_id='000001';"
+          ActiveRecord::Base.connection.execute(sql)
+          #设备温度
+          sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
+     ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
+    SET lab_development.lab_data_minutes.temperature = lab_development.C000001_minute.value
+    where lab_development.C000001_minute.point_id='000002';"
+          ActiveRecord::Base.connection.execute(sql)
+          #湿度
+          sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
+     ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
+    SET lab_development.lab_data_minutes.humidity = lab_development.C000001_minute.value
+    where lab_development.C000001_minute.point_id='000003';"
+          ActiveRecord::Base.connection.execute(sql)
+          source +=1
+       end
+       @data = LabDataMinute.where(:course_id=>course_id).order(read_at: :asc)
     end
 
     package = Axlsx::Package.new
     workbook = package.workbook
     workbook.styles do |s|
       head_cell = s.add_style  :b=>true, :sz => 10, :alignment => { :horizontal => :center,
-                                                                    :vertical => :center}
-      goods_cell = s.add_style :b=>true,:bg_color=>"FFFACD", :sz => 10, :alignment => {:vertical => :center}
-      product_cell =  s.add_style  :sz => 9
+                                                                    :vertical => :center},:height=> 20
+      goods_cell = s.add_style :b=>true, :sz => 10, :alignment => {:vertical => :center},:height=> 20
 
       workbook.add_worksheet(:name => "Product") do |sheet|
 
-        sheet.add_row ['时间',"注意力","放松度","体态","网络上行","网络下行","能耗","温度","湿度"],
+          date = @data.first.read_at[0..7]
+          date = date[0..3] + "-"+ date[4..5] + "-"+ date[6..7]
+
+        sheet.add_row ["(测试日期:#{date})"],:style=>goods_cell
+
+        sheet.add_row ['时间',"注意力","放松度","体态","网络上行","网络下行","能耗","温度","湿度","学生"],
                       :style=>head_cell
 
         row_count=0
 
         @data.each do |d|
-
-          sheet.add_row [d.read_at,d.attention,d.meditation,d.behaviour,d.network_up,d.network_down,d.energy_consumption,d.temperature,d.humidity],
-                        :style=>goods_cell,:height=> 40
+          times = d.read_at[8..12]
+          times = times[0..1] + ":"+times[2..3]
+          sheet.add_row [times,d.attention,d.meditation,d.behaviour,d.network_up,d.network_down,d.energy_consumption,d.temperature,d.humidity,d.source],
+                        :style=>goods_cell
 
           row_count +=1
 
-          sheet.column_widths nil, nil,nil,nil,nil,10
+      #    sheet.column_widths nil, nil,nil,nil,nil,10
         end
       end
     end
 
-    send_data package.to_stream.read,:filename=>"report_#{Time.now.strftime('%Y%m%d%H%M%S')}.xlsx"
+    send_data package.to_stream.read,:filename=>"original_data_report_#{Time.now.strftime('%Y%m%d%H%M%S')}.xlsx"
   end
 
   def export
     id=params[:id]
     @lab_course = LabCourse.find(id)
 
-    source = 1
+
     source_max = 4
     getvalues = ['max','min','avg']
 
+    behaviour=Hash.new
     getvalues.each do |getvalue|
+      students = Array.new(5)
+      source = 1
       while source<=source_max do
-        sql = "select #{getvalue}(behaviour) from lab_development.lab_data_minutes where course_id =#{id} and source=#{source}"
-        behaviour_average[source] = ActiveRecord::Base.connection.execute(sql)
+        sql = "select #{getvalue}(behaviour) as value from lab_development.lab_data_minutes where course_id =#{id} and source=#{source};"
+
+        results = ActiveRecord::Base.connection.execute(sql)
+        results.each(:as => :hash) do |row|
+          students[source]= row["value"].to_s
+        end
+        source += 1
       end
+      behaviour[getvalue] = students
     end
-    behaviour_average_1 = 0
-    behaviour_average_2 = 0
-    behaviour_average_3 = 0
-    behaviour_average_4 = 0
-    behaviour_low_1 = 0
-    behaviour_low_2 = 0
-    behaviour_low_3 = 0
-    behaviour_low_4 = 0
-    behaviour_height_1 = 0
-    behaviour_height_2 = 0
-    behaviour_height_3 = 0
-    behaviour_height_4 = 0
+
+    attention = Hash.new
+    getvalues.each do |getvalue|
+      students = Array.new(5)
+      source = 1
+      while source<=source_max do
+        sql = "select #{getvalue}(attention) as value from lab_development.lab_data_minutes where course_id =#{id} and source=#{source};"
+        results = ActiveRecord::Base.connection.execute(sql)
+        results.each(:as => :hash) do |row|
+          students[source]= row["value"].to_s
+        end
+        source += 1
+      end
+      attention[getvalue] = students
+    end
+
+    meditation = Hash.new
+    getvalues.each do |getvalue|
+      students = Array.new(5)
+      source = 1
+      while source<=source_max do
+        sql = "select #{getvalue}(meditation) as value from lab_development.lab_data_minutes where course_id =#{id} and source=#{source};"
+        results = ActiveRecord::Base.connection.execute(sql)
+        results.each(:as => :hash) do |row|
+          students[source]= row["value"].to_s
+        end
+        source += 1
+      end
+      meditation[getvalue] = students
+    end
 
     #@app_test =AppTest.where(:course_id=>id).limit(0,4)
     @app_test =AppTest.limit(4)
-
-
     students_score=''
     i = 0
     @app_test.each do |app_test|
@@ -145,7 +176,7 @@ class LabReportsController < ApplicationController
       end
       students_score= students_score +%Q{
       <td style="width:106px;" colspan="#{colspan}">
-        <p align="center">#{app_test.score}</p>
+        <p align="center"></p>
       </td>
      }
     end
@@ -157,7 +188,8 @@ body {font-family:"Microsoft Yahei", "SimHei"}
 p {font-family:"Microsoft Yahei", "SimHei"}
 </style>
 </head><body><p style='margin-left:21.0pt;font-family:"Microsoft Yahei", "SimHei"'>
-<p><img src='file:///root/lab/app/assets/images/logo.png' style="width:60px;">开放教学数字化实验室</p>}
+<p><img src='file:///root/lab/app/assets/images/logo.png' style="width:60px;">开放教学数字化实验室</p>
+}
 
 html_common_1=%Q{
 <table border="1" cellpadding="0" cellspacing="0" width="100%">
@@ -191,30 +223,28 @@ html_common_1=%Q{
     <p>
       <strong>申请单位联系人</strong></p>
   </td>
-  <td colspan="2" style="width:151px;">
+  <td colspan="2" style="width:151px;text-align:center">
     <p>#{@lab_course.lab_eval_project.lab_user.name}</p>
   </td>
-  <td colspan="2" style="width:76px;">
+  <td colspan="2" style="width:76px;text-align:center">
     <p>
       <strong>联系方式</strong></p>
   </td>
-  <td colspan="2" style="width:196px;">
+  <td colspan="2" style="width:196px;text-align:center">
     <p>电话： #{@lab_course.lab_eval_project.lab_user.mobile} / #{@lab_course.lab_eval_project.lab_user.email}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>申请时间</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>申请时间</strong></p>
   </td>
-  <td colspan="2" style="width:151px;">
+  <td colspan="2" style="width:151px;text-align:center">
     <p>#{@lab_course.lab_eval_project.created_at.strftime('%Y-%m-%d %H:%M:%S')}</p>
   </td>
-  <td colspan="2" style="width:76px;">
-    <p>
-      <strong>版本</strong></p>
+  <td colspan="2" style="width:76px;text-align:center">
+    <p><strong>版本</strong></p>
   </td>
-  <td colspan="2" style="width:196px;">
+  <td colspan="2" style="width:196px;text-align:center">
     <p>#{@lab_course.lab_eval_project.version}</p>
   </td>
 </tr>
@@ -225,44 +255,39 @@ html_common_1=%Q{
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试目标</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>测试目标</strong></p>
   </td>
-  <td colspan="6" style="width:423px;">
+  <td colspan="6" style="width:423px;text-align:center">
     <p align="center">#{@lab_course.lab_eval_project.brief}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>课程名称</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>课程名称</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
     <p align="center">#{@lab_course.name}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试地点</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>测试地点</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
     <p align="center">#{@lab_course.location}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>参与人员</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>参与人员</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
     <p align="center">#{@lab_course.participants}</p>
   </td>
 <tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试流程</strong></p>
+  <td style="width:130px;text-align:center">
+    <p<strong>测试流程</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
     <p align="center"><img src='file:///root/lab/app/assets/images/evalue_flow.jpg' style="width:100%;">
@@ -278,77 +303,66 @@ html_common_1=%Q{
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>测试时间区间</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>测试时间区间</strong></p>
   </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.begin_time_real.strftime('%Y-%m-%d %H:%M:%S')} -- #{@lab_course.end_time_real.strftime('%Y-%m-%d %H:%M:%S')}</p>
+  <td colspan="6" style="width:423px;text-align:center">
+    <p>#{@lab_course.begin_time_real.strftime('%Y-%m-%d %H:%M:%S')} -- #{@lab_course.end_time_real.strftime('%Y-%m-%d %H:%M:%S')}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>测试情景</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>测试情景</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
     <p align="center">#{@lab_course.lab_scene.name}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>无线网络总流量</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>无线网络总流量</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
     <p align="center"> 49.2MB</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>实验对象抽样</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>实验对象抽样</strong></p>
   </td>
-  <td style="width:106px;">
-    <p align="center">
-      <strong>学生1</strong></p>
+  <td style="width:106px;text-align:center">
+    <p><strong>学生1</strong></p>
   </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      <strong>学生2</strong></p>
+  <td colspan="2" style="width:106px;text-align:center">
+    <p<strong>学生2</strong></p>
   </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">
-      <strong>学生3</strong></p>
+  <td colspan="2" style="width:106px;text-align:center">
+    <p ><strong>学生3</strong></p>
   </td>
-  <td style="width:106px;">
-    <p align="center">
-      <strong>学生4</strong></p>
+  <td style="width:106px;text-align:center">
+    <p ><strong>学生4</strong></p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>教学效果</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>教学效果</strong></p>
   </td>
   #{students_score}
 </tr></tbody></table>}
 
-   title_behaviours="<p>实验室行为体态分析评测报告</p>"
+   title_behaviours="<hr/><p style='text-align:center;font-size:12pt;'>实验室行为体态分析评测报告</p>"
     html_behaviour_0=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试方法</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>测试方法</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
     <p align="center">采集学生在课堂的行为体态图像数据，进行分析</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试内容</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>测试内容</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
     <p align="center">学生在课堂的行为体态</p>
@@ -358,57 +372,72 @@ html_common_1=%Q{
 
 html_behaviour_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>课堂最高安静指数</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>实验对象抽样</strong></p>
+  </td>
+  <td style="width:106px;text-align:center">
+    <p><strong>学生1</strong></p>
+  </td>
+  <td colspan="2" style="width:106px;text-align:center">
+    <p<strong>学生2</strong></p>
+  </td>
+  <td colspan="2" style="width:106px;text-align:center">
+    <p ><strong>学生3</strong></p>
+  </td>
+  <td style="width:106px;text-align:center">
+    <p ><strong>学生4</strong></p>
+  </td>
+</tr>
+
+<tr>
+  <td style="width:130px;text-align:center">
+    <p><strong>课堂最高安静指数</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{behaviour_height_1}</p>
+    <p align="center">#{behaviour["max"][1]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{behaviour_height_2}</p>
+    <p align="center">#{behaviour["max"][2]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{behaviour_height_3}</p>
+    <p align="center">#{behaviour["max"][3]}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{behaviour_height_4}</p>
+    <p align="center">#{behaviour["max"][4]}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>课堂最低安静指数</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>课堂最低安静指数</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{behaviour_low_1}</p>
+    <p align="center">#{behaviour["min"][1]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{behaviour_low_2}</p>
+    <p align="center">#{behaviour["min"][2]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{behaviour_low_3}</p>
+    <p align="center">#{behaviour["min"][3]}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{behaviour_low_4}</p>
+    <p align="center">#{behaviour["min"][4]}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>课堂平均安静指数</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>课堂平均安静指数</strong></p>
   </td>
-  <td style="width:106px;">
-    <p align="center">#{behaviour_average_1}</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">#{behaviour_average_2}</p>
+  <td style="width:106px;text-align:center">
+    <p align="center">#{behaviour["avg"][1]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">#{behaviour_average_3}</p>
+    <p align="center">#{behaviour["avg"][2]}</p>
+  </td>
+  <td colspan="2" style="width:106px;">
+    <p align="center">#{behaviour["avg"][3]}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">#{behaviour_average_4}</p>
+    <p align="center">#{behaviour["avg"][4]}</p>
   </td>
 </tr>
 <tr>
@@ -429,36 +458,33 @@ html_behaviour_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100
       <strong>意见和建议</strong></p>
   </td>
 </tr>
-<tr style="display:none">
+<tr>
   <td colspan="7" style="width:553px;">
     <p style="margin-left:31.5pt;">
-      <strong>注：根据页面输入填写该部分内容</strong></p>
+      <strong>#{@lab_course.opinion}</strong></p>
   </td>
 </tr>
 </tbody>
 </table>}
 
-    title_mindwave=%Q{<p style="margin-left:21.0pt;">
-  实验室脑波评测报告</p><p>  &nbsp;</p>}
+    title_mindwave=%Q{<hr/><p style="margin-left:21.0pt;text-align:center;font-size:12pt;">实验室脑波评测报告</p><p>  &nbsp;</p>}
 
 html_mindwave_0=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
-<td style="width:130px;">
-    <p align="center">
-      <strong>测试方法</strong></p>
+<td style="width:130px;text-align:center">
+    <p><strong>测试方法</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
     <p>1	可以对实验课程中的学生的脑波数据进行抽样采集；</p>
 <p>2	学生戴上脑波监测设备，数据通过无线设备传回服务器;</p>
-<p>3	对采集到的 delta波、theta波、lowAlpha波、highAlpha波、lowBeta波、highBeta波、lowGamma波、highGamma波、眨眼次数等数据进行分析，得出被测学生的注意力指数、放松度指数。
-
+<p>3	对采集到的 delta波、theta波、lowAlpha波、highAlpha波、lowBeta波、highBeta波、lowGamma波、highGamma波、眨眼次数等数据进行分析，
+得出被测学生的注意力指数、放松度指数。
 </p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p align="center">
-      <strong>测试内容</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>测试内容</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
     <p align="center">脑波分析</p>
@@ -466,115 +492,127 @@ html_mindwave_0=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
 </tr></tbody></table>}
 html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>专注度最高值</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>实验对象抽样</strong></p>
+  </td>
+  <td style="width:106px;text-align:center">
+    <p><strong>学生1</strong></p>
+  </td>
+  <td colspan="2" style="width:106px;text-align:center">
+    <p<strong>学生2</strong></p>
+  </td>
+  <td colspan="2" style="width:106px;text-align:center">
+    <p ><strong>学生3</strong></p>
+  </td>
+  <td style="width:106px;text-align:center">
+    <p ><strong>学生4</strong></p>
+  </td>
+</tr>
+
+<tr>
+  <td style="width:130px;text-align:center">
+    <p><strong>专注度最高值</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">100</p>
+    <p align="center">#{attention["max"][1]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">100</p>
+    <p align="center">#{attention["max"][2]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">89</p>
+    <p align="center">#{attention["max"][3]}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">95</p>
+    <p align="center">#{attention["max"][4]}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>专注度最低值</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>专注度最低值</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">24</p>
+    <p align="center">#{attention["min"][1]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">0</p>
+    <p align="center">#{attention["min"][2]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">12</p>
+    <p align="center">#{attention["min"][3]}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">3</p>
+    <p align="center">#{attention["min"][4]}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>专注度平均值</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>专注度平均值</strong></p>
   </td>
-  <td style="width:106px;">
-    <p align="center">46</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">57</p>
+  <<td style="width:106px;">
+    <p align="center">#{attention["avg"][1]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">69</p>
+    <p align="center">#{attention["avg"][2]}</p>
+  </td>
+  <td colspan="2" style="width:106px;">
+    <p align="center">#{attention["avg"][3]}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">34</p>
+    <p align="center">#{attention["avg"][4]}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>放松度最高值</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>放松度最高值</strong></p>
   </td>
   <td style="width:106px;">
-    <p align="center">89</p>
+    <p align="center">#{meditation["max"][1]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">93</p>
+    <p align="center">#{meditation["max"][2]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">99</p>
+    <p align="center">#{meditation["max"][3]}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">92</p>
+    <p align="center">#{meditation["max"][4]}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>放松度最低值</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>放松度最低值</strong></p>
   </td>
-  <td style="width:106px;">
-    <p align="center">4</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">2</p>
+   <td style="width:106px;">
+    <p align="center">#{meditation["min"][1]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">14</p>
+    <p align="center">#{meditation["min"][2]}</p>
+  </td>
+  <td colspan="2" style="width:106px;">
+    <p align="center">#{meditation["min"][3]}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">1</p>
+    <p align="center">#{meditation["min"][4]}</p>
   </td>
 </tr>
 <tr>
-  <td style="width:130px;">
-    <p>
-      <strong>放松度平均值</strong></p>
+  <td style="width:130px;text-align:center">
+    <p><strong>放松度平均值</strong></p>
   </td>
-  <td style="width:106px;">
-    <p align="center">51</p>
-  </td>
-  <td colspan="2" style="width:106px;">
-    <p align="center">43</p>
+   <td style="width:106px;">
+    <p align="center">#{meditation["avg"][1]}</p>
   </td>
   <td colspan="2" style="width:106px;">
-    <p align="center">34</p>
+    <p align="center">#{meditation["avg"][2]}</p>
+  </td>
+  <td colspan="2" style="width:106px;">
+    <p align="center">#{meditation["avg"][3]}</p>
   </td>
   <td style="width:106px;">
-    <p align="center">67</p>
+    <p align="center">#{meditation["avg"][4]}</p>
   </td>
 </tr>
 <tr>
-  <td colspan="7" style="width:553px;background-color:#66B3FF"">
+  <td colspan="7" style="width:553px;background-color:#66B3FF">
     <p align="center">
       <strong>图表</strong></p>
   </td>
@@ -632,7 +670,7 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
   </td>
 </tr></tbody></table>}
 
-    title_questions=%Q{<p style="margin-left:21.0pt;"> 实验室评测问卷调查报告</p>}
+    title_questions=%Q{<hr/><p style="margin-left:21.0pt;text-align:center;font-size:12pt;"> 实验室评测问卷调查报告</p>}
     html_questions=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>}
 
     @lab_questions = LabQuestion
@@ -653,7 +691,7 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
     html_questions = html_questions + %Q{<tr><td colspan="2" style="text-align:center">综合得分：</td>
     <td colspan="2" style="text-align:center">#{(rand*100).to_i}</td></tr></tbody></table>}
 
-  title_comprehensive=%Q{<p style="margin-left:21.0pt;">
+  title_comprehensive=%Q{<hr/><p style="margin-left:21.0pt;text-align:center;font-size:12pt;">
   教学资源/电子书包实验室评测总报告</p>}
     html_foot=%Q{</body></html>}
     title=params["title"]
@@ -665,11 +703,10 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
       when 'questions'
         html=html_head + title_questions + html_questions + html_foot
       else
-        title = 'comprehensive'
-        html=html_head + title_comprehensive + html_common_1  + html_behaviour_1 + html_mindwave_1 + title_questions + html_questions + html_foot
+        html=html_head + title_comprehensive + html_common_1 + html_common_2+ title_behaviours + html_behaviour_0 + html_behaviour_1+ title_mindwave+ html_mindwave_0+ html_mindwave_1 + html_foot
     end
 
-  #  return :text=>html
+   # return render :text=>html
     pdf = WickedPdf.new.pdf_from_string(html)
     save_path = "#{PIC_PATH}/teachResources/reports/report_#{title}_#{id}.pdf"
     File.open(save_path, 'wb') do |file|
@@ -677,88 +714,6 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
     end
     @title=title
     @id=id
-
-=begin
-
-# create a pdf file from a html file without converting it to string
-# Path must be absolute path
-      pdf = WickedPdf.new.pdf_from_html_file('/your/absolute/path/here')
-
-# create a pdf from string using templates, layouts and content option for header or footer
-      WickedPdf.new.pdf_from_string(
-          render_to_string('templates/pdf.html.erb', :layout => 'pdfs/layout_pdf'),
-          :footer => {
-              :content => render_to_string(:layout => 'pdfs/layout_pdf')
-          }
-      )
-
-# or from your controller, using views & templates and all wicked_pdf options as normal
-      pdf = render_to_string :pdf => "some_file_name"
-
-# then save to a file
-      save_path = Rails.root.join('pdfs','filename.pdf')
-      File.open(save_path, 'wb') do |file|
-        file << pdf
-      end
-
-      file_name =  "#{PIC_PATH}/teachResources/reports/abc.pdf"
-      respond_to do |format|
-        format.html
-        format.pdf do
-          render :pdf => file_name #"file_name"
-        end
-      end
-=end
-#    pdf = WickedPdf.new.pdf_from_string('<h1>Hello There!</h1>')
-#    #save_path = Rails.root.join('pdfs','filename.pdf')
-#   save_path = PIC_PATH.join('teachResources','reports','report_abcd.pdf')
-#    File.open(save_path, 'wb') do |file|
-#      file << pdf
-#    end
-#file_name =  "#{PIC_PATH}/teachResources/reports/report_abcd.pdf"
-=begin
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render :pdf => 'report1.pdf',
-               :wkhtmltopdf => '/usr/bin/wkhtmltopdf',
-              # :template => '/bills/printing.pdf.erb',
-               :disposition => "inline",
-        :save_to_file => "#{PIC_PATH}/teachResources/reports/report_abcd.pdf"#Rails.root.join('pdf', "rechnung_#{@bills.id}.pdf")
-      end
-    end
-=end
-    #render :text=>"<a href='/teachResources/reports/#{save_path[5]}'>#{save_path[5]}</a>"
-    # render :text=>"<a href='/teachResources/reports/report_abcd.pdf'>report_abcd.pdf</a>"
-=begin
-    format.pdf do
-      @example_text = "some text"
-      render :pdf => "file_name",
-             :template => 'layout/show.pdf.erb',
-             :layout => 'pdf',
-             :footer => {
-                 :center => "Center",
-                 :left => "Left",
-                 :right => "Right"
-             }
-      end
-=end
-=begin 没有反应
-@reports_id=21
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render :pdf => "report_#{@report_id}",
-               :wkhtmltopdf => '/usr/bin/wkhtmltopdf',
-               :template => '/layouts/show.pdf.erb',
-               :disposition => "inline",
-              :save_to_file=>"#{PIC_PATH}/teachResources/reports/report_abcd.pdf"
-        #:save_to_file => Rails.root.join('pdf', "rechnung_#{@bills.id}.pdf")
-      end
-    end
-=end
-    #  pdf = WickedPdf.new.pdf_from_html_file('http://101.226.163.150/lab_reports/1')
-    # save_path = Rails.root.join('pdfs','filename.pdf')
 
   end
 

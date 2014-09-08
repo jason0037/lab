@@ -82,10 +82,14 @@ class LabEvalProjectsController < ApplicationController
   # POST /lab_eval_projects.json
   def create
     teach_tools = params[:lab_eval_project].delete(:teach_tools).to_s
-    return render :text=>teach_tools
-    eval_means = params[:lab_eval_project].delete(:eval_means).to_s
+    #return render :text=>teach_tools
 
-    params[:lab_eval_project].merge!(:applicant_id=>@user.id,:eval_means=>eval_means,:teach_tools=>teach_tools,:status=>'0')
+    status=0 #草稿状态
+    eval_means = params[:lab_eval_project].delete(:eval_means).to_s
+    if params[:lab_eval_project][:category_id]='3' #参观登记，自动成为申请状态
+      status=1
+    end
+    params[:lab_eval_project].merge!(:applicant_id=>@user.id,:eval_means=>eval_means,:teach_tools=>teach_tools,:status=>status)
 
     @lab_eval_project = LabEvalProject.new(params[:lab_eval_project])
 

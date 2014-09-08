@@ -42,18 +42,18 @@ class LabCoursesController < ApplicationController
           while source <= source_max  do
             point =0
             while point <= point_max  do
-              sql += "insert lab_development.#{t}000001_minute (point_id,minute,value,source)
+              sql = "insert lab_development.#{t}000001_minute (point_id,minute,value,source)
   select '00000#{point}',left(read_at,12),sum(value)/count(*) as value, #{source}
   from lab_development.#{t}000001_reading where source=#{source} and point_id='00000#{point}'
    and read_at >= '#{begin_time}' and read_at<='#{end_time}'
   group by left(read_at,12);"
+              ActiveRecord::Base.connection.execute(sql)
               point +=1
             end
             source +=1
           end
         end
         #return render  :text=> sql
-        ActiveRecord::Base.connection.execute(sql)
       else
         result=200
       end

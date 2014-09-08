@@ -14,8 +14,6 @@ class MonitorsController < ApplicationController
       return  render :text => { :code => 9999}.to_json
     end
 
-
-
     router = JSON.parse(params[:router])
     read_at =router["read_at"]
     up = router["up"]

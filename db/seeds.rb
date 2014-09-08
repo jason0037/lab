@@ -40,6 +40,7 @@ Option.create([{id:'1', name: '电子书包',value:"1",index:"0",key:"eval_objec
   {id:'28',name:'UX Office可用性评测',value:"ux_office",index:"9",key:"eval_means"},
   {id:'29',name:'眼动仪数据评测',value:"eye_traking",index:"10",key:"eval_means"},
   {id:'30',name:'可穿戴设备数据评测',value:"wearable_equipment",index:"11",key:"eval_means"},
+
   {id:'31',name:'界面设计',value:"1",index:"1",key:"question_category",
    desc:"此部分用于考查课程或系统的界面一致性。即在学习者专注于课程学习的状态下是否有一些元素会分散学习者的注意力。"},
   {id:'32',name:'学习导航',value:"2",index:"2",key:"question_category",
@@ -54,13 +55,18 @@ Option.create([{id:'1', name: '电子书包',value:"1",index:"0",key:"eval_objec
    desc:"此部分用于考查课程或系统中内容信息是否可以接受。"},
   {id:'37',name:'技术要求',value:"7",index:"7",key:"question_category",
    desc:"此部分用于考查前述问题中没有涉及的方面。"},
+
   {id:'38',name:'使用中',value:"1",index:"1",key:"device_status"},
   {id:'39',name:'维修中',value:"0",index:"2",key:"device_status"},
   {id:'40',name:'报废',value:"-1",index:"3",key:"device_status"},
+
   {id:'41',name:'未开课',value:"0",index:"1",key:"course_status"},
   {id:'42',name:'准备就绪',value:"1",index:"2",key:"course_status"},
   {id:'43',name:'上课中',value:"2",index:"3",key:"course_status"},
   {id:'44',name:'课程结束',value:"3",index:"4",key:"course_status"},
+
+  {id:'45', name: '参观登记',value:"3",index:"3",key:"eval_object_type"},
+  {id:'46', name: '多媒体教学实验',value:"4",index:"4",key:"eval_object_type"}
   ]
 )
 
