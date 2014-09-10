@@ -12,5 +12,6 @@
  </dl>
   <div class="form-actions">
     <a href='/teachResources/reports/report_<%=@title%>_<%=@id%>.pdf' class = 'btn btn-danger'>下载报告</a>
-    <a href='/lab_course' class = 'btn'>返回</a>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                'javascript:history.go(-1)', :class => 'btn' %>
   </div>
