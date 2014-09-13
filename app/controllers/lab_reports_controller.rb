@@ -284,17 +284,17 @@ html_common_1=%Q{
   </td>
   <td colspan="6" style="width:423px;">
     <p align="center">#{@lab_course.participants}</p>
-  </td>
-<tr>
-  <td style="width:130px;text-align:center">
-    <p<strong>测试流程</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
+  </td></tr></tbody></table>
+<br/><br/><br/><br/>
+<p style="text-align:center"><strong>测试流程</strong></p>
+<table border="1" cellpadding="0" cellspacing="0" width="100%"
+  <td style="width:423px;">
     <p align="center"><img src='file:///root/lab/app/assets/images/evalue_flow.jpg' style="width:100%;">
   </p>
   </td>
 </tr>
 </tr></tbody></table>}
+
     html_common_2=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
   <td colspan="7" style="width:553px;background-color:#66B3FF"">
@@ -443,7 +443,7 @@ html_behaviour_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100
 <tr>
   <td colspan="7" style="width:553px;background-color:#66B3FF"">
     <p align="center">
-      <strong>图表</strong></p>
+      <strong>课堂行为体态分析图表</strong></p>
   </td>
 </tr>
 <tr>
@@ -465,9 +465,9 @@ html_behaviour_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100
   </td>
 </tr>
 </tbody>
-</table>}
+</table><br/><br/><br/><br/>}
 
-    title_mindwave=%Q{<hr/><p style="margin-left:21.0pt;text-align:center;font-size:12pt;">实验室脑波评测报告</p><p>  &nbsp;</p>}
+title_mindwave=%Q{<hr/><p style="margin-left:21.0pt;text-align:center;font-size:12pt;">实验室脑波评测报告</p><p>  &nbsp;</p>}
 
 html_mindwave_0=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
@@ -614,7 +614,7 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
 <tr>
   <td colspan="7" style="width:553px;background-color:#66B3FF">
     <p align="center">
-      <strong>图表</strong></p>
+      <strong>注意力脑波分析图表</strong></p>
   </td>
 </tr>
 <tr>
@@ -668,7 +668,7 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
 	</tbody>
 </table></p>
   </td>
-</tr></tbody></table>}
+</tr></tbody></table><br/><br/><br/><br/>}
 
     title_questions=%Q{<hr/><p style="margin-left:21.0pt;text-align:center;font-size:12pt;"> 实验室评测问卷调查报告</p>}
     html_questions=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>}
