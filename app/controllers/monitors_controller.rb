@@ -521,7 +521,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     xaxisname=''
     showlegend='0'
     showLabels='0'
-
+    displayNum = 0
     if size!='small'
       seriesname1="行为体态分析"
       subcaption="动作幅度"
@@ -541,6 +541,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
         results = ActiveRecord::Base.connection.execute(sql)
         data_str1 = ""
         last_time = ""
+        showNum = 0
         results.each(:as => :hash) do |row|
           if last_time == ""
             last_time = row["read_at"]
@@ -559,6 +560,10 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
               cats_str += "<category label='#{times}'/>"
         #    end
           end
+          showNum = showNum + 1
+          if showNum > displayNum 
+            displayNum = showNum 
+          end
         end
 
         if categories =="" && cats_str !=""
@@ -569,7 +574,7 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
 canvasbottommargin='10' numbersuffix='' showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
-showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
+showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='#{displayNum}'
 labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' #{export_str}>
 #{categories} #{datasets}
 <styles>
@@ -615,17 +620,23 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     datasets = ""
     cats_str = ""
     data_str1 = ""
+    displayNum = 0
     [1,2,3,4].each do |source|
       sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
 
 #      sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}'"
         results = ActiveRecord::Base.connection.execute(sql)
         data_str1 = ""
+        showNum = 0
         results.each(:as => :hash) do |row|
           times = row["read_at"][8..12]
           times = times[0..1] + ":"+times[2..3]
           data_str1 += "<set value='#{row["value"]}' />"
           cats_str += "<category label='#{times}'/>"
+          showNum = showNum + 1
+          if showNum > displayNum
+              displayNum = showNum 
+          end
         end
 
         if categories =="" && cats_str !=""
@@ -637,7 +648,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
 canvasbottommargin='10' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
-showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
+showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='#{displayNum}'
 labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' #{export_str}>
 #{categories} #{datasets}
 <styles>
