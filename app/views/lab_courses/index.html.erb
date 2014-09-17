@@ -53,7 +53,7 @@
         </td>
         <td><%= Option.where(:key=>"course_status",:value=>lab_course.status).first.name%></td>
         <td><%= lab_course.project_id %></td>
-        <td><%= lab_course.lab_scene.name %></td>
+        <td><%= lab_course.lab_scene.name if lab_course.lab_scene%></td>
         <td>
           <% if @user.role_id==4 || @user.role_id==6%>
                <%= link_to t('.edit', :default => t("helpers.links.edit")),
