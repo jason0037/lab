@@ -41,7 +41,7 @@
         <td><%= lab_course.lab_user.name if lab_course.teacher_id %></td>
         <td><%if lab_course.begin_time_real%>
           <%=l lab_course.begin_time_real%>
-              <%else%>
+          <%elsif lab_course.begin_time%>
           <%=l lab_course.begin_time%>
              <%end%>
          </td>
