@@ -285,16 +285,16 @@ html_common_1=%Q{
   <td colspan="6" style="width:423px;">
     <p align="center">#{@lab_course.participants}</p>
   </td></tr></tbody></table>
-<br/><br/><br/><br/><br><br/>
+<br/><br/><br/><br/><br><br/><br/><br/><br>
 
 <table border="1" cellpadding="0" cellspacing="0" width="100%"><tbody>
 <tr>
   <td style="width:553px;background-color:#66B3FF"">
     <p align="center">
-      <strong>测试结果</strong></p>
+      <strong>测试流程</strong></p>
   </td>
 </tr>
-  <td style="width:423px;">
+  <td>
     <p align="center"><img src='file:///root/lab/app/assets/images/evalue_flow.jpg' style="width:100%;">
   </p>
   </td>
