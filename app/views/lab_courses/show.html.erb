@@ -15,11 +15,11 @@
   <dt><strong>课程类别:</strong></dt>
   <dd>&nbsp;<%= Option.where(:key=>"eval_object_type",:value=>@lab_course.course_type).first.name if @lab_course.course_type%></dd>
   <dt><strong>教师:</strong></dt>
-  <dd>&nbsp;<%= @lab_course.lab_user.name %></dd>
+  <dd>&nbsp;<%= @lab_course.lab_user.name if @lab_course.teacher%></dd>
   <dt><strong>计划开始时间:</strong></dt>
-  <dd>&nbsp;<%=l @lab_course.begin_time %></dd>
+  <dd>&nbsp;<%=l @lab_course.begin_time if @lab_course.begin_time%></dd>
   <dt><strong>计划结束时间:</strong></dt>
-  <dd>&nbsp;<%=l @lab_course.end_time %></dd>
+  <dd>&nbsp;<%=l @lab_course.end_time if @lab_course.end_time%></dd>
   <dt><strong>状态:</strong></dt>
   <dd>&nbsp;<%= Option.where(:key=>"course_status",:value=>@lab_course.status).first.name%></dd>
   <dt><strong>评测对象:</strong></dt>
@@ -33,7 +33,7 @@
   <dt><strong>实际结束时间:</strong></dt>
   <dd>&nbsp;<%=l @lab_course.approve_time if @lab_course.end_time_real%></dd>
   <dt><strong>教学场景:</strong></dt>
-  <dd>&nbsp;<%= @lab_course.lab_scene.name %></dd>
+  <dd>&nbsp;<%= @lab_course.lab_scene.name if @lab_course.lab_scene%></dd>
   <dt><strong>课程属性:</strong></dt>
   <dd>&nbsp;<%= @lab_course.course_property %></dd>
   <dt><strong>是否教师授课:</strong></dt>
