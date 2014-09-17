@@ -15,7 +15,7 @@
   <dt><strong>课程类别:</strong></dt>
   <dd>&nbsp;<%= Option.where(:key=>"eval_object_type",:value=>@lab_course.course_type).first.name if @lab_course.course_type%></dd>
   <dt><strong>教师:</strong></dt>
-  <dd>&nbsp;<%= @lab_course.lab_user.name if @lab_course.teacher%></dd>
+  <dd>&nbsp;<%= @lab_course.lab_user.name if @lab_course.teacher_id %></dd>
   <dt><strong>计划开始时间:</strong></dt>
   <dd>&nbsp;<%=l @lab_course.begin_time if @lab_course.begin_time%></dd>
   <dt><strong>计划结束时间:</strong></dt>
