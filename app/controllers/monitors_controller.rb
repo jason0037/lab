@@ -570,12 +570,17 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
   def mindwave_data_history
     id = params[:id]
     equipment_code = params[:equipment_code]
+    point_id =params[:point]
     size = params[:size]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     start_time = params[:start_at]
     end_time = params[:end_at]
-
-    caption="课堂脑波(注意力）分析"
+    if point_id =='000000'
+      type_name = '注意力'
+    elsif  point_id =='000001'
+      type_name = '放松度'
+    end
+    caption="脑波(#{type_name}）分析"
     cats_str = ''
     data_str1 = ''
     seriesname1=''
@@ -591,7 +596,6 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
       showlegend='1'
       showLabels='1'
       export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='mindwave#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
-
     end
 
     categories = ""
@@ -600,9 +604,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     data_str1 = ""
     displayNum = 0
     [1,2,3,4].each do |source|
-      sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
-
-#      sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}'"
+      sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where source='#{source}' and point_id='#{point_id}' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
         results = ActiveRecord::Base.connection.execute(sql)
         data_str1 = ""
         showNum = 0
@@ -621,6 +623,158 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
           categories = "<categories>#{cats_str}</categories>"
         end
         datasets = datasets + "<dataset seriesName='学生#{source}' showValues='0'>#{data_str1}</dataset>"
+    end
+    charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
+canvasbottommargin='10' numbersuffix=''
+showlegend='#{showlegend}' showLabels='#{showLabels}'
+snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
+showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='#{displayNum}'
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' #{export_str}>
+#{categories} #{datasets}
+<styles>
+<definition>
+<style type='font' name='captionFont' size='14' />
+</definition>
+<application>
+<apply toobject='Caption' styles='captionFont' />
+<apply toobject='Realtimevalue' styles='captionFont' />
+</application>
+</styles>
+<trendlines></trendlines>
+</chart>"
+    render :text => charts
+  end
+
+  def network_data_history
+    id = params[:id]
+    equipment_code = params[:equipment_code]
+    size = params[:size]
+    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
+    start_time = params[:start_at]
+    end_time = params[:end_at]
+
+    caption="网络数据分析"
+    cats_str = ''
+    data_str1 = ''
+    seriesname1=''
+    subcaption=''
+    xaxisname=''
+    showlegend='0'
+    showLabels='0'
+
+    if size!='small'
+      #seriesname1="行为体态分析"
+      # subcaption="动作幅度"
+      # xaxisname="当前数值"
+      showlegend='1'
+      showLabels='1'
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='mindwave#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+
+    end
+
+    categories = ""
+    datasets = ""
+    cats_str = ""
+    data_str1 = ""
+    displayNum = 0
+    [1,2].each do |source|
+      sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where point_id='00000#{source}' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
+
+#      sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}'"
+      results = ActiveRecord::Base.connection.execute(sql)
+      data_str1 = ""
+      showNum = 0
+      results.each(:as => :hash) do |row|
+        times = row["read_at"][8..12]
+        times = times[0..1] + ":"+times[2..3]
+        data_str1 += "<set value='#{row["value"]}' />"
+        cats_str += "<category label='#{times}'/>"
+        showNum = showNum + 1
+        if showNum > displayNum
+          displayNum = showNum
+        end
+      end
+
+      if categories =="" && cats_str !=""
+        categories = "<categories>#{cats_str}</categories>"
+      end
+      datasets = datasets + "<dataset seriesName='数据#{source}' showValues='0'>#{data_str1}</dataset>"
+    end
+    charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
+canvasbottommargin='10' numbersuffix=''
+showlegend='#{showlegend}' showLabels='#{showLabels}'
+snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
+showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='#{displayNum}'
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' #{export_str}>
+#{categories} #{datasets}
+<styles>
+<definition>
+<style type='font' name='captionFont' size='14' />
+</definition>
+<application>
+<apply toobject='Caption' styles='captionFont' />
+<apply toobject='Realtimevalue' styles='captionFont' />
+</application>
+</styles>
+<trendlines></trendlines>
+</chart>"
+    render :text => charts
+  end
+
+  def environment_data_history
+    id = params[:id]
+    equipment_code = params[:equipment_code]
+    size = params[:size]
+    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
+    start_time = params[:start_at]
+    end_time = params[:end_at]
+
+    caption="环境数据分析"
+    cats_str = ''
+    data_str1 = ''
+    seriesname1=''
+    subcaption=''
+    xaxisname=''
+    showlegend='0'
+    showLabels='0'
+
+    if size!='small'
+      #seriesname1="行为体态分析"
+      # subcaption="动作幅度"
+      # xaxisname="当前数值"
+      showlegend='1'
+      showLabels='1'
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='mindwave#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+
+    end
+
+    categories = ""
+    datasets = ""
+    cats_str = ""
+    data_str1 = ""
+    displayNum = 0
+    [1,2].each do |source|
+      sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where point_id='00000#{source}' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
+
+#      sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}'"
+      results = ActiveRecord::Base.connection.execute(sql)
+      data_str1 = ""
+      showNum = 0
+      results.each(:as => :hash) do |row|
+        times = row["read_at"][8..12]
+        times = times[0..1] + ":"+times[2..3]
+        data_str1 += "<set value='#{row["value"]}' />"
+        cats_str += "<category label='#{times}'/>"
+        showNum = showNum + 1
+        if showNum > displayNum
+          displayNum = showNum
+        end
+      end
+
+      if categories =="" && cats_str !=""
+        categories = "<categories>#{cats_str}</categories>"
+      end
+      datasets = datasets + "<dataset seriesName='数据#{source}' showValues='0'>#{data_str1}</dataset>"
     end
     charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
 canvasbottommargin='10' numbersuffix=''

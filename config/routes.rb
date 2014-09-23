@@ -29,6 +29,7 @@ Lab::Application.routes.draw do
     get :dashboard_data,:on=>:collection
     get :energy_consumption,:on=>:collection
     get :energy_consumption_data,:on=>:collection
+    get :environment_data_history, :on=> :collection
     get :mind_wave, :on=>:collection
     get :mind_wave_data, :on=>:collection
     get :mindwave_data_history, :on=> :collection
@@ -37,6 +38,7 @@ Lab::Application.routes.draw do
     get :behaviour_data_history, :on=> :collection
     get :network, :on=> :collection
     get :network_data, :on=> :collection
+    get :network_data_history, :on=> :collection
     get :get_big_chart, :on=> :collection
     get :general_behaviour, :on=> :collection
     get :general_behaviour_data, :on=> :collection

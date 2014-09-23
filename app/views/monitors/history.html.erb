@@ -20,7 +20,7 @@
   <li>
     <div id="chart-02">
       <div class="home_chart" chart-type="RealTimeLineDY.swf"
-           data-source="/monitors/mindwave_data_history?equipment_code=002001&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
+           data-source="/monitors/mindwave_data_history?equipment_code=002001&id=<%=params[:lab_course_id]%>&point=000000&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
            id="chart-container-2"
            url= "mind_wave">
       </div>
@@ -30,27 +30,27 @@
   <li>
     <div id="chart-03">
       <div class="home_chart" chart-type="AngularGauge.swf"
-           data-source="/monitors/dashboard_data?equipment_code=003001"
+           data-source="/monitors/mindwave_data_history?equipment_code=002001&id=<%=params[:lab_course_id]%>&point=000001&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
            id="chart-container-3"
-           url="network">
+           url="mind_wave">
       </div>
     </div>
   </li>
   <li>
     <div id="chart-04">
       <div class="home_chart" chart-type="AngularGauge.swf"
-           data-source="/monitors/dashboard_data?equipment_code=004001"
+           data-source="/monitors/network_data_history?equipment_code=003001&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
            id="chart-container-4"
-           url="energy_consumption">
+           url="network">
       </div>
     </div>
   </li>
   <li>
     <div id="chart-05">
       <div class="home_chart" chart-type="AngularGauge.swf"
-           data-source="/monitors/dashboard_data?equipment_code=100001"
+           data-source="/monitors/environment_data_history?equipment_code=004001&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
            id="chart-container-5"
-           url="lab_comprehensive">
+           url="environment">
       </div>
     </div>
   </li>
