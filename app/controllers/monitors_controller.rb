@@ -74,14 +74,15 @@ class MonitorsController < ApplicationController
             and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
 
       when 'B000001'
-        sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' order by read_at desc limit 0,1"
+        sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000'
+        and read_at>= '#{read_at.to_s}' order by read_at desc limit 0,1"
       when 'C000001'
      #  read_at = (Time.now-60.seconds).strftime('%Y%m%d%H%M%S')
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
-          order by id desc limit 0,1"
+          and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
       else
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
-        order by id desc limit 0,1"
+        and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
     end
 
     results = ActiveRecord::Base.connection.execute(sql)
