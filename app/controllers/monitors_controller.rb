@@ -50,8 +50,7 @@ class MonitorsController < ApplicationController
       when 'M000001'
         if point_id=='000001'
           sql = "select value from #{table_name}_reading where point_id = '000000' and source='#{source}'
-          and read_at>= '#{read_at.to_s}'
-          order by id desc limit 0,1"
+          and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
           results = ActiveRecord::Base.connection.execute(sql)
 
           results.each(:as => :hash) do |row|
@@ -59,8 +58,7 @@ class MonitorsController < ApplicationController
           end
         end
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
-            and read_at>= '#{read_at.to_s}'
-           order by id desc limit 0,1"
+            and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
 
       when 'R000001'
         if point_id=='000002'
@@ -76,7 +74,6 @@ class MonitorsController < ApplicationController
             and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
 
       when 'B000001'
-        #sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} group by read_at,source order by read_at desc limit 0,1"
         sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' order by read_at desc limit 0,1"
       when 'C000001'
      #  read_at = (Time.now-60.seconds).strftime('%Y%m%d%H%M%S')
@@ -302,7 +299,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
 #    ,resizable=no-/monitors/get_big_chart?chart_type=/FusionCharts/RealTimeLineDY.swf&data_source=/monitors/mind_wave_data?equipment_code=002001&point_id=000002&source=#{source}'"
         1
       end
-      sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+      sql = "select value from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
             and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
       results = ActiveRecord::Base.connection.execute(sql)
 
@@ -312,7 +309,7 @@ showAlternateHGridColor='0' legendBgColor='000000' legendBorderColor='008040' le
       point_id='000001'
     end
 
-    sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
+    sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
             and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
     results = ActiveRecord::Base.connection.execute(sql)
 
@@ -358,27 +355,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     point_id = params[:point_id]
     source = params[:source]
 
-    caption =case point_id
-               when '000003'
-                 "theta波"
-               when '000004'
-                 "lowAlpha波"
-               when '000005'
-                 "highAlpha波"
-               when '000006'
-                 "lowBeta波"
-               when '000007'
-                 "highBeta波"
-               when '000008'
-                 "lowGamma波"
-               when '000009'
-                 "highGamma波"
-               when '00000011'
-                 "blinkstrength"
-
-               else "上下行速率"
-
-             end
+    caption = "上下行速率"
 
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
@@ -441,7 +418,7 @@ canvasbottommargin='10' refreshinterval='1' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
-labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' >
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='10' syaxisminvalue='0' syaxismaxvalue='10' >
 #{categories} #{dataset1} #{dataset2}
 <styles>
 <definition>
@@ -693,7 +670,6 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
       showLabels='1'
     end
 
-   # sql = "select sum(value)/4 as value,read_at from #{table_name}_reading where source=#{source} and read_at >= '#{start_time}' and read_at<=#{end_time} group by read_at,source"
     sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
     results = ActiveRecord::Base.connection.execute(sql)
 
