@@ -32,6 +32,7 @@ class LabReportsController < ApplicationController
           #放松度
           sql =" UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.M000001_minute
        ON lab_development.lab_data_minutes.read_at = lab_development.M000001_minute.minute
+AND lab_development.lab_data_minutes.source = lab_development.M000001_minute.source
        SET lab_development.lab_data_minutes.meditation = lab_development.M000001_minute.value
        where lab_development.M000001_minute.source='#{source}' and lab_development.M000001_minute.point_id='000001'
        AND lab_development.M000001_minute.minute>='#{begin_time}' and lab_development.M000001_minute.minute<='#{end_time}'; "
@@ -39,47 +40,52 @@ class LabReportsController < ApplicationController
           #行为体态
           sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.B000001_minute
      ON lab_development.lab_data_minutes.read_at = lab_development.B000001_minute.minute
+    AND lab_development.lab_data_minutes.source = lab_development.B000001_minute.source
     SET lab_development.lab_data_minutes.behaviour = lab_development.B000001_minute.value
     where lab_development.B000001_minute.source='#{source}' and lab_development.B000001_minute.point_id='000000'
     and  lab_development.B000001_minute.minute>='#{begin_time}' and lab_development.B000001_minute.minute<='#{end_time}'; "
           ActiveRecord::Base.connection.execute(sql)
-          #网络上行
-          sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.R000001_minute
+          source +=1
+       end
+       #网络上行
+       sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.R000001_minute
      ON lab_development.lab_data_minutes.read_at = lab_development.R000001_minute.minute
+ AND lab_development.lab_data_minutes.source = lab_development.R000001_minute.source
     SET lab_development.lab_data_minutes.network_up = lab_development.R000001_minute.value
     where lab_development.R000001_minute.point_id='000001'
     and  lab_development.R000001_minute.minute>='#{begin_time}' and lab_development.R000001_minute.minute<='#{end_time}'; "
-          ActiveRecord::Base.connection.execute(sql)
-          #网络下行
-          sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.R000001_minute
+       ActiveRecord::Base.connection.execute(sql)
+       #网络下行
+       sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.R000001_minute
      ON lab_development.lab_data_minutes.read_at = lab_development.R000001_minute.minute
+ AND lab_development.lab_data_minutes.source = lab_development.R000001_minute.source
     SET lab_development.lab_data_minutes.network_down = lab_development.R000001_minute.value
     where lab_development.R000001_minute.point_id='000002'
     and  lab_development.R000001_minute.minute>='#{begin_time}' and lab_development.R000001_minute.minute<='#{end_time}'; "
-          ActiveRecord::Base.connection.execute(sql)
-          #能耗
-          sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
+       ActiveRecord::Base.connection.execute(sql)
+       #能耗
+       sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
      ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
     SET lab_development.lab_data_minutes.energy_consumption = lab_development.C000001_minute.value
     where lab_development.C000001_minute.point_id='000001'
     and  lab_development.C000001_minute.minute>='#{begin_time}' and lab_development.C000001_minute.minute<='#{end_time}'; "
-          ActiveRecord::Base.connection.execute(sql)
-          #设备温度
-          sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
+       ActiveRecord::Base.connection.execute(sql)
+       #设备温度
+       sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
      ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
+ AND lab_development.lab_data_minutes.source = lab_development.C000001_minute.source
     SET lab_development.lab_data_minutes.temperature = lab_development.C000001_minute.value
     where lab_development.C000001_minute.point_id='000002'
     and  lab_development.C000001_minute.minute>='#{begin_time}' and lab_development.C000001_minute.minute<='#{end_time}'; "
-          ActiveRecord::Base.connection.execute(sql)
-          #湿度
-          sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
+       ActiveRecord::Base.connection.execute(sql)
+       #湿度
+       sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.C000001_minute
      ON lab_development.lab_data_minutes.read_at = lab_development.C000001_minute.minute
+ AND lab_development.lab_data_minutes.source = lab_development.C000001_minute.source
     SET lab_development.lab_data_minutes.humidity = lab_development.C000001_minute.value
     where lab_development.C000001_minute.point_id='000003'
     and  lab_development.C000001_minute.minute>='#{begin_time}' and lab_development.C000001_minute.minute<='#{end_time}'; "
-          ActiveRecord::Base.connection.execute(sql)
-          source +=1
-       end
+       ActiveRecord::Base.connection.execute(sql)
        @data = LabDataMinute.where(:course_id=>course_id).order(read_at: :asc)
     end
 
@@ -135,7 +141,7 @@ class LabReportsController < ApplicationController
 
         results = ActiveRecord::Base.connection.execute(sql)
         results.each(:as => :hash) do |row|
-          students[source]= row["value"].to_s
+          students[source]= format('%.2f',row["value"]) if row["value"]
         end
         source += 1
       end
@@ -150,7 +156,8 @@ class LabReportsController < ApplicationController
         sql = "select #{getvalue}(attention) as value from lab_development.lab_data_minutes where course_id =#{id} and source='#{source}';"
         results = ActiveRecord::Base.connection.execute(sql)
         results.each(:as => :hash) do |row|
-          students[source]= row["value"].to_s
+
+          students[source]= format('%.2f',row["value"]) if  row["value"]
         end
         source += 1
       end
@@ -165,7 +172,7 @@ class LabReportsController < ApplicationController
         sql = "select #{getvalue}(meditation) as value from lab_development.lab_data_minutes where course_id =#{id} and source='#{source}';"
         results = ActiveRecord::Base.connection.execute(sql)
         results.each(:as => :hash) do |row|
-          students[source]= row["value"].to_s
+            students[source]= format('%.2f',row["value"]) if row["value"]
         end
         source += 1
       end
