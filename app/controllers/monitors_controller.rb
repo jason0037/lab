@@ -35,7 +35,7 @@ class MonitorsController < ApplicationController
     source = params[:source]
 
     table_name = LabEquipmentMapping.get_table_name(equipment_code)
-    read_at = Time.now.strftime('%Y%m%d%H%M%S')
+    read_at = (Time.now-60.seconds).strftime('%Y%m%d%H%M%S')
 
     value1 = 0
     value2 = 0
