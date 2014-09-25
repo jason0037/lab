@@ -20,7 +20,7 @@
         <td><%= lab_course.name %></td>
         <td><%= Option.where(:key=>"eval_object_type",:value=>lab_course.course_type).first.name if lab_course.course_type%></td>
         <td><%= Option.where(:key=>"course_type",:value=>lab_course.category_id).first.name if lab_course.category_id %></td>
-        <td><%= lab_course.lab_user.name if lab_course.lab_teacher_id%></td>
+        <td><%= lab_course.lab_user.name if lab_course.teacher_id%></td>
         <td><%if lab_course.begin_time_real%>
               <%=l lab_course.begin_time_real%>
           <%elsif lab_course.begin_time%>
