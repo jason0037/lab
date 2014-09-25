@@ -6,6 +6,39 @@ class LabCoursesController < ApplicationController
   layout "blank"#,:except => [:show]
 
   def status
+    sqlstr =''
+    table =['R','M','B','C']
+    table.each do |t|
+      source = 1
+      source_max = case t
+                     when 'R' || 'C'
+                       1
+                     when 'M' || 'B'
+                       4
+                   end
+      while source <= source_max  do
+        point =0
+        point_max = case t
+                       when 'R' || 'C' || 'M'
+                         1
+                       when  'B'
+                         0
+                     end
+        while point <= point_max  do
+          sql = "insert lab_development.#{t}000001_minute (point_id,minute,value,source)
+              select '00000#{point}',left(read_at,12),sum(value)/count(*) as value, '#{source}'
+              from lab_development.#{t}000001_reading where source='#{source}' and point_id='00000#{point}'
+               and read_at >= '20140923141301' and read_at<='20140923150956'
+              group by left(read_at,12);"
+          ActiveRecord::Base.connection.execute(sql)
+          point += 1
+          sqlstr +=sql
+        end
+        source += 1
+      end
+    end
+    return render :text=>sqlstr
+
     #app接口，由移动终端发起课程开始或结束
     status=params[:status]
     result = 9999
@@ -24,7 +57,7 @@ class LabCoursesController < ApplicationController
       end
     elsif status=="0"
       if  now_status == 2
-        result=0
+        result = 0
         @lab_course.status = 3
         @lab_course.end_time_real=Time.now
         @lab_course.save

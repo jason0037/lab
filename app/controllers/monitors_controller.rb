@@ -18,16 +18,15 @@ class MonitorsController < ApplicationController
     read_at =router["read_at"]
     up = router["up"]
     down = router["down"]
+    now = Time.now.strftime('%Y%m%d%H%M%S')
 
     sql ="insert R000001_reading (point_id,read_at,saved_at,value,source) values
-          ('000001' ,'#{read_at}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{up}','1')
-          ,('000002','#{read_at}','#{Time.now.strftime('%Y%m%d%H%M%S')}','#{down}','1')"
+          ('000001' ,'#{now}','#{now}','#{up}','1'),('000002','#{now}','#{now}','#{down}','1')"
     ActiveRecord::Base.connection.execute sql
 
     render :text => read_at#{ :code => 0}.to_json
-    #  rescue
-    #    return render :text=>{ :code => 9999 }.to_json
-    #  end
+    rescue
+       return render :text=>{ :code => 9999 }.to_json
   end
 
   def get_realtime_data
@@ -632,16 +631,13 @@ showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='#{di
 labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxismaxvalue='100' #{export_str}>
 #{categories} #{datasets}
 <styles>
-<definition>
-<style type='font' name='captionFont' size='14' />
-</definition>
+<definition><style type='font' name='captionFont' size='14' /></definition>
 <application>
 <apply toobject='Caption' styles='captionFont' />
 <apply toobject='Realtimevalue' styles='captionFont' />
 </application>
 </styles>
-<trendlines></trendlines>
-</chart>"
+<trendlines></trendlines></chart>"
     render :text => charts
   end
 
