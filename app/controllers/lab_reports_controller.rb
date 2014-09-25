@@ -41,7 +41,7 @@ AND lab_development.lab_data_minutes.source = lab_development.M000001_minute.sou
           sql ="UPDATE lab_development.lab_data_minutes INNER JOIN lab_development.B000001_minute
      ON lab_development.lab_data_minutes.read_at = lab_development.B000001_minute.minute
     AND lab_development.lab_data_minutes.source = lab_development.B000001_minute.source
-    SET lab_development.lab_data_minutes.behaviour = lab_development.B000001_minute.value
+    SET lab_development.lab_data_minutes.behaviour = lab_development.B000001_minute.value/80
     where lab_development.B000001_minute.source='#{source}' and lab_development.B000001_minute.point_id='000000'
     and  lab_development.B000001_minute.minute>='#{begin_time}' and lab_development.B000001_minute.minute<='#{end_time}'; "
           ActiveRecord::Base.connection.execute(sql)
