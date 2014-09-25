@@ -15,7 +15,7 @@ class MonitorsController < ApplicationController
     end
 
     router = JSON.parse(params[:router])
-    read_at =router["read_at"]
+   # read_at =router["read_at"]
     up = router["up"]
     down = router["down"]
     now = Time.now.strftime('%Y%m%d%H%M%S')
@@ -24,7 +24,7 @@ class MonitorsController < ApplicationController
           ('000001' ,'#{now}','#{now}','#{up}','1'),('000002','#{now}','#{now}','#{down}','1')"
     ActiveRecord::Base.connection.execute sql
 
-    render :text => read_at#{ :code => 0}.to_json
+    render :text => { :code => 0}.to_json
     rescue
        return render :text=>{ :code => 9999 }.to_json
   end
@@ -35,8 +35,8 @@ class MonitorsController < ApplicationController
     source = params[:source]
 
     table_name = LabEquipmentMapping.get_table_name(equipment_code)
-    read_at = (Time.now-60.seconds).strftime('%Y%m%d%H%M%S')
-
+    read_at = (Time.now-120.seconds).strftime('%Y%m%d%H%M%S')
+    #read_at = Time.now.strftime('%Y%m%d%H%M%S')
     value1 = 0
     value2 = 0
     sql =''
@@ -73,7 +73,7 @@ class MonitorsController < ApplicationController
             and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
 
       when 'B000001'
-        sql = "select value/80,read_at from #{table_name}_reading where source=#{source} and point_id='000000'
+        sql = "select value/80 as value,read_at from #{table_name}_reading where source=#{source} and point_id='000000'
         and read_at>= '#{read_at.to_s}' order by read_at desc limit 0,1"
       when 'C000001'
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
@@ -821,7 +821,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
       showLabels='1'
     end
 
-    sql = "select value/80,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
+    sql = "select value/80 as value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|

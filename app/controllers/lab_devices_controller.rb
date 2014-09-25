@@ -34,7 +34,7 @@ class LabDevicesController < ApplicationController
     save = params[:submit_data]
     save =JSON.parse(save)
    # return render :text=>save
-    return save(id)
+    #return save(id)
     result = 9999
     if  save['id']
       @device = LabDevice.find(save['id'])
@@ -56,8 +56,8 @@ class LabDevicesController < ApplicationController
         return render :text=>{ :code => result }.to_json
       end
     end
- # rescue
- #   return render :text=>{ :code => result }.to_json
+  rescue
+   return render :text=>{ :code => result }.to_json
   end
 
   def search

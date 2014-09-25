@@ -96,11 +96,12 @@ AND lab_development.lab_data_minutes.source = lab_development.M000001_minute.sou
                                                                     :vertical => :center},:height=> 20
       goods_cell = s.add_style :b=>true, :sz => 10, :alignment => {:vertical => :center},:height=> 20
 
-      workbook.add_worksheet(:name => "Product") do |sheet|
-
+      workbook.add_worksheet(:name => "Report") do |sheet|
+        date=''
+        if @data.first
           date = @data.first.read_at[0..7]
           date = date[0..3] + "-"+ date[4..5] + "-"+ date[6..7]
-
+        end
         sheet.add_row ["(测试日期:#{date})"],:style=>goods_cell
 
         sheet.add_row ['时间',"注意力","放松度","体态","网络上行","网络下行","能耗","温度","湿度","学生"],
