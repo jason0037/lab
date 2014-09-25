@@ -512,7 +512,8 @@ type='font' size='24' bold='0'/></definition><application><apply toObject='Capti
     data_str1 = ""
     str = ""
     [1,2,3,4].each do |source|
-        sql = "select sum(value)/count(*)/80 as value ,left(read_at,12) as read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
+        #sql = "select sum(value)/count(*)/80 as value ,left(read_at,12) as read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
+      sql = "select value ,minute as read_at from #{table_name}_minute where source=#{source} and point_id='000000' and minute >= '#{start_time}' and minute<='#{end_time}'"
    #     str = str + sql
         results = ActiveRecord::Base.connection.execute(sql)
         data_str1 = ""
@@ -602,7 +603,8 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     data_str1 = ""
     displayNum = 0
     [1,2,3,4].each do |source|
-      sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where source='#{source}' and point_id='#{point_id}' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
+      #sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where source='#{source}' and point_id='#{point_id}' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
+      sql = "select value ,minute as read_at from #{table_name}_minute where source='#{source}' and point_id='#{point_id}' and minute >= '#{start_time}' and minute<='#{end_time}'"
         results = ActiveRecord::Base.connection.execute(sql)
         data_str1 = ""
         showNum = 0
@@ -673,9 +675,8 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     data_str1 = ""
     displayNum = 0
     [1,2].each do |source|
-      sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where point_id='00000#{source}' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
-
-#      sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}'"
+     # sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where point_id='00000#{source}' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
+      sql = "select value ,minute as read_at from #{table_name}_minute where point_id='00000#{source}' and minute >= '#{start_time}' and minute<='#{end_time}'"
       results = ActiveRecord::Base.connection.execute(sql)
       data_str1 = ""
       showNum = 0
@@ -749,9 +750,9 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     data_str1 = ""
     displayNum = 0
     [1,2].each do |source|
-      sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where point_id='00000#{source}' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
+      #sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where point_id='00000#{source}' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
+      sql = "select value ,minute as read_at from #{table_name}_minute where point_id='00000#{source}' and minute>= '#{start_time}' and minute<='#{end_time}'"
 
-#      sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<='#{end_time}'"
       results = ActiveRecord::Base.connection.execute(sql)
       data_str1 = ""
       showNum = 0
