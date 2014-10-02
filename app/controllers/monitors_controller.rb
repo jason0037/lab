@@ -576,8 +576,10 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     end_time = params[:end_at]
     if point_id =='000000'
       type_name = '注意力'
+      type_name_en ='attention'
     elsif  point_id =='000001'
       type_name = '放松度'
+      type_name_en = 'meditation'
     end
     caption="脑波(#{type_name}）分析"
     cats_str = ''
@@ -594,7 +596,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
      # xaxisname="当前数值"
       showlegend='1'
       showLabels='1'
-      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='mindwave#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='mindwave_#{type_name_en}_#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
     end
 
     categories = ""
@@ -665,7 +667,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
       # xaxisname="当前数值"
       showlegend='1'
       showLabels='1'
-      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='mindwave#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='network#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
 
     end
 
@@ -740,7 +742,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
       # xaxisname="当前数值"
       showlegend='1'
       showLabels='1'
-      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='mindwave#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='environment#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
 
     end
 

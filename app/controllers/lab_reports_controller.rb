@@ -342,13 +342,18 @@ html_common_1=%Q{
   </td>
 </tr>
 <tr>
-  <td style="width:130px;text-align:center">
-    <p><strong>无线网络总流量</strong></p>
-  </td>
-  <td colspan="6" style="width:423px;">
-    <p align="center"> 49.2MB</p>
+  <td colspan="7" style="width:553px;background-color:#66B3FF"">
+    <p align="center">
+      <strong>无线网络使用分析图表</strong></p>
   </td>
 </tr>
+<tr>
+  <td colspan="7" style="width:553px;">
+<p><img src='file:///root/lab/public/report/network#{id}.jpg' style="width:100%;"></p>
+
+  </td>
+</tr>
+<tr>
 <tr>
   <td style="width:130px;text-align:center">
     <p><strong>实验对象抽样</strong></p>
@@ -642,7 +647,18 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
 </tr>
 <tr>
   <td colspan="7" style="width:100%;">
-    <p><img src='file:///root/lab/public/report/mindwave#{id}.jpg' style="width:100%;"></p>
+    <p><img src='file:///root/lab/public/report/mindwave_attention_#{id}.jpg' style="width:100%;"></p>
+  </td>
+</tr>
+<tr>
+  <td colspan="7" style="width:553px;background-color:#66B3FF">
+    <p align="center">
+      <strong>放松度脑波分析图表</strong></p>
+  </td>
+</tr>
+<tr>
+  <td colspan="7" style="width:100%;">
+    <p><img src='file:///root/lab/public/report/mindwave_meditation_#{id}.jpg' style="width:100%;"></p>
   </td>
 </tr>
 <tr>
