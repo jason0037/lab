@@ -574,6 +574,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     start_time = params[:start_at]
     end_time = params[:end_at]
+    type_name_en =''
     if point_id =='000000'
       type_name = '注意力'
       type_name_en ='attention'
