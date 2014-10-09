@@ -29,9 +29,9 @@
   <dt><strong>发布时间:</strong></dt>
   <dd>&nbsp;<%=l @lab_course.publish_time  if @lab_course.publish_time %></dd>
   <dt><strong>实际开始时间:</strong></dt>
-  <dd>&nbsp;<%=l @lab_course.apply_time  if @lab_course.begin_time_real %></dd>
+  <dd>&nbsp;<%=l @lab_course.apply_time  if @lab_course.apply_time %></dd>
   <dt><strong>实际结束时间:</strong></dt>
-  <dd>&nbsp;<%=l @lab_course.approve_time if @lab_course.end_time_real%></dd>
+  <dd>&nbsp;<%=l @lab_course.approve_time if @lab_course.approve_time%></dd>
   <dt><strong>教学场景:</strong></dt>
   <dd>&nbsp;<%= @lab_course.lab_scene.name if @lab_course.lab_scene%></dd>
   <dt><strong>课程属性:</strong></dt>

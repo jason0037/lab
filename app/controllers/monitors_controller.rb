@@ -588,7 +588,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
   def mindwave_data_history
     id = params[:id]
     equipment_code = params[:equipment_code]
-    point_id =params[:point]
+    point_id = params[:point]
     size = params[:size]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     start_time = params[:start_at]
@@ -667,6 +667,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
 
   def network_data_history
     id = params[:id]
+    source = params[:source]
     equipment_code = params[:equipment_code]
     size = params[:size]
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
@@ -697,9 +698,26 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     cats_str = ""
     data_str1 = ""
     displayNum = 0
-    [1,2].each do |source|
-     # sql = "select sum(value)/count(*) as value ,left(read_at,12) as read_at from #{table_name}_reading where point_id='00000#{source}' and read_at >= '#{start_time}' and read_at<='#{end_time}' group by left(read_at,12)"
-      sql = "select value ,minute as read_at from #{table_name}_minute where point_id='00000#{source}' and minute >= '#{start_time}' and minute<='#{end_time}'"
+    if source =='0'
+     [1,2].each do |point|
+        sql = "select value ,minute as read_at from #{table_name}_minute where point_id='00000#{point}' and source='0' and minute >= '#{start_time}' and minute<='#{end_time}'"
+        results = ActiveRecord::Base.connection.execute(sql)
+        data_str1 = ""
+        showNum = 0
+        results.each(:as => :hash) do |row|
+          times = row["read_at"][8..12]
+          times = times[0..1] + ":"+times[2..3]
+          data_str1 += "<set value='#{row["value"]}' />"
+          cats_str += "<category label='#{times}'/>"
+          showNum = showNum + 1
+          if showNum > displayNum
+            displayNum = showNum
+          end
+        end
+    end
+    else
+     [1,2,3,4].each do |source|
+      sql = "select value ,minute as read_at from #{table_name}_minute where point_id='000001' and source='#{source}'' and minute >= '#{start_time}' and minute<='#{end_time}'"
       results = ActiveRecord::Base.connection.execute(sql)
       data_str1 = ""
       showNum = 0
@@ -717,7 +735,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
       if categories =="" && cats_str !=""
         categories = "<categories>#{cats_str}</categories>"
       end
-      datasets = datasets + "<dataset seriesName='数据#{source}' showValues='0'>#{data_str1}</dataset>"
+      datasets = datasets + "<dataset seriesName='终端#{source}' showValues='0'>#{data_str1}</dataset>"
     end
     charts="<chart manageresize='1' palette='3' caption='#{caption}' subcaption='#{subcaption}'
 canvasbottommargin='10' numbersuffix=''
