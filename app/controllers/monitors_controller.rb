@@ -14,7 +14,7 @@ class MonitorsController < ApplicationController
     end
     now = Time.now.strftime('%Y%m%d%H%M%S')
     sql ="insert R000001_reading (point_id,read_at,saved_at,value,source) values
-          ('000001' ,'#{now}','#{now}',#{arams[:value]},'1')"
+          ('000001' ,'#{now}','#{now}',#{params[:value]},'1')"
     ActiveRecord::Base.connection.execute sql
 
     render :text => { :code => 0}.to_json
