@@ -8,13 +8,13 @@ class MonitorsController < ApplicationController
   # GET /lab_cats.json
   layout "blank"#,:except => [:show]
 
-  def terminal_date
+  def terminal_data
     if params[:value].blank?
       return  render :text => { :code => 9999}.to_json
     end
     now = Time.now.strftime('%Y%m%d%H%M%S')
     sql ="insert R000001_reading (point_id,read_at,saved_at,value,source) values
-          ('000001' ,'#{now}','#{now}',#{arams[:value]},'2')"
+          ('000001' ,'#{now}','#{now}',#{arams[:value]},'1')"
     ActiveRecord::Base.connection.execute sql
 
     render :text => { :code => 0}.to_json
@@ -35,7 +35,7 @@ class MonitorsController < ApplicationController
     now = Time.now.strftime('%Y%m%d%H%M%S')
 
     sql ="insert R000001_reading (point_id,read_at,saved_at,value,source) values
-          ('000001' ,'#{now}','#{now}','#{up}','1'),('000002','#{now}','#{now}','#{down}','1')"
+          ('000001' ,'#{now}','#{now}','#{up}','0'),('000002','#{now}','#{now}','#{down}','0')"
     ActiveRecord::Base.connection.execute sql
 
     render :text => { :code => 0}.to_json
@@ -588,7 +588,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     start_time = params[:start_at]
     end_time = params[:end_at]
-    type_name_en =''
+    type_name_en ='attention'
     if point_id =='000000'
       type_name = '注意力'
       type_name_en ='attention'
@@ -611,7 +611,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
      # xaxisname="当前数值"
       showlegend='1'
       showLabels='1'
-      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='mindwave_#{type_name_en}_#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='mindwave#{type_name_en}#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
     end
 
     categories = ""

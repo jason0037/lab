@@ -22,6 +22,7 @@ Lab::Application.routes.draw do
   end
 
   resources :monitors do
+    get :terminal_data , :on => :collection
     get :receive_data , :on=>:collection
     get :lab_comprehensive,:on=>:collection
     get :online_comprehensive,:on=>:collection

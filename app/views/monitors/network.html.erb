@@ -12,10 +12,10 @@
 <ul class="muti_charts" style="margin-left:3px">
   <li>
     <div id="chart-00">
-      <div chart-type="AngularGauge.swf"
-           data-source="/monitors/dashboard_data?equipment_code=003001"
-           id="chart-container-0">
-      </div>
+      <div class="small_chart" chart-type="RealTimeLineDY.swf"
+           data-source="/monitors/network_data?equipment_code=003001&point_id=000001&source=0&size=small"
+           id="chart-container-1"></div>
+    </div>
     </div>
   </li>
   <li>
@@ -25,6 +25,28 @@
            id="chart-container-1"></div>
     </div>
   </li>
+  <li>
+    <div id="chart-02">
+      <div class="small_chart" chart-type="RealTimeLineDY.swf"
+           data-source="/monitors/network_data?equipment_code=003001&point_id=000001&source=2&size=small"
+           id="chart-container-2"></div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-03">
+      <div class="small_chart" chart-type="RealTimeLineDY.swf"
+           data-source="/monitors/network_data?equipment_code=003001&point_id=000001&source=3&size=small"
+           id="chart-container-3"></div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-04">
+      <div class="small_chart" chart-type="RealTimeLineDY.swf"
+           data-source="/monitors/network_data?equipment_code=003001&point_id=000001&source=4&size=small"
+           id="chart-container-1"></div>
+    </div>
+  </li>
+
 </ul>
 <script type="text/javascript">
     $(".small_chart").click(function(e){
