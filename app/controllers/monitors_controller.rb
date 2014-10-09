@@ -616,7 +616,8 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
      # xaxisname="当前数值"
       showlegend='1'
       showLabels='1'
-      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='mindwave#{type_name_en}#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='#{type_name_en}#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+
     end
 
     categories = ""
