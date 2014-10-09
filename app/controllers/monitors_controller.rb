@@ -398,7 +398,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
         subcaption="总速率"
       end
 
-      xaxisname="当前数值"
+      xaxisname="当前速率"
       showlegend='1'
       showLabels='1'
     end
@@ -436,7 +436,7 @@ canvasbottommargin='10' refreshinterval='1' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
-labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='10' syaxisminvalue='0' syaxismaxvalue='10' >
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='5000' syaxisminvalue='0' syaxismaxvalue='10' >
 #{categories} #{dataset1} #{dataset2}
 <styles>
 <definition>
