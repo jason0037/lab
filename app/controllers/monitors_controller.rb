@@ -717,7 +717,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
        end
     else
      [1,2,3,4].each do |source|
-      sql = "select value ,minute as read_at from #{table_name}_minute where point_id='000001' and source='#{source}'' and minute >= '#{start_time}' and minute<='#{end_time}'"
+      sql = "select value ,minute as read_at from #{table_name}_minute where point_id='000001' and source='#{source}' and minute >= '#{start_time}' and minute<='#{end_time}'"
       results = ActiveRecord::Base.connection.execute(sql)
       data_str1 = ""
       showNum = 0
@@ -758,7 +758,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='10' syaxisminvalue='0' syaxisma
 </chart>"
     render :text => charts
   end
-  
+
   def environment_data_history
     id = params[:id]
     equipment_code = params[:equipment_code]
