@@ -391,8 +391,8 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
 
     if size!='small'
       if (point_id == '000001' || point_id.blank?)
-        seriesname2="上行速率"
-        seriesname1="下行速率"
+        seriesname2="下行速率"
+        seriesname1="上行速率"
         point_id = '000001'
       else
         subcaption="总速率"
@@ -403,7 +403,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
       showLabels='1'
     end
 
-    if point_id=='000001'
+    if point_id=='000001' && source == '0'
       sql = "select value from #{table_name}_reading where point_id = '#{point_id}'and  source='#{source}'
             and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
       results = ActiveRecord::Base.connection.execute(sql)
