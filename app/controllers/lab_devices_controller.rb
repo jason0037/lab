@@ -28,8 +28,8 @@ class LabDevicesController < ApplicationController
     return render :text=>{ :code => result }.to_json
   end
 
+#post
   def app_save
-#目前没有用到
 #    save='{"id":2,"name":"\u8def\u7531\u5668 lab_test","version":"","brand":"\u864e\u7b26","device_type":"\u8def\u7531\u5668","cost":"3439.0","bn":"3039393993","photo":"/teachResources/devices/20140813235914.jpg","supplier":"\u9f99\u8f6f"}'
     save = params[:submit_data]
     save =JSON.parse(save)

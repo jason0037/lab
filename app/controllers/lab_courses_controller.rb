@@ -40,11 +40,9 @@ class LabCoursesController < ApplicationController
         table.each do |t|
           source = 1
           source_max = case t
-                         when 'R'
-                           1
                          when 'C'
                            1
-                         else # when 'M' || 'B'
+                         else # when 'M' || 'B' || 'R'
                            4
                        end
           while source <= source_max  do
@@ -56,8 +54,8 @@ class LabCoursesController < ApplicationController
             point_max = case t
                           when  'B'
                             0
-                          when 'R'
-                            2
+                      #    when 'R'
+                      #      2
                           else # when 'R' || 'C' || 'M'
                             1
                         end
