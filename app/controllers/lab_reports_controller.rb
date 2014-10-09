@@ -488,6 +488,16 @@ html_behaviour_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100
 </tr>
 <tr>
   <td colspan="7" style="width:553px;">
+<p style="margin-left:31.5pt;">
+      <strong>平均值<30，说明被测学生在课堂上行为体态较为安静</strong></p>
+    <p style="margin-left:31.5pt;">
+      <strong>50>=平均值>=30，说明被测学生在课堂上行为体态较为活跃</strong></p>
+<p style="margin-left:31.5pt;">
+      <strong>平均值>50，说明被测学生在课堂上行为体态活跃</strong></p>
+  </td>
+</tr>
+<tr>
+  <td colspan="7" style="width:553px;">
     <p style="margin-left:31.5pt;">
       <strong>#{@lab_course.opinion}</strong></p>
   </td>
@@ -647,7 +657,7 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
 </tr>
 <tr>
   <td colspan="7" style="width:100%;">
-    <p><img src='file:///root/lab/public/report/mindwave_attention_#{id}.jpg' style="width:100%;"></p>
+    <p><img src='file:///root/lab/public/report/attention#{id}.jpg' style="width:100%;"></p>
   </td>
 </tr>
 <tr>
@@ -658,7 +668,7 @@ html_mindwave_1=%Q{<table border="1" cellpadding="0" cellspacing="0" width="100%
 </tr>
 <tr>
   <td colspan="7" style="width:100%;">
-    <p><img src='file:///root/lab/public/report/mindwave_meditation_#{id}.jpg' style="width:100%;"></p>
+    <p><img src='file:///root/lab/public/report/meditation#{id}.jpg' style="width:100%;"></p>
   </td>
 </tr>
 <tr>
