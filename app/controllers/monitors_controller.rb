@@ -368,7 +368,12 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     point_id = params[:point_id]
     source = params[:source]
 
-    caption = "上下行速率"
+
+    if source =='0'
+      caption = "上下行速率"
+    else
+      caption ="终端#{source}"
+    end
 
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
