@@ -8,6 +8,20 @@ class MonitorsController < ApplicationController
   # GET /lab_cats.json
   layout "blank"#,:except => [:show]
 
+  def terminal_date
+    if params[:value].blank?
+      return  render :text => { :code => 9999}.to_json
+    end
+    now = Time.now.strftime('%Y%m%d%H%M%S')
+    sql ="insert R000001_reading (point_id,read_at,saved_at,value,source) values
+          ('000001' ,'#{now}','#{now}',#{arams[:value]},'2')"
+    ActiveRecord::Base.connection.execute sql
+
+    render :text => { :code => 0}.to_json
+  rescue
+    return render :text=>{ :code => 9999 }.to_json
+  end
+
   def receive_data
     # router={ "up": 2929, "down": 9092 ,"read_at":"20140820154334"}
     if params[:router].blank?
