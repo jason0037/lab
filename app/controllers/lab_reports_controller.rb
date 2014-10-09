@@ -345,7 +345,7 @@ html_common_1=%Q{
     <p><strong>测试情景</strong></p>
   </td>
   <td colspan="6" style="width:423px;">
-    <p align="center">#{@lab_course.lab_scene.name}</p>
+    <p align="center">#{@lab_course.lab_scene.name if @lab_course.lab_scene}</p>
   </td>
 </tr>
 <tr>

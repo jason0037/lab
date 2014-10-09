@@ -690,7 +690,6 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
       showlegend='1'
       showLabels='1'
       export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='network#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
-
     end
 
     categories = ""
@@ -698,6 +697,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     cats_str = ""
     data_str1 = ""
     displayNum = 0
+
     if source =='0'
        [1,2].each do |point|
           sql = "select value ,minute as read_at from #{table_name}_minute where point_id='00000#{point}' and source='0' and minute >= '#{start_time}' and minute<='#{end_time}'"
