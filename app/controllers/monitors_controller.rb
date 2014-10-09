@@ -404,7 +404,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     end
 
     if point_id=='000001'
-      sql = "select value from #{table_name}_reading where point_id = '#{point_id}'
+      sql = "select value from #{table_name}_reading where point_id = '#{point_id}'and  source='#{source}'
             and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
       results = ActiveRecord::Base.connection.execute(sql)
 
@@ -414,7 +414,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
       point_id='000002'
     end
 
-    sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}'
+    sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and  source='#{source}'
             and read_at >= '#{start_time}' and read_at<=#{end_time} order by id"
     results = ActiveRecord::Base.connection.execute(sql)
 
