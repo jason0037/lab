@@ -3,7 +3,7 @@ require 'pp'
 require 'rufus-scheduler'
 
 class MonitorsController < ApplicationController
-  before_filter :authorize_user!,:except => [ :receive_data]
+  before_filter :authorize_user!,:except => [ :receive_data,:terminal_data]
   # GET /lab_cats
   # GET /lab_cats.json
   layout "blank"#,:except => [:show]
@@ -18,8 +18,8 @@ class MonitorsController < ApplicationController
     ActiveRecord::Base.connection.execute sql
 
     render :text => { :code => 0}.to_json
-  rescue
-    return render :text=>{ :code => 9999 }.to_json
+ # rescue
+ #   return render :text=>{ :code => 9999 }.to_json
   end
 
   def receive_data
