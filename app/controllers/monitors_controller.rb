@@ -87,7 +87,7 @@ class MonitorsController < ApplicationController
             and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
 
       when 'B000001'
-        read_at = (Time.now - 2.seconds).strftime('%Y%m%d%H%M%S') #1秒上传一次
+        read_at = (Time.now - 30.seconds).strftime('%Y%m%d%H%M%S') #1秒上传一次
         sql = "select value as value,read_at from #{table_name}_reading where source=#{source} and point_id='000000'
         and read_at>= '#{read_at.to_s}' order by read_at desc limit 0,1"
       when 'C000001'
