@@ -49,8 +49,7 @@ class MonitorsController < ApplicationController
     source = params[:source]
 
     table_name = LabEquipmentMapping.get_table_name(equipment_code)
-    read_at = (Time.now-120.seconds).strftime('%Y%m%d%H%M%S')
-    #read_at = Time.now.strftime('%Y%m%d%H%M%S')
+    read_at = Time.now.strftime('%Y%m%d%H%M%S')
     value1 = 0
     value2 = 0
     sql =''
@@ -60,7 +59,7 @@ class MonitorsController < ApplicationController
     end
 
     case table_name
-      when 'M000001'
+      when 'M000001' #1秒采集6次
         if point_id=='000001'
           sql = "select value from #{table_name}_reading where point_id = '000000' and source='#{source}'
           and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
@@ -74,6 +73,7 @@ class MonitorsController < ApplicationController
             and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
 
       when 'R000001'
+        read_at = (Time.now - 20.seconds).strftime('%Y%m%d%H%M%S') #10秒上传一次
         if point_id=='000002'
           sql = "select value from #{table_name}_reading where point_id = '000001' and source='#{source}'
           and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
@@ -87,9 +87,11 @@ class MonitorsController < ApplicationController
             and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
 
       when 'B000001'
+        read_at = (Time.now - 2.seconds).strftime('%Y%m%d%H%M%S') #1秒上传一次
         sql = "select value/80 as value,read_at from #{table_name}_reading where source=#{source} and point_id='000000'
         and read_at>= '#{read_at.to_s}' order by read_at desc limit 0,1"
       when 'C000001'
+        read_at = (Time.now - 120.seconds).strftime('%Y%m%d%H%M%S') #10秒上传一次
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
           and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
       else
@@ -419,7 +421,8 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|
-      data_str1 += "<set value='#{row["value"]}' />"
+      value = row["value"]
+      data_str1 += "<set value='#{value}' />"
       times = row["read_at"][8..14]
       times = times[0..1] + ":"+times[2..3]+":" +times[4..5]
 
@@ -436,68 +439,16 @@ canvasbottommargin='10' refreshinterval='1' numbersuffix=''
 showlegend='#{showlegend}' showLabels='#{showLabels}'
 snumbersuffix='' setadaptiveymin='1' setadaptivesymin='1' xaxisname='#{xaxisname}'
 showrealtimevalue='1' labeldisplay='Rotate' slantlabels='1' numdisplaysets='40'
-labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='5000' syaxisminvalue='0' syaxismaxvalue='10' >
+labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='5000'>
 #{categories} #{dataset1} #{dataset2}
-<styles>
-<definition>
-<style type='font' name='captionFont' size='14' />
-</definition>
+<styles><definition><style type='font' name='captionFont' size='14' /></definition>
 <application>
 <apply toobject='Caption' styles='captionFont' />
 <apply toobject='Realtimevalue' styles='captionFont' />
-</application>
-</styles>
-<trendlines></trendlines>
-</chart>"
+</application></styles><trendlines></trendlines></chart>"
 
     render :text => charts
 
-=begin
-    equipment_code = params[:equipment_code]
-    size = params[:size]
-    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
-    #end_time = Time.now.strftime('%Y%m%d%H%M%S')
-    #start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
-    start_time = "20140424134413"
-    end_time =   "20140424161437"
-
-    cats_str = ''
-    data_str = ''
-    select =" '' as read_at ,value"
-    seriesname=''
-    score=''
-    pyaxisname=''
-    if size!='small'
-      select = "read_at,value*10 as value"
-      seriesname='实时网络'
-      score="学习效果"
-      pyaxisname="网速(比特/秒)"
-    end
-    datas = BData.select("#{select}").where("point_id='000003' and read_at > ? and read_at < ?",start_time,end_time).order("read_at asc")
-    datas.each do |data|
-      times=data.read_at[8..14]
-      if (!times.blank?)
-        times =times[0..1]+":"+times[2..3]+":"+times[4..5]
-
-      end
-      cats_str += "<category label='#{times}'/>"
-      data_str += "<set value='#{data.value}' />"
-    end
-    categorys = "<categories>#{cats_str}</categories>"
-    datasets = "<dataset seriesName='#{seriesname}' showValues='0' parentYAxis='P'>#{data_str}</dataset>"
-    charts = "<chart animation='0' manageResize='1' bgColor='009999,333333' basefontcolor='FFFFDD' bgAlpha='100'
-canvasBorderThickness='1' canvasBorderColor='008040' canvasBgColor='000000' canvasBgAlpha='100'
-divLineColor='008040' vDivLineColor='008040' divLineAlpha='100'
-caption='网络监测' dataStreamURL='' refreshInterval='900' PYAxisName='#{pyaxisname}' PYAxisMinValue='0' PYAXisMaxValue='100'
- SYAxisName='#{score}' SYAxisMinValue='0' SYAXisMaxValue='100' setAdaptiveYMin='1' setAdaptiveSYMin='1'
-showRealTimeValue='0' realTimeValuePadding='10' showLabel='1' labelDisplay='Rotate' slantLabels='1'
-labelStep='2' numDisplaySets='95' numVDivLines='47' toolTipBgColor='000000' toolTipBorderColor='008040'
-baseFontSize='16' baseFont='微软雅黑' showAlternateHGridColor='0' legendBgColor='000000'
-legendBorderColor='008040' legendShadow='0'><styles><definition><style name='MyFontStyle'
-type='font' size='24' bold='0'/></definition><application><apply toObject='Caption' styles='MyFontStyle' />
-</application></styles>#{categorys}#{datasets}</chart>"
-    render :text => charts
-=end
   end
 
   def behaviour_data_history
