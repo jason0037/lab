@@ -87,9 +87,10 @@ class MonitorsController < ApplicationController
             and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
 
       when 'B000001'
-        read_at = (Time.now - 30.seconds).strftime('%Y%m%d%H%M%S') #1秒上传一次
-        sql = "select value as value,read_at from #{table_name}_reading where source=#{source} and point_id='000000'
+        read_at = (Time.now - 5.seconds).strftime('%Y%m%d%H%M%S') #1秒上传一次
+        sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000'
         and read_at>= '#{read_at.to_s}' order by read_at desc limit 0,1"
+
       when 'C000001'
         read_at = (Time.now - 120.seconds).strftime('%Y%m%d%H%M%S') #10秒上传一次
         sql = "select value,read_at from #{table_name}_reading where point_id = '#{point_id}' and source='#{source}'
@@ -813,7 +814,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
       showLabels='1'
     end
 
-    sql = "select value as value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
+    sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|
