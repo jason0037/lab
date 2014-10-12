@@ -795,7 +795,8 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
-    start_time = (Time.now - 2.minutes).strftime('%Y%m%d%H%M%S')
+    #start_time = (Time.now - 2.minutes).strftime('%Y%m%d%H%M%S')
+    start_time = Time.now.strftime('%Y%m%d%H%M%S')
 
     caption="实时行为体态(学生#{source})"
     cats_str = ''
