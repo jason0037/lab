@@ -2,10 +2,9 @@
 //= require FusionCharts.jqueryplugin
 
 $(document).ready(function(){
-
+    FusionCharts.setCurrentRenderer('javascript');
     for( var i=0;i<=9;i++){
         if($('#chart-container-'+i)!='undefined'){
-            FusionCharts.setCurrentRenderer('javascript');
             var chartDiv =  $('#chart-container-'+i);
             var chart_type = chartDiv.attr("chart-type");
             var data_source = chartDiv.attr("data-source");
