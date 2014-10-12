@@ -88,8 +88,8 @@ class MonitorsController < ApplicationController
 
       when 'B000001'
         read_at = (Time.now - 5.seconds).strftime('%Y%m%d%H%M%S') #1秒上传一次
-        sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000'
-        and read_at>= '#{read_at.to_s}' order by read_at desc limit 0,1"
+        sql = "select value/2 as value,read_at from #{table_name}_reading where source=#{source} and point_id='000000'
+        and read_at>= '#{read_at.to_s}' order by id desc limit 0,1"
 
       when 'C000001'
         read_at = (Time.now - 120.seconds).strftime('%Y%m%d%H%M%S') #10秒上传一次
@@ -483,7 +483,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='5000'>
     data_str1 = ""
     str = ""
     [1,2,3,4].each do |source|
-       sql = "select value ,minute as read_at from #{table_name}_minute where source=#{source} and point_id='000000' and minute >= '#{start_time}' and minute<='#{end_time}'"
+       sql = "select value / 2 as value ,minute as read_at from #{table_name}_minute where source=#{source} and point_id='000000' and minute >= '#{start_time}' and minute<='#{end_time}'"
    #     str = str + sql
         results = ActiveRecord::Base.connection.execute(sql)
         data_str1 = ""
@@ -795,7 +795,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     end
     table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
     end_time = Time.now.strftime('%Y%m%d%H%M%S')
-    start_time = (Time.now - 5.minutes).strftime('%Y%m%d%H%M%S')
+    start_time = (Time.now - 2.minutes).strftime('%Y%m%d%H%M%S')
 
     caption="实时行为体态(学生#{source})"
     cats_str = ''
@@ -814,7 +814,7 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
       showLabels='1'
     end
 
-    sql = "select value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
+    sql = "select value / 2 as value,read_at from #{table_name}_reading where source=#{source} and point_id='000000' and read_at >= '#{start_time}' and read_at<=#{end_time}"
     results = ActiveRecord::Base.connection.execute(sql)
 
     results.each(:as => :hash) do |row|
