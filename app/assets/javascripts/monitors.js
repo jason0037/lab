@@ -11,7 +11,7 @@ $(document).ready(function(){
             var rc = new FusionCharts( "/FusionCharts/"+chart_type,"chart_new_"+i, "100%", "150", "0", "1" );
             rc.setXMLUrl(data_source);
             rc.render("chart-container-"+i);
-            FusionCharts.getCurrentRenderer();
+            alert(FusionCharts.getCurrentRenderer());
         }
     }
 
