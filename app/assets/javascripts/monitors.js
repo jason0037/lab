@@ -3,7 +3,7 @@
 
 $(document).ready(function(){
     for( var i=0;i<=9;i++){
-        FusionCharts.setCurrentRenderer("javascript");
+        // FusionCharts.setCurrentRenderer("javascript");
         if($('#chart-container-'+i)!='undefined'){
             var chartDiv =  $('#chart-container-'+i);
             var chart_type = chartDiv.attr("chart-type");
