@@ -3,14 +3,15 @@
 
 $(document).ready(function(){
     for( var i=0;i<=9;i++){
+        FusionCharts.setCurrentRenderer("javascript");
         if($('#chart-container-'+i)!='undefined'){
             var chartDiv =  $('#chart-container-'+i);
             var chart_type = chartDiv.attr("chart-type");
             var data_source = chartDiv.attr("data-source");
-            FusionCharts.setCurrentRenderer("javascript");
             var rc = new FusionCharts( "/FusionCharts/"+chart_type,"chart_new_"+i, "100%", "150", "0", "1" );
             rc.setXMLUrl(data_source);
             rc.render("chart-container-"+i);
+            FusionCharts.getCurrentRenderer();
         }
     }
 
