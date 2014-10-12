@@ -2,13 +2,13 @@
 //= require FusionCharts.jqueryplugin
 
 $(document).ready(function(){
-    FusionCharts.setCurrentRenderer('javascript');
     for( var i=0;i<=9;i++){
         if($('#chart-container-'+i)!='undefined'){
             var chartDiv =  $('#chart-container-'+i);
             var chart_type = chartDiv.attr("chart-type");
             var data_source = chartDiv.attr("data-source");
-            var rc = new FusionCharts( "/FusionCharts/"+chart_type,"chart_new_"+i, "100%", "150px", "0", "1" );
+            FusionCharts.setCurrentRenderer("javascript");
+            var rc = new FusionCharts( "/FusionCharts/"+chart_type,"chart_new_"+i, "100%", "150", "0", "1" );
             rc.setXMLUrl(data_source);
             rc.render("chart-container-"+i);
         }
