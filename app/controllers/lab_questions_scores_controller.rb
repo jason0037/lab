@@ -59,9 +59,10 @@ class LabQuestionsScoresController < ApplicationController
   # POST /lab_questions_scores
   # POST /lab_questions_scores.json
   def create
-    return :text=>params[:questions].t_s
+    return render :text=>params[:questions].to_s
+
     @lab_questions_score = LabQuestionsScore.new
-    
+
 
     respond_to do |format|
       if @lab_questions_score.save
