@@ -1,5 +1,5 @@
-<%= form_for @lab_questions_score,:url=>lab_eval_project_lab_questions_score_path, :html => { :class => 'form-horizontal'} do |f| %>
-
+<%= form_for @lab_questions_score, :html => { :class => 'form-horizontal'} do |f| %>
+      <input type ="hidden" value="<%=@id%>" name="project_id"/>
     <%@question_categories.each do |category|%>
         <div class="categories"><%="#{category.value}.#{category.name}"%></div>
         <div><%=category.desc%></div>

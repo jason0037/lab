@@ -27,6 +27,9 @@ class LabQuestionsScoresController < ApplicationController
   # GET /lab_questions_scores/1
   # GET /lab_questions_scores/1.json
   def show
+    @lab_questions = LabQuestion
+    @question_categories = Option.question_category
+
     @lab_questions_score = LabQuestionsScore.find(params[:id])
 
     respond_to do |format|
@@ -76,9 +79,9 @@ class LabQuestionsScoresController < ApplicationController
 
     @lab_questions_score = LabQuestionsScore.new
     @lab_questions_score.question_importance_score = params[:questions].to_s
-    @lab_questions.score.project_id = params[:id]
-    @lab_question.score.total = total
-
+    @lab_questions_score.project_id = params[:project_id]
+    @lab_questions_score.total = total
+    @lab_questions_score.evaluator_id = @user.id
 
     respond_to do |format|
       if @lab_questions_score.save
