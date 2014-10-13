@@ -54,7 +54,6 @@ class LabUsersController < ApplicationController
       end
     end
     redirect_to login_lab_users_path, :notice => "已经发送重置邮件到您的邮箱."
-    return
   end
 
   def reset_pass
