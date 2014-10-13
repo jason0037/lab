@@ -59,10 +59,25 @@ class LabQuestionsScoresController < ApplicationController
   # POST /lab_questions_scores
   # POST /lab_questions_scores.json
   def create
-    return render :text=>params[:questions].to_s
+    total =0
+    1.upto(70) do |num|
+      importance = params[:questions]["q#{num}"][:i]
+      score = params[:questions]["q#{num}"][:s]
+
+      if importance =""
+        importance = 1
+      end
+
+      if score == ""
+        score = 0
+      end
+      total += importance.to_i * score.to_i
+    end
 
     @lab_questions_score = LabQuestionsScore.new
-    @lab_questions_score
+    @lab_questions_score.question_importance_score = params[:questions].to_s
+    @lab_questions.score.project_id = params[:id]
+    @lab_question.score.total = total
 
 
     respond_to do |format|
