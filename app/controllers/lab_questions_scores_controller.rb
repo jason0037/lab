@@ -41,7 +41,7 @@ class LabQuestionsScoresController < ApplicationController
     @lab_questions = LabQuestion
     @question_categories = Option.question_category
 
-    @lab_questions_score = LabQuestionScore.new
+    @lab_questions_score = LabQuestionsScore.new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @lab_questions_score }
