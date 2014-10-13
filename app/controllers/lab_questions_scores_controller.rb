@@ -62,6 +62,7 @@ class LabQuestionsScoresController < ApplicationController
     return render :text=>params[:questions].to_s
 
     @lab_questions_score = LabQuestionsScore.new
+    @lab_questions_score
 
 
     respond_to do |format|
