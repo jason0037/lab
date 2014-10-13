@@ -46,7 +46,7 @@ class LabUsersController < ApplicationController
       @user = LabUser.find_by_email(params[:lab_user][:email])
       if @user.blank?
         redirect_to forgot_pass_lab_users_path, :notice => "EMAIL不存在."
-        return 
+        return
       else
         @token = SecureRandom.hex 20
         @user.reset_token = @token
