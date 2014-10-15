@@ -133,8 +133,8 @@ class LabDevicesController < ApplicationController
       end
       return render :text => { :code => result}.to_json
     end
-  rescue  Exception => e
-    return render :text=>{ :code => 9999,:err=>e.message }.to_json
+#  rescue  Exception => e
+ #   return render :text=>{ :code => 9999,:err=>e.message }.to_json
 
     respond_to do |format|
         if @lab_device.save

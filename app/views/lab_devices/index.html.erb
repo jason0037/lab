@@ -41,7 +41,7 @@
         <td><%= lab_device.brand %></td>
         <td><%= lab_device.bn %></td>
         <td><%= lab_device.cost %></td>
-        <td><%= Option.where(:key=>"device_status",:value=>lab_device.status).first.name %></td>
+        <td><%= Option.where(:key=>"device_status",:value=>lab_device.status).first.name if lab_device.status%></td>
         <td><%=l lab_device.updated_at %></td>
         <td><%=l lab_device.created_at %></td>
         <td>
