@@ -54,18 +54,16 @@ class LabMobileCoursesController < ApplicationController
   # POST /lab_mobile_courses
   # POST /lab_mobile_courses.json
   def create
+    path ='/teachResources/mobileCourses/'
     uploaded_io = params[:file]
     if !uploaded_io.blank?
       extension=uploaded_io.original_filename.split('.')
       filename= "#{Time.now.strftime('%Y%m%d%H%M%S')}.#{extension[-1]}"
-      filepath = "#{PIC_PATH}/teachResources/mobileCourses/#{filename}"
+      filepath = "#{PIC_PATH}#{path}#{filename}"
       File.open(filepath, 'wb') do |file|
         file.write(uploaded_io.read)
       end
- #     File.open(Rails.root.join('public', 'upload','mobileCourses',filename), 'wb') do |file|
- #       file.write(uploaded_io.read)
- #     end
-      params[:lab_mobile_course].merge!(:file=>"/teacherResources/mobileCourses/#{filename}")
+      params[:lab_mobile_course].merge!(:file=>"#{path}#{filename}")
     end
     params[:lab_mobile_course].merge!(:author_id=>@user.id)
     params[:lab_mobile_course].merge!(:status=>'0')
@@ -85,14 +83,20 @@ class LabMobileCoursesController < ApplicationController
   # PUT /lab_mobile_courses/1
   # PUT /lab_mobile_courses/1.json
   def update
+    #=========================
+    ##删除原文件
+    #...................
+    #====================
+    path ='/teachResources/mobileCourses/'
     uploaded_io = params[:file]
     if !uploaded_io.blank?
       extension=uploaded_io.original_filename.split('.')
       filename= "#{Time.now.strftime('%Y%m%d%H%M%S')}.#{extension[-1]}"
-      File.open(Rails.root.join('public', 'upload','teachDesign',filename), 'wb') do |file|
+      filepath = "#{PIC_PATH}#{path}#{filename}"
+      File.open(filepath, 'wb') do |file|
         file.write(uploaded_io.read)
       end
-      params[:lab_mobile_course].merge!(:file=>"/upload/teachResourc/#{filename}")
+      params[:lab_mobile_course].merge!(:file=>"#{path}#{filename}")
     end
     @lab_mobile_course = LabMobileCourse.find(params[:id])
 
