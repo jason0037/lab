@@ -7,11 +7,11 @@
             <div class="questions"><%="#{question.id}.#{question.desc}"%></div>
             <div>
               <span class="options">
-                  重要性
+                  重要性(1 - 3):
                   <%= number_field_tag "questions[q#{question.id}][i]",nil,in: 1..3, :class => 'number_field'  %>
                </span>
               <span class="options">
-                  得分
+                  得 分(0 - 7):
                   <%= number_field_tag "questions[q#{question.id}][s]",nil ,in: 0..7, :class => 'number_field' %>
               </span>
             </div>

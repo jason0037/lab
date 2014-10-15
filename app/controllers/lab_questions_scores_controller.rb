@@ -41,6 +41,7 @@ class LabQuestionsScoresController < ApplicationController
   # GET /lab_questions_scores/new
   # GET /lab_questions_scores/new.json
   def new
+    @id = params[:lab_eval_project_id]
     @lab_questions = LabQuestion
     @question_categories = Option.question_category
 
@@ -57,6 +58,7 @@ class LabQuestionsScoresController < ApplicationController
     @question_categories = Option.question_category
 
     @lab_questions_score = LabQuestionsScore.find(params[:id])
+    @lab_
   end
 
   # POST /lab_questions_scores
@@ -64,13 +66,12 @@ class LabQuestionsScoresController < ApplicationController
   def create
     total =0
     1.upto(70) do |num|
-      importance = params[:questions]["q#{num}"][:i]
-      score = params[:questions]["q#{num}"][:s]
-
-      if importance =""
+      importance = params[:questions]["q#{num}"][:i].gsub(' ','')
+      if importance ==""
         importance = 1
       end
 
+      score = params[:questions]["q#{num}"][:s].gsub(' ','')
       if score == ""
         score = 0
       end
