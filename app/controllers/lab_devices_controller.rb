@@ -121,25 +121,29 @@ class LabDevicesController < ApplicationController
       end
       params[:lab_device].merge!(:photo=>"/teachResources/devices/#{filename}")
     end
+  #  return render :text => params[:lab_device]
+
     @lab_device = LabDevice.new(params[:lab_device])
+
+    if params[:lab_device][:from]=='app'
+      if @lab_device.save
+        result = 0
+      else
+       result = 200
+      end
+      return render :text => { :code => result}.to_json
+    end
+  rescue  Exception => e
+    return render :text=>{ :code => 9999,:err=>e.message }.to_json
 
     respond_to do |format|
         if @lab_device.save
-          if params[:lab_device][:from]=='app'
-            render render :text => { :code => 0}.to_json
-          else
             format.html { redirect_to @lab_device, notice: 'Lab device was successfully created.' }
             format.json { render json: @lab_device, status: :created, location: @lab_device }
-          end
         else
-          if params[:lab_device][:from]=='app'
-            render render :text => { :code => 0}.to_json
-          else
             format.html { render action: "new" }
             format.json { render json: @lab_device.errors, status: :unprocessable_entity }
-          end
       end
-
   end
 
   # PUT /lab_devices/1
