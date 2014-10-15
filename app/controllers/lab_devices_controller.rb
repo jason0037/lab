@@ -131,9 +131,13 @@ class LabDevicesController < ApplicationController
             format.html { redirect_to @lab_device, notice: 'Lab device was successfully created.' }
             format.json { render json: @lab_device, status: :created, location: @lab_device }
           end
-      else
-          format.html { render action: "new" }
-          format.json { render json: @lab_device.errors, status: :unprocessable_entity }
+        else
+          if params[:lab_device][:from]=='app'
+            render render :text => { :code => 0}.to_json
+          else
+            format.html { render action: "new" }
+            format.json { render json: @lab_device.errors, status: :unprocessable_entity }
+          end
       end
 
   end

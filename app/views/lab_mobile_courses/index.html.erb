@@ -5,7 +5,7 @@
     <span>移动课程</span>
     <span class="new_button">
       <i class="icon-pencil"></i>
-     <%if @user.role_id==1 || @user.role_id ==3 #只有教师和课程管理员有权新增%>
+     <%if @user.role_id==2 || @user.role_id ==3 #只有教师和课程管理员有权新增%>
       <%= link_to t('.new', :default => t("helpers.links.new")),
                   new_lab_mobile_course_path %>
       <%end%>
@@ -40,7 +40,7 @@
         <td><%= lab_mobile_course.status== 0 ? "私有" : "公开" %></td>
         <td><%=l lab_mobile_course.created_at %></td>
         <td><%=link_to lab_mobile_course.file,"#{lab_mobile_course.file}", :target=>'_blank' %></td>
-        <%if @user.role_id==1 || @user.role_id ==3 #只有教师和课程管理员有权新增%>
+        <%if @user.role_id==2 || @user.role_id ==3 #只有教师和课程管理员有权新增%>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_mobile_course_path(lab_mobile_course), :class => 'btn btn-mini' %>
