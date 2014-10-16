@@ -133,9 +133,6 @@ class LabDevicesController < ApplicationController
       end
       return render :text => { :code => result}.to_json
     end
-#  rescue  Exception => e
- #   return render :text=>{ :code => 9999,:err=>e.message }.to_json
-
     respond_to do |format|
         if @lab_device.save
             format.html { redirect_to @lab_device, notice: 'Lab device was successfully created.' }
@@ -144,12 +141,15 @@ class LabDevicesController < ApplicationController
             format.html { render action: "new" }
             format.json { render json: @lab_device.errors, status: :unprocessable_entity }
       end
-  end
+    end
+  rescue  Exception => e
+    return render :text=>{ :code => 9999,:err=>e.message }.to_json
 
+  end
   # PUT /lab_devices/1
   # PUT /lab_devices/1.json
   def update
-return render :text=>params[:lab_device]
+#return render :text=>params[:lab_device]
     @lab_device = LabDevice.find(params[:id])
     uploaded_io = params[:file]
     if !uploaded_io.blank?
@@ -162,22 +162,25 @@ return render :text=>params[:lab_device]
       params[:lab_device].merge!(:photo=>"/teachResources/devices/#{filename}")
     end
 
-      respond_to do |format|
-        if @lab_device.update_attributes(params[:lab_device])
-          if params[:lab_device][:from]=='app'
-            render render :text => { :code => 0}.to_json
-          else
-            format.html { redirect_to @lab_device, notice: 'Lab device was successfully updated.' }
-            format.json { head :no_content }
-          end
+    respond_to do |format|
+      if @lab_device.update_attributes(params[:lab_device])
+        if params[:lab_device][:from]=='app'
+          render render :text => { :code => 0}.to_json
+        else
+          format.html { redirect_to @lab_device, notice: 'Lab device was successfully updated.' }
+          format.json { head :no_content }
+        end
+      else
+        if params[:lab_device][:from]=='app'
+          render render :text => { :code => 200}.to_json
         else
           format.html { render action: "edit" }
           format.json { render json: @lab_device.errors, status: :unprocessable_entity }
         end
       end
-      rescue  Exception => e
-       return render :text=>{ :code => 9999,:err=>e.message }.to_json
     end
+     rescue  Exception => e
+      return render :text=>{ :code => 9999,:err=>e.message }.to_json
   end
 
   # DELETE /lab_devices/1
