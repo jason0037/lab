@@ -107,7 +107,7 @@ Lab::Application.routes.draw do
 
   resources :lab_devices do
     get :app_query,:on=>:collection
-   # post :app_save,:on=>:collection
+    post :app_save,:on=>:collection
     post :search , :on=>:member
   end
 

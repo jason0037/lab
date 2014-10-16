@@ -30,6 +30,15 @@ class LabDevicesController < ApplicationController
 
 #post
   def app_save
+    @lab_device = LabDevice.find(params[:id])
+      if @lab_device.update_attributes(params[:lab_device])
+          render render :text => { :code => 0}.to_json
+      else
+          render render :text => { :code => 200}.to_json
+      end
+  rescue  Exception => e
+    return render :text=>{ :code => 9999,:err=>e.message }.to_json
+=begin
 #    save='{"id":2,"name":"\u8def\u7531\u5668 lab_test","version":"","brand":"\u864e\u7b26","device_type":"\u8def\u7531\u5668","cost":"3439.0","bn":"3039393993","photo":"/teachResources/devices/20140813235914.jpg","supplier":"\u9f99\u8f6f"}'
     save = params[:submit_data]
     save =JSON.parse(save)
@@ -58,6 +67,7 @@ class LabDevicesController < ApplicationController
     end
   rescue
    return render :text=>{ :code => result }.to_json
+=end
   end
 
   def search

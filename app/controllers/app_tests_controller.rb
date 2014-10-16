@@ -97,13 +97,13 @@ class AppTestsController < ApplicationController
       result = 0
       render :text => { :code => result,:userInfo => { :userId => @user.id,:name=>@user.name,:age=>@user.age,:sex=>@user.sex,:school=>@user.school,:score=>score} }.to_json
     end
-  rescue
-    return render :text=>{ :code => result }.to_json
+  rescue  Exception => e
+    return render :text=>{ :code => result,:err=>e.message }.to_json
   end
 
   def getUserInfo
     @user = LabUser.find_by_id(params[:userId])
-
+    result = 9999
     if @user.blank?
       result = 200 # "用户不存在."
       return render :text=>{ :code => result }.to_json
@@ -116,12 +116,10 @@ class AppTestsController < ApplicationController
       if @app_test
         score=@app_test.score
       end
-
       render :text => { :code => result,:userInfo => {:name=>@user.name,:age=>@user.age,:sex=>@user.sex,:school=>@user.school,:score=>score} }.to_json
     end
-  rescue
-    result = 9999
-    return render :text=>{ :code => result }.to_json
+  rescue  Exception => e
+    return render :text=>{ :code => result,:err=>e.message }.to_json
   end
 
   # POST
@@ -143,8 +141,8 @@ class AppTestsController < ApplicationController
         return render :text=>{ :code => result }.to_json
       end
     end
-  #rescue
- #   return render :text=>{ :code => result }.to_json
+  rescue  Exception => e
+    return render :text=>{ :code => result,:err=>e.message }.to_json
   end
 
   def getGameScore
@@ -152,13 +150,13 @@ class AppTestsController < ApplicationController
     result =9999
     if @app_test.blank?
       # "用户不存在."
-      return render :text=>{ :code => result }.to_json
+      return render :text=>{ :code => result,:err=>'用户不存在' }.to_json
     else
       result = 0
       render :text => { :code => result,:score=>@app_test.score}.to_json
     end
-    # rescue
-    #   return render :text=>{ :code => result }.to_json
+  rescue  Exception => e
+    return render :text=>{ :code => result,:err=>e.message }.to_json
   end
 
   def getTestScore
@@ -166,13 +164,13 @@ class AppTestsController < ApplicationController
     result =9999
     if @app_test.blank?
       # "用户不存在."
-      return render :text=>{ :code => result }.to_json
+      return render :text=>{ :code => result,:err=>'用户不存在' }.to_json
     else
       result = 0
       render :text => { :code => result,:score=>@app_test.score}.to_json
     end
- # rescue
- #   return render :text=>{ :code => result }.to_json
+  rescue  Exception => e
+    return render :text=>{ :code => result,:err=>e.message }.to_json
   end
 
   def getTestHist
@@ -181,7 +179,7 @@ class AppTestsController < ApplicationController
     .where(:user_id=>params[:userId],:class_id=>params[:classId],:test_type=>0)
     result = 9999
     if @app_test.blank?
-      return render :text=>{ :code => result }.to_json
+      return render :text=>{ :code => result,:err=>'用户不存在' }.to_json
 
     else
       topic = ["人体奥秘","八大行星","模拟法庭","信息检索"]
@@ -192,8 +190,8 @@ class AppTestsController < ApplicationController
       render :text => {:code=> result,:testlist=> testlist}.to_json .gsub('\\', '') .gsub('"testlist":"[{', '"testlist":[{').gsub('"}]"}','"}]}')
       #{"code:0", "testlist":[{"topic":"水星游戏测","time":"2014-10-12", "score":"50"},{"topic":"水 星游戏测2","time":"2014-10-14", "score":"50"}]
     end
- # rescue
- #   return render :text=>{ :code => result }.to_json
+  rescue  Exception => e
+    return render :text=>{ :code => result,:err=>e.message }.to_json
   end
 
 end
