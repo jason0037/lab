@@ -149,6 +149,7 @@ class LabDevicesController < ApplicationController
   # PUT /lab_devices/1
   # PUT /lab_devices/1.json
   def update
+return render :text=>params[:lab_device]
     @lab_device = LabDevice.find(params[:id])
     uploaded_io = params[:file]
     if !uploaded_io.blank?
@@ -174,6 +175,8 @@ class LabDevicesController < ApplicationController
           format.json { render json: @lab_device.errors, status: :unprocessable_entity }
         end
       end
+      rescue  Exception => e
+       return render :text=>{ :code => 9999,:err=>e.message }.to_json
     end
   end
 
