@@ -18,6 +18,15 @@
     </div>
   </li>
   <li>
+    <div id="chart-11">
+      <div class="home_chart" export-flag="1" chart-type="RealTimeLineDY.swf"
+           data-source="/monitors/stadard_deviation?equipment_code=001001&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
+           id="chart-container-1"
+           url= "behaviour">
+      </div>
+    </div>
+  </li>
+  <li>
     <div id="chart-02">
       <div class="home_chart" export-flag="1" chart-type="RealTimeLineDY.swf"
            data-source="/monitors/mindwave_data_history?equipment_code=002001&id=<%=params[:lab_course_id]%>&point=000000&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"

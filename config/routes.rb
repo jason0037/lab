@@ -50,6 +50,7 @@ Lab::Application.routes.draw do
     get :interactive_study_data, :on=> :collection
     get :get_realtime_data, :on=> :collection
     get :history,:on=>:collection
+    get :stadard_deviation,:on=>:collection
   end
 
 

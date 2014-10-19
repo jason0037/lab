@@ -505,7 +505,6 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='5000'>
               times = times[0..1] + ":"+times[2..3]
               data_str1 += "<set value='#{row["value"].to_i}' />"
               cats_str += "<category label='#{times}'/>"
-        #    end
           end
           showNum = showNum + 1
           if showNum > displayNum 
@@ -534,6 +533,109 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
    render :text => charts
    # render :text => str
 
+  end
+
+  def stadard_deviation
+    id = params[:id]
+    equipment_code = params[:equipment_code]
+    point = params[:point]
+    size = params[:size]
+    table_name = LabEquipmentMapping.find_by_equipment_code(equipment_code).table_name
+    start_time = params[:start_at]
+    end_time = params[:end_at]
+
+    case table_name
+      when 'M000001'
+        if point=='000000'
+          caption = '注意力'
+        else
+          caption = '放松度'
+        end
+      when 'B000001'
+        caption = '行为体态'
+      when 'R000001'
+        caption = '网络使用'
+      else
+        caption = ''
+    end
+    caption += '标准差'
+
+    cats_str = ''
+    data_str1 = ''
+    seriesname1=''
+    subcaption=''
+    xaxisname=''
+    showlegend='0'
+    showLabels='0'
+    displayNum = 0
+    if size!='small'
+      seriesname1="行为体态分析"
+      subcaption="动作幅度"
+      xaxisname="学生"
+      showlegend='1'
+      showLabels='1'
+      export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='behaviour#{id}sd' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
+    end
+    categories = ""
+    datasets = ""
+    cats_str = ""
+    data_str1 = ""
+    str = ""
+      sql = "select value ,minute,source from #{table_name}_minute where point_id='000000' and minute >= '#{start_time}' and minute<='#{end_time}' order by minute,source"
+      #     str = str + sql
+      results = ActiveRecord::Base.connection.execute(sql)
+      data_str1 = ""
+      times= ""
+      results.each(:as => :hash) do |row|
+        if times == row["minute"]
+          data_str1 += ",#{row["value"].to_i}'"
+        else
+          times = row["minute"][8..12]
+          times = times[0..1] + ":"+times[2..3]
+          data_str1 += "/><set value='#{row["value"].to_i}'"
+          cats_str += "<category label='#{times}'/>"
+        end
+      end
+        data_str1 +="/>"
+      if categories =="" && cats_str !=""
+        categories = "<categories>#{cats_str}</categories>"
+      end
+      datasets = datasets + "<dataset seriesName='学生' showValues='0'>#{data_str1.gsub('</categories>/>','</categories>')}</dataset>"
+
+    charts = "<chart caption='#{caption}' showmedianvalues='0' rotatelabels='1' slantlabels='1' numbersuffix='' showborder='0' #{export_str}>
+#{categories}#{datasets}</chart>"
+=begin
+<categories>
+<category label='Jan' />
+<category label='Feb' />
+<category label='Mar' />
+<category label='Apr' />
+<category label='May' />
+<category label='Jun' />
+<category label='Jul' />
+<category label='Aug' />
+<category label='Sep' />
+<category label='Oct' />
+<category label='Nov' />
+<category label='Dec' />
+</categories>
+<dataset>
+<set value='4, 5, 4, 4, 7, 4, 5, 4, 11, 4, 4, 5, 4, 4, 4, 4, 5, 4, 13, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4, 4, 5' />
+<set value='4, 5, 4, 2, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 7, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4' />
+<set value='4, 5, 4, 4, 2, 4, 5, 3, 2, 3, 2, 5, 4, 4, 11, 4, 5, 15, 4, 4, 4, 5, 4, 12, 4, 4, 5, 4, 4, 4, 5' />
+<set value='4, 5, 4, 2, 4, 4, 5, 4, 2, 2, 4, 5, 3, 4, 3, 4, 5, 2, 3, 4, 4, 5, 4, 9, 4, 4, 5, 4, 4, 4' />
+<set value='2, 2, 3, 2, 3, 4, 9, 7, 4, 11, 4, 11, 4, 4, 4, 11, 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4, 4, 5' />
+<set value='2, 3, 4, 4, 4, 5, 5, 4, 7, 4, 3, 5, 4, 2, 4, 4, 7, 9, 4, 11, 13, 13, 4, 4, 4, 4, 5, 4, 4, 4' />
+<set value='4, 5, 4, 4, 4, 4, 5, 4, 4, 6, 6, 5, 8, 4, 6, 4, 5, 4, 7, 11, 4, 5, 4, 4, 4, 4, 5, 4, 4, 4, 5' />
+<set value='4, 5, 6, 6, 4, 4, 5, 7, 4, 9, 4, 5, 4, 9, 4, 4, 5, 6, 4, 4, 9, 5, 4, 11, 4, 4, 5, 11, 4, 4' />
+<set value='4, 5, 4, 6, 4, 6, 5, 4, 3, 4, 4, 5, 4, 7, 4, 8, 5, 4, 8, 4, 4, 5, 9, 4, 8, 4, 5, 9, 4, 4, 5' />
+<set value='4, 5, 4, 11, 4, 4, 5, 4, 4, 9, 4, 5, 4, 4, 11, 4, 5, 4, 4, 4, 4, 5, 12, 4, 4, 4, 5, 14, 4, 4' />
+<set value='4, 5, 4, 7, 10, 4, 5, 12, 4, 4, 12, 5, 4, 4, 4, 4, 5, 12, 4, 4, 4, 5, 4, 2, 2, 4, 5, 4, 4, 4, 5' />
+<set value='4, 7, 4, 3, 4, 8, 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5, 3, 2, 3, 2, 2, 2, 2, 2, 2' />
+</dataset>
+=end
+
+    render :text => charts
   end
 
   def mindwave_data_history
