@@ -596,14 +596,17 @@ labelstep='1' pyaxisminvalue='0' pyaxismaxvalue='100' syaxisminvalue='0' syaxism
     displayNum = 0
     rotatelabels = 0
     slantlabels = 0
+    showvaluse = 0
     if size!='small'
       showlegend='1'
       showLabels='1'
       rotatelabels = 1
       slantlabels = 1
+      showvaluse = 1
       export_str = "exportEnabled='1' exportAtClient='0' exportAction='save' exportFileName='sd#{name}#{id}' exportCallback='pic_loaded' exportHandler='/fusioncharts/fc_exporter/index'"
     end
     charts = "<chart caption='#{caption}' showmedianvalues='0' rotatelabels='#{rotatelabels}' slantlabels='#{slantlabels}' numbersuffix='' showborder='0'
+showSD='0' SDIconSides='5' showValues='#{showvaluse}'
 numdisplaysets='#{displayNum}' showlegend='#{showlegend}' xaxisname='#{xaxisname}' showLabels='#{showLabels}' #{export_str}>
     #{categories}#{datasets}</chart>"
     render :text => charts
