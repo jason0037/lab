@@ -18,15 +18,6 @@
     </div>
   </li>
   <li>
-    <div id="chart-11">
-      <div class="home_chart" export-flag="1" chart-type="RealTimeLineDY.swf"
-           data-source="/monitors/stadard_deviation?equipment_code=001001&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
-           id="chart-container-11"
-           url= "behaviour">
-      </div>
-    </div>
-  </li>
-  <li>
     <div id="chart-02">
       <div class="home_chart" export-flag="1" chart-type="RealTimeLineDY.swf"
            data-source="/monitors/mindwave_data_history?equipment_code=002001&id=<%=params[:lab_course_id]%>&point=000000&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
@@ -60,6 +51,42 @@
            data-source="/monitors/environment_data_history?equipment_code=004001&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
            id="chart-container-5"
            url="environment">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-06">
+      <div class="home_chart" export-flag="1" chart-type="BoxAndWhisker2D.swf"
+           data-source="/monitors/stadard_deviation?equipment_code=001001&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
+           id="chart-container-6"
+           url= "behaviour">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-07">
+      <div class="home_chart" export-flag="1" chart-type="BoxAndWhisker2D.swf"
+           data-source="/monitors/stadard_deviation?equipment_code=002001&point=000000&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
+           id="chart-container-7"
+           url= "behaviour">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-08">
+      <div class="home_chart" export-flag="1" chart-type="BoxAndWhisker2D.swf"
+           data-source="/monitors/stadard_deviation?equipment_code=002001&point=000001&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
+           id="chart-container-8"
+           url= "behaviour">
+      </div>
+    </div>
+  </li>
+  <li>
+    <div id="chart-09">
+      <div class="home_chart" export-flag="1" chart-type="BoxAndWhisker2D.swf"
+           data-source="/monitors/stadard_deviation?equipment_code=003001&id=<%=params[:lab_course_id]%>&size=small&start_at=<%=@lab_course.begin_time_real.strftime('%Y%m%d%H%M%S')%>&end_at=<%=@lab_course.end_time_real.strftime('%Y%m%d%H%M%S')%>"
+           id="chart-container-9"
+           url= "behaviour">
       </div>
     </div>
   </li>
